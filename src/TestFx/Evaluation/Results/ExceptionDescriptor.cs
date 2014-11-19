@@ -1,0 +1,94 @@
+// Copyright 2014, 2013 Matthias Koch
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using TestFx.Utilities;
+
+namespace TestFx.Evaluation.Results
+{
+  public interface IExceptionDescriptor
+  {
+    string TypeFullName { get; }
+    string Message { get; }
+    string StackTrace { get; }
+  }
+
+  [Serializable]
+  [DebuggerDisplay ("Type = {Type}, Message = {Message}")]
+  public class ExceptionDescriptor : IExceptionDescriptor
+  {
+    public const ExceptionDescriptor None = null;
+
+    private static readonly Regex s_isFrameworkCode = new Regex(@"^\s+\w+\sTestFx", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    public static ExceptionDescriptor Create (Exception exception)
+    {
+      var messageBuilder = new StringBuilder();
+      var stackTraceBuilder = new StringBuilder();
+
+      foreach (var ex in exception.Follow(x => x.InnerException))
+      {
+        if (ex != exception)
+        {
+          messageBuilder.Append(Environment.NewLine).Append("---> ");
+          stackTraceBuilder.Append(Environment.NewLine).Append("--- Begin of inner exception stack trace ---").Append(Environment.NewLine);
+        }
+
+        messageBuilder.Append(ex.Message);
+
+        var stackTrace = ex.StackTrace ?? string.Empty;
+        var stackTraceLines = stackTrace.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+        var userCodeStackTrace = stackTraceLines.TakeWhile(IsUserCode);
+        userCodeStackTrace.ForEach(x => stackTraceBuilder.Append(x).Append(Environment.NewLine));
+      }
+
+      return new ExceptionDescriptor(exception.GetType().FullName, messageBuilder.ToString(), stackTraceBuilder.ToString());
+    }
+
+    private static bool IsUserCode (string line)
+    {
+      return !s_isFrameworkCode.IsMatch(line);
+    }
+
+    private readonly string _typeFullName;
+    private readonly string _message;
+    private readonly string _stackTrace;
+
+    private ExceptionDescriptor (string typeFullName, string message, string stackTrace)
+    {
+      _typeFullName = typeFullName;
+      _message = message;
+      _stackTrace = stackTrace;
+    }
+
+    public string TypeFullName
+    {
+      get { return _typeFullName; }
+    }
+
+    public string Message
+    {
+      get { return _message; }
+    }
+
+    public string StackTrace
+    {
+      get { return _stackTrace; }
+    }
+  }
+}

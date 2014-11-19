@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>TestFx</id>
+    <version>$version$</version>
+    <authors>Matthias Koch</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TestFx core components.</description>
+    <iconUrl>https://raw.github.com/matkoch/TestFx/master/TestFx.ico</iconUrl>
+    <projectUrl>https://github.com/matkoch/TestFx</projectUrl>
+    <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE.txt</licenseUrl>
+    <tags>testfx</tags>
+  </metadata>
+  <files>
+    <file src="TestFx\bin\$configuration$\merged\*" target="lib\net35" />
+    <file src="TestFx\**\*.cs" exclude="obj\**\*" target="src\TestFx" />
+    <!--<file src="TestFx.Specifications\NuGet\*" target="tools" />-->
+    <!--<file src="TestFx.Console\bin\$configuration$\SpecK.exe" target="tools" />-->
+  </files>
+</package>

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{68456E60-C7A1-4B54-BB14-00063A03B7A3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestFx</RootNamespace>
+    <AssemblyName>TestFx</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.2.6.3.862\lib\NET35\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Threading">
+      <HintPath>..\..\packages\TaskParallelLibrary.1.0.2856.0\lib\Net35\System.Threading.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Annotations.cs">
+      <Link>Properties\Annotations.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyInfoShared.cs">
+      <Link>Properties\AssemblyInfoShared.cs</Link>
+    </Compile>
+    <Compile Include="Evaluation\EvaluationModule.cs" />
+    <Compile Include="Evaluation\Loading\SuiteControllerFactory.cs" />
+    <Compile Include="Evaluation\RunIntentExtensions.cs" />
+    <Compile Include="Evaluation\Utilities\FakeAppDomainFactory.cs" />
+    <Compile Include="Extensibility\Controllers\ClassSuiteController.cs" />
+    <Compile Include="Extensibility\Contexts\DelegateTestContext.cs" />
+    <Compile Include="Extensibility\ExtensibilityModule.cs" />
+    <Compile Include="Extensibility\OperationOrderingAttribute.cs" />
+    <Compile Include="Extensibility\IntrospectionPresenter.ExpressionParser.cs" />
+    <Compile Include="Extensibility\IntrospectionPresenter.cs" />
+    <Compile Include="Extensibility\Utilities\OperationSorter.cs" />
+    <Compile Include="Extensibility\Providers\OperationCollectionProvider.cs" />
+    <Compile Include="UseTestExtension.cs" />
+    <Compile Include="Extensibility\Containers\Container.cs" />
+    <Compile Include="Extensibility\DisplayFormatAttribute.cs" />
+    <Compile Include="IAssemblySetup.cs" />
+    <Compile Include="Evaluation\EvaluationException.cs" />
+    <Compile Include="Evaluation\Reporting\CompositeRunListener.cs" />
+    <Compile Include="Evaluation\Reporting\CrossAppDomainRunListener.cs" />
+    <Compile Include="Evaluation\Reporting\RunListener.cs" />
+    <Compile Include="Evaluation\Results\OutputResult.cs" />
+    <Compile Include="Evaluation\Loading\AssemblyExplorationData.cs" />
+    <Compile Include="Evaluation\Loading\AssemblyLoader.cs" />
+    <Compile Include="Evaluation\Loading\ITypeLoader.cs" />
+    <Compile Include="Extensibility\SubjectAttributeBase.cs" />
+    <Compile Include="Extensibility\TypeLoader.cs" />
+    <Compile Include="Evaluation\Runners\AssemblyRunnerFactory.cs" />
+    <Compile Include="Extensibility\ITestExtension.cs" />
+    <Compile Include="Extensibility\Controllers\SuiteController.cs" />
+    <Compile Include="Extensibility\SetupControllerExtensions.cs" />
+    <Compile Include="Extensibility\Controllers\TestController.cs" />
+    <Compile Include="Extensibility\ISuite.cs" />
+    <Compile Include="Evaluation\Runners\OperationRunner.cs" />
+    <Compile Include="Evaluation\Utilities\CrossAppDomainDisposable.cs" />
+    <Compile Include="Evaluation\Utilities\DelegateStringWriter.cs" />
+    <Compile Include="Evaluation\Utilities\DelegateTraceListener.cs" />
+    <Compile Include="Evaluation\DiagnosticException.cs" />
+    <Compile Include="Evaluation\Results\OutputEntry.cs" />
+    <Compile Include="Evaluation\Utilities\OutputRecording.cs" />
+    <Compile Include="Evaluation\Results\OutputType.cs" />
+    <Compile Include="Evaluation\Utilities\ResourceManager.cs" />
+    <Compile Include="Evaluation\Results\ResultFactory.cs" />
+    <Compile Include="Evaluation\Results\ExceptionDescriptor.cs" />
+    <Compile Include="Evaluation\Results\ISuiteResultHolder.cs" />
+    <Compile Include="Evaluation\Results\TestResult.cs" />
+    <Compile Include="Evaluation\Utilities\ThrowingTraceListener.cs" />
+    <Compile Include="Extensibility\OperationDescriptors.cs" />
+    <Compile Include="Extensibility\Providers\OperationProvider.cs" />
+    <Compile Include="Extensibility\Providers\OperationType.cs" />
+    <Compile Include="Evaluation\Results\Result.cs" />
+    <Compile Include="Evaluation\Results\RunResult.cs" />
+    <Compile Include="Evaluation\Results\State.cs" />
+    <Compile Include="Evaluation\Results\SuiteResult.cs" />
+    <Compile Include="Evaluation\Runners\AssemblyRunner.cs" />
+    <Compile Include="Evaluation\Evaluator.cs" />
+    <Compile Include="Extensibility\Providers\Provider.cs" />
+    <Compile Include="Extensibility\Providers\SuiteProvider.cs" />
+    <Compile Include="Extensibility\Providers\TestProvider.cs" />
+    <Compile Include="Evaluation\Runners\TestRunner.cs" />
+    <Compile Include="Evaluation\Runners\SuiteRunner.cs" />
+    <Compile Include="Evaluation\Results\OperationResult.cs" />
+    <Compile Include="Evaluation\Runners\ContextRunner.cs" />
+    <Compile Include="Evaluation\Utilities\IntentProviderPairer.cs" />
+    <Compile Include="Evaluation\Utilities\CrossAppDomainCancellation.cs" />
+    <Compile Include="Evaluation\Loading\AssemblyExplorer.cs" />
+    <Compile Include="Evaluation\Runners\RootRunner.cs" />
+    <Compile Include="Evaluation\Intents\RunIntent.cs" />
+    <Compile Include="Extensibility\Contexts\TestContext.cs" />
+    <Compile Include="Evaluation\Intents\Intent.cs" />
+    <Compile Include="Evaluation\Intents\ISuiteIntentHolder.cs" />
+    <Compile Include="Evaluation\Intents\SuiteIntent.cs" />
+    <Compile Include="Evaluation\Intents\TestIntent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Evaluation\Utilities\AppDomainFactory.cs" />
+    <Compile Include="Evaluation\Utilities\AppDomain.cs" />
+    <Compile Include="Extensibility\TypeLoaderAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestFx.Utilities\TestFx.Utilities.csproj">
+      <Project>{86730939-7f40-4ff4-bcec-39833faaef97}</Project>
+      <Name>TestFx.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\Fody.1.26.1\build\Fody.targets" Condition="Exists('..\..\packages\Fody.1.26.1\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Fody.1.26.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.26.1\build\Fody.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>mkdir merged
+$(SolutionDir)\tools\ILMerge\ILMerge.exe /targetplatform:v2 /lib:$(TargetDir) /out:merged\TestFx.dll TestFx.dll TestFx.Utilities.dll Autofac.dll System.Threading.dll /Internalize</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

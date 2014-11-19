@@ -1,0 +1,101 @@
+// Copyright 2014, 2013 Matthias Koch
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
+using JetBrains.ProjectModel;
+using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.CSharp;
+using JetBrains.ReSharper.Psi.Files;
+using JetBrains.ReSharper.UnitTestFramework;
+using TestFx.ReSharper.Model.Tree;
+using TestFx.ReSharper.Model.Tree.Aggregation;
+using TestFx.ReSharper.Runner.Tasks;
+using TestFx.ReSharper.UnitTesting.Utilities;
+using TestFx.ReSharper.Utilities;
+using TestFx.ReSharper.Utilities.ProjectModel;
+using TestFx.ReSharper.Utilities.Psi.Modules;
+using TestFx.Utilities;
+#if R9
+using JetBrains.Metadata.Reader.Impl;
+#endif
+
+namespace TestFx.ReSharper.UnitTesting.Elements
+{
+  public class ClassSuiteElement : ElementBase
+  {
+    private readonly ClrTypeName _suiteTypeName;
+
+    public ClassSuiteElement (IUnitTestIdentity identity, IList<Task> tasks)
+        : base(identity, tasks)
+    {
+      _suiteTypeName = new ClrTypeName(identity.Relative);
+    }
+
+    public override string Kind
+    {
+      get { return "ClassSuite"; }
+    }
+
+    public override UnitTestElementKind ElementKind
+    {
+      get { return UnitTestElementKind.TestContainer; }
+    }
+
+    [CanBeNull]
+    public override IEnumerable<IProjectFile> GetProjectFiles ()
+    {
+      var declaredElement = GetDeclaredElement();
+      if (declaredElement == null)
+        return null;
+
+      return declaredElement.GetSourceFiles().Select(x => x.ToProjectFile());
+    }
+
+    public override UnitTestNamespace GetNamespace ()
+    {
+#if R8
+      return new UnitTestNamespace(_suiteTypeName.GetNamespaceName());
+#elif R9
+      return new UnitTestNamespace(_suiteTypeName.NamespaceNames);
+#endif
+    }
+
+    [CanBeNull]
+    public override IDeclaredElement GetDeclaredElement ()
+    {
+      var project = GetProject();
+      if (project == null)
+        return null;
+
+      var psiModule = project.GetPrimaryPsiModule();
+      return psiModule.GetTypeElement(_suiteTypeName);
+    }
+
+    internal override IEnumerable<ISuiteFile> GetSuiteFiles ()
+    {
+      var declaredElement = GetDeclaredElement();
+      var project = GetProject();
+      if (declaredElement == null || project == null)
+        return Enumerable.Empty<ISuiteFile>();
+
+      return declaredElement.GetDeclarations()
+          .Select(x => x.GetSourceFile().AssertNotNull())
+          .SelectMany(x => x.GetPsiFiles<CSharpLanguage>())
+          .Select(x => x.ToSuiteFile());
+    }
+  }
+}

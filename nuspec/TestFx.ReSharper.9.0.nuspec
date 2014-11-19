@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>TestFx.ReSharperX</id>
+    <version>$version$</version>
+    <authors>Matthias Koch</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TestFx + ReSharper = &lt;3</description>
+    <iconUrl>https://raw.github.com/matkoch/TestFx/master/TestFx.ico</iconUrl>
+    <projectUrl>https://github.com/matkoch/TestFx</projectUrl>
+    <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE.txt</licenseUrl>
+    <tags>testfx resharper</tags>
+    <dependencies>
+      <dependency id="Wave" version="[1.0]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="TestFx.ReSharper\bin\$configuration$\9.0\Autofac.*" target="DotFiles" />
+    <file src="TestFx.ReSharper\bin\$configuration$\9.0\TestFx.*" target="DotFiles" />
+    <file src="TestFx.ReSharper\*.DotSettings" target="DotFiles\Extensions\TestFx.ReSharper\settings" />
+  </files>
+</package>

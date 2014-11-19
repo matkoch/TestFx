@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>TestFx.FakeItEasy</id>
+    <version>$version$</version>
+    <authors>Matthias Koch</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TestFx + FakeItEasy = &lt;3</description>
+    <iconUrl>https://raw.github.com/matkoch/TestFx/master/TestFx.ico</iconUrl>
+    <projectUrl>https://github.com/matkoch/TestFx</projectUrl>
+    <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE.txt</licenseUrl>
+    <tags>testfx fakeiteasy</tags>
+    <dependencies>
+      <dependency id="TestFx" version="$version$" />
+      <dependency id="TestFx.Specifications" version="$version$" />
+      <dependency id="FakeItEasy" version="[1.21.0,2.0)" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="TestFx.FakeItEasy\bin\$configuration$\merged\*" target="lib\net35" />
+    <file src="TestFx.FakeItEasy\**\*.cs" exclude="obj\**\*" target="src\TestFx.FakeItEasy" />
+  </files>
+</package>
