@@ -49,8 +49,8 @@ namespace TestFx.Specifications.IntegrationTests
     {
       RunResult.State.Should ().Be (State.Failed);
 
-      AssertResult (OperationResults[4], "<OPERATION>", "CallsInOrder [ Disposable , ServiceProvider ]", State.Passed);
-      AssertResult (OperationResults[9], "<OPERATION>", "CallsInOrder [ Disposable.Dispose() , ServiceProvider.GetService() ]", State.Passed);
+      AssertResult (OperationResults[4], "<OPERATION>", "CallsInOrder [ Disposable, ServiceProvider ]", State.Passed);
+      AssertResult (OperationResults[9], "<OPERATION>", "CallsInOrder [ Disposable.Dispose(), ServiceProvider.GetService() ]", State.Passed);
       AssertResult (OperationResults[10], "<OPERATION>", "Returns service from provider", State.Passed);
     }
   }

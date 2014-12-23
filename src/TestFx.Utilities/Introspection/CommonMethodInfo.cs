@@ -18,9 +18,17 @@ namespace TestFx.Utilities.Introspection
 {
   public class CommonMethodInfo : CommonMethodBase
   {
-    public CommonMethodInfo (CommonType declaringType, string name, CommonType type, bool isStatic)
+    private readonly bool _isExtension;
+
+    public CommonMethodInfo (CommonType declaringType, string name, CommonType type, bool isStatic, bool isExtension)
         : base(declaringType, name, type, isStatic)
     {
+      _isExtension = isExtension;
+    }
+
+    public bool IsExtension
+    {
+      get { return _isExtension; }
     }
   }
 }

@@ -15,7 +15,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TestFx.Extensibility.Contexts;
 using TestFx.Utilities;
 using TestFx.Utilities.Introspection;
 
@@ -39,7 +38,7 @@ namespace TestFx.Extensibility
 
     public string Present (string displayFormat, CommonAttribute subjectAttribute)
     {
-      return Present(displayFormat, subjectAttribute.PositionalArguments.Select(x => ParseArgument(x.Value)));
+      return Present(displayFormat, subjectAttribute.PositionalArguments.Select(x => x.Value));
     }
 
     public string Present (CommonAttribute displayAttribute, IEnumerable<object> arguments)
@@ -49,23 +48,7 @@ namespace TestFx.Extensibility
 
     public string Present (string displayFormat, IEnumerable<object> arguments)
     {
-      return string.Format(displayFormat, arguments.Select(ParseArgument).Concat(Enumerable.Repeat("???", 10)).ToArray());
-    }
-
-    private object ParseArgument (object argument)
-    {
-      var type = argument.As<CommonType>();
-      if (type != null)
-        return type.Name;
-
-      var expressionProvider = argument.As<CommonExpressionProvider>();
-      if (expressionProvider != null)
-      {
-        var strippedTypeFullNames = new[] { typeof (ISuite), typeof (ITestContext) }.Select(x => x.FullName);
-        return new ExpressionParser(expressionProvider, strippedTypeFullNames);
-      }
-
-      return argument.ToString();
+      return string.Format(displayFormat, arguments.Concat(Enumerable.Repeat("???", 10)).ToArray());
     }
 
     private string GetDisplayFormat (CommonAttribute displayAttribute)

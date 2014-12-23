@@ -55,14 +55,13 @@
     <Compile Include="AfterAttribute.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Expressions\IntrospectionExtensions.cs" />
+    <Compile Include="Introspection\CommonArrayBoundsExpression.cs" />
+    <Compile Include="Introspection\CommonArrayItemsExpression.cs" />
     <Compile Include="Introspection\CommonConstructorInfo.cs" />
     <Compile Include="Introspection\CommonExpressionProvider.cs" />
     <Compile Include="Introspection\CommonFieldInfo.cs" />
     <Compile Include="Introspection\CommonMemberInfo.cs" />
     <Compile Include="Introspection\CommonMethodBase.cs" />
-    <Compile Include="Expressions\ExpressionExtensions.cs" />
-    <Compile Include="Expressions\ExpressionParser.cs" />
-    <Compile Include="Expressions\ExpressionUtility.cs" />
     <Compile Include="Introspection\CommonConstantExpression.cs" />
     <Compile Include="Introspection\CommonExpression.cs" />
     <Compile Include="Introspection\CommonInvocationExpression.cs" />

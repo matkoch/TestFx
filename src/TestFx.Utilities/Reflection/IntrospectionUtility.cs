@@ -89,7 +89,8 @@ namespace TestFx.Utilities.Reflection
           GetCommonType(methodInfo.DeclaringType),
           methodInfo.Name,
           GetCommonType(methodInfo.ReturnType),
-          methodInfo.IsStatic);
+          methodInfo.IsStatic,
+          methodInfo.IsExtensionMethod());
     }
 
     public CommonAttribute GetCommonAttribute (CustomAttributeData customAttributeData)

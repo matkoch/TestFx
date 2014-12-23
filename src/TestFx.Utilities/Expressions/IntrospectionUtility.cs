@@ -1,18 +1,5 @@
-﻿// Copyright 2014, 2013 Matthias Koch
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-// http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
@@ -23,16 +10,16 @@ namespace TestFx.Utilities.Expressions
 {
   public interface IIntrospectionUtility
   {
-    CommonExpressionProvider GetCommonExpressionProvider (Expression expression);
+    CommonExpressionProvider GetCommonExpressionProvider (Expression expression, IEnumerable<Type> strippedTypes);
   }
 
   public class IntrospectionUtility : IIntrospectionUtility
   {
     public static IIntrospectionUtility Instance = new IntrospectionUtility();
 
-    public CommonExpressionProvider GetCommonExpressionProvider (Expression expression)
+    public CommonExpressionProvider GetCommonExpressionProvider (Expression expression, IEnumerable<Type> strippedTypes)
     {
-      return new CommonExpressionProvider(() => Visit(expression));
+      return new CommonExpressionProvider(() => Visit(expression), strippedTypes.Select(x => x.ToCommon()));
     }
 
     private CommonExpression Visit (Expression expression)
@@ -50,6 +37,8 @@ namespace TestFx.Utilities.Expressions
         return VisitMember(expression.To<MemberExpression>());
       if (expression is ParameterExpression)
         return VisitParameter(expression.To<ParameterExpression>());
+      if (expression is NewArrayExpression)
+        return VisitNewArray(expression.To<NewArrayExpression>());
 
       throw new Exception(string.Format("Expressions of type {0} are not supported.", expression.GetType()));
     }
@@ -81,7 +70,7 @@ namespace TestFx.Utilities.Expressions
 
     private CommonExpression VisitConstant (ConstantExpression expression)
     {
-      var value = expression.Type != typeof (Type) ? expression.Value : expression.Value.To<Type>().ToCommon();
+      var value = expression.Value is Type ? expression.Value.To<Type>().ToCommon() : expression.Value;
 
       return new CommonConstantExpression(expression.Type.ToCommon(), value);
     }
@@ -89,6 +78,12 @@ namespace TestFx.Utilities.Expressions
     private CommonExpression VisitLambda (LambdaExpression expression)
     {
       return Visit(expression.Body);
+    }
+
+    private CommonExpression VisitNewArray (NewArrayExpression expression)
+    {
+      var items = expression.Expressions.Select(Visit);
+      return new CommonArrayItemsExpression(items, expression.Type.ToCommon());
     }
   }
 }

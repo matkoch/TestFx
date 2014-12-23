@@ -45,5 +45,10 @@ namespace TestFx.Utilities.Introspection
     {
       return _implementedTypes.Any(x => x == fullName);
     }
+
+    public override string ToString ()
+    {
+      return _name;
+    }
   }
 }

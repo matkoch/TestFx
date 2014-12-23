@@ -51,7 +51,7 @@ namespace TestFx.Specifications
     {
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       controller.AddAssertion(
-          "Returns " + resultProvider.ParseExcept(new[] { typeof (TVars) }),
+          "Returns " + resultProvider.ToCommon(typeof (TVars)),
           x => AssertionHelper.AssertReferenceEquals("Result", resultProvider.Compile()(x.Vars), x.Result));
       return assert;
     }

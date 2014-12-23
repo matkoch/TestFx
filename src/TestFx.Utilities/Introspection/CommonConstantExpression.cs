@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Introspection
 {
@@ -20,12 +21,13 @@ namespace TestFx.Utilities.Introspection
   {
     private readonly object _value;
 
-    public CommonConstantExpression (CommonType type, object value)
+    public CommonConstantExpression (CommonType type, [CanBeNull] object value)
         : base(type)
     {
       _value = value;
     }
 
+    [CanBeNull]
     public object Value
     {
       get { return _value; }

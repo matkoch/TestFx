@@ -98,7 +98,12 @@ namespace TestFx.ReSharper.Utilities.Psi
 
     public CommonMethodInfo GetCommonMethodInfo (IMethod method)
     {
-      return new CommonMethodInfo(method.GetContainingType().ToCommon(), method.ShortName, method.ReturnType.ToCommon(), method.IsStatic);
+      return new CommonMethodInfo(
+          method.GetContainingType().ToCommon(),
+          method.ShortName,
+          method.ReturnType.ToCommon(),
+          method.IsStatic,
+          method.IsExtensionMethod);
     }
 
     private CommonPositionalArgument GetPositionalArgument (AttributeValue argument, int position)

@@ -56,7 +56,6 @@
     <Compile Include="Extensibility\Contexts\DelegateTestContext.cs" />
     <Compile Include="Extensibility\ExtensibilityModule.cs" />
     <Compile Include="Extensibility\OperationOrderingAttribute.cs" />
-    <Compile Include="Extensibility\IntrospectionPresenter.ExpressionParser.cs" />
     <Compile Include="Extensibility\IntrospectionPresenter.cs" />
     <Compile Include="Extensibility\Utilities\OperationSorter.cs" />
     <Compile Include="Extensibility\Providers\OperationCollectionProvider.cs" />

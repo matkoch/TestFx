@@ -33,7 +33,7 @@ namespace TestFx.FakeItEasy
         Expression<Func<Dummy, object[]>> fakesProvider)
     {
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
-      var text = "CallsInOrder " + fakesProvider.ParseExcept(new[] { typeof (ISuite) });
+      var text = "CallsInOrder " + fakesProvider.ToCommon(typeof (ISuite));
       controller.AddAssertion(
           text,
           x =>
@@ -53,7 +53,7 @@ namespace TestFx.FakeItEasy
     {
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       // TODO: parse without TVars _ONLY_ if they were declared (consider 'Define(x => new object())')
-      var text = "CallsInOrder [ " + string.Join(" , ", callExpressions.Select(x => x.ParseExcept(new[] { typeof(ISuite) })).ToArray()) + " ]";
+      var text = "CallsInOrder [ " + string.Join(", ", callExpressions.Select(x => x.ToCommon(typeof(ISuite)).ToString()).ToArray()) + " ]";
       controller.AddAssertion(
           text,
           x =>

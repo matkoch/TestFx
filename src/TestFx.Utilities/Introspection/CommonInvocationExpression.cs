@@ -22,10 +22,10 @@ namespace TestFx.Utilities.Introspection
   public class CommonInvocationExpression : CommonExpression
   {
     private readonly CommonExpression _instance;
-    private readonly CommonMemberInfo _method;
+    private readonly CommonMethodInfo _method;
     private readonly IEnumerable<CommonExpression> _arguments;
 
-    public CommonInvocationExpression ([CanBeNull] CommonExpression instance, CommonMemberInfo method, IEnumerable<CommonExpression> arguments)
+    public CommonInvocationExpression ([CanBeNull] CommonExpression instance, CommonMethodInfo method, IEnumerable<CommonExpression> arguments)
         : base(method.Type)
     {
       _instance = instance;
@@ -39,7 +39,7 @@ namespace TestFx.Utilities.Introspection
       get { return _instance; }
     }
 
-    public CommonMemberInfo Method
+    public CommonMethodInfo Method
     {
       get { return _method; }
     }

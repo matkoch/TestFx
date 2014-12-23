@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -109,7 +110,7 @@ namespace TestFx.Specifications.Implementation.Controllers
         [CanBeNull] Action<TSubject> voidAction,
         [CanBeNull] Func<TSubject, TResult> resultAction)
     {
-      var actionText = _introspectionPresenter.Present(displayFormat, new[] { expression.ToCommon() });
+      var actionText = _introspectionPresenter.Present(displayFormat, new[] { expression.ToCommon(typeof(ISuite), typeof(ITestContext)) });
       var actionContainer = new ActionContainer<TSubject, TResult>(actionText, voidAction, resultAction);
       var provider = CreateSuiteProvider(_sequenceNumber++.ToString(CultureInfo.InvariantCulture), actionContainer.Text, false);
       return _controllerFactory.CreateExpressionSuiteController(provider, actionContainer, this);

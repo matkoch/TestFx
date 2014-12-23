@@ -20,9 +20,9 @@ namespace TestFx.Utilities.Expressions
 {
   public static class IntrospectionExtensions
   {
-    public static CommonExpressionProvider ToCommon (this Expression expression)
+    public static CommonExpressionProvider ToCommon (this Expression expression, params Type[] strippedTypes)
     {
-      return IntrospectionUtility.Instance.GetCommonExpressionProvider(expression);
+      return IntrospectionUtility.Instance.GetCommonExpressionProvider(expression, strippedTypes);
     }
   }
 }

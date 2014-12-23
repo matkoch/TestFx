@@ -13,6 +13,8 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
@@ -23,16 +25,16 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
 {
   public interface IIntrospectionUtility
   {
-    CommonExpressionProvider GetCommonExpressionProvider (ICSharpExpression expression);
+    CommonExpressionProvider GetCommonExpressionProvider (ICSharpExpression expression, IEnumerable<ITypeElement> strippedTypes);
   }
 
   public class IntrospectionUtility : IIntrospectionUtility
   {
     public static IIntrospectionUtility Instance = new IntrospectionUtility();
 
-    public CommonExpressionProvider GetCommonExpressionProvider (ICSharpExpression expression)
+    public CommonExpressionProvider GetCommonExpressionProvider (ICSharpExpression expression, IEnumerable<ITypeElement> strippedTypes)
     {
-      return new CommonExpressionProvider(() => Visit(expression));
+      return new CommonExpressionProvider(() => Visit(expression), strippedTypes.Select(x => x.ToCommon()));
     }
 
     private CommonExpression Visit (ICSharpExpression expression)

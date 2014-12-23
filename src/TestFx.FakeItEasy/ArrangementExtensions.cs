@@ -34,8 +34,8 @@ namespace TestFx.FakeItEasy
       var controller = arrange.Get<ITestController<TSubject, TResult, TVars>>();
       var text = string.Format(
           "ACallTo {0}.{1}",
-          callExpression.ParseExcept(new[] { typeof (ISuite) }),
-          callConfigurator.ParseExcept(new[] { typeof (Dummy), typeof(IAssertConfiguration) }));
+          callExpression.ToCommon(typeof (ISuite)),
+          callConfigurator.ToCommon(typeof (IVoidConfiguration), typeof(TVars)));
 
       controller.AddArrangement(
           text,
@@ -55,8 +55,8 @@ namespace TestFx.FakeItEasy
       var controller = arrange.Get<ITestController<TSubject, TResult, TVars>>();
       var text = string.Format(
           "ACallTo {0}.{1}",
-          callExpression.ParseExcept(new[] { typeof (ISuite) }),
-          callConfigurator.ParseExcept(new[] { typeof (TVars), typeof(IReturnValueConfiguration<TCallResult>) }));
+          callExpression.ToCommon(typeof (ISuite)),
+          callConfigurator.ToCommon(typeof (IReturnValueConfiguration<TCallResult>), typeof (TVars)));
 
       controller.AddArrangement(
           text,
