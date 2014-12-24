@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Specifications.Implementation.Contexts

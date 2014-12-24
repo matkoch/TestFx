@@ -17,11 +17,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using JetBrains.Annotations;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 using TestFx.Evaluation.Utilities;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Runners
@@ -79,12 +79,12 @@ namespace TestFx.Evaluation.Runners
             //.AsParallel().WithCancellation(intent.CancellationTokenSource.Token)
             //.WithExecutionMode(ParallelExecutionMode.ForceParallelism)
             .Select(x => RunAssemblySuites(x.Item2, intent.ShadowCopyPath, intent.CancellationTokenSource, x.Item1)).ToList();
-            //.GroupBy(GetTestType)
-            //.OrderByDescending(x => x.Key)
-            //.SelectMany(
-            //    group => group
-            //        .AsParallel().WithCancellation(intent.CancellationTokenSource.Token)
-            //        .Select(x => RunAssemblySuites(x, intent.ShadowCopyPath, intent.CancellationTokenSource))).ToList();
+        //.GroupBy(GetTestType)
+        //.OrderByDescending(x => x.Key)
+        //.SelectMany(
+        //    group => group
+        //        .AsParallel().WithCancellation(intent.CancellationTokenSource.Token)
+        //        .Select(x => RunAssemblySuites(x, intent.ShadowCopyPath, intent.CancellationTokenSource))).ToList();
         result = _resultFactory.CreateRunResult(intent, suiteResults);
       }
       catch (Exception exception)
@@ -115,7 +115,7 @@ namespace TestFx.Evaluation.Runners
         return assemblyRunner.Run(suiteIntent);
       }
     }
-    
+
     private TestType GetTestType (Assembly assembly)
     {
       foreach (var association in s_testTypes)

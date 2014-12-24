@@ -14,7 +14,6 @@
 
 using System;
 using Autofac;
-using JetBrains.Annotations;
 using TestFx.Evaluation.Loading;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;

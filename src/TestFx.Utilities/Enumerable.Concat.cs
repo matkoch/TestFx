@@ -22,11 +22,11 @@ namespace TestFx.Utilities
   [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static partial class EnumerableExtensions
   {
-    public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> enumerable)
-      where T : class
+    public static IEnumerable<T> WhereNotNull<T> (this IEnumerable<T> enumerable)
+        where T : class
     {
       return enumerable.Where(x => x != null);
-    } 
+    }
 
     public static IEnumerable<T> Concat<T> ([CanBeNull] this T obj, IEnumerable<T> enumerable)
     {

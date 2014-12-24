@@ -33,7 +33,7 @@ namespace TestFx.Extensibility.Providers
     {
       _operationProviders = new IOperationProvider[0];
     }
-    
+
     public IEnumerable<IOperationProvider> OperationProviders
     {
       get { return _operationProviders; }

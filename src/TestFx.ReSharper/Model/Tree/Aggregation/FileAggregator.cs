@@ -39,7 +39,8 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       _treePresenter = treePresenter;
       _identityProvider = identityProvider;
       _project = project;
-      _notInterrupted = notInterrupted;;
+      _notInterrupted = notInterrupted;
+      ;
     }
 
     public ISuiteFile GetSuiteFile (ICSharpFile csharpFile)
@@ -48,7 +49,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       var namespaceDeclarations = csharpFile.NamespaceDeclarations.SelectMany(x => x.Flatten(y => y.NamespaceDeclarations));
       var classDeclarations = namespaceDeclarations.Cast<ITypeDeclarationHolder>().SelectMany(x => x.TypeDeclarations)
           .SelectMany(x => x.Flatten(y => y.TypeDeclarations)).OfType<IClassDeclaration>();
-      
+
       //.SelectMany(x => x.TypeDeclarations).SelectMany(x => x.Flatten(y => y.TypeDeclarations)).OfType<IClassDeclaration>();
       var classSuites = TreeNodeCollection.Create(classDeclarations, x => GetClassSuite(x, assemblyIdentity), _notInterrupted);
 
@@ -64,7 +65,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       var text = _treePresenter.Present(classDeclaration);
       if (text == null)
         return null;
-      
+
       var identity = parentIdentity.CreateChildIdentity(classDeclaration.CLRName);
       var expressionStatements = constructorDeclarations.SelectMany(x => x.Body.Children<IExpressionStatement>());
       var statementSuites = TreeNodeCollection.Create(expressionStatements, x => GetStatementSuite(x, identity), _notInterrupted);

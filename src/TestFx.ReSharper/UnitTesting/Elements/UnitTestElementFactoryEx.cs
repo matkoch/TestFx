@@ -83,7 +83,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       var element = _unitTestElementManager.GetElementByIdentity(identity) ?? factory(identity);
 
       element.Update(unitTestEntity.Text, null, Enumerable.Empty<UnitTestElementCategory>());
-      
+
       return element;
     }
 

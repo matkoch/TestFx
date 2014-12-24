@@ -18,7 +18,6 @@ using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Contexts;
 using TestFx.Specifications.InferredApi;
-using JetBrains.Annotations;
 
 namespace TestFx.Specifications.Implementation.Controllers
 {
@@ -30,7 +29,7 @@ namespace TestFx.Specifications.Implementation.Controllers
 
   public interface ITestController<TSubject, out TResult, out TVars> : ITestController<TSubject>
   {
-    ITestController<TSubject, TResult, TNewVars> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider); 
+    ITestController<TSubject, TResult, TNewVars> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
 
     void AddArrangement (string text, Arrangement<TSubject, TResult, TVars> arrangement);
     void AddAssertion (string text, Assertion<TSubject, TResult, TVars> assertion, bool expectException = false);

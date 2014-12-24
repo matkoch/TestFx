@@ -14,7 +14,6 @@
 
 using System;
 using TestFx.Evaluation.Results;
-using TestFx.Evaluation.Utilities;
 using TestFx.Extensibility.Providers;
 
 namespace TestFx.Evaluation.Runners

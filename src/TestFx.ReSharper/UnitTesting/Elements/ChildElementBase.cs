@@ -22,7 +22,6 @@ using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.Model.Tree;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Utilities;
-using TestFx.ReSharper.Utilities;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Elements

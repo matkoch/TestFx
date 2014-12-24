@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Intents
@@ -25,7 +24,7 @@ namespace TestFx.Evaluation.Intents
   [Serializable]
   public class TestIntent : Intent, ITestIntent
   {
-    public static ITestIntent Create(IIdentity identity)
+    public static ITestIntent Create (IIdentity identity)
     {
       return new TestIntent(identity);
     }

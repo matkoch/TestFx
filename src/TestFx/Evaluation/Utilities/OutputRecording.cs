@@ -18,8 +18,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using TestFx.Evaluation.Results;
 using JetBrains.Annotations;
+using TestFx.Evaluation.Results;
 
 namespace TestFx.Evaluation.Utilities
 {

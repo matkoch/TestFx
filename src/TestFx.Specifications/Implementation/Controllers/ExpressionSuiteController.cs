@@ -14,7 +14,6 @@
 
 using System;
 using System.Globalization;
-using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;

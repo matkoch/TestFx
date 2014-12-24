@@ -19,6 +19,6 @@ namespace TestFx.ReSharper.Model.Metadata
 {
   public interface ISuiteMetadata : ISuiteEntity, IUnitTestMetadata
   {
-    IEnumerable<ISuiteMetadata> SuiteMetadatas { get; } 
+    IEnumerable<ISuiteMetadata> SuiteMetadatas { get; }
   }
 }

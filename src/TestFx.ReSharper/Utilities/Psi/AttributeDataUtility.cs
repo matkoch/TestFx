@@ -22,10 +22,10 @@ namespace TestFx.ReSharper.Utilities.Psi
 {
   public interface IAttributeDataUtility
   {
-    IEnumerable<IAttributeInstance> GetAttributeDatas<T> (IAttributesSet attributeSet) where T :Attribute;
+    IEnumerable<IAttributeInstance> GetAttributeDatas<T> (IAttributesSet attributeSet) where T : Attribute;
 
     [CanBeNull]
-    IAttributeInstance GetAttributeData<T> (IAttributesSet attributeSet) where T :Attribute;
+    IAttributeInstance GetAttributeData<T> (IAttributesSet attributeSet) where T : Attribute;
   }
 
   public class AttributeDataUtility : IAttributeDataUtility
@@ -38,7 +38,7 @@ namespace TestFx.ReSharper.Utilities.Psi
     }
 
     [CanBeNull]
-    public IAttributeInstance GetAttributeData<T> (IAttributesSet attributeSet) where T :Attribute
+    public IAttributeInstance GetAttributeData<T> (IAttributesSet attributeSet) where T : Attribute
     {
       return GetAttributeDatas<T>(attributeSet).SingleOrDefault();
     }

@@ -21,19 +21,19 @@ namespace TestFx.ReSharper.Utilities.ProjectModel
 {
   public interface IProjectUtility
   {
-    IPsiModule GetPrimaryPsiModule(IProject project);
+    IPsiModule GetPrimaryPsiModule (IProject project);
   }
 
   public class ProjectUtility : IProjectUtility
   {
     public static IProjectUtility Instance = new ProjectUtility();
 
-    public IPsiModule GetPrimaryPsiModule(IProject project)
+    public IPsiModule GetPrimaryPsiModule (IProject project)
     {
       var solution = project.GetSolution();
       var psiServices = solution.GetPsiServices();
       var modules = psiServices.Modules;
       return modules.GetPrimaryPsiModule(project);
-    } 
+    }
   }
 }

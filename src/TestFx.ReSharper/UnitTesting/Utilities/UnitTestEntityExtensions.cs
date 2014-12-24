@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using TestFx.ReSharper.Model;
 
 namespace TestFx.ReSharper.UnitTesting.Utilities
 {

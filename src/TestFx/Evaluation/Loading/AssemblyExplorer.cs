@@ -17,9 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac;
-using TestFx.Evaluation.Utilities;
 using TestFx.Extensibility;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 

@@ -18,7 +18,6 @@ using System.Linq;
 using System.Reflection;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Loading

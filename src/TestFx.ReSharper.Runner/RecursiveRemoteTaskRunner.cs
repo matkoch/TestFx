@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using JetBrains.ReSharper.TaskRunnerFramework;
@@ -81,7 +80,7 @@ namespace TestFx.ReSharper.Runner
       return suiteIntent;
     }
 
-    private ITestIntent CreateTestIntent(TaskExecutionNode node)
+    private ITestIntent CreateTestIntent (TaskExecutionNode node)
     {
       var testTask = node.RemoteTask.To<TestTask>();
       return TestIntent.Create(testTask.Identity);

@@ -67,7 +67,7 @@ namespace TestFx.ReSharper.Runner
       Finished(result, operationResults, result.OutputEntries, task);
     }
 
-    private void Finished(ITestResult result, Task task)
+    private void Finished (ITestResult result, Task task)
     {
       Finished(result, result.OperationResults, result.OutputEntries, task);
     }

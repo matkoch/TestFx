@@ -13,8 +13,8 @@
 // limitations under the License.
 
 using System;
-using TestFx.Extensibility.Providers;
 using JetBrains.Annotations;
+using TestFx.Extensibility.Providers;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Results

@@ -15,6 +15,7 @@
 using System;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.UnitTestFramework;
+using TestFx.ReSharper.Runner;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities;
 
@@ -36,7 +37,7 @@ namespace TestFx.ReSharper.UnitTesting
 
     public string ID
     {
-      get { return Runner.RecursiveRemoteTaskRunner.ID; }
+      get { return RecursiveRemoteTaskRunner.ID; }
     }
 
     public string Name

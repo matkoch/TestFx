@@ -14,7 +14,6 @@
 
 using System;
 using System.Diagnostics;
-using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Contexts;

@@ -18,9 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using TestFx.Evaluation.Loading;
-using TestFx.Evaluation.Utilities;
 using TestFx.Extensibility.Providers;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 using TestFx.Utilities.Introspection;
 using TestFx.Utilities.Reflection;
@@ -46,7 +44,7 @@ namespace TestFx.Extensibility
     public ISuiteProvider Load (Type suiteType, IEnumerable<IAssemblySetup> assemblySetups, IIdentity parentIdentity)
     {
       var uninitializedSuite = (TSuiteType) FormatterServices.GetUninitializedObject(suiteType);
-      
+
       var subjectAttribute = suiteType.GetAttributeData<TSubjectAttribute>().ToCommon();
       var text = _introspectionPresenter.Present(_displayFormatAttribute, subjectAttribute);
       var identity = parentIdentity.CreateChildIdentity(suiteType.FullName);

@@ -18,7 +18,6 @@ using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
 using TestFx.Specifications.Implementation.Controllers;
 using TestFx.Specifications.Implementation.Utilities;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 
@@ -30,7 +29,10 @@ namespace TestFx.Specifications.Implementation
     private readonly ISubjectFactoryGenerator _subjectFactoryGenerator;
     private readonly IIntrospectionPresenter _introspectionPresenter;
 
-    public SpecKTypeLoader (IControllerFactory controllerFactory, ISubjectFactoryGenerator subjectFactoryGenerator, IIntrospectionPresenter introspectionPresenter)
+    public SpecKTypeLoader (
+        IControllerFactory controllerFactory,
+        ISubjectFactoryGenerator subjectFactoryGenerator,
+        IIntrospectionPresenter introspectionPresenter)
         : base(introspectionPresenter)
     {
       _controllerFactory = controllerFactory;

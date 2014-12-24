@@ -20,7 +20,6 @@ using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Contexts;
 using TestFx.Specifications.Implementation.Utilities;
-using TestFx.Specifications.InferredApi;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.Specifications.Implementation.Controllers
@@ -50,7 +49,10 @@ namespace TestFx.Specifications.Implementation.Controllers
     private readonly IEnumerable<ITestExtension> _testExtensions;
     private readonly IIntrospectionPresenter _introspectionPresenter;
 
-    public ControllerFactory (IOperationSorter operationSorter, IEnumerable<ITestExtension> testExtensions, IIntrospectionPresenter introspectionPresenter)
+    public ControllerFactory (
+        IOperationSorter operationSorter,
+        IEnumerable<ITestExtension> testExtensions,
+        IIntrospectionPresenter introspectionPresenter)
     {
       _operationSorter = operationSorter;
       _testExtensions = testExtensions;
@@ -60,7 +62,13 @@ namespace TestFx.Specifications.Implementation.Controllers
     public ISuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider)
     {
       var suiteControllerType = typeof (ClassSuiteController<>).MakeGenericType(subjectType);
-      var controller = suiteControllerType.CreateInstance<SuiteController>(provider, suite, _testExtensions, this, _operationSorter, _introspectionPresenter);
+      var controller = suiteControllerType.CreateInstance<SuiteController>(
+          provider,
+          suite,
+          _testExtensions,
+          this,
+          _operationSorter,
+          _introspectionPresenter);
       provider.Controller = controller;
       return controller;
     }

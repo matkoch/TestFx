@@ -15,11 +15,11 @@
 using System;
 using System.IO;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Containers;
 using TestFx.Specifications.Implementation;
 using TestFx.Specifications.InferredApi;
-using JetBrains.Annotations;
 
 namespace TestFx.Specifications
 {
@@ -40,8 +40,8 @@ namespace TestFx.Specifications
 
   #region Attributes
 
-  [MeansImplicitUse(ImplicitUseTargetFlags.WithMembers)]
-  [BaseTypeRequired(typeof(ISpecK<>))]
+  [MeansImplicitUse (ImplicitUseTargetFlags.WithMembers)]
+  [BaseTypeRequired (typeof (ISpecK<>))]
   public class SubjectAttribute : SubjectAttributeBase
   {
     // ReSharper disable UnusedParameter.Local
@@ -53,8 +53,8 @@ namespace TestFx.Specifications
     // ReSharper restore UnusedParameter.Local
   }
 
-  [MeansImplicitUse(ImplicitUseKindFlags.Access)]
-  [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+  [MeansImplicitUse (ImplicitUseKindFlags.Access)]
+  [AttributeUsage (AttributeTargets.Field, AllowMultiple = false)]
   public class InjectedAttribute : Attribute
   {
   }
@@ -77,6 +77,7 @@ namespace TestFx.Specifications
 
   namespace InferredApi
   {
+
     #region ITestContext<TSubject, TResult> / ITestContext<TSubject> interfaces
 
     public interface ITestContext : Extensibility.Contexts.ITestContext
@@ -137,18 +138,18 @@ namespace TestFx.Specifications
 
     public interface ISpecify<TSubject>
     {
-      [DisplayFormat("{0}")]
+      [DisplayFormat ("{0}")]
       //[GroupAnnotation (Member = "voidAction")]
       IIgnoreOrElaborate<TSubject, Dummy> Specify (Expression<Action<TSubject>> voidAction);
 
       //[GroupAnnotation (Member = "resultAction")]
-      [DisplayFormat("{0}")]
+      [DisplayFormat ("{0}")]
       IIgnoreOrElaborate<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> resultAction);
     }
 
     public interface IElaborate<TSubject, TResult>
     {
-      [DisplayFormat("{0}")]
+      [DisplayFormat ("{0}")]
       //[CaseAnnotation (Member = "description")]
       IIgnoreOrElaborate<TSubject, TResult> Elaborate (
           string description,

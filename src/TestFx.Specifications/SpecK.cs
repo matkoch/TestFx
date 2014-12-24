@@ -40,14 +40,14 @@ namespace TestFx.Specifications
       _classSuiteController.AddTestSetupCleanup(setup, cleanup);
     }
 
-    [DisplayFormat(c_specifyDisplayFormat)]
+    [DisplayFormat (c_specifyDisplayFormat)]
     public IIgnoreOrElaborate<TSubject, Dummy> Specify (Expression<Action<TSubject>> action)
     {
       var expressionSuiteController = _classSuiteController.CreateExpressionSuiteController<Dummy>(c_specifyDisplayFormat, action);
       return new ExpressionSuiteContainer<TSubject, Dummy>(expressionSuiteController);
     }
 
-    [DisplayFormat(c_specifyDisplayFormat)]
+    [DisplayFormat (c_specifyDisplayFormat)]
     public IIgnoreOrElaborate<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> action)
     {
       var expressionSuiteController = _classSuiteController.CreateExpressionSuiteController(c_specifyDisplayFormat, action);
@@ -62,7 +62,7 @@ namespace TestFx.Specifications
 
   public abstract class SpecK : SpecK<Dummy>
   {
-    public sealed override Dummy CreateSubject ()
+    public override sealed Dummy CreateSubject ()
     {
       return null;
     }

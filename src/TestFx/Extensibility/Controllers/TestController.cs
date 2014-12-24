@@ -14,17 +14,21 @@
 
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using TestFx.Extensibility.Contexts;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Controllers
 {
   public interface ITestController
   {
-    void AddSetupCleanup<TSetup, TCleanup> (string setupText, Action<ITestContext> setup, [CanBeNull] string cleanupText, [CanBeNull] Action<ITestContext> cleanup)
+    void AddSetupCleanup<TSetup, TCleanup> (
+        string setupText,
+        Action<ITestContext> setup,
+        [CanBeNull] string cleanupText,
+        [CanBeNull] Action<ITestContext> cleanup)
         where TSetup : IActionDescriptor
         where TCleanup : ICleanupDescriptor;
 
@@ -74,7 +78,11 @@ namespace TestFx.Extensibility.Controllers
       _provider.OperationProviders = _operationSorter.Sort(unsortedOperationProviders);
     }
 
-    public void AddSetupCleanup<TSetup, TCleanup> (string setupText, Action<ITestContext> setup, [CanBeNull] string cleanupText, [CanBeNull] Action<ITestContext> cleanup)
+    public void AddSetupCleanup<TSetup, TCleanup> (
+        string setupText,
+        Action<ITestContext> setup,
+        [CanBeNull] string cleanupText,
+        [CanBeNull] Action<ITestContext> cleanup)
         where TSetup : IActionDescriptor
         where TCleanup : ICleanupDescriptor
     {

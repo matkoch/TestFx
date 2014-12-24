@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Results;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Reporting

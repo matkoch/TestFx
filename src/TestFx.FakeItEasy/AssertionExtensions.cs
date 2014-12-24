@@ -53,7 +53,7 @@ namespace TestFx.FakeItEasy
     {
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       // TODO: parse without TVars _ONLY_ if they were declared (consider 'Define(x => new object())')
-      var text = "CallsInOrder [ " + string.Join(", ", callExpressions.Select(x => x.ToCommon(typeof(ISuite)).ToString()).ToArray()) + " ]";
+      var text = "CallsInOrder [ " + string.Join(", ", callExpressions.Select(x => x.ToCommon(typeof (ISuite)).ToString()).ToArray()) + " ]";
       controller.AddAssertion(
           text,
           x =>

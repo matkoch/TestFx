@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Utilities;
-using TestFx.ReSharper.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {

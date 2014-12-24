@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TestFx.Evaluation.Intents;
 using TestFx.Extensibility.Providers;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Utilities

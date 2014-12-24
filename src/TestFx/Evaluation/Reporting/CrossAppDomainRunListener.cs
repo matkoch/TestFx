@@ -20,7 +20,7 @@ namespace TestFx.Evaluation.Reporting
 {
   public class CrossAppDomainRunListener : MarshalByRefObject, IRunListener
   {
-    public static IRunListener Create(params IRunListener[] listeners)
+    public static IRunListener Create (params IRunListener[] listeners)
     {
       return new CrossAppDomainRunListener(new CompositeRunListener(listeners));
     }

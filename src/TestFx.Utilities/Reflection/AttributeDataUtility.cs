@@ -112,7 +112,7 @@ namespace TestFx.Utilities.Reflection
 
       if (argument.ArgumentType.IsEnum)
         return Enum.ToObject(argument.ArgumentType, argument.Value);
-      
+
       return argument.Value;
     }
   }

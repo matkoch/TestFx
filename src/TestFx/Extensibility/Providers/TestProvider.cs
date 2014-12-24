@@ -15,7 +15,6 @@
 using System;
 using System.Collections.Generic;
 using TestFx.Extensibility.Controllers;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Providers
@@ -30,7 +29,7 @@ namespace TestFx.Extensibility.Providers
 
   public class TestProvider : OperationCollectionProvider, ITestProvider
   {
-    public static TestProvider Create(IIdentity identity, string text, bool ignored)
+    public static TestProvider Create (IIdentity identity, string text, bool ignored)
     {
       return new TestProvider(identity, text, ignored);
     }

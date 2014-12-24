@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TestFx.Extensibility.Controllers;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Providers
@@ -32,7 +31,7 @@ namespace TestFx.Extensibility.Providers
 
   public class SuiteProvider : Provider, ISuiteProvider
   {
-    public static SuiteProvider Create(IIdentity identity, string text, bool ignored)
+    public static SuiteProvider Create (IIdentity identity, string text, bool ignored)
     {
       return new SuiteProvider(identity, text, ignored);
     }

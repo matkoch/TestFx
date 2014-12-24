@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using JetBrains.Annotations;
 using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Contexts

@@ -21,7 +21,7 @@ namespace TestFx.ReSharper.UnitTesting.Utilities
   public partial class UnitTestIdentity
   {
     private readonly ProjectModelElementEnvoy _projectEnvoy;
-    
+
     public UnitTestIdentity (IUnitTestProviderEx provider, IProject project, IIdentity wrappedIdentity)
         : this(provider, wrappedIdentity)
     {

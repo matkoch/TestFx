@@ -38,7 +38,7 @@ namespace TestFx.ReSharper.UnitTesting.Serialization
     private readonly IUnitTestElementFactoryEx _unitTestElementFactory;
     private readonly IUnitTestProviderEx _unitTestProvider;
     private readonly ISolution _solution;
-    private readonly Dictionary<string, Func<IIdentity, IProject, string, IUnitTestElement>> _factoryMethods; 
+    private readonly Dictionary<string, Func<IIdentity, IProject, string, IUnitTestElement>> _factoryMethods;
 
     public UnitTestElementSerializerEx (IUnitTestElementFactoryEx unitTestElementFactory, IUnitTestProviderEx unitTestProvider, ISolution solution)
     {

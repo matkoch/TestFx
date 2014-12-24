@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Controllers

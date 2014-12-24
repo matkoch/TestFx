@@ -15,12 +15,10 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Loading;
 using TestFx.Evaluation.Results;
 using TestFx.Evaluation.Utilities;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Runners

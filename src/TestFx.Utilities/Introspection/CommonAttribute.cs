@@ -24,7 +24,10 @@ namespace TestFx.Utilities.Introspection
     private readonly List<CommonPositionalArgument> _positionalArguments;
     private readonly List<CommonNamedArgument> _namedArguments;
 
-    public CommonAttribute (CommonType type, IEnumerable<CommonPositionalArgument> positionalArguments, IEnumerable<CommonNamedArgument> namedArguments)
+    public CommonAttribute (
+        CommonType type,
+        IEnumerable<CommonPositionalArgument> positionalArguments,
+        IEnumerable<CommonNamedArgument> namedArguments)
     {
       _type = type;
       _positionalArguments = positionalArguments.ToList();

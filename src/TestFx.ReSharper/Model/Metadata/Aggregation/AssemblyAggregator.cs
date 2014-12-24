@@ -13,10 +13,8 @@
 // limitations under the License.
 
 using System;
-using System.Linq;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
-using JetBrains.Util;
 using TestFx.ReSharper.Model.Utilities;
 using TestFx.Utilities;
 

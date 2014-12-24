@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Results

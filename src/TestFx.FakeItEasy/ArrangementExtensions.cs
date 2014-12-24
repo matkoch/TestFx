@@ -35,7 +35,7 @@ namespace TestFx.FakeItEasy
       var text = string.Format(
           "ACallTo {0}.{1}",
           callExpression.ToCommon(typeof (ISuite)),
-          callConfigurator.ToCommon(typeof (IVoidConfiguration), typeof(TVars)));
+          callConfigurator.ToCommon(typeof (IVoidConfiguration), typeof (TVars)));
 
       controller.AddArrangement(
           text,

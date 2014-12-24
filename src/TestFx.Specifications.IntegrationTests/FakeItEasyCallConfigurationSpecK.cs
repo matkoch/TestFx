@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Diagnostics;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;

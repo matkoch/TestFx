@@ -38,7 +38,7 @@ namespace TestFx.Utilities
     {
       return Sort(items, x => x, throwIfOrderIsUndefined);
     }
-    
+
     public IEnumerable<T> Sort<T, TKey> (IEnumerable<T> items, Func<T, TKey> keyProvider, bool throwIfOrderIsUndefined = false) where T : class
     {
       return items.SortTopologically((a, b) => HasAttributeDependency(keyProvider(a), keyProvider(b)), throwIfOrderIsUndefined);

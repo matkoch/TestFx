@@ -15,7 +15,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Intents
@@ -30,7 +29,7 @@ namespace TestFx.Evaluation.Intents
   [Serializable]
   public class SuiteIntent : Intent, ISuiteIntent
   {
-    public static ISuiteIntent Create(IIdentity identity)
+    public static ISuiteIntent Create (IIdentity identity)
     {
       return new SuiteIntent(identity);
     }
@@ -54,7 +53,7 @@ namespace TestFx.Evaluation.Intents
     {
       get { return _testIntents; }
     }
-    
+
     public void AddSuiteIntent (ISuiteIntent suiteIntent)
     {
       Trace.Assert(suiteIntent.Identity.Parent.Equals(Identity));

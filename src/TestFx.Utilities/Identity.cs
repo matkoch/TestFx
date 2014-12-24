@@ -33,7 +33,7 @@ namespace TestFx.Utilities
   public class Identity : IIdentity, IEquatable<IIdentity>
   {
     private const string c_separator = " » ";
-    private static readonly Dictionary<string, IIdentity> s_identites = new Dictionary<string, IIdentity>(); 
+    private static readonly Dictionary<string, IIdentity> s_identites = new Dictionary<string, IIdentity>();
 
     public static IIdentity Parse (string absoluteIdentity)
     {
