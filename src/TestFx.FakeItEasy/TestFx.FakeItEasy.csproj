@@ -35,6 +35,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FakeItEasy.1.21.0\lib\net35\FakeItEasy.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +48,7 @@
     <Compile Include="ArrangementExtensions.cs" />
     <Compile Include="AssertionExtensions.cs" />
     <Compile Include="Attributes.cs" />
+    <None Include="NuGet\FakeItEasyTestExtensions.cs" />
     <Compile Include="TestExtensions\FakeScopeTestExtension.cs" />
     <Compile Include="TestExtensions\FakeCreationTestExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
