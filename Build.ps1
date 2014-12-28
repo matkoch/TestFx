@@ -9,7 +9,7 @@ function Get-ScriptDirectory
   Split-Path $Invocation.MyCommand.Path
 }
 
-$SolutionDir   = ?? ${env:SourcePath}      ([Environment]::CurrentDirectory)
+$SolutionDir   = ?? ${env:SourcePath}      (Get-ScriptDirectory)
 $NuGet         = ?? ${env:NuGet}           (Join-Path $SolutionDir "..\NuGet.exe")
 $Configuration = ?? ${env:Configuration}   "Debug"
 $Platform      = ?? ${env:Platform}        "Any CPU"
