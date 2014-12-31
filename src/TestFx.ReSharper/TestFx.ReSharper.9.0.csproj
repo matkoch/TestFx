@@ -214,6 +214,7 @@
     <Compile Include="UnitTesting\MetadataElementsSourceEx.cs" />
     <Compile Include="UnitTesting\UnitTestElementSerializerEx.cs" />
     <Compile Include="UnitTesting\UnitTestProviderEx.cs" />
+    <Compile Include="UnitTesting\UnitTestProviderEx.R9.cs" />
     <Compile Include="UnitTesting\UnitTestSource.cs" />
     <Compile Include="UnitTesting\Utilities\UnitTestElementManagerExtensions.R9.cs" />
     <Compile Include="UnitTesting\Utilities\UnitTestIdentity.cs" />

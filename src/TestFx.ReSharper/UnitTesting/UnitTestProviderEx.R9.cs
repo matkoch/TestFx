@@ -14,10 +14,8 @@
 
 using System;
 using System.Collections.Generic;
-using JetBrains.ProjectModel;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
-using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities;
 
@@ -25,24 +23,15 @@ namespace TestFx.ReSharper.UnitTesting
 {
   public partial class UnitTestProviderEx
   {
-    public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Dictionary<RemoteTask, IUnitTestElement> elements)
+    public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Dictionary<string, IUnitTestElement> elements)
     {
       return GetDynamicElement(
           remoteTask,
           absoluteId =>
           {
-            var task = new ComparableTask(absoluteId);
             IUnitTestElement element;
-            return elements.TryGetValue(task, out element) ? element.To<IUnitTestElementEx>() : null;
+            return elements.TryGetValue(absoluteId, out element) ? element.To<IUnitTestElementEx>() : null;
           });
-    }
-
-    public void ExploreExternal (UnitTestElementConsumer consumer)
-    {
-    }
-
-    public void ExploreSolution (ISolution solution, UnitTestElementConsumer consumer)
-    {
     }
   }
 }

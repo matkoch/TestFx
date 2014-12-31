@@ -79,7 +79,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
       return GetOrCreateAndUpdateElement(
           testEntity,
-          identity => new TestElement(identity, new Task[] { new TestTask(identity, testEntity.Text) }));
+          identity => new TestElement(identity, new Task[] { new TestTask(identity) }));
     }
 
     [CanBeNull]

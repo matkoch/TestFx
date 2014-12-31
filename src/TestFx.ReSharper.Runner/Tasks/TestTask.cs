@@ -19,16 +19,21 @@ using TestFx.Utilities;
 namespace TestFx.ReSharper.Runner.Tasks
 {
   [Serializable]
-  public class TestTask : DynamicTask
+  public class TestTask : Task
   {
     public TestTask (XmlElement element)
         : base(element)
     {
     }
 
-    public TestTask (IIdentity identity, string text = null)
-        : base(identity, text)
+    public TestTask (IIdentity identity)
+        : base(identity)
     {
+    }
+
+    public override bool IsMeaningfulTask
+    {
+      get { return true; }
     }
   }
 }

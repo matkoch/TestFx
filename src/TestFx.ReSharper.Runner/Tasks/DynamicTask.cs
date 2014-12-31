@@ -20,24 +20,28 @@ using TestFx.Utilities;
 namespace TestFx.ReSharper.Runner.Tasks
 {
   [Serializable]
-  public abstract class DynamicTask : Task
+  public class DynamicTask : Task
   {
+    private const string c_elementTypeFullName = "elementTypeFullName";
     private const string c_parentAbsoluteId = "parentAbsoluteId";
     private const string c_text = "text";
 
+    private readonly string _taskTypeFullName;
     private readonly string _parentAbsoluteId;
     private readonly string _text;
 
-    protected DynamicTask (XmlElement element)
+    public DynamicTask (XmlElement element)
         : base(element)
     {
+      _taskTypeFullName = GetXmlAttribute(element, c_elementTypeFullName);
       _parentAbsoluteId = GetXmlAttribute(element, c_parentAbsoluteId);
       _text = GetXmlAttribute(element, c_text);
     }
 
-    protected DynamicTask (IIdentity identity, [CanBeNull] string text)
+    public DynamicTask (Type taskType, IIdentity identity, [CanBeNull] string text)
         : base(identity)
     {
+      _taskTypeFullName = taskType.FullName;
       _parentAbsoluteId = identity.Parent != null ? identity.Parent.Absolute : null;
       _text = text;
     }
@@ -45,6 +49,7 @@ namespace TestFx.ReSharper.Runner.Tasks
     public override void SaveXml (XmlElement element)
     {
       base.SaveXml(element);
+      SetXmlAttribute(element, c_elementTypeFullName, _taskTypeFullName);
       SetXmlAttribute(element, c_parentAbsoluteId, _parentAbsoluteId);
       SetXmlAttribute(element, c_text, _text);
     }
@@ -52,6 +57,11 @@ namespace TestFx.ReSharper.Runner.Tasks
     public override bool IsMeaningfulTask
     {
       get { return true; }
+    }
+
+    public string TaskTypeFullName
+    {
+      get { return _taskTypeFullName; }
     }
 
     public string ParentAbsoluteId

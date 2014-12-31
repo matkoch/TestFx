@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Xml;
 using JetBrains.Annotations;
 using JetBrains.ProjectModel;
@@ -78,6 +77,5 @@ namespace TestFx.ReSharper.UnitTesting
     {
       get { return _unitTestProvider; }
     }
-
   }
 }

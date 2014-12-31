@@ -65,6 +65,9 @@ namespace TestFx.ReSharper.Runner
     {
       var operationResults = result.SetupResults.Concat(new FillingOperationResult()).Concat(result.CleanupResults);
       Finished(result, operationResults, result.OutputEntries, task);
+
+      result.SuiteResults.Where(TaskDoesNotExist).ForEach(CreateDynamicTask);
+      result.TestResults.Where(TaskDoesNotExist).ForEach(CreateDynamicTask);
     }
 
     private void Finished (ITestResult result, Task task)
@@ -118,11 +121,31 @@ namespace TestFx.ReSharper.Runner
       return builder.ToString();
     }
 
+    private void CreateDynamicTask (ISuiteResult result)
+    {
+      var dynamicTask = new DynamicTask(typeof (SuiteTask), result.Identity, result.Text);
+      _server.CreateDynamicElement(dynamicTask);
+      Finished(result, dynamicTask);
+    }
+
+    private void CreateDynamicTask (ITestResult result)
+    {
+      var dynamicTask = new DynamicTask(typeof (TestTask), result.Identity, result.Text);
+      _server.CreateDynamicElement(dynamicTask);
+      Finished(result, dynamicTask);
+    }
+
     private void IfTaskExists<T> (Action<T, Task> action, T node) where T : IIdentifiable
     {
       var task = GetTask(node.Identity);
       if (task != null)
         action(node, task);
+    }
+
+    private bool TaskDoesNotExist (IResult result)
+    {
+      var task = GetTask(result.Identity);
+      return task == null;
     }
 
     private Task GetTask (IIdentity identity)
