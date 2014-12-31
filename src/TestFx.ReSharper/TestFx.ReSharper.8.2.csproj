@@ -118,10 +118,10 @@
     <Compile Include="UnitTesting\Explorers\UnitTestFileExplorerEx.cs" />
     <Compile Include="UnitTesting\Explorers\UnitTestMetadataExplorerEx.R8.cs" />
     <Compile Include="UnitTesting\Explorers\UnitTestMetadataExplorerEx.cs" />
-    <Compile Include="UnitTesting\Serialization\SuiteEntitySurrogate.cs" />
-    <Compile Include="UnitTesting\Serialization\TestEntitySurrogate.cs" />
-    <Compile Include="UnitTesting\Serialization\UnitTestElementSerializerEx.cs" />
-    <Compile Include="UnitTesting\Serialization\UnitTestEntitySurrogateBase.cs" />
+    <Compile Include="Model\Surrogates\SuiteEntitySurrogate.cs" />
+    <Compile Include="Model\Surrogates\TestEntitySurrogate.cs" />
+    <Compile Include="UnitTesting\UnitTestElementSerializerEx.cs" />
+    <Compile Include="Model\Surrogates\UnitTestEntitySurrogateBase.cs" />
     <Compile Include="UnitTesting\UnitTestProviderEx.cs" />
     <Compile Include="UnitTesting\UnitTestProviderEx.R8.cs" />
     <Compile Include="UnitTesting\Utilities\UnitTestEntityExtensions.cs" />

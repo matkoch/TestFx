@@ -13,28 +13,16 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using JetBrains.ProjectModel;
-using TestFx.ReSharper.Model;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.UnitTesting.Serialization
+namespace TestFx.ReSharper.Model.Surrogates
 {
-  public class SuiteEntitySurrogate : UnitTestEntitySurrogateBase, ISuiteEntity
+  public class TestEntitySurrogate : UnitTestEntitySurrogateBase, ITestEntity
   {
-    public SuiteEntitySurrogate (IIdentity identity, IProject project, string text)
+    public TestEntitySurrogate (IIdentity identity, IProject project, string text)
         : base(identity, project, text)
     {
-    }
-
-    public IEnumerable<ISuiteEntity> SuiteEntities
-    {
-      get { yield break; }
-    }
-
-    public IEnumerable<ITestEntity> TestEntities
-    {
-      get { yield break; }
     }
   }
 }

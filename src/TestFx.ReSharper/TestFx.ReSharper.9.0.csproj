@@ -168,6 +168,9 @@
     <Compile Include="Model\Metadata\Wrapper\MetadataEntityBase.cs" />
     <Compile Include="Model\Metadata\Wrapper\MetadataTypeInfoBase.cs" />
     <Compile Include="Model\Metadata\Wrapper\UnitTestMetadataBase.cs" />
+    <Compile Include="Model\Surrogates\SuiteEntitySurrogate.cs" />
+    <Compile Include="Model\Surrogates\TestEntitySurrogate.cs" />
+    <Compile Include="Model\Surrogates\UnitTestEntitySurrogateBase.cs" />
     <Compile Include="Model\Tree\Aggregation\FileAggregator.cs" />
     <Compile Include="Model\Tree\Aggregation\FileAggregatorFactory.cs" />
     <Compile Include="Model\Tree\Aggregation\FileExtensions.cs" />
@@ -209,10 +212,7 @@
     <Compile Include="UnitTesting\Explorers\UnitTestMetadataExplorerEx.cs" />
     <Compile Include="UnitTesting\Explorers\UnitTestMetadataExplorerEx.R9.cs" />
     <Compile Include="UnitTesting\MetadataElementsSourceEx.cs" />
-    <Compile Include="UnitTesting\Serialization\SuiteEntitySurrogate.cs" />
-    <Compile Include="UnitTesting\Serialization\TestEntitySurrogate.cs" />
-    <Compile Include="UnitTesting\Serialization\UnitTestElementSerializerEx.cs" />
-    <Compile Include="UnitTesting\Serialization\UnitTestEntitySurrogateBase.cs" />
+    <Compile Include="UnitTesting\UnitTestElementSerializerEx.cs" />
     <Compile Include="UnitTesting\UnitTestProviderEx.cs" />
     <Compile Include="UnitTesting\UnitTestSource.cs" />
     <Compile Include="UnitTesting\Utilities\UnitTestElementManagerExtensions.R9.cs" />

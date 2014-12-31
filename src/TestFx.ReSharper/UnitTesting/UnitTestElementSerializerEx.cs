@@ -21,7 +21,7 @@ using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.UnitTesting.Serialization
+namespace TestFx.ReSharper.UnitTesting
 {
   public interface IUnitTestElementSerializerEx : IUnitTestElementSerializer
   {

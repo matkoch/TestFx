@@ -14,16 +14,36 @@
 
 using System;
 using JetBrains.ProjectModel;
-using TestFx.ReSharper.Model;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.UnitTesting.Serialization
+namespace TestFx.ReSharper.Model.Surrogates
 {
-  public class TestEntitySurrogate : UnitTestEntitySurrogateBase, ITestEntity
+  public abstract class UnitTestEntitySurrogateBase : IUnitTestEntity
   {
-    public TestEntitySurrogate (IIdentity identity, IProject project, string text)
-        : base(identity, project, text)
+    private readonly IIdentity _identity;
+    private readonly IProject _project;
+    private readonly string _text;
+
+    protected UnitTestEntitySurrogateBase (IIdentity identity, IProject project, string text)
     {
+      _identity = identity;
+      _project = project;
+      _text = text;
+    }
+
+    public IIdentity Identity
+    {
+      get { return _identity; }
+    }
+
+    public IProject Project
+    {
+      get { return _project; }
+    }
+
+    public string Text
+    {
+      get { return _text; }
     }
   }
 }

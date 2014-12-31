@@ -19,8 +19,8 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.ReSharper.UnitTestFramework.Elements;
 using TestFx.ReSharper.Model;
+using TestFx.ReSharper.Model.Surrogates;
 using TestFx.ReSharper.Runner.Tasks;
-using TestFx.ReSharper.UnitTesting.Serialization;
 using TestFx.ReSharper.UnitTesting.Utilities;
 using TestFx.Utilities;
 
