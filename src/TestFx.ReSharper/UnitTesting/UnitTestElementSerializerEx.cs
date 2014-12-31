@@ -35,20 +35,15 @@ namespace TestFx.ReSharper.UnitTesting
     private const string c_text = "text";
     private const string c_absoluteId = "absoluteId";
 
+    private readonly IUnitTestElementFactoryEx _unitTestElementFactory;
     private readonly IUnitTestProviderEx _unitTestProvider;
     private readonly ISolution _solution;
-    private readonly Dictionary<string, Func<IIdentity, IProject, string, IUnitTestElement>> _factoryMethods;
 
     public UnitTestElementSerializerEx (IUnitTestElementFactoryEx unitTestElementFactory, IUnitTestProviderEx unitTestProvider, ISolution solution)
     {
+      _unitTestElementFactory = unitTestElementFactory;
       _unitTestProvider = unitTestProvider;
       _solution = solution;
-      _factoryMethods = new Dictionary<string, Func<IIdentity, IProject, string, IUnitTestElement>>
-                        {
-                            { typeof (ClassSuiteElement).FullName, unitTestElementFactory.GetOrCreateClassSuite },
-                            { typeof (SuiteElement).FullName, unitTestElementFactory.GetOrCreateSuite },
-                            { typeof (TestElement).FullName, unitTestElementFactory.GetOrCreateTest },
-                        };
     }
 
     public void SerializeElement (XmlElement xmlElement, IUnitTestElement element)
@@ -68,7 +63,7 @@ namespace TestFx.ReSharper.UnitTesting
 
     public IUnitTestElement DeserializeElement (XmlElement xmlElement, [CanBeNull] IUnitTestElement parentElement)
     {
-      var elementType = xmlElement.GetAttribute(c_elementType);
+      var elementTypeFullName = xmlElement.GetAttribute(c_elementType);
       var absoluteId = xmlElement.GetAttribute(c_absoluteId);
       var projectId = xmlElement.GetAttribute(c_projectId);
       var text = xmlElement.GetAttribute(c_text);
@@ -76,8 +71,7 @@ namespace TestFx.ReSharper.UnitTesting
       var identity = Identity.Parse(absoluteId);
       var project = ProjectUtil.FindProjectElementByPersistentID(_solution, projectId).GetProject();
 
-      var factory = _factoryMethods[elementType];
-      return factory(identity, project, text);
+      return _unitTestElementFactory.GetOrCreateSingleElement(elementTypeFullName, identity, project, text);
     }
 
     public IUnitTestProvider Provider

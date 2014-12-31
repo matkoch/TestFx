@@ -54,7 +54,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
       using (ReadLockCookie.Create())
       {
         var assemblySuite = assembly.ToAssemblySuite(project, notInterrupted);
-        var suiteElements = assemblySuite.SuiteEntities.Select(_unitTestElementFactory.GetOrCreateClassSuite);
+        var suiteElements = assemblySuite.SuiteEntities.Select(_unitTestElementFactory.GetOrCreateClassSuiteRecursively);
         suiteElements.SelectMany(x => x.Flatten(y => y.Children)).ForEach(consumer);
       }
     }
