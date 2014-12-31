@@ -35,21 +35,19 @@ namespace TestFx.ReSharper.UnitTesting.Serialization
     private const string c_text = "text";
     private const string c_absoluteId = "absoluteId";
 
-    private readonly IUnitTestElementFactoryEx _unitTestElementFactory;
     private readonly IUnitTestProviderEx _unitTestProvider;
     private readonly ISolution _solution;
     private readonly Dictionary<string, Func<IIdentity, IProject, string, IUnitTestElement>> _factoryMethods;
 
     public UnitTestElementSerializerEx (IUnitTestElementFactoryEx unitTestElementFactory, IUnitTestProviderEx unitTestProvider, ISolution solution)
     {
-      _unitTestElementFactory = unitTestElementFactory;
       _unitTestProvider = unitTestProvider;
       _solution = solution;
       _factoryMethods = new Dictionary<string, Func<IIdentity, IProject, string, IUnitTestElement>>
                         {
-                            { typeof (ClassSuiteElement).FullName, GetOrCreateClassSuite },
-                            { typeof (SuiteElement).FullName, GetOrCreateSuite },
-                            { typeof (TestElement).FullName, GetOrCreateTest },
+                            { typeof (ClassSuiteElement).FullName, unitTestElementFactory.GetOrCreateClassSuite },
+                            { typeof (SuiteElement).FullName, unitTestElementFactory.GetOrCreateSuite },
+                            { typeof (TestElement).FullName, unitTestElementFactory.GetOrCreateTest },
                         };
     }
 
@@ -87,22 +85,5 @@ namespace TestFx.ReSharper.UnitTesting.Serialization
       get { return _unitTestProvider; }
     }
 
-    private IUnitTestElement GetOrCreateClassSuite (IIdentity identity, IProject project, string text)
-    {
-      var suiteEntity = new SuiteEntitySurrogate(identity, project, text);
-      return _unitTestElementFactory.GetOrCreateClassSuite(suiteEntity);
-    }
-
-    private IUnitTestElement GetOrCreateSuite (IIdentity identity, IProject project, string text)
-    {
-      var suiteEntity = new SuiteEntitySurrogate(identity, project, text);
-      return _unitTestElementFactory.GetOrCreateSuite(suiteEntity);
-    }
-
-    private IUnitTestElement GetOrCreateTest (IIdentity identity, IProject project, string text)
-    {
-      var testEntity = new TestEntitySurrogate(identity, project, text);
-      return _unitTestElementFactory.GetOrCreateTest(testEntity);
-    }
   }
 }

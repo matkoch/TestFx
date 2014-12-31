@@ -20,6 +20,7 @@ using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.ReSharper.UnitTestFramework.Elements;
 using TestFx.ReSharper.Model;
 using TestFx.ReSharper.Runner.Tasks;
+using TestFx.ReSharper.UnitTesting.Serialization;
 using TestFx.ReSharper.UnitTesting.Utilities;
 using TestFx.Utilities;
 
@@ -27,6 +28,10 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 {
   public interface IUnitTestElementFactoryEx
   {
+    IUnitTestElement GetOrCreateClassSuite (IIdentity identity, IProject project, string text);
+    IUnitTestElement GetOrCreateSuite (IIdentity identity, IProject project, string text);
+    IUnitTestElement GetOrCreateTest (IIdentity identity, IProject project, string text);
+
     IUnitTestElement GetOrCreateClassSuite (ISuiteEntity suiteEntity);
     IUnitTestElement GetOrCreateSuite (ISuiteEntity suiteEntity);
     IUnitTestElement GetOrCreateTest (ITestEntity testEntity);
@@ -42,6 +47,24 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
       _unitTestProvider = unitTestProvider;
       _unitTestElementManager = unitTestElementManager;
+    }
+
+    public IUnitTestElement GetOrCreateClassSuite (IIdentity identity, IProject project, string text)
+    {
+      var suiteEntity = new SuiteEntitySurrogate(identity, project, text);
+      return GetOrCreateClassSuite(suiteEntity);
+    }
+
+    public IUnitTestElement GetOrCreateSuite (IIdentity identity, IProject project, string text)
+    {
+      var suiteEntity = new SuiteEntitySurrogate(identity, project, text);
+      return GetOrCreateSuite(suiteEntity);
+    }
+
+    public IUnitTestElement GetOrCreateTest (IIdentity identity, IProject project, string text)
+    {
+      var testEntity = new TestEntitySurrogate(identity, project, text);
+      return GetOrCreateTest(testEntity);
     }
 
     public IUnitTestElement GetOrCreateClassSuite (ISuiteEntity suiteEntity)
