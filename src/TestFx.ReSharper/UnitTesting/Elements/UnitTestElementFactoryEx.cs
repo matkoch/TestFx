@@ -30,7 +30,13 @@ namespace TestFx.ReSharper.UnitTesting.Elements
   public interface IUnitTestElementFactoryEx
   {
     IUnitTestElement GetOrCreateClassSuiteRecursively (ISuiteEntity suiteEntity);
-    IUnitTestElement GetOrCreateSingleElement (string elementTypeFullName, IIdentity identity, IProject project, string text);
+
+    IUnitTestElement GetOrCreateSingleElement (
+        string elementTypeFullName,
+        IIdentity identity,
+        IProject project,
+        string text,
+        [CanBeNull] IUnitTestElement parentElement);
   }
 
   [SolutionComponent]
@@ -61,7 +67,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
                   identity,
                   new Task[] { new RunTask(), new AssemblySuiteTask(identity.Parent), new SuiteTask(identity) }));
 
-      AppendChildren(element, suiteEntity);
+      CreateAndAppendChildren(element, suiteEntity);
       return element;
     }
 
@@ -71,7 +77,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
           suiteEntity,
           identity => new SuiteElement(identity, new Task[] { new SuiteTask(identity) }));
 
-      AppendChildren(element, suiteEntity);
+      CreateAndAppendChildren(element, suiteEntity);
       return element;
     }
 
@@ -95,15 +101,22 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return element;
     }
 
-    private void AppendChildren (IUnitTestElement suiteElement, ISuiteEntity suiteEntity)
+    private void CreateAndAppendChildren (IUnitTestElement suiteElement, ISuiteEntity suiteEntity)
     {
       suiteEntity.SuiteEntities.Select(GetOrCreateSuite).ForEach(x => x.Parent = suiteElement);
       suiteEntity.TestEntities.Select(GetOrCreateTest).ForEach(x => x.Parent = suiteElement);
     }
-    
-    public IUnitTestElement GetOrCreateSingleElement (string elementTypeFullName, IIdentity identity, IProject project, string text)
+
+    public IUnitTestElement GetOrCreateSingleElement (
+        string elementTypeFullName,
+        IIdentity identity,
+        IProject project,
+        string text,
+        [CanBeNull] IUnitTestElement parentElement)
     {
-      return _factoryMethods[elementTypeFullName](identity, project, text);
+      var element = _factoryMethods[elementTypeFullName](identity, project, text);
+      element.Parent = parentElement;
+      return element;
     }
 
     private IUnitTestElement GetOrCreateClassSuite (IIdentity identity, IProject project, string text)

@@ -70,7 +70,7 @@ namespace TestFx.ReSharper.UnitTesting
       var identity = Identity.Parse(absoluteId);
       var project = ProjectUtil.FindProjectElementByPersistentID(_solution, projectId).GetProject();
 
-      return _unitTestElementFactory.GetOrCreateSingleElement(elementTypeFullName, identity, project, text);
+      return _unitTestElementFactory.GetOrCreateSingleElement(elementTypeFullName, identity, project, text, parentElement);
     }
 
     public IUnitTestProvider Provider
