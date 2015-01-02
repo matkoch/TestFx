@@ -14,9 +14,6 @@
 
 using System;
 using FluentAssertions;
-using NUnit.Framework;
-using TestFx.Evaluation.Results;
-using TestFx.Extensibility.Providers;
 
 namespace TestFx.Specifications.IntegrationTests
 {
@@ -54,8 +51,16 @@ namespace TestFx.Specifications.IntegrationTests
       public string Property { get; set; }
     }
   }
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using Evaluation.Results;
+  using Extensibility.Providers;
+  using NUnit.Framework;
+
   public class ContextBehaviorTest : TestBase<ContextBehaviorSpecK>
   {
     [Test]
@@ -68,5 +73,6 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (OperationResults[3], "<OPERATION>", "has property set to null", State.Failed, OperationType.Assertion);
     }
   }
-#endif
 }
+
+#endif

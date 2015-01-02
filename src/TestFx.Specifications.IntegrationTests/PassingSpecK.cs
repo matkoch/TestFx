@@ -13,11 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Linq;
-using FluentAssertions;
-using NUnit.Framework;
-using TestFx.Evaluation.Results;
-using TestFx.Extensibility.Providers;
 
 namespace TestFx.Specifications.IntegrationTests
 {
@@ -32,8 +27,18 @@ namespace TestFx.Specifications.IntegrationTests
               .It ("Assertion", x => { }));
     }
   }
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using Evaluation.Results;
+  using Extensibility.Providers;
+  using FluentAssertions;
+  using NUnit.Framework;
+  using System.Linq;
+
   public class PassingTest : TestBase<PassingSpecK>
   {
     [Test]
@@ -57,5 +62,6 @@ namespace TestFx.Specifications.IntegrationTests
       //        @"» 0 » 0 » 3");
     }
   }
-#endif
 }
+
+#endif

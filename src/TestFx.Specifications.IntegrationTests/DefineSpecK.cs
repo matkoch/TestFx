@@ -14,8 +14,6 @@
 
 using System;
 using FluentAssertions;
-using NUnit.Framework;
-using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests
 {
@@ -42,8 +40,15 @@ namespace TestFx.Specifications.IntegrationTests
       public int Integer { get { return _integer; } set { _integer = value + 1; } }
     }
   }
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using Evaluation.Results;
+  using NUnit.Framework;
+
   public class DefineTest : TestBase<DefineSpecK>
   {
     [Test]
@@ -52,5 +57,6 @@ namespace TestFx.Specifications.IntegrationTests
       RunResult.State.Should ().Be (State.Passed);
     }
   }
-#endif
 }
+
+#endif

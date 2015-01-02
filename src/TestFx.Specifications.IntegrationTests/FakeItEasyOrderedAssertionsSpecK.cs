@@ -14,8 +14,6 @@
 
 using System;
 using FluentAssertions;
-using NUnit.Framework;
-using TestFx.Evaluation.Results;
 using TestFx.FakeItEasy;
 
 namespace TestFx.Specifications.IntegrationTests
@@ -39,9 +37,16 @@ namespace TestFx.Specifications.IntegrationTests
                   x => Disposable.Dispose ())
               .It ("Returns service from provider", x => x.Result.Should ().BeSameAs (Service)));
     }
-  }
+  } 
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using Evaluation.Results;
+  using NUnit.Framework;
+
   public class FakeItEasyOrderedAssertionsTest : TestBase<FakeItEasyOrderedAssertionsSpecK>
   {
     [Test]
@@ -54,5 +59,6 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (OperationResults[10], "<OPERATION>", "Returns service from provider", State.Passed);
     }
   }
-#endif
 }
+
+#endif

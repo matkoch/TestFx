@@ -14,9 +14,6 @@
 
 using System;
 using FakeItEasy;
-using FluentAssertions;
-using NUnit.Framework;
-using TestFx.Evaluation.Results;
 using TestFx.FakeItEasy;
 
 namespace TestFx.Specifications.IntegrationTests
@@ -38,8 +35,16 @@ namespace TestFx.Specifications.IntegrationTests
               .ItReturns (x => OtherService));
     }
   }
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using Evaluation.Results;
+  using FluentAssertions;
+  using NUnit.Framework;
+
   public class FakeItEasyCallConfigurationTest : TestBase<FakeItEasyCallConfigurationSpecK>
   {
     [Test]
@@ -53,5 +58,6 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (OperationResults[11], "<OPERATION>", "Returns OtherService", State.Passed);
     }
   }
-#endif
 }
+
+#endif

@@ -13,10 +13,6 @@
 // limitations under the License.
 
 using System;
-using FluentAssertions;
-using NUnit.Framework;
-using TestFx.Evaluation.Results;
-using TestFx.Extensibility.Providers;
 
 namespace TestFx.Specifications.IntegrationTests
 {
@@ -32,8 +28,17 @@ namespace TestFx.Specifications.IntegrationTests
               .It ("Halted assertion", x => { }));
     }
   }
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using Evaluation.Results;
+  using Extensibility.Providers;
+  using FluentAssertions;
+  using NUnit.Framework;
+
   public class HaltingTest : TestBase<HaltingSpecK>
   {
     [Test]
@@ -45,5 +50,6 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (OperationResults[0], "<OPERATION>", "Throwing arrangement", State.Failed, OperationType.Action);
     }
   }
-#endif
 }
+
+#endif

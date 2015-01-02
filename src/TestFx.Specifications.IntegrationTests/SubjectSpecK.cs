@@ -16,8 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using FluentAssertions;
-using NUnit.Framework;
-using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests
 {
@@ -64,8 +62,15 @@ namespace TestFx.Specifications.IntegrationTests
       public IEnumerable<string> Strings { get { return _strings; } }
     }
   }
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using Evaluation.Results;
+  using NUnit.Framework;
+
   public class SubjectTest : TestBase<SubjectSpecK>
   {
     [Test]
@@ -77,5 +82,6 @@ namespace TestFx.Specifications.IntegrationTests
       SubjectSpecK.DomainType.ConstructorCalls.Should ().Be (2);
     }
   }
-#endif
 }
+
+#endif

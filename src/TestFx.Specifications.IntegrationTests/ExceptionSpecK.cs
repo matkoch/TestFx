@@ -13,11 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Linq;
-using FluentAssertions;
-using NUnit.Framework;
-using TestFx.Evaluation.Results;
-using TestFx.Utilities;
 using UserNamespace;
 
 namespace UserNamespace
@@ -59,8 +54,18 @@ namespace TestFx.Specifications.IntegrationTests
               .It ("asserts something different", x => { }));
     }
   }
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using System.Linq;
+  using Evaluation.Results;
+  using FluentAssertions;
+  using NUnit.Framework;
+  using Utilities;
+
   public class ExceptionTest : TestBase<ExceptionSpecK>
   {
     [Test]
@@ -79,5 +84,6 @@ namespace TestFx.Specifications.IntegrationTests
       actException.Message.Should ().Be ("Message\r\n---> InnerMessage");
     }
   }
-#endif
 }
+
+#endif

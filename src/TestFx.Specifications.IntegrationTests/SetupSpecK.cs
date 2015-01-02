@@ -13,10 +13,7 @@
 // limitations under the License.
 
 using System;
-using System.Linq;
 using FakeItEasy;
-using FluentAssertions;
-using NUnit.Framework;
 using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.IntegrationTests
@@ -58,8 +55,16 @@ namespace TestFx.Specifications.IntegrationTests
       CleanupOnceAction1 ();
     }
   }
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+using System.Linq;
+  using FluentAssertions;
+  using NUnit.Framework;
+
   public class SetupTest : TestBase<SetupSpecK>
   {
     [Test]
@@ -86,5 +91,6 @@ namespace TestFx.Specifications.IntegrationTests
       TypeResults[0].CleanupResults.ElementAt (1).Text.Should ().Be ("CleanupOnceMethod");
     }
   }
-#endif
 }
+
+#endif

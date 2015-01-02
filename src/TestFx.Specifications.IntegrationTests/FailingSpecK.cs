@@ -14,9 +14,6 @@
 
 using System;
 using FluentAssertions;
-using NUnit.Framework;
-using TestFx.Evaluation.Results;
-using TestFx.Extensibility.Providers;
 
 namespace TestFx.Specifications.IntegrationTests
 {
@@ -31,8 +28,16 @@ namespace TestFx.Specifications.IntegrationTests
               .It ("Passing assertion", x => x.Result.Should ().Be (1)));
     }
   }
+}
 
 #if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using Evaluation.Results;
+  using Extensibility.Providers;
+  using NUnit.Framework;
+
   public class FailingTest : TestBase<FailingSpecK>
   {
     [Test]
@@ -44,5 +49,6 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (OperationResults[2], "<OPERATION>", "Passing assertion", State.Passed, OperationType.Assertion);
     }
   }
-#endif
 }
+
+#endif
