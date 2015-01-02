@@ -14,7 +14,6 @@
 
 using System;
 using FakeItEasy;
-using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.IntegrationTests
 {

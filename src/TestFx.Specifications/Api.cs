@@ -38,6 +38,27 @@ namespace TestFx.Specifications
 
   #endregion
 
+  #region ITestContext<TSubject, TResult> / ITestContext<TSubject> interfaces
+
+  public interface ITestContext : Extensibility.Contexts.ITestContext
+  {
+    Exception Exception { get; }
+    TimeSpan Duration { get; }
+  }
+
+  public interface ITestContext<out TSubject> : ITestContext
+  {
+    TSubject Subject { get; }
+  }
+
+  public interface ITestContext<out TSubject, out TResult, out TVars> : ITestContext<TSubject>
+  {
+    TResult Result { get; }
+    TVars Vars { get; }
+  }
+
+  #endregion
+
   #region Attributes
 
   [MeansImplicitUse (ImplicitUseTargetFlags.WithMembers)]
@@ -77,28 +98,6 @@ namespace TestFx.Specifications
 
   namespace InferredApi
   {
-
-    #region ITestContext<TSubject, TResult> / ITestContext<TSubject> interfaces
-
-    public interface ITestContext : Extensibility.Contexts.ITestContext
-    {
-      Exception Exception { get; }
-      TimeSpan Duration { get; }
-    }
-
-    public interface ITestContext<out TSubject> : ITestContext
-    {
-      TSubject Subject { get; }
-    }
-
-    public interface ITestContext<out TSubject, out TResult, out TVars> : ITestContext<TSubject>
-    {
-      TResult Result { get; }
-      TVars Vars { get; }
-    }
-
-    #endregion
-
     #region Arrangement / Assertion delegates
 
     // TODO: only ITestContext<TSubject>
