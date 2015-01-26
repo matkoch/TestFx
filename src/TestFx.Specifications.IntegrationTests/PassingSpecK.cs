@@ -54,12 +54,8 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (OperationResults[1], "<OPERATION>", "Console.WriteLine(True)", State.Passed, OperationType.Action);
       AssertResult (OperationResults[2], "<OPERATION>", "Assertion", State.Passed, OperationType.Assertion);
 
-      //assertion.GetAbsoluteId ().Should ()
-      //    .Be (
-      //        @"C:\Users\matthias.koch\Desktop\SpecK\src\SpecK.Framework.IntegrationTests\bin\Debug\SpecK.Framework.IntegrationTests.dll " +
-      //        @"» Spe_cK.Framework.IntegrationTests.PassingSpecs " +
-      //        @"» .ctor " +
-      //        @"» 0 » 0 » 3");
+      TestResults.Single ().Identity.Absolute.Should ()
+          .EndWith (@"TestFx.Specifications.IntegrationTests.dll » TestFx.Specifications.IntegrationTests.PassingSpecK » 0 » 0");
     }
   }
 }
