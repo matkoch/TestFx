@@ -80,7 +80,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return _identity.GetProject();
     }
 
-    public string ShortName
+    public virtual string ShortName
     {
       get { return Identity.Relative; }
     }

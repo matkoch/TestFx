@@ -37,6 +37,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
   public class ClassSuiteElement : ElementBase
   {
     private readonly ClrTypeName _suiteTypeName;
+    private string _shortName;
 
     public ClassSuiteElement (IUnitTestIdentity identity, IList<Task> tasks)
         : base(identity, tasks)
@@ -52,6 +53,11 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     public override UnitTestElementKind ElementKind
     {
       get { return UnitTestElementKind.TestContainer; }
+    }
+
+    public override string ShortName
+    {
+      get { return _suiteTypeName.ShortName; }
     }
 
     [CanBeNull]

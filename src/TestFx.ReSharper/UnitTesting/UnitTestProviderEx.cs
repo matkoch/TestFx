@@ -19,8 +19,10 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
+using TestFx.Extensibility;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Elements;
+using TestFx.ReSharper.Utilities.Psi;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting
@@ -58,7 +60,17 @@ namespace TestFx.ReSharper.UnitTesting
 
     public bool IsElementOfKind (IDeclaredElement declaredElement, UnitTestElementKind elementKind)
     {
-      throw new NotSupportedException();
+      var clazz = declaredElement.As<ITypeElement>();
+      if (clazz == null)
+      {
+        var member = declaredElement.As<ITypeMember>();
+        if (member == null)
+          return false;
+
+        clazz = member.GetContainingType();
+      }
+
+      return clazz.GetAttributeData<SubjectAttributeBase>() != null;
     }
 
     public bool IsElementOfKind (IUnitTestElement element, UnitTestElementKind elementKind)
