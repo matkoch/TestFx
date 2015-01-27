@@ -14,16 +14,14 @@
 
 using System;
 using System.Diagnostics;
-using JetBrains.Annotations;
 
 namespace TestFx.Utilities
 {
-  public static partial class ObjectExtensions
+  public static class ObjectToExtensions
   {
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
-    [CanBeNull]
-    public static T To<T> ([CanBeNull] this object obj)
+    public static T To<T> (this object obj)
     {
       return (T) obj;
     }
