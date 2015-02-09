@@ -14,7 +14,6 @@
 
 using System;
 using TestFx.Extensibility.Contexts;
-using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Contexts
 {

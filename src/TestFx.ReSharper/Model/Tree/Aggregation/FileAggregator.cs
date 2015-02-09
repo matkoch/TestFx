@@ -40,7 +40,6 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       _identityProvider = identityProvider;
       _project = project;
       _notInterrupted = notInterrupted;
-      ;
     }
 
     public ISuiteFile GetSuiteFile (ICSharpFile csharpFile)

@@ -37,7 +37,6 @@ namespace TestFx.ReSharper.UnitTesting.Elements
   public class ClassSuiteElement : ElementBase
   {
     private readonly ClrTypeName _suiteTypeName;
-    private string _shortName;
 
     public ClassSuiteElement (IUnitTestIdentity identity, IList<Task> tasks)
         : base(identity, tasks)
