@@ -27,7 +27,6 @@ namespace TestFx.Specifications.Implementation
   {
     private readonly IControllerFactory _controllerFactory;
     private readonly ISubjectFactoryGenerator _subjectFactoryGenerator;
-    private readonly IIntrospectionPresenter _introspectionPresenter;
 
     public SpecKTypeLoader (
         IControllerFactory controllerFactory,
@@ -37,7 +36,6 @@ namespace TestFx.Specifications.Implementation
     {
       _controllerFactory = controllerFactory;
       _subjectFactoryGenerator = subjectFactoryGenerator;
-      _introspectionPresenter = introspectionPresenter;
     }
 
     protected override void InitializeTypeSpecificFields (ISpecK suite, SuiteProvider provider)
