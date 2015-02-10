@@ -17,7 +17,7 @@ $Targets       = ?? ${env:Targets}         "Rebuild"
 $BuildRunner   = ?? ${env:BuildRunner}     "Local"
 
 $OutputDir     = Join-Path $SolutionDir "output"
-$NuspecdDir      = Join-Path $SolutionDir "nuspec"
+$NuspecdDir    = Join-Path $SolutionDir "nuspec"
 $ToolsDir      = Join-Path $SolutionDir "tools"
 $SourceDir     = Join-Path $SolutionDir "src"
 $MsBuild       = "C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe"
