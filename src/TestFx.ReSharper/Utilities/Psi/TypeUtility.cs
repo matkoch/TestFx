@@ -34,7 +34,7 @@ namespace TestFx.ReSharper.Utilities.Psi
 
     public IEnumerable<ITypeElement> GetImplementedTypes (IDeclaredType type)
     {
-      return GetImplementedTypes(type.GetTypeElement());
+      return type.IsResolved ? GetImplementedTypes(type.GetTypeElement()) : new ITypeElement[0];
     }
 
     public IEnumerable<ITypeElement> GetImplementedTypes (ITypeElement type)
