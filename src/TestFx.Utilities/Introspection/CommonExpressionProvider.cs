@@ -121,7 +121,7 @@ namespace TestFx.Utilities.Introspection
       private void VisitMemberAccess (CommonMemberAccessExpression expression)
       {
         // TODO: better API for CommonType
-        if (!_strippedTypeFullNames.Any(x => expression.Instance.Type.IsAssignableTo(x)))
+        if (expression.Instance != null && !_strippedTypeFullNames.Any(x => expression.Instance.Type.IsAssignableTo(x)))
         {
           _builder.Append(expression.Instance.Type.Name);
           _builder.Append(".");

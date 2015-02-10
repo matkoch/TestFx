@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Introspection
 {
@@ -24,7 +25,7 @@ namespace TestFx.Utilities.Introspection
     private readonly CommonMemberInfo _member;
     private readonly IEnumerable<CommonExpression> _arguments;
 
-    public CommonMemberAccessExpression (CommonExpression instance, CommonMemberInfo member, IEnumerable<CommonExpression> arguments)
+    public CommonMemberAccessExpression ([CanBeNull] CommonExpression instance, CommonMemberInfo member, IEnumerable<CommonExpression> arguments)
         : base(member.Type)
     {
       _instance = instance;
@@ -32,6 +33,7 @@ namespace TestFx.Utilities.Introspection
       _arguments = arguments.ToList();
     }
 
+    [CanBeNull]
     public CommonExpression Instance
     {
       get { return _instance; }

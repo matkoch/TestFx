@@ -89,10 +89,8 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
       if (declaredElement is ITypeMember)
       {
         var member = declaredElement.To<ITypeMember>();
-        return new CommonMemberAccessExpression(
-            new CommonThisExpression(member.GetContainingType().ToCommon()),
-            member.ToCommon(),
-            new CommonExpression[0]);
+        var instance = member.GetContainingType() != null ? new CommonThisExpression(member.GetContainingType().ToCommon()) : null;
+        return new CommonMemberAccessExpression(instance, member.ToCommon(), new CommonExpression[0]);
       }
 
       throw new Exception("bla");
