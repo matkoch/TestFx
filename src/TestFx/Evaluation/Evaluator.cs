@@ -13,6 +13,8 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using TestFx.Evaluation.Intents;
@@ -37,18 +39,18 @@ namespace TestFx.Evaluation
       return rootRunner.Run(runIntent);
     }
 
-    public static IRunResult Run (params Assembly[] assemblies)
+    public static IRunResult Run (IEnumerable<Assembly> assemblies, params IRunListener[] listeners)
     {
       var runIntent = RunIntent.Create();
       runIntent.AddAssemblies(assemblies);
-      return Run(runIntent);
+      return Run(runIntent, listeners);
     }
 
-    public static IRunResult Run (params Type[] types)
+    public static IRunResult Run (IEnumerable<Type> types, params IRunListener[] listeners)
     {
       var runIntent = RunIntent.Create();
       runIntent.AddTypes(types);
-      return Run(runIntent);
+      return Run(runIntent, listeners);
     }
   }
 }

@@ -18,7 +18,7 @@ namespace TestFx.Evaluation.Results
 {
   public enum State
   {
-    Passed,
+    Passed = 0,
     Failed,
     Ignored,
     NotImplemented,

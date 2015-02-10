@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TestFx.Evaluation.Intents;
@@ -22,12 +23,17 @@ namespace TestFx.Evaluation
 {
   public static class RunIntentExtensions
   {
-    public static void AddAssemblies (this IRunIntent runIntent, params Assembly[] assemblies)
+    public static void AddType (this IRunIntent runIntent, Type type)
+    {
+      runIntent.AddTypes(new[] { type });
+    }
+
+    public static void AddAssemblies (this IRunIntent runIntent, IEnumerable<Assembly> assemblies)
     {
       assemblies.Select(GetIdentity).Select(SuiteIntent.Create).ForEach(runIntent.AddSuiteIntent);
     }
 
-    public static void AddTypes (this IRunIntent runIntent, params Type[] types)
+    public static void AddTypes (this IRunIntent runIntent, IEnumerable<Type> types)
     {
       foreach (var assemblyWithTypes in types.GroupBy(x => x.Assembly))
       {

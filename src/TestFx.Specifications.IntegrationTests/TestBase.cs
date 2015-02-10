@@ -43,7 +43,7 @@ namespace TestFx.Specifications.IntegrationTests
     public void Setup ()
     {
       var runIntent = RunIntent.Create (useSeparateAppDomains: false);
-      runIntent.AddTypes (typeof (T));
+      runIntent.AddType (typeof (T));
 
       using (Scope = Fake.CreateScope ())
       {
