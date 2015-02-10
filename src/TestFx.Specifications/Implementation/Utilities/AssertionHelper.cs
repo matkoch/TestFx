@@ -20,10 +20,11 @@ namespace TestFx.Specifications.Implementation.Utilities
   public static class AssertionHelper
   {
     // TODO: can be null?
-    public static void AssertReferenceEquals (string objectName, [CanBeNull] object expectedObject, [CanBeNull] object actualObject)
+    public static void AssertObjectEquals (string objectName, [CanBeNull] object expectedObject, [CanBeNull] object actualObject)
     {
-      if (expectedObject != actualObject)
-        throw new Exception(String.Format("{0} must be same as '{1}' but was '{2}'.", objectName, expectedObject, actualObject));
+      // TODO: own exception type / 
+      if (!Equals(expectedObject, actualObject))
+        throw new Exception(String.Format("{0} must be equal to '{1}' but was '{2}'.", objectName, expectedObject, actualObject));
     }
 
     public static void AssertInstanceOfType (string objectName, Type expectedType, object actualObject)

@@ -42,7 +42,7 @@ namespace TestFx.Specifications
             if (messageProvider != null)
               AssertionHelper.AssertExceptionMessage(messageProvider(x.Vars), x.Exception);
             if (innerExceptionProvider != null)
-              AssertionHelper.AssertReferenceEquals("InnerException", innerExceptionProvider(x.Vars), x.Exception.AssertNotNull().InnerException);
+              AssertionHelper.AssertObjectEquals("InnerException", innerExceptionProvider(x.Vars), x.Exception.AssertNotNull().InnerException);
           },
           c_expectException);
       return assert;
@@ -69,7 +69,7 @@ namespace TestFx.Specifications
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       controller.AddAssertion(
           "Throws " + exceptionProvider.ToCommon(typeof (TVars)),
-          x => AssertionHelper.AssertReferenceEquals("Exception", exceptionProvider.Compile()(x.Vars), x.Exception),
+          x => AssertionHelper.AssertObjectEquals("Exception", exceptionProvider.Compile()(x.Vars), x.Exception),
           c_expectException);
       return assert;
     }

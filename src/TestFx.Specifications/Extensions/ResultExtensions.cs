@@ -52,7 +52,7 @@ namespace TestFx.Specifications
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       controller.AddAssertion(
           "Returns " + resultProvider.ToCommon(typeof (TVars)),
-          x => AssertionHelper.AssertReferenceEquals("Result", resultProvider.Compile()(x.Vars), x.Result));
+          x => AssertionHelper.AssertObjectEquals("Result", resultProvider.Compile()(x.Vars), x.Result));
       return assert;
     }
   }
