@@ -42,10 +42,10 @@ namespace TestFx.Evaluation.Loading
       return new AssemblyExplorationData(typeLoaders, suiteTypes, assemblySetups);
     }
 
-    private static ITypeLoader CreateTypeLoader (Type suiteBaseType, IEnumerable<ITestExtension> testExtensions)
+    private ITypeLoader CreateTypeLoader (Type suiteBaseType, IEnumerable<ITestExtension> testExtensions)
     {
-      var typeLoaderType = suiteBaseType.GetAttribute<TypeLoaderAttribute>().TypeLoaderType;
-      var operationOrdering = suiteBaseType.GetAttribute<OperationOrderingAttribute>().OperationDescriptors;
+      var typeLoaderType = suiteBaseType.GetAttribute<TypeLoaderAttribute>().AssertNotNull().TypeLoaderType;
+      var operationOrdering = suiteBaseType.GetAttribute<OperationOrderingAttribute>().AssertNotNull().OperationDescriptors;
 
       var builder = new ContainerBuilder();
       builder.RegisterModule<UtilitiesModule>();
@@ -56,7 +56,7 @@ namespace TestFx.Evaluation.Loading
       return (ITypeLoader) container.Resolve(typeLoaderType);
     }
 
-    private static ITestExtension CreateTestExtension (UseTestExtension x)
+    private ITestExtension CreateTestExtension (UseTestExtension x)
     {
       return x.TestExtensionType.CreateInstance<ITestExtension>();
     }
