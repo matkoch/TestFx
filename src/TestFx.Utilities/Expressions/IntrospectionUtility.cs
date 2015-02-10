@@ -53,8 +53,15 @@ namespace TestFx.Utilities.Expressions
         return VisitParameter(expression.To<ParameterExpression>());
       if (expression is NewArrayExpression)
         return VisitNewArray(expression.To<NewArrayExpression>());
+      if (expression is NewExpression)
+        return VisitNew(expression.To<NewExpression>());
 
       throw new Exception(string.Format("Expressions of type {0} are not supported.", expression.GetType()));
+    }
+
+    private CommonExpression VisitNew (NewExpression expression)
+    {
+      return new CommonNewObjectExpression(expression.Type.ToCommon(), expression.Arguments.Select(Visit));
     }
 
     private CommonExpression VisitParameter (ParameterExpression expression)

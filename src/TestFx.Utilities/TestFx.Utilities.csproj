@@ -67,6 +67,7 @@
     <Compile Include="Introspection\CommonInvocationExpression.cs" />
     <Compile Include="Introspection\CommonMemberAccessExpression.cs" />
     <Compile Include="Introspection\CommonMethodInfo.cs" />
+    <Compile Include="Introspection\CommonNewObjectExpression.cs" />
     <Compile Include="Introspection\CommonParameterExpression.cs" />
     <Compile Include="Expressions\IntrospectionUtility.cs" />
     <Compile Include="Introspection\CommonAttribute.cs" />

@@ -57,7 +57,7 @@ namespace TestFx.Utilities.Introspection
       private void Visit (CommonExpression expression)
       {
         if (expression is CommonInvocationExpression)
-          VisitMethodCall(expression.To<CommonInvocationExpression>());
+          VisitInvocation(expression.To<CommonInvocationExpression>());
         else if (expression is CommonConstantExpression)
           VisitConstant(expression.To<CommonConstantExpression>());
         else if (expression is CommonMemberAccessExpression)
@@ -68,8 +68,19 @@ namespace TestFx.Utilities.Introspection
           VisitThis(expression.To<CommonThisExpression>());
         else if (expression is CommonArrayItemsExpression)
           VisitArrayItems(expression.To<CommonArrayItemsExpression>());
+        else if (expression is CommonNewObjectExpression)
+          VisitNewObject(expression.To<CommonNewObjectExpression>());
         else
           throw new Exception(string.Format("Expressions of type {0} are not supported.", expression.GetType()));
+      }
+
+      private void VisitNewObject (CommonNewObjectExpression expression)
+      {
+        _builder.Append("new ").Append(expression.Type.Name);
+
+        _builder.Append("(");
+        VisitEnumerable(expression.Arguments);
+        _builder.Append(")");
       }
 
       private void VisitThis (CommonThisExpression expression)
@@ -77,17 +88,31 @@ namespace TestFx.Utilities.Introspection
         _builder.Append(expression.Type.Name);
       }
 
-      private void VisitMethodCall (CommonInvocationExpression expression)
+      private void VisitInvocation (CommonInvocationExpression expression)
       {
         var instance = expression.Instance;
-        var arguments = expression.Arguments.ToArray();
+        var arguments = expression.Arguments.ToList();
         var method = expression.Method;
         if (method.IsExtension)
         {
           instance = arguments.First();
-          arguments = arguments.Skip(1).ToArray();
+          arguments = arguments.Skip(1).ToList();
         }
 
+        VisitMember(instance, method);
+
+        _builder.Append("(");
+        VisitEnumerable(arguments);
+        _builder.Append(")");
+      }
+
+      private void VisitMemberAccess (CommonMemberAccessExpression expression)
+      {
+        VisitMember(expression.Instance, expression.Member);
+      }
+
+      private void VisitMember (CommonExpression instance, CommonMemberInfo member)
+      {
         if (instance != null)
         {
           if (!_strippedTypeFullNames.Any(x => instance.Type.IsAssignableTo(x)))
@@ -98,16 +123,12 @@ namespace TestFx.Utilities.Introspection
         }
         else
         {
-          Trace.Assert(method.IsStatic);
-          _builder.Append(method.DeclaringType.Name);
+          Trace.Assert(member.IsStatic);
+          _builder.Append(member.DeclaringType.Name);
           _builder.Append(".");
         }
 
-        _builder.Append(method.Name);
-
-        _builder.Append("(");
-        VisitEnumerable(arguments.ToArray());
-        _builder.Append(")");
+        _builder.Append(member.Name);
       }
 
       private void VisitConstant (CommonConstantExpression expression)
@@ -118,61 +139,28 @@ namespace TestFx.Utilities.Introspection
           _builder.Append("\"").Append(expression.Value).Append("\"");
       }
 
-      private void VisitMemberAccess (CommonMemberAccessExpression expression)
-      {
-        // TODO: better API for CommonType
-        if (expression.Instance != null && !_strippedTypeFullNames.Any(x => expression.Instance.Type.IsAssignableTo(x)))
-        {
-          _builder.Append(expression.Instance.Type.Name);
-          _builder.Append(".");
-        }
-        _builder.Append(expression.Member.Name);
-      }
-
       private void VisitArrayItems (CommonArrayItemsExpression expression)
       {
         _builder.Append("[ ");
-        VisitEnumerable(expression.Items.ToArray());
+        VisitEnumerable(expression.Items);
         _builder.Append(" ]");
       }
-
-      //private void VisitUnary (UnaryExpression expression)
-      //{
-      //  Visit(expression.Operand);
-      //}
 
       private void VisitParameter (CommonParameterExpression expression)
       {
         _builder.Append(expression.Type.Name);
       }
 
-      private void VisitEnumerable (CommonExpression[] expressions)
+      private void VisitEnumerable (IEnumerable<CommonExpression> expressions, string value = ", ")
       {
-        for (var i = 0; i < expressions.Length; i++)
+        var expressionList = expressions.ToList();
+        for (var i = 0; i < expressionList.Count; i++)
         {
-          Visit(expressions[i]);
-          if (i < expressions.Length - 1)
-            _builder.Append(", ");
+          Visit(expressionList[i]);
+          if (i < expressionList.Count - 1)
+            _builder.Append(value);
         }
       }
-
-      //private void VisitNewArray (NewArrayExpression expression)
-      //{
-      //  _builder.Append("[");
-
-      //  var items = expression.Expressions;
-      //  for (var i = 0; i < items.Count; i++)
-      //  {
-      //    _builder.Append(" ");
-      //    Visit(items[i]);
-      //    _builder.Append(" ");
-
-      //    if (i < items.Count - 1)
-      //      _builder.Append(",");
-      //  }
-
-      //  _builder.Append("]");
-      //}
 
       public override string ToString ()
       {
