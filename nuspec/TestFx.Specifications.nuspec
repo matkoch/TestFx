@@ -15,7 +15,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="TestFx.Specifications\bin\$configuration$\merged\*" target="lib\net35" />
+    <file src="TestFx.Specifications\bin\$configuration$\TestFx.Specifications.*" target="lib\net35" />
     <file src="TestFx.Specifications\**\*.cs" exclude="obj\**\*" target="src\TestFx.Specifications" />
     <file src="TestFx.Specifications\NuGet\*" target="tools" />
   </files>

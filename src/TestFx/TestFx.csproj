@@ -146,7 +146,7 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>mkdir merged
-$(SolutionDir)\tools\ILMerge\ILMerge.exe /targetplatform:v2 /lib:$(TargetDir) /out:merged\TestFx.dll TestFx.dll TestFx.Utilities.dll Autofac.dll System.Threading.dll /Internalize</PostBuildEvent>
+$(SolutionDir)\tools\ILMerge\ILMerge.exe /targetplatform:v2 /lib:$(TargetDir) /out:merged\TestFx.dll TestFx.dll Autofac.dll System.Threading.dll /Internalize</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

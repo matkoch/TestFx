@@ -13,6 +13,7 @@
   </metadata>
   <files>
     <file src="TestFx\bin\$configuration$\merged\*" target="lib\net35" />
+    <file src="TestFx\bin\$configuration$\TestFx.Utilities.*" target="lib\net35" />
     <file src="TestFx\**\*.cs" exclude="obj\**\*" target="src\TestFx" />
     <!--<file src="TestFx.Specifications\NuGet\*" target="tools" />-->
     <!--<file src="TestFx.Console\bin\$configuration$\SpecK.exe" target="tools" />-->
