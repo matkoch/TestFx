@@ -97,6 +97,7 @@
     <Compile Include="IIdentifiable.cs" />
     <Compile Include="Reflection\PrivateInvokeUtility.cs" />
     <Compile Include="Tuple.cs" />
+    <Compile Include="Type.GetDefault.cs" />
     <Compile Include="Type.GetClosedInterface.cs" />
     <Compile Include="Reflection\TypeExtensions.cs" />
     <Compile Include="UndefinedOrderException.cs" />

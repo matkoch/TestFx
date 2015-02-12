@@ -97,7 +97,7 @@ namespace TestFx.Specifications.Implementation.Controllers
       var testControllerWithSubject = testController.To<ITestController<TSubject>>();
 
       if (typeof (TSubject) != typeof (Dummy))
-        testControllerWithSubject.SetSubjectFactory<SetupSubject>("create subject", x => _suite.CreateSubject());
+        testControllerWithSubject.SetSubjectFactory<SetupSubject>("<SubjectCreation>", x => _suite.CreateSubject());
 
       _testSetupCleanupTuples.ForEach(
           x => testControllerWithSubject.AddSetupCleanup<SetupCommon, CleanupCommon>(ConvertToNonGeneric(x.Item1), ConvertToNonGeneric(x.Item2)));

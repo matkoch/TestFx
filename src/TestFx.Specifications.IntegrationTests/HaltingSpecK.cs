@@ -46,8 +46,9 @@ namespace TestFx.Specifications.IntegrationTests
     {
       RunResult.State.Should ().Be (State.Failed);
 
-      OperationResults.Should ().HaveCount (1);
-      AssertResult (OperationResults[0], "<OPERATION>", "Throwing arrangement", State.Failed, OperationType.Action);
+      OperationResults.Should ().HaveCount (2);
+      AssertResult (OperationResults[0], "<OPERATION>", "<DefaultInitialization>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[1], "<OPERATION>", "Throwing arrangement", State.Failed, OperationType.Action);
     }
   }
 }

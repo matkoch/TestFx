@@ -51,11 +51,13 @@ namespace TestFx.Specifications.IntegrationTests
     public void Test ()
     {
       RunResult.State.Should ().Be (State.Passed);
-
-      AssertResult (OperationResults[3], "<OPERATION>", "ACallTo ServiceProvider.GetService().Throws(MyException)", State.Passed);
-      AssertResult (OperationResults[5], "<OPERATION>", "Throws MyException", State.Passed);
-      AssertResult (OperationResults[9], "<OPERATION>", "ACallTo ServiceProvider.GetService().Returns(OtherService)", State.Passed);
-      AssertResult (OperationResults[11], "<OPERATION>", "Returns OtherService", State.Passed);
+      
+      AssertResult (OperationResults[1], "<OPERATION>", "<FakeCreation>", State.Passed);
+      AssertResult (OperationResults[2], "<OPERATION>", "<FakeSetup>", State.Passed);
+      AssertResult (OperationResults[4], "<OPERATION>", "ACallTo ServiceProvider.GetService().Throws(MyException)", State.Passed);
+      AssertResult (OperationResults[6], "<OPERATION>", "Throws MyException", State.Passed);
+      AssertResult (OperationResults[11], "<OPERATION>", "ACallTo ServiceProvider.GetService().Returns(OtherService)", State.Passed);
+      AssertResult (OperationResults[13], "<OPERATION>", "Returns OtherService", State.Passed);
     }
   }
 }

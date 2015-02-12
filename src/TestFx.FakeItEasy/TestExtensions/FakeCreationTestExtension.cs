@@ -30,7 +30,7 @@ namespace TestFx.FakeItEasy.TestExtensions
       if (fieldsWithAttribute.Count == 0)
         return;
 
-      testController.AddAction<SetupExtension>("create fakes", x => fieldsWithAttribute.ForEach(t => CreateAndAssignFake(suite, t.Item2, t.Item1)));
+      testController.AddAction<SetupExtension>("<FakeCreation>", x => fieldsWithAttribute.ForEach(t => CreateAndAssignFake(suite, t.Item2, t.Item1)));
 
       new FakeSetupTestExtension().Extend(testController, suite);
     }

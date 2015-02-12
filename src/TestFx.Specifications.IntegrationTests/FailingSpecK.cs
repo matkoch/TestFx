@@ -45,8 +45,8 @@ namespace TestFx.Specifications.IntegrationTests
     {
       RunResult.State.Should ().Be (State.Failed);
 
-      AssertResult (OperationResults[1], "<OPERATION>", "Failing assertion", State.Failed, OperationType.Assertion);
-      AssertResult (OperationResults[2], "<OPERATION>", "Passing assertion", State.Passed, OperationType.Assertion);
+      AssertResult (OperationResults[2], "<OPERATION>", "Failing assertion", State.Failed, OperationType.Assertion);
+      AssertResult (OperationResults[3], "<OPERATION>", "Passing assertion", State.Passed, OperationType.Assertion);
     }
   }
 }

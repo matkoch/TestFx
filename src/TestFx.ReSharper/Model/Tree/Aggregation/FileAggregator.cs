@@ -49,7 +49,6 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       var classDeclarations = namespaceDeclarations.Cast<ITypeDeclarationHolder>().SelectMany(x => x.TypeDeclarations)
           .SelectMany(x => x.Flatten(y => y.TypeDeclarations)).OfType<IClassDeclaration>();
 
-      //.SelectMany(x => x.TypeDeclarations).SelectMany(x => x.Flatten(y => y.TypeDeclarations)).OfType<IClassDeclaration>();
       var classSuites = TreeNodeCollection.Create(classDeclarations, x => GetClassSuite(x, assemblyIdentity), _notInterrupted);
 
       return new SuiteFile(classSuites, csharpFile);

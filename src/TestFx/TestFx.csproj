@@ -49,6 +49,7 @@
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
     <Compile Include="Evaluation\EvaluationModule.cs" />
+    <Compile Include="Evaluation\Loading\DefaultInitializationTestExtension.cs" />
     <Compile Include="Evaluation\Loading\SuiteControllerFactory.cs" />
     <Compile Include="Evaluation\RunIntentExtensions.cs" />
     <Compile Include="Evaluation\Utilities\FakeAppDomainFactory.cs" />

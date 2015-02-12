@@ -50,9 +50,10 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (TypeResults.Single (), typeof (PassingSpecK).FullName, "PassingSpecK.Method", State.Passed);
       AssertResult (ExpressionResults.Single (), "0", "Console.WriteLine(True)", State.Passed);
       AssertResult (TestResults.Single (), "0", "Case", State.Passed);
-      AssertResult (OperationResults[0], "<OPERATION>", "Arrangement", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[1], "<OPERATION>", "Console.WriteLine(True)", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[2], "<OPERATION>", "Assertion", State.Passed, OperationType.Assertion);
+      AssertResult (OperationResults[0], "<OPERATION>", "<DefaultInitialization>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[1], "<OPERATION>", "Arrangement", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[2], "<OPERATION>", "Console.WriteLine(True)", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[3], "<OPERATION>", "Assertion", State.Passed, OperationType.Assertion);
 
       TestResults.Single ().Identity.Absolute.Should ()
           .EndWith (@"TestFx.Specifications.IntegrationTests.dll » TestFx.Specifications.IntegrationTests.PassingSpecK » 0 » 0");

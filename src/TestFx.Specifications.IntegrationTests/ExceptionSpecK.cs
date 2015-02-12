@@ -49,6 +49,7 @@ namespace TestFx.Specifications.IntegrationTests
               .Given ("an inner exception", x => InnerException = new Exception ())
               .ItThrows<ArgumentException> (x => Message, x => InnerException))
           .Elaborate ("Case 5", _ => _
+              .Given ("a message", x => Message = "Message")
               .Given ("an inner exception with message", x => InnerException = new Exception ("InnerMessage"))
               .It ("asserts something different", x => { }));
     }

@@ -31,7 +31,7 @@ namespace TestFx.FakeItEasy.TestExtensions
       if (fieldsWithAttribute.Count == 0)
         return;
 
-      testController.AddAction<SetupExtension>("setup fakes", x => fieldsWithAttribute.ForEach(t => SetupFakeReturnValue(suite, t.Item2, t.Item1)));
+      testController.AddAction<SetupExtension>("<FakeSetup>", x => fieldsWithAttribute.ForEach(t => SetupFakeReturnValue(suite, t.Item2, t.Item1)));
     }
 
     private void SetupFakeReturnValue (ISuite suite, ReturnedFromAttribute attribute, FieldInfo field)

@@ -34,9 +34,10 @@ namespace TestFx.Evaluation.Loading
     {
       var assemblySetups = assembly.CreateInstancesOf<IAssemblySetup>();
 
-      var suiteTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<ISuite>()).ToList();
+      var suiteTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<ISuite>() && x.GetAttribute<SubjectAttributeBase>() != null).ToList();
       var suiteBaseTypes = suiteTypes.Select(x => x.GetDirectDerivedTypesOf<ISuite>().Single()).Distinct();
       var testExtensions = assembly.GetAttributes<UseTestExtension>().Select(CreateTestExtension).ToList();
+      testExtensions = new[] { new DefaultInitializationTestExtension() }.Concat(testExtensions).ToList();
       var typeLoaders = suiteBaseTypes.Select(x => CreateTypeLoader(x, testExtensions));
 
       return new AssemblyExplorationData(typeLoaders, suiteTypes, assemblySetups);

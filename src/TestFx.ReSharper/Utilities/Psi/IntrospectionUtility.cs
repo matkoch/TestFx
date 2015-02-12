@@ -45,6 +45,7 @@ namespace TestFx.ReSharper.Utilities.Psi
 
     public CommonType GetCommonType (IType type)
     {
+      // TODO: type can be ??? if not resolvable. Compare to TypeUtility.GetImplementedTypes
       return GetCommonType(type.To<IDeclaredType>().GetTypeElement());
     }
 

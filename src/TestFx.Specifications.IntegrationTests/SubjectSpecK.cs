@@ -80,6 +80,11 @@ namespace TestFx.Specifications.IntegrationTests
 
       AssertResult (ExpressionResults[0], "0", "DomainType.ToString()", State.Passed);
       SubjectSpecK.DomainType.ConstructorCalls.Should ().Be (2);
+
+      AssertResult (OperationResults[1], "<OPERATION>", "<SubjectCreation>", State.Passed);
+
+      AssertResult (OperationResults[7], "<OPERATION>", "subject is created with null values", State.Passed);
+      AssertResult (OperationResults[8], "<OPERATION>", "DomainType.ToString()", State.Passed);
     }
   }
 }
