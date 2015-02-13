@@ -24,14 +24,14 @@ namespace TestFx.Specifications.IntegrationTests
     public FakeItEasyOrderedAssertionsSpecK ()
     {
       Specify (x => x.DoSomething2 ())
-          .Elaborate ("Case 1", _ => _
+          .Case ("Case 1", _ => _
               .ItMakesOrderedCallsTo (x => new object[] { Disposable, ServiceProvider }))
-          .Elaborate ("Case 2", _ => _
+          .Case ("Case 2", _ => _
               .ItMakesOrderedCallsWithAnyArguments (
                   x => Disposable.Dispose (),
                   x => ServiceProvider.GetService (null))
               .It ("Returns service from provider", x => x.Result.Should ().BeSameAs (Service)))
-          .Elaborate ("Case 3", _ => _
+          .Case ("Case 3", _ => _
               .ItMakesOrderedCallsWithAnyArguments (
                   x => ServiceProvider.GetService (null),
                   x => Disposable.Dispose ())

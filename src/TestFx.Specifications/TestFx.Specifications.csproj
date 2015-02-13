@@ -42,6 +42,7 @@
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
     <Compile Include="Api.cs" />
+    <Compile Include="Extensions\CaseExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Implementation\Contexts\DelegateTestContext.cs" />
     <Compile Include="Implementation\Contexts\TestContext.cs" />

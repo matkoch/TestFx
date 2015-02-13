@@ -23,7 +23,7 @@ namespace TestFx.Specifications.IntegrationTests
     FailingSpecK ()
     {
       Specify (x => 1)
-          .Elaborate ("Case", _ => _
+          .Case ("Case", _ => _
               .It ("Failing assertion", x => { throw new Exception (); })
               .It ("Passing assertion", x => x.Result.Should ().Be (1)));
     }

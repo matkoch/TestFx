@@ -20,7 +20,7 @@ using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Containers
 {
-  public class ExpressionSuiteContainer<TSubject, TResult> : Container, IIgnoreOrElaborate<TSubject, TResult>
+  public class ExpressionSuiteContainer<TSubject, TResult> : Container, IIgnoreOrCase<TSubject, TResult>
   {
     private readonly IExpressionSuiteController<TSubject, TResult> _controller;
 
@@ -30,14 +30,14 @@ namespace TestFx.Specifications.Implementation.Containers
       _controller = controller;
     }
 
-    public IElaborate<TSubject, TResult> Skip (string reason)
+    public ICase<TSubject, TResult> Skip (string reason)
     {
       _controller.IgnoreNext();
       return this;
     }
 
     [DisplayFormat ("{0}")]
-    public IIgnoreOrElaborate<TSubject, TResult> Elaborate (
+    public IIgnoreOrCase<TSubject, TResult> Case (
         string description,
         Func<IDefineOrArrangeOrAssert<TSubject, TResult, object>, IAssert> succession)
     {

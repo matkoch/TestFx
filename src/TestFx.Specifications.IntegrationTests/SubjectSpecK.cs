@@ -33,10 +33,10 @@ namespace TestFx.Specifications.IntegrationTests
     SubjectSpecK ()
     {
       Specify (x => x.ToString ())
-          .Elaborate ("Case 1", _ => _
+          .Case ("Case 1", _ => _
               .It ("passes disposable", x => x.Subject.Disposable.Should ().BeSameAs (Disposable))
               .It ("passes strings as collection", x => x.Subject.Strings.Should ().Equal (new[] { String1, String2, String3 })))
-          .Elaborate ("Case 2", _ => _
+          .Case ("Case 2", _ => _
               .Given ("reset disposable", x => Writer = new BinaryWriter (Stream.Null))
               .GivenSubject ("is created with null values", x => new DomainType (Writer, null))
               .It ("passes null disposable", x => x.Subject.Disposable.Should ().BeSameAs (Writer))

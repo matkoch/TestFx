@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+// Copyright 2014, 2013 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,23 +13,17 @@
 // limitations under the License.
 
 using System;
-using TestFx.Extensibility;
+using TestFx.Specifications.InferredApi;
 
-namespace TestFx.Specifications.Implementation
+namespace TestFx.Specifications
 {
-  [TypeLoader (typeof (SpecKTypeLoader))]
-  [OperationOrdering (
-      typeof (SetupExtension),
-      typeof (SetupCommon),
-      typeof (SetupSubject),
-      typeof (Arrange),
-      typeof (BeforeAct),
-      typeof (Act),
-      typeof (AfterAct),
-      typeof (Assert),
-      typeof (CleanupCommon),
-      typeof (CleanupExtension))]
-  public interface ISpecK : ISuite
+  public static class CaseExtensions
   {
+    public static IIgnoreOrCase<TSubject, TResult> DefaultCase<TSubject, TResult> (
+        this ICase<TSubject, TResult> @case,
+        Func<IDefineOrArrangeOrAssert<TSubject, TResult, object>, IAssert> succession)
+    {
+      return @case.Case("<Default>", succession);
+    }
   }
 }

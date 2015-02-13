@@ -22,7 +22,7 @@ namespace TestFx.Specifications.IntegrationTests
     public HaltingSpecK ()
     {
       Specify (x => 1)
-          .Elaborate ("Case", _ => _
+          .Case ("Case", _ => _
               .Given ("Throwing arrangement", x => { throw new Exception (); })
               .Given ("Halted arrangement", x => { })
               .It ("Halted assertion", x => { }));

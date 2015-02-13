@@ -30,8 +30,8 @@ namespace TestFx.Specifications
     void SetupOnce (Action setup, Action cleanup = null);
     void Setup (Action<ITestContext<TSubject>> setup, Action<ITestContext<TSubject>> cleanup = null);
 
-    IIgnoreOrElaborate<TSubject, Dummy> Specify (Expression<Action<TSubject>> action);
-    IIgnoreOrElaborate<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> action);
+    IIgnoreOrCase<TSubject, Dummy> Specify (Expression<Action<TSubject>> action);
+    IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> action);
 
     TSubject CreateSubject ();
   }
@@ -117,9 +117,9 @@ namespace TestFx.Specifications
 
     #region Fluent API
 
-    public interface IIgnoreOrElaborate<TSubject, TResult>
+    public interface IIgnoreOrCase<TSubject, TResult>
         : IIgnore<TSubject, TResult>,
-            IElaborate<TSubject, TResult>
+            ICase<TSubject, TResult>
     {
     }
 
@@ -139,25 +139,25 @@ namespace TestFx.Specifications
     {
       [DisplayFormat ("{0}")]
       //[GroupAnnotation (Member = "voidAction")]
-      IIgnoreOrElaborate<TSubject, Dummy> Specify (Expression<Action<TSubject>> voidAction);
+      IIgnoreOrCase<TSubject, Dummy> Specify (Expression<Action<TSubject>> voidAction);
 
       //[GroupAnnotation (Member = "resultAction")]
       [DisplayFormat ("{0}")]
-      IIgnoreOrElaborate<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> resultAction);
+      IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> resultAction);
     }
 
-    public interface IElaborate<TSubject, TResult>
+    public interface ICase<TSubject, TResult>
     {
       [DisplayFormat ("{0}")]
       //[CaseAnnotation (Member = "description")]
-      IIgnoreOrElaborate<TSubject, TResult> Elaborate (
+      IIgnoreOrCase<TSubject, TResult> Case (
           string description,
           Func<IDefineOrArrangeOrAssert<TSubject, TResult, object>, IAssert> succession);
     }
 
     public interface IIgnore<TSubject, TResult>
     {
-      IElaborate<TSubject, TResult> Skip (string reason);
+      ICase<TSubject, TResult> Skip (string reason);
     }
 
     public interface IDefine<TSubject, out TResult, TVars>
@@ -214,13 +214,13 @@ namespace TestFx.Specifications
       {
         ////Specify ((x, a) => x.EndRead (null), Adv.Combine()
         Specify (x => x.EndRead (null))
-            .Elaborate ("bla", _ => _
+            .Case ("bla", _ => _
                 .Define(x => new { A = "bla", B = 2 })
                 .GivenSubject ("file stream", x => File.OpenRead ("bla"))
                 .Given ("", x => x.Subject.Close ())
                 .ItForStream ())
             .Skip ("reason")
-            .Elaborate ("case2", _ => _
+            .Case ("case2", _ => _
                 .Define(x => new { A = "bla", B = 2 })
                 .Given ("", x => { })
                 .Given (MyContext (1, 2))
@@ -256,12 +256,12 @@ namespace TestFx.Specifications
         throw new NotImplementedException();
       }
 
-      public IIgnoreOrElaborate<FileStream, Dummy> Specify (Expression<Action<FileStream>> action)
+      public IIgnoreOrCase<FileStream, Dummy> Specify (Expression<Action<FileStream>> action)
       {
         throw new NotImplementedException();
       }
 
-      public IIgnoreOrElaborate<FileStream, TResult> Specify<TResult> (Expression<Func<FileStream, TResult>> action)
+      public IIgnoreOrCase<FileStream, TResult> Specify<TResult> (Expression<Func<FileStream, TResult>> action)
       {
         throw new NotImplementedException();
       }

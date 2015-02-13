@@ -23,7 +23,7 @@ namespace TestFx.Specifications.IntegrationTests
     ContextBehaviorSpecK ()
     {
       Specify (x => x.Property)
-          .Elaborate ("Case 1", _ => _
+          .Case ("Case 1", _ => _
               .Given (SetSubject ("ctor arg"))
               .It (AssertProperty ("ctor arg")));
     }

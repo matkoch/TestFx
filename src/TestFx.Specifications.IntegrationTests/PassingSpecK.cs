@@ -22,7 +22,7 @@ namespace TestFx.Specifications.IntegrationTests
     public PassingSpecK ()
     {
       Specify (x => Console.WriteLine (true))
-          .Elaborate ("Case", _ => _
+          .DefaultCase (_ => _
               .Given ("Arrangement", x => { })
               .It ("Assertion", x => { }));
     }
@@ -49,7 +49,7 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (AssemblyResults.Single (), typeof (PassingSpecK).Assembly.Location, typeof (PassingSpecK).Assembly.GetName ().Name, State.Passed);
       AssertResult (TypeResults.Single (), typeof (PassingSpecK).FullName, "PassingSpecK.Method", State.Passed);
       AssertResult (ExpressionResults.Single (), "0", "Console.WriteLine(True)", State.Passed);
-      AssertResult (TestResults.Single (), "0", "Case", State.Passed);
+      AssertResult (TestResults.Single (), "0", "<Default>", State.Passed);
       AssertResult (OperationResults[0], "<OPERATION>", "<DefaultInitialization>", State.Passed, OperationType.Action);
       AssertResult (OperationResults[1], "<OPERATION>", "Arrangement", State.Passed, OperationType.Action);
       AssertResult (OperationResults[2], "<OPERATION>", "Console.WriteLine(True)", State.Passed, OperationType.Action);

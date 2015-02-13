@@ -24,12 +24,12 @@ namespace TestFx.Specifications.IntegrationTests
     FakeItEasyCallConfigurationSpecK ()
     {
       Specify (x => x.DoSomething2 ())
-          .Elaborate ("Case 1", _ => _
+          .Case ("Case 1", _ => _
               .Define (x => new { MyException = new InvalidOperationException () })
               .GivenACallTo (x => ServiceProvider.GetService (null), (c, x) => c
                   .Throws (x.MyException))
               .ItThrows (x => x.MyException))
-          .Elaborate ("Case 2", _ => _
+          .Case ("Case 2", _ => _
               .GivenACallTo (x => ServiceProvider.GetService (null), (c, x) => c
                   .Returns (OtherService))
               .ItReturns (x => OtherService));

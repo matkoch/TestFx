@@ -37,18 +37,18 @@ namespace TestFx.Specifications.IntegrationTests
     ExceptionSpecK ()
     {
       Specify (x => UserClass.Throw (Message, InnerException))
-          .Elaborate ("Case 1", _ => _
+          .Case ("Case 1", _ => _
               .ItThrows<InvalidOperationException> ())
-          .Elaborate ("Case 2", _ => _
+          .Case ("Case 2", _ => _
               .ItThrows<ArgumentException> (x => "Wrong message"))
-          .Elaborate ("Case 3", _ => _
+          .Case ("Case 3", _ => _
               .Given ("a message", x => Message = "Message")
               .ItThrows<ArgumentException> (x => "Message", x => new Exception ()))
-          .Elaborate ("Case 4", _ => _
+          .Case ("Case 4", _ => _
               .Given ("a message", x => Message = "Message")
               .Given ("an inner exception", x => InnerException = new Exception ())
               .ItThrows<ArgumentException> (x => Message, x => InnerException))
-          .Elaborate ("Case 5", _ => _
+          .Case ("Case 5", _ => _
               .Given ("a message", x => Message = "Message")
               .Given ("an inner exception with message", x => InnerException = new Exception ("InnerMessage"))
               .It ("asserts something different", x => { }));
