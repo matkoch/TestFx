@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using TestFx.Extensibility;
+using TestFx.TestExtensions;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 

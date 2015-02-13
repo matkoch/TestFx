@@ -18,7 +18,7 @@ using TestFx.Extensibility.Controllers;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 
-namespace TestFx.Evaluation.Loading
+namespace TestFx.TestExtensions
 {
   public class DefaultInitializationTestExtension : ITestExtension
   {
