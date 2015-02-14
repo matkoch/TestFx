@@ -24,7 +24,7 @@ namespace TestFx.Console
           break;
         case State.Failed:
           var exception = result.OperationResults.Select(x => x.Exception).First(x => x != null);
-          _writer.WriteTestFailed(testName, exception.TypeFullName + ": " + exception.Message, exception.StackTrace);
+          _writer.WriteTestFailed(testName, exception.FullName + ": " + exception.Message, exception.StackTrace);
           break;
         case State.NotImplemented:
           _writer.WriteTestIgnored(testName, string.Empty);

@@ -18,9 +18,8 @@ namespace TestFx.Evaluation.Results
 {
   public enum OutputType
   {
-    Debug,
-    Trace,
-    Standard,
-    Error
+    Dbg,
+    Std,
+    Err
   }
 }

@@ -44,8 +44,8 @@ namespace TestFx.Evaluation.Utilities
 
       lock (_lockObject)
       {
-        SwapTraceListeners(new DelegateTraceListener(m => Write(OutputType.Trace, m)), _previousTraceListener);
-        ConfigureConsole(new DelegateStringWriter(m => Write(OutputType.Standard, m)), new DelegateStringWriter(m => Write(OutputType.Error, m)));
+        SwapTraceListeners(new DelegateTraceListener(m => Write(OutputType.Dbg, m)), _previousTraceListener);
+        ConfigureConsole(new DelegateStringWriter(m => Write(OutputType.Std, m)), new DelegateStringWriter(m => Write(OutputType.Err, m)));
       }
     }
 

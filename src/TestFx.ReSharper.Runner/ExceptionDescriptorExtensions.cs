@@ -22,7 +22,7 @@ namespace TestFx.ReSharper.Runner
   {
     public static TaskException ToTaskException (this IExceptionDescriptor exception)
     {
-      return new TaskException(exception.TypeFullName, exception.Message, exception.StackTrace);
+      return new TaskException(exception.FullName, exception.Message, exception.StackTrace);
     }
   }
 }

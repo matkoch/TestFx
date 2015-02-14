@@ -23,7 +23,8 @@ namespace TestFx.Evaluation.Results
 {
   public interface IExceptionDescriptor
   {
-    string TypeFullName { get; }
+    string Name { get; }
+    string FullName { get; }
     string Message { get; }
     string StackTrace { get; }
   }
@@ -57,7 +58,8 @@ namespace TestFx.Evaluation.Results
         userCodeStackTrace.ForEach(x => stackTraceBuilder.Append(x).Append(Environment.NewLine));
       }
 
-      return new ExceptionDescriptor(exception.GetType().FullName, messageBuilder.ToString(), stackTraceBuilder.ToString());
+      var type = exception.GetType();
+      return new ExceptionDescriptor(type.Name, type.FullName, messageBuilder.ToString(), stackTraceBuilder.ToString());
     }
 
     private static bool IsUserCode (string line)
@@ -65,20 +67,27 @@ namespace TestFx.Evaluation.Results
       return !s_isFrameworkCode.IsMatch(line);
     }
 
-    private readonly string _typeFullName;
+    private readonly string _name;
+    private readonly string _fullName;
     private readonly string _message;
     private readonly string _stackTrace;
 
-    private ExceptionDescriptor (string typeFullName, string message, string stackTrace)
+    private ExceptionDescriptor (string name, string fullName, string message, string stackTrace)
     {
-      _typeFullName = typeFullName;
+      _name = name;
+      _fullName = fullName;
       _message = message;
       _stackTrace = stackTrace;
     }
 
-    public string TypeFullName
+    public string Name
     {
-      get { return _typeFullName; }
+      get { return _name; }
+    }
+
+    public string FullName
+    {
+      get { return _fullName; }
     }
 
     public string Message

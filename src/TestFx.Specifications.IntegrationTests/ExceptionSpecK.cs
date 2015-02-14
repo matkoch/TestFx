@@ -78,7 +78,8 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (TestResults[4], "4", "Case 5", State.Failed);
 
       var actException = OperationResults.Last ().Exception.AssertNotNull ();
-      actException.TypeFullName.Should ().Be ("System.ArgumentException");
+      actException.Name.Should ().Be ("ArgumentException");
+      actException.FullName.Should ().Be ("System.ArgumentException");
       actException.StackTrace.Should ().NotContain ("at TestFx");
       actException.StackTrace.Should ().Contain ("at UserNamespace");
       actException.Message.Should ().Be ("Message\r\n---> InnerMessage");

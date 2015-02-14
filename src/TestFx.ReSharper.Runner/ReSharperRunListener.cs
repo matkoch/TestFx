@@ -99,14 +99,14 @@ namespace TestFx.ReSharper.Runner
       {
         if (result is FillingOperationResult)
         {
-          builder.AppendLine("...");
+          builder.AppendLine(".. InnerOperations ..");
           continue;
         }
 
         builder.AppendFormat("{0} {1}", result.GetSymbol(), result.Text);
 
         if (result.Exception != null)
-          builder.AppendFormat(" ({0})", result.Exception.TypeFullName);
+          builder.AppendFormat(" ({0})", result.Exception.Name);
 
         builder.Append("\r\n");
       }
