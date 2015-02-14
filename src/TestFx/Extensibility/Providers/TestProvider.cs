@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using TestFx.Extensibility.Controllers;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Providers
@@ -22,9 +21,6 @@ namespace TestFx.Extensibility.Providers
   public interface ITestProvider : IProvider
   {
     IEnumerable<IOperationProvider> OperationProviders { get; }
-
-    // Required for TestExtension application and test fail report
-    ITestController Controller { get; }
   }
 
   public class TestProvider : OperationCollectionProvider, ITestProvider
@@ -38,7 +34,5 @@ namespace TestFx.Extensibility.Providers
         : base(identity, text, ignored)
     {
     }
-
-    public ITestController Controller { get; set; }
   }
 }

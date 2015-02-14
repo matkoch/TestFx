@@ -89,7 +89,6 @@ namespace TestFx.Specifications.Implementation.Controllers
     {
       var context = new MainTestContext<TSubject, TResult>();
       var controller = new MainTestController<TSubject, TResult>(provider, context, actionContainer, _operationSorter, this);
-      provider.Controller = controller;
       return controller;
     }
 
