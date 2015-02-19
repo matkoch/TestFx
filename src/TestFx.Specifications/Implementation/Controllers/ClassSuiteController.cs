@@ -44,12 +44,12 @@ namespace TestFx.Specifications.Implementation.Controllers
 
   public class ClassSuiteController<TSubject> : ClassSuiteController, IClassSuiteController<TSubject>
   {
+    private readonly SuiteProvider _provider;
     private readonly ISpecK<TSubject> _suite;
     private readonly IControllerFactory _controllerFactory;
     private readonly IIntrospectionPresenter _introspectionPresenter;
     private readonly List<Tuple<Action<ITestContext<TSubject>>, Action<ITestContext<TSubject>>>> _testSetupCleanupTuples;
 
-    private int _sequenceNumber;
     private bool _controllerAdded;
 
     public ClassSuiteController (
@@ -61,6 +61,7 @@ namespace TestFx.Specifications.Implementation.Controllers
         IIntrospectionPresenter introspectionPresenter)
         : base(provider, suite, testExtensions, operationSorter)
     {
+      _provider = provider;
       _suite = suite;
       _controllerFactory = controllerFactory;
       _introspectionPresenter = introspectionPresenter;
@@ -111,8 +112,7 @@ namespace TestFx.Specifications.Implementation.Controllers
     {
       var actionText = _introspectionPresenter.Present(displayFormat, new[] { expression.ToCommon(typeof (ISuite), typeof (ITestContext)) });
       var actionContainer = new ActionContainer<TSubject, TResult>(actionText, voidAction, resultAction);
-      var provider = CreateSuiteProvider(_sequenceNumber++.ToString(CultureInfo.InvariantCulture), actionContainer.Text, false);
-      return _controllerFactory.CreateExpressionSuiteController(provider, actionContainer, this);
+      return _controllerFactory.CreateExpressionSuiteController(_provider, actionContainer, this);
     }
 
     private Action<Extensibility.Contexts.ITestContext> ConvertToNonGeneric (Action<ITestContext<TSubject>> action)

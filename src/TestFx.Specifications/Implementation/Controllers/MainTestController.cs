@@ -19,6 +19,7 @@ using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Contexts;
 using TestFx.Specifications.Implementation.Utilities;
 using TestFx.Specifications.InferredApi;
+using TestFx.Utilities;
 
 namespace TestFx.Specifications.Implementation.Controllers
 {
@@ -38,7 +39,7 @@ namespace TestFx.Specifications.Implementation.Controllers
 
       var wrappedAction = actionContainer.VoidAction != null
           ? GuardAction(actionContainer.VoidAction)
-          : GuardAction(x => _context.Result = actionContainer.ResultAction(x));
+          : GuardAction(x => _context.Result = actionContainer.ResultAction.AssertNotNull()(x));
       AddAction<Act>(actionContainer.Text, x => wrappedAction());
     }
 

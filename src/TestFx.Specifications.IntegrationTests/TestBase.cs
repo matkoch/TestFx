@@ -35,7 +35,6 @@ namespace TestFx.Specifications.IntegrationTests
     protected IRunResult RunResult;
     protected IList<ISuiteResult> AssemblyResults;
     protected IList<ISuiteResult> TypeResults;
-    protected IList<ISuiteResult> ExpressionResults;
     protected IList<ITestResult> TestResults;
     protected IList<IOperationResult> OperationResults;
 
@@ -52,9 +51,7 @@ namespace TestFx.Specifications.IntegrationTests
 
       AssemblyResults = RunResult.SuiteResults.ToList ();
       TypeResults = AssemblyResults.SelectMany (x => x.SuiteResults).ToList ();
-      ExpressionResults = TypeResults.SelectMany (x => x.SuiteResults).ToList ();
-      TestResults = ExpressionResults.SelectMany (x => x.TestResults).ToList ();
-      TestResults = ExpressionResults.SelectMany (x => x.TestResults).ToList ();
+      TestResults = TypeResults.SelectMany (x => x.TestResults).ToList ();
       OperationResults = TestResults.SelectMany (x => x.OperationResults).ToList ();
     }
 

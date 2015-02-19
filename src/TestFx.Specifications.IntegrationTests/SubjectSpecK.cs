@@ -78,7 +78,6 @@ namespace TestFx.Specifications.IntegrationTests
     {
       RunResult.State.Should ().Be (State.Passed);
 
-      AssertResult (ExpressionResults[0], "0", "DomainType.ToString()", State.Passed);
       SubjectSpecK.DomainType.ConstructorCalls.Should ().Be (2);
 
       AssertResult (OperationResults[1], "<OPERATION>", "<SubjectCreation>", State.Passed);
