@@ -63,8 +63,8 @@ namespace TestFx.ReSharper.Runner
 
     private void Finished (ISuiteResult result, Task task)
     {
-      var operationResults = result.SetupResults.Concat(new FillingOperationResult()).Concat(result.CleanupResults);
-      Finished(result, operationResults, result.OutputEntries, task);
+      var operations = MergeSetupsAndCleanups(result);
+      Finished(result, operations, result.OutputEntries, task);
 
       result.SuiteResults.Where(TaskDoesNotExist).ForEach(CreateDynamicTask);
       result.TestResults.Where(TaskDoesNotExist).ForEach(CreateDynamicTask);
@@ -77,48 +77,19 @@ namespace TestFx.ReSharper.Runner
 
     private void Finished (IResult result, IEnumerable<IOperationResult> operationResults, IEnumerable<OutputEntry> entries, Task task)
     {
-      var operationResultsList = operationResults.ToList();
-      var exceptions = operationResultsList.Select(x => x.Exception).WhereNotNull().Select(x => x.ToTaskException()).ToArray();
-      var message = exceptions.Length == 0
-          ? operationResultsList.Count(x => !(x is FillingOperationResult)) + " Operations"
-          : exceptions.Length == 1
-              ? exceptions[0].Type
-              : exceptions.Length + " Exceptions";
+      if (!task.IsMeaningfulTask)
+        // Affects results representing the assembly.
+        return;
 
-      _server.TaskOutput(task, GetOutput(operationResultsList, entries.ToList()), TaskOutputType.STDOUT);
-      _server.TaskException(task, exceptions);
+      var operations = operationResults.ToList();
+      var exceptions = GetExceptions(operations).ToList();
+
+      var message = GetGeneralMessage(exceptions, operations);
+      var details = GetDetails(operations, entries);
+
+      _server.TaskOutput(task, details, TaskOutputType.STDOUT);
+      _server.TaskException(task, exceptions.Select(x => x.ToTaskException()).ToArray());
       _server.TaskFinished(task, message, result.GetTaskResult());
-    }
-
-    private string GetOutput (IEnumerable<IOperationResult> results, IEnumerable<OutputEntry> entries)
-    {
-      var builder = new StringBuilder();
-
-      builder.AppendLine("Operations:");
-      foreach (var result in results)
-      {
-        if (result is FillingOperationResult)
-        {
-          builder.AppendLine(".. InnerOperations ..");
-          continue;
-        }
-
-        builder.AppendFormat("{0} {1}", result.GetSymbol(), result.Text);
-
-        if (result.Exception != null)
-          builder.AppendFormat(" ({0})", result.Exception.Name);
-
-        builder.Append("\r\n");
-      }
-
-      var entriesList = entries.ToList();
-      if (entriesList.Count != 0)
-      {
-        builder.AppendLine().AppendLine("Output:");
-        entriesList.ForEach(x => builder.AppendFormat("[{0}] {1}\r\n", x.Type.ToString(), x.Message));
-      }
-
-      return builder.ToString();
     }
 
     private void CreateDynamicTask (ISuiteResult result)

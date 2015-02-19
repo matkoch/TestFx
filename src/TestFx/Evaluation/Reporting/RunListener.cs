@@ -13,8 +13,12 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Results;
+using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Reporting
 {
@@ -60,6 +64,71 @@ namespace TestFx.Evaluation.Reporting
 
     public virtual void OnError (IExceptionDescriptor exception)
     {
+    }
+
+    protected IEnumerable<IOperationResult> MergeSetupsAndCleanups (ISuiteResult result)
+    {
+      return result.SetupResults.Concat(new FillingOperationResult()).Concat(result.CleanupResults);
+    }
+
+    protected IEnumerable<IExceptionDescriptor> GetExceptions (IEnumerable<IOperationResult> operations)
+    {
+      return operations.Select(x => x.Exception).WhereNotNull();
+    }
+
+    protected string GetGeneralMessage (IList<IExceptionDescriptor> exceptions, IEnumerable<IOperationResult> operations)
+    {
+      return exceptions.Count == 0
+          ? operations.Count(x => !(x is FillingOperationResult)) + " Operations"
+          : exceptions.Count == 1
+              ? exceptions[0].Name
+              : exceptions.Count + " Exceptions";
+    }
+
+    protected string GetDetails (
+        IEnumerable<IOperationResult> results,
+        IEnumerable<OutputEntry> entries,
+        IEnumerable<IExceptionDescriptor> exceptions = null)
+    {
+      var builder = new StringBuilder();
+
+      builder.AppendLine("Operations:");
+      foreach (var result in results)
+      {
+        if (result is FillingOperationResult)
+        {
+          builder.AppendLine(".. InnerOperations ..");
+          continue;
+        }
+
+        builder.AppendFormat("{0} {1}", result.GetSymbol(), result.Text);
+
+        if (result.Exception != null)
+          builder.AppendFormat(" ({0})", result.Exception.Name);
+
+        builder.Append("\r\n");
+      }
+
+      var entriesList = entries.ToList();
+      if (entriesList.Count != 0)
+      {
+        builder.AppendLine().AppendLine("Output:");
+        entriesList.ForEach(x => builder.AppendFormat("[{0}] {1}\r\n", x.Type.ToString(), x.Message));
+      }
+
+      if (exceptions != null)
+      {
+        foreach (var exception in exceptions)
+        {
+          builder.AppendLine().AppendLine();
+
+          builder.AppendFormat("{0}:", exception.FullName).AppendLine();
+          builder.Append(exception.Message).AppendLine();
+          builder.Append(exception.StackTrace);
+        }
+      }
+
+      return builder.ToString();
     }
   }
 }

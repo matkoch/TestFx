@@ -14,30 +14,27 @@
 
 using System;
 using System.Collections.Generic;
-using JetBrains.ReSharper.TaskRunnerFramework;
 using TestFx.Evaluation.Results;
 
-namespace TestFx.ReSharper.Runner
+namespace TestFx.Evaluation.Reporting
 {
   public static class ResultExtensions
   {
-    private static readonly Dictionary<State, TaskResult> s_taskResults;
+    private static readonly Dictionary<State, char> s_stateSymbols;
 
     static ResultExtensions ()
     {
-      s_taskResults = new Dictionary<State, TaskResult>
-                      {
-                          { State.Passed, TaskResult.Success },
-                          { State.Ignored, TaskResult.Skipped },
-                          { State.Inconclusive, TaskResult.Inconclusive },
-                          { State.NotImplemented, TaskResult.Inconclusive },
-                          { State.Failed, TaskResult.Exception }
-                      };
+      s_stateSymbols = new Dictionary<State, char>
+                       {
+                           { State.Passed, '\u2713' },
+                           { State.Failed, '\u2717' },
+                           { State.Inconclusive, 'N' }
+                       };
     }
 
-    public static TaskResult GetTaskResult (this IResult result)
+    public static char GetSymbol (this IResult result)
     {
-      return s_taskResults[result.State];
+      return s_stateSymbols[result.State];
     }
   }
 }

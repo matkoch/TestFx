@@ -132,7 +132,6 @@
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
     <Compile Include="ExceptionDescriptorExtensions.cs" />
-    <Compile Include="FillingOperationResult.cs" />
     <Compile Include="ResultExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecursiveRemoteTaskRunner.cs">

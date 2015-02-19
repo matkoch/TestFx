@@ -18,7 +18,7 @@ using TestFx.Evaluation.Results;
 using TestFx.Extensibility.Providers;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Runner
+namespace TestFx.Evaluation.Reporting
 {
   public class FillingOperationResult : IOperationResult
   {
