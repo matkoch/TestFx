@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="AfterAttribute.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
+    <Compile Include="Enumerable.TakeWhile.cs" />
     <Compile Include="Expressions\IntrospectionExtensions.cs" />
     <Compile Include="Introspection\CommonArrayBoundsExpression.cs" />
     <Compile Include="Introspection\CommonArrayItemsExpression.cs" />

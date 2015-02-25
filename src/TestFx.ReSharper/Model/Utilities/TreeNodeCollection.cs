@@ -26,7 +26,7 @@ namespace TestFx.ReSharper.Model.Utilities
         Func<TSource, TDestination> converter,
         Func<bool> notInterrupted)
         where TSource : ITreeNode
-        where TDestination : ITreeNode
+        where TDestination : class, ITreeNode
     {
       return new TreeNodeCollection<TSource, TDestination>(sources, converter, notInterrupted);
     }
@@ -34,7 +34,7 @@ namespace TestFx.ReSharper.Model.Utilities
 
   public class TreeNodeCollection<TSource, TDestination> : BufferingNodeCollection<TSource, TDestination>
       where TSource : ITreeNode
-      where TDestination : ITreeNode
+      where TDestination : class, ITreeNode
   {
     public TreeNodeCollection (IEnumerable<TSource> sources, Func<TSource, TDestination> convert, Func<bool> notInterrupted)
         : base(sources, convert, notInterrupted)

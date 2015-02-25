@@ -25,7 +25,7 @@ namespace TestFx.ReSharper.Model.Utilities
         Func<TSource, TDestination> converter,
         Func<bool> notInterrupted)
         where TSource : IMetadataEntity
-        where TDestination : IMetadataEntity
+        where TDestination : class, IMetadataEntity
     {
       return new MetadataEntityCollection<TSource, TDestination>(sources, converter, notInterrupted);
     }
@@ -33,7 +33,7 @@ namespace TestFx.ReSharper.Model.Utilities
 
   public class MetadataEntityCollection<TSource, TDestination> : BufferingNodeCollection<TSource, TDestination>
       where TSource : IMetadataEntity
-      where TDestination : IMetadataEntity
+      where TDestination : class, IMetadataEntity
   {
     public MetadataEntityCollection (IEnumerable<TSource> sources, Func<TSource, TDestination> convert, Func<bool> notInterrupted)
         : base(sources, convert, notInterrupted)

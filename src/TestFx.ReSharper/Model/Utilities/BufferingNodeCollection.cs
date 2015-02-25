@@ -16,11 +16,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Util;
+using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Model.Utilities
 {
   public abstract class BufferingNodeCollection<TSource, TDestination> : IEnumerable<TDestination>
+      where TDestination : class
   {
     private readonly IEnumerable<TSource> _sources;
     private readonly Func<TSource, TDestination> _converter;
@@ -40,7 +41,7 @@ namespace TestFx.ReSharper.Model.Utilities
     public virtual IEnumerator<TDestination> GetEnumerator ()
     {
       if (_collectionBuffer == null || _collectionBuffer.Any(IsInvalid))
-        _collectionBuffer = _sources.TakeWhile(x => _notInterrupted()).Select(_converter).WhereNotNull().ToList();
+        _collectionBuffer = _sources.TakeWhile(_notInterrupted).Select(_converter).WhereNotNull().ToList();
       return _collectionBuffer.GetEnumerator();
     }
 
