@@ -39,7 +39,7 @@ namespace TestFx.Utilities
       var itemList = identifiables.ToList();
 
       var commonParentIdentity = itemList.Select(x => x.Identity.Parent).Distinct().Single();
-      var identityChain = identity.Follow(x => x.Parent).TakeWhile(x => !x.Equals(commonParentIdentity));
+      var identityChain = identity.DescendantsAndSelf(x => x.Parent).TakeWhile(x => !x.Equals(commonParentIdentity));
       var identityStack = new Stack<IIdentity>(identityChain);
 
       T identifiable;

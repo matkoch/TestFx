@@ -109,8 +109,7 @@
     <Compile Include="Object.AssertNotNull.cs" />
     <Compile Include="Enumerable.SortTopologically.cs" />
     <Compile Include="Enumerable.Concat.cs" />
-    <Compile Include="Object.Flatten.cs" />
-    <Compile Include="Object.Follow.cs" />
+    <Compile Include="Object.DescendantsAndSelf.cs" />
     <Compile Include="Enumerable.ForEach.cs" />
     <Compile Include="Reflection\MemberBindings.cs" />
     <Compile Include="MemberInfo.GetAttributeValueOrDefault.cs" />

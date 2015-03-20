@@ -39,7 +39,7 @@ namespace TestFx.ReSharper.Utilities.Psi
 
     public IEnumerable<ITypeElement> GetImplementedTypes (ITypeElement type)
     {
-      return type.Concat(type.Flatten(x => x.GetSuperTypes().Select(y => y.GetTypeElement())));
+      return type.DescendantsAndSelf(x => x.GetSuperTypes().Select(y => y.GetTypeElement())).Distinct();
     }
 
     public bool IsImplementingType (IDeclaredType type, Type implementedType)

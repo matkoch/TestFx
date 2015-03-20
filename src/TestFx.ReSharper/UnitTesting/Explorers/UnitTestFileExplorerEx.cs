@@ -38,7 +38,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
         return;
 
       var suiteElements = file.SuiteDeclarations.Select(_unitTestElementFactory.GetOrCreateClassSuiteRecursively);
-      var allElements = suiteElements.SelectMany(x => x.Flatten(y => y.Children)).Cast<IUnitTestElementEx>();
+      var allElements = suiteElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).Cast<IUnitTestElementEx>();
       var dispositions = allElements.Select(x => x.GetDisposition(file)).ToList();
       dispositions.ForEach(consumer);
     }

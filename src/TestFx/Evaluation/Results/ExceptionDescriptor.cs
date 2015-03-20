@@ -42,7 +42,7 @@ namespace TestFx.Evaluation.Results
       var messageBuilder = new StringBuilder();
       var stackTraceBuilder = new StringBuilder();
 
-      foreach (var ex in exception.Follow(x => x.InnerException))
+      foreach (var ex in exception.DescendantsAndSelf(x => x.InnerException))
       {
         if (ex != exception)
         {

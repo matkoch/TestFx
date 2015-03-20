@@ -38,7 +38,7 @@ namespace TestFx.Utilities.Reflection
 
     public CommonType GetCommonType (Type type)
     {
-      var implementedTypes = type.Follow(x => x.BaseType).Concat(type.GetInterfaces());
+      var implementedTypes = type.DescendantsAndSelf(x => x.BaseType).Concat(type.GetInterfaces());
       return new CommonType(type.Name, type.FullName, implementedTypes.Select(x => x.FullName));
     }
 

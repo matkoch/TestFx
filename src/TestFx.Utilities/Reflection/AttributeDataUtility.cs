@@ -83,7 +83,7 @@ namespace TestFx.Utilities.Reflection
       return
           from customAttributeData in customAttributeDatas
           let originalAttributeType = customAttributeData.Constructor.DeclaringType
-          where originalAttributeType.Follow(x => x.BaseType).Any(x => x.EqualsFullName(typeof (T)))
+          where originalAttributeType.DescendantsAndSelf(x => x.BaseType).Any(x => x.EqualsFullName(typeof (T)))
           select customAttributeData;
     }
 

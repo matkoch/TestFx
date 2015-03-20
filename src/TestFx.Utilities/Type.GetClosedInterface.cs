@@ -22,7 +22,7 @@ namespace TestFx.Utilities
   {
     public static Type GetClosedTypeFor (this Type type, Type openType)
     {
-      var implementedTypes = type.Follow(x => x.BaseType).Concat(type.GetInterfaces());
+      var implementedTypes = type.DescendantsAndSelf(x => x.BaseType).Concat(type.GetInterfaces());
       return implementedTypes.SingleOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == openType);
     }
   }

@@ -45,9 +45,9 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     public ISuiteFile GetSuiteFile (ICSharpFile csharpFile)
     {
       var assemblyIdentity = new Identity(_project.GetOutputFilePath().FullPath);
-      var namespaceDeclarations = csharpFile.NamespaceDeclarations.SelectMany(x => x.Flatten(y => y.NamespaceDeclarations));
+      var namespaceDeclarations = csharpFile.NamespaceDeclarations.SelectMany(x => x.DescendantsAndSelf(y => y.NamespaceDeclarations));
       var classDeclarations = namespaceDeclarations.Cast<ITypeDeclarationHolder>().SelectMany(x => x.TypeDeclarations)
-          .SelectMany(x => x.Flatten(y => y.TypeDeclarations)).OfType<IClassDeclaration>();
+          .SelectMany(x => x.DescendantsAndSelf(y => y.TypeDeclarations)).OfType<IClassDeclaration>();
 
       var classSuites = TreeNodeCollection.Create(classDeclarations, x => GetClassSuite(x, assemblyIdentity), _notInterrupted);
 
@@ -77,7 +77,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       if (invocation == null)
         return null;
 
-      var invocationExpressions = invocation.Follow(x => x.InvokedExpression.FirstChild.As<IInvocationExpression>()).Reverse().ToList();
+      var invocationExpressions = invocation.DescendantsAndSelf(x => x.InvokedExpression.FirstChild.As<IInvocationExpression>()).Reverse().ToList();
       var text = _treePresenter.Present(invocationExpressions.First());
       if (text == null)
         return null;

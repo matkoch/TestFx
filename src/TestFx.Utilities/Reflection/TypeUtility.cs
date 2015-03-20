@@ -58,7 +58,7 @@ namespace TestFx.Utilities.Reflection
 
     public IEnumerable<Type> GetDirectDerivedTypes (Type type, Type implementedType)
     {
-      return type.Follow(x => x.BaseType).Concat(type.GetInterfaces())
+      return type.DescendantsAndSelf(x => x.BaseType).Concat(type.GetInterfaces())
           .Where(x => x.BaseType == implementedType || x.GetDirectInterfaces().Contains(implementedType));
     }
   }

@@ -55,7 +55,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
       {
         var assemblySuite = assembly.ToAssemblySuite(project, notInterrupted);
         var suiteElements = assemblySuite.SuiteEntities.Select(_unitTestElementFactory.GetOrCreateClassSuiteRecursively);
-        suiteElements.SelectMany(x => x.Flatten(y => y.Children)).ForEach(consumer);
+        suiteElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).ForEach(consumer);
       }
     }
   }

@@ -15,8 +15,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using JetBrains.Annotations;
-// ReSharper disable once CheckNamespace
 
 namespace TestFx.Utilities
 {
@@ -25,7 +25,7 @@ namespace TestFx.Utilities
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
     [DebuggerHidden]
-    public static IEnumerable<T> Follow<T> (
+    public static IEnumerable<T> DescendantsAndSelf<T> (
         this T obj,
         Func<T, T> selector,
         [CanBeNull] Func<T, bool> traverse = null)
@@ -39,8 +39,23 @@ namespace TestFx.Utilities
       if (traverse == null && Equals(next, default(T)))
         yield break;
 
-      foreach (var nextOrDescendant in next.Follow(selector, traverse))
+      foreach (var nextOrDescendant in next.DescendantsAndSelf(selector, traverse))
         yield return nextOrDescendant;
+    }
+
+    [DebuggerNonUserCode]
+    [DebuggerStepThrough]
+    [DebuggerHidden]
+    public static IEnumerable<T> DescendantsAndSelf<T> (
+        this T obj,
+        Func<T, IEnumerable<T>> selector,
+        [CanBeNull] Func<T, bool> traverse = null)
+    {
+      yield return obj;
+
+      foreach (var child in selector(obj).Where(x => traverse == null || traverse(x)))
+        foreach (var childOrDescendant in child.DescendantsAndSelf(selector, traverse))
+          yield return childOrDescendant;
     }
   }
 }

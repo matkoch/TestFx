@@ -42,7 +42,7 @@ namespace TestFx.Utilities.Reflection
       if (!methodName.StartsWith("get_") && !methodName.StartsWith("set_"))
         return null;
 
-      var types = methodInfo.DeclaringType.Follow(x => x.BaseType);
+      var types = methodInfo.DeclaringType.DescendantsAndSelf(x => x.BaseType);
       var properties = types.SelectMany(x => x.GetProperties(MemberBindings.All)).Where(x => methodName.EndsWith(x.Name));
 
       return
@@ -57,7 +57,7 @@ namespace TestFx.Utilities.Reflection
       if (!methodName.StartsWith("add_") && !methodName.StartsWith("remove_"))
         return null;
 
-      var types = methodInfo.DeclaringType.Follow(x => x.BaseType);
+      var types = methodInfo.DeclaringType.DescendantsAndSelf(x => x.BaseType);
       var events = types.SelectMany(x => x.GetEvents(MemberBindings.All)).Where(x => methodName.EndsWith(x.Name));
 
       return

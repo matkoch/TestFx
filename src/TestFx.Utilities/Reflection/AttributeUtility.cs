@@ -81,7 +81,7 @@ namespace TestFx.Utilities.Reflection
         where TMember : MemberInfo
         where TAttribute : Attribute
     {
-      return type.Follow(x => x.BaseType)
+      return type.DescendantsAndSelf(x => x.BaseType)
           .SelectMany(x => x.GetMembers(bindingFlags))
           .OfType<TMember>()
           .Select(x => Tuple.Create(x, GetAttribute<TAttribute>(x)))

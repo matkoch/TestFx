@@ -99,7 +99,7 @@ namespace TestFx.Utilities.Reflection
     private T GetMember<T> (Func<Type, T> memberSelector, Type type, Func<Exception> exceptionProvider)
         where T : MemberInfo
     {
-      var member = type.Follow(x => x.BaseType).Select(memberSelector).WhereNotNull().FirstOrDefault();
+      var member = type.DescendantsAndSelf(x => x.BaseType).Select(memberSelector).WhereNotNull().FirstOrDefault();
       if (member != null)
         return member;
 
