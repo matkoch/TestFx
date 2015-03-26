@@ -51,7 +51,7 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (TestResults.Single (), "0", "<Default>", State.Passed);
       AssertResult (OperationResults[0], "<OPERATION>", "<DefaultInitialization>", State.Passed, OperationType.Action);
       AssertResult (OperationResults[1], "<OPERATION>", "Arrangement", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[2], "<OPERATION>", "Console.WriteLine(True)", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[2], "<OPERATION>", "<Action>", State.Passed, OperationType.Action);
       AssertResult (OperationResults[3], "<OPERATION>", "Assertion", State.Passed, OperationType.Assertion);
 
       TestResults.Single ().Identity.Absolute.Should ()

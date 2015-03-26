@@ -13,12 +13,14 @@
 // limitations under the License.
 
 using System;
+using TestFx.Extensibility;
 using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications
 {
   public static class CaseExtensions
   {
+    [DisplayFormat("<Default>")]
     public static IIgnoreOrCase<TSubject, TResult> DefaultCase<TSubject, TResult> (
         this ICase<TSubject, TResult> @case,
         Func<IDefineOrArrangeOrAssert<TSubject, TResult, object>, IAssert> succession)

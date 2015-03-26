@@ -20,11 +20,11 @@ using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Containers
 {
-  public class ExpressionSuiteContainer<TSubject, TResult> : Container, IIgnoreOrCase<TSubject, TResult>
+  public class SpecializedSuiteContainer<TSubject, TResult> : Container, IIgnoreOrCase<TSubject, TResult>
   {
-    private readonly IExpressionSuiteController<TSubject, TResult> _controller;
+    private readonly ISpecializedSuiteController<TSubject, TResult> _controller;
 
-    public ExpressionSuiteContainer (IExpressionSuiteController<TSubject, TResult> controller)
+    public SpecializedSuiteContainer (ISpecializedSuiteController<TSubject, TResult> controller)
         : base(controller)
     {
       _controller = controller;

@@ -21,14 +21,14 @@ using TestFx.Specifications.Implementation.Utilities;
 
 namespace TestFx.Specifications.Implementation.Controllers
 {
-  public interface IExpressionSuiteController<TSubject, out TResult> : ISuiteController
+  public interface ISpecializedSuiteController<TSubject, out TResult> : ISuiteController
   {
     void IgnoreNext ();
 
     ITestController<TSubject, TResult, object> CreateTestController (string description);
   }
 
-  public class ExpressionSuiteController<TSubject, TResult> : SuiteController, IExpressionSuiteController<TSubject, TResult>
+  public class SpecializedSuiteController<TSubject, TResult> : SuiteController, ISpecializedSuiteController<TSubject, TResult>
   {
     private readonly ActionContainer<TSubject, TResult> _actionContainer;
     private readonly IClassSuiteController<TSubject> _classSuiteController;
@@ -37,7 +37,7 @@ namespace TestFx.Specifications.Implementation.Controllers
     private int _sequenceNumber;
     private bool _ignoreNext;
 
-    public ExpressionSuiteController (
+    public SpecializedSuiteController (
         SuiteProvider provider,
         ActionContainer<TSubject, TResult> actionContainer,
         IClassSuiteController<TSubject> classSuiteController,

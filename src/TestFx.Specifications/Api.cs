@@ -70,7 +70,6 @@ namespace TestFx.Specifications
     public SubjectAttribute (Type type, string method)
     {
     }
-
     // ReSharper restore UnusedParameter.Local
   }
 
@@ -135,21 +134,15 @@ namespace TestFx.Specifications
     {
     }
 
-    public interface ISpecify<TSubject>
-    {
-      [DisplayFormat ("{0}")]
-      //[GroupAnnotation (Member = "voidAction")]
-      IIgnoreOrCase<TSubject, Dummy> Specify (Expression<Action<TSubject>> voidAction);
-
-      //[GroupAnnotation (Member = "resultAction")]
-      [DisplayFormat ("{0}")]
-      IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> resultAction);
-    }
+    //public interface ISpecify<TSubject>
+    //{
+    //  IIgnoreOrCase<TSubject, Dummy> Specify (Expression<Action<TSubject>> voidAction);
+    //  IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> resultAction);
+    //}
 
     public interface ICase<TSubject, TResult>
     {
       [DisplayFormat ("{0}")]
-      //[CaseAnnotation (Member = "description")]
       IIgnoreOrCase<TSubject, TResult> Case (
           string description,
           Func<IDefineOrArrangeOrAssert<TSubject, TResult, object>, IAssert> succession);

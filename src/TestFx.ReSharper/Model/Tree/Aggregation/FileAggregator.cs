@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
@@ -45,10 +46,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     public ISuiteFile GetSuiteFile (ICSharpFile csharpFile)
     {
       var assemblyIdentity = new Identity(_project.GetOutputFilePath().FullPath);
-      var namespaceDeclarations = csharpFile.NamespaceDeclarations.SelectMany(x => x.DescendantsAndSelf(y => y.NamespaceDeclarations));
-      var classDeclarations = namespaceDeclarations.Cast<ITypeDeclarationHolder>().SelectMany(x => x.TypeDeclarations)
-          .SelectMany(x => x.DescendantsAndSelf(y => y.TypeDeclarations)).OfType<IClassDeclaration>();
-
+      var classDeclarations = GetClassDeclarations(csharpFile);
       var classSuites = TreeNodeCollection.Create(classDeclarations, x => GetClassSuite(x, assemblyIdentity), _notInterrupted);
 
       return new SuiteFile(classSuites, csharpFile);
@@ -65,30 +63,13 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
         return null;
 
       var identity = parentIdentity.CreateChildIdentity(classDeclaration.CLRName);
-      var expressionStatements = constructorDeclarations.SelectMany(x => x.Body.Children<IExpressionStatement>());
-      var statementSuites = TreeNodeCollection.Create(expressionStatements, x => GetStatementSuite(x, identity), _notInterrupted);
+      var invocationExpressions = GetInvocationExpressions(constructorDeclarations);
+      var expressionTests = TreeNodeCollection.Create(invocationExpressions, x => GetInvocationTest(x, identity), _notInterrupted);
 
-      return new ClassSuiteDeclaration(identity, _project, text, statementSuites, new ITestDeclaration[0], classDeclaration);
+      return new ClassSuiteDeclaration(identity, _project, text, new ISuiteDeclaration[0], expressionTests, classDeclaration);
     }
 
-    private ISuiteDeclaration GetStatementSuite (IExpressionStatement expressionStatement, IIdentity parentIdentity)
-    {
-      var invocation = expressionStatement.Expression.As<IInvocationExpression>();
-      if (invocation == null)
-        return null;
-
-      var invocationExpressions = invocation.DescendantsAndSelf(x => x.InvokedExpression.FirstChild.As<IInvocationExpression>()).Reverse().ToList();
-      var text = _treePresenter.Present(invocationExpressions.First());
-      if (text == null)
-        return null;
-
-      var identity = _identityProvider.Next(parentIdentity);
-      var invocationTests = TreeNodeCollection.Create(invocationExpressions.Skip(1), x => GetInvocationSuite(x, identity), _notInterrupted);
-
-      return new StatementSuiteDeclaration(identity, _project, text, new ISuiteDeclaration[0], invocationTests, expressionStatement);
-    }
-
-    private ITestDeclaration GetInvocationSuite (IInvocationExpression invocationExpression, IIdentity parentIdentity)
+    private ITestDeclaration GetInvocationTest (IInvocationExpression invocationExpression, IIdentity parentIdentity)
     {
       var text = _treePresenter.Present(invocationExpression);
       if (text == null)
@@ -97,6 +78,22 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       text = text.Trim('"');
       var identity = _identityProvider.Next(parentIdentity);
       return new InvocationTestDeclaration(identity, _project, text, invocationExpression);
+    }
+
+    private IEnumerable<IClassDeclaration> GetClassDeclarations (ICSharpFile csharpFile)
+    {
+      var namespaceDeclarations = csharpFile.NamespaceDeclarations.SelectMany(x => x.DescendantsAndSelf(y => y.NamespaceDeclarations));
+      var classDeclarations = namespaceDeclarations.Cast<ITypeDeclarationHolder>().SelectMany(x => x.TypeDeclarations)
+          .SelectMany(x => x.DescendantsAndSelf(y => y.TypeDeclarations)).OfType<IClassDeclaration>();
+      return classDeclarations;
+    }
+
+    private IEnumerable<IInvocationExpression> GetInvocationExpressions (List<IConstructorDeclaration> constructorDeclarations)
+    {
+      var statementExpressions = constructorDeclarations.SelectMany(x => x.Body.Children<IExpressionStatement>()).Select(x => x.Expression);
+      var invocationExpressions = statementExpressions.OfType<IInvocationExpression>()
+          .SelectMany(z => z.DescendantsAndSelf(x => x.InvokedExpression.FirstChild.As<IInvocationExpression>()).Reverse());
+      return invocationExpressions;
     }
   }
 }

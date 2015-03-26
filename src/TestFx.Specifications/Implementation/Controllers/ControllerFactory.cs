@@ -28,7 +28,7 @@ namespace TestFx.Specifications.Implementation.Controllers
   {
     ISuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider);
 
-    IExpressionSuiteController<TSubject, TResult> CreateExpressionSuiteController<TSubject, TResult> (
+    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
         SuiteProvider provider,
         ActionContainer<TSubject, TResult> actionContainer,
         IClassSuiteController<TSubject> classSuiteController);
@@ -62,23 +62,17 @@ namespace TestFx.Specifications.Implementation.Controllers
     public ISuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider)
     {
       var suiteControllerType = typeof (ClassSuiteController<>).MakeGenericType(subjectType);
-      var controller = suiteControllerType.CreateInstance<SuiteController>(
-          provider,
-          suite,
-          _testExtensions,
-          this,
-          _operationSorter,
-          _introspectionPresenter);
+      var controller = suiteControllerType.CreateInstance<SuiteController>(provider, suite, _testExtensions, this, _operationSorter);
       provider.Controller = controller;
       return controller;
     }
 
-    public IExpressionSuiteController<TSubject, TResult> CreateExpressionSuiteController<TSubject, TResult> (
+    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
         SuiteProvider provider,
         ActionContainer<TSubject, TResult> actionContainer,
         IClassSuiteController<TSubject> classSuiteController)
     {
-      var controller = new ExpressionSuiteController<TSubject, TResult>(provider, actionContainer, classSuiteController, this, _operationSorter);
+      var controller = new SpecializedSuiteController<TSubject, TResult>(provider, actionContainer, classSuiteController, this, _operationSorter);
       provider.Controller = controller;
       return controller;
     }

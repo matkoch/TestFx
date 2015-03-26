@@ -50,10 +50,10 @@
     <Compile Include="Implementation\Controllers\MainTestController.cs" />
     <Compile Include="Implementation\Utilities\ActionContainer.cs" />
     <Compile Include="Implementation\Controllers\ClassSuiteController.cs" />
-    <Compile Include="Implementation\Containers\ExpressionSuiteContainer.cs" />
+    <Compile Include="Implementation\Containers\SpecializedSuiteContainer.cs" />
     <Compile Include="Implementation\Containers\TestContainer.cs" />
     <Compile Include="Implementation\Controllers\ControllerFactory.cs" />
-    <Compile Include="Implementation\Controllers\ExpressionSuiteController.cs" />
+    <Compile Include="Implementation\Controllers\SpecializedClassSuiteController.cs" />
     <Compile Include="Implementation\ISpecK.cs" />
     <Compile Include="Implementation\OperationDescriptors.cs" />
     <Compile Include="Implementation\Utilities\AssertionHelper.cs" />

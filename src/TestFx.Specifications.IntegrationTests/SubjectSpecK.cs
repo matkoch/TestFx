@@ -83,7 +83,7 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (OperationResults[1], "<OPERATION>", "<SubjectCreation>", State.Passed);
 
       AssertResult (OperationResults[7], "<OPERATION>", "subject is created with null values", State.Passed);
-      AssertResult (OperationResults[8], "<OPERATION>", "DomainType.ToString()", State.Passed);
+      AssertResult (OperationResults[8], "<OPERATION>", "<Action>", State.Passed);
     }
   }
 }

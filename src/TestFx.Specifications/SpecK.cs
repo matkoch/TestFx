@@ -23,8 +23,6 @@ namespace TestFx.Specifications
 {
   public abstract class SpecK<TSubject> : ISpecK<TSubject>
   {
-    private const string c_specifyDisplayFormat = "{0}";
-
     // ReSharper disable UnassignedField.Compiler
     private IClassSuiteController<TSubject> _classSuiteController;
     private Func<ISpecK<TSubject>, TSubject> _subjectFactory;
@@ -40,18 +38,16 @@ namespace TestFx.Specifications
       _classSuiteController.AddTestSetupCleanup(setup, cleanup);
     }
 
-    [DisplayFormat (c_specifyDisplayFormat)]
     public IIgnoreOrCase<TSubject, Dummy> Specify (Expression<Action<TSubject>> action)
     {
-      var expressionSuiteController = _classSuiteController.CreateExpressionSuiteController<Dummy>(c_specifyDisplayFormat, action);
-      return new ExpressionSuiteContainer<TSubject, Dummy>(expressionSuiteController);
+      var expressionSuiteController = _classSuiteController.CreateSpecializedSuiteController<Dummy>(action);
+      return new SpecializedSuiteContainer<TSubject, Dummy>(expressionSuiteController);
     }
 
-    [DisplayFormat (c_specifyDisplayFormat)]
     public IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> action)
     {
-      var expressionSuiteController = _classSuiteController.CreateExpressionSuiteController(c_specifyDisplayFormat, action);
-      return new ExpressionSuiteContainer<TSubject, TResult>(expressionSuiteController);
+      var expressionSuiteController = _classSuiteController.CreateSpecializedSuiteController(action);
+      return new SpecializedSuiteContainer<TSubject, TResult>(expressionSuiteController);
     }
 
     public virtual TSubject CreateSubject ()

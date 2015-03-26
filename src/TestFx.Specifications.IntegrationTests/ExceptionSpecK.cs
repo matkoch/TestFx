@@ -37,18 +37,18 @@ namespace TestFx.Specifications.IntegrationTests
     ExceptionSpecK ()
     {
       Specify (x => UserClass.Throw (Message, InnerException))
-          .Case ("Case 1", _ => _
+          .Case ("Simple generic", _ => _
               .ItThrows<InvalidOperationException> ())
-          .Case ("Case 2", _ => _
+          .Case ("Message provider", _ => _
               .ItThrows<ArgumentException> (x => "Wrong message"))
-          .Case ("Case 3", _ => _
+          .Case ("InnerException provider", _ => _
               .Given ("a message", x => Message = "Message")
               .ItThrows<ArgumentException> (x => "Message", x => new Exception ()))
-          .Case ("Case 4", _ => _
+          .Case ("Passing for message and inner exception", _ => _
               .Given ("a message", x => Message = "Message")
               .Given ("an inner exception", x => InnerException = new Exception ())
               .ItThrows<ArgumentException> (x => Message, x => InnerException))
-          .Case ("Case 5", _ => _
+          .Case ("Missing exception assertion", _ => _
               .Given ("a message", x => Message = "Message")
               .Given ("an inner exception with message", x => InnerException = new Exception ("InnerMessage"))
               .It ("asserts something different", x => { }));
@@ -71,11 +71,11 @@ namespace TestFx.Specifications.IntegrationTests
     [Test]
     public void Test ()
     {
-      AssertResult (TestResults[0], "0", "Case 1", State.Failed);
-      AssertResult (TestResults[1], "1", "Case 2", State.Failed);
-      AssertResult (TestResults[2], "2", "Case 3", State.Failed);
-      AssertResult (TestResults[3], "3", "Case 4", State.Passed);
-      AssertResult (TestResults[4], "4", "Case 5", State.Failed);
+      AssertResult (TestResults[0], "0", "Simple generic", State.Failed);
+      AssertResult (TestResults[1], "1", "Message provider", State.Failed);
+      AssertResult (TestResults[2], "2", "InnerException provider", State.Failed);
+      AssertResult (TestResults[3], "3", "Passing for message and inner exception", State.Passed);
+      AssertResult (TestResults[4], "4", "Missing exception assertion", State.Failed);
 
       var actException = OperationResults.Last ().Exception.AssertNotNull ();
       actException.Name.Should ().Be ("ArgumentException");

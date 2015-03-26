@@ -25,7 +25,6 @@ using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Utilities;
 using TestFx.Specifications.InferredApi;
 using TestFx.Utilities;
-using TestFx.Utilities.Expressions;
 
 namespace TestFx.Specifications.Implementation.Controllers
 {
@@ -33,13 +32,8 @@ namespace TestFx.Specifications.Implementation.Controllers
   {
     void AddTestSetupCleanup (Action<ITestContext<TSubject>> setup, [CanBeNull] Action<ITestContext<TSubject>> cleanup);
 
-    IExpressionSuiteController<TSubject, TResult> CreateExpressionSuiteController<TResult> (
-        string displayFormat,
-        Expression<Action<TSubject>> voidExpression);
-
-    IExpressionSuiteController<TSubject, TResult> CreateExpressionSuiteController<TResult> (
-        string displayFormat,
-        Expression<Func<TSubject, TResult>> resultExpression);
+    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Expression<Action<TSubject>> voidExpression);
+    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Expression<Func<TSubject, TResult>> resultExpression);
   }
 
   public class ClassSuiteController<TSubject> : ClassSuiteController, IClassSuiteController<TSubject>
@@ -47,7 +41,6 @@ namespace TestFx.Specifications.Implementation.Controllers
     private readonly SuiteProvider _provider;
     private readonly ISpecK<TSubject> _suite;
     private readonly IControllerFactory _controllerFactory;
-    private readonly IIntrospectionPresenter _introspectionPresenter;
     private readonly List<Tuple<Action<ITestContext<TSubject>>, Action<ITestContext<TSubject>>>> _testSetupCleanupTuples;
 
     private bool _controllerAdded;
@@ -57,14 +50,12 @@ namespace TestFx.Specifications.Implementation.Controllers
         ISpecK<TSubject> suite,
         IEnumerable<ITestExtension> testExtensions,
         IControllerFactory controllerFactory,
-        IOperationSorter operationSorter,
-        IIntrospectionPresenter introspectionPresenter)
+        IOperationSorter operationSorter)
         : base(provider, suite, testExtensions, operationSorter)
     {
       _provider = provider;
       _suite = suite;
       _controllerFactory = controllerFactory;
-      _introspectionPresenter = introspectionPresenter;
       _testSetupCleanupTuples = new List<Tuple<Action<ITestContext<TSubject>>, Action<ITestContext<TSubject>>>>();
     }
 
@@ -75,18 +66,15 @@ namespace TestFx.Specifications.Implementation.Controllers
       _testSetupCleanupTuples.Add(Tuple.Create(setup, cleanup));
     }
 
-    public IExpressionSuiteController<TSubject, TResult> CreateExpressionSuiteController<TResult> (
-        string displayFormat,
-        Expression<Action<TSubject>> voidExpression)
+    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Expression<Action<TSubject>> voidExpression)
     {
-      return CreateExpressionSuiteController<TResult>(displayFormat, voidExpression, voidExpression.Compile(), null);
+      return CreateSpecializedSuiteController<TResult>(voidExpression, voidExpression.Compile(), null);
     }
 
-    public IExpressionSuiteController<TSubject, TResult> CreateExpressionSuiteController<TResult> (
-        string displayFormat,
+    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (
         Expression<Func<TSubject, TResult>> resultExpression)
     {
-      return CreateExpressionSuiteController(displayFormat, resultExpression, null, resultExpression.Compile());
+      return CreateSpecializedSuiteController(resultExpression, null, resultExpression.Compile());
     }
 
     public override void ConfigureTestController (ITestController testController)
@@ -104,15 +92,14 @@ namespace TestFx.Specifications.Implementation.Controllers
           x => testControllerWithSubject.AddSetupCleanup<SetupCommon, CleanupCommon>(ConvertToNonGeneric(x.Item1), ConvertToNonGeneric(x.Item2)));
     }
 
-    private IExpressionSuiteController<TSubject, TResult> CreateExpressionSuiteController<TResult> (
-        string displayFormat,
+    private ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (
         Expression expression,
         [CanBeNull] Action<TSubject> voidAction,
         [CanBeNull] Func<TSubject, TResult> resultAction)
     {
-      var actionText = _introspectionPresenter.Present(displayFormat, new[] { expression.ToCommon(typeof (ISuite), typeof (ITestContext)) });
-      var actionContainer = new ActionContainer<TSubject, TResult>(actionText, voidAction, resultAction);
-      return _controllerFactory.CreateExpressionSuiteController(_provider, actionContainer, this);
+      //var actionText = _introspectionPresenter.Present("{0}", new[] { expression.ToCommon(typeof (ISuite), typeof (ITestContext)) });
+      var actionContainer = new ActionContainer<TSubject, TResult>("<Action>", voidAction, resultAction);
+      return _controllerFactory.CreateSpecializedSuiteController(_provider, actionContainer, this);
     }
 
     private Action<Extensibility.Contexts.ITestContext> ConvertToNonGeneric (Action<ITestContext<TSubject>> action)
