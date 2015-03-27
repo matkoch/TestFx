@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
 
@@ -22,12 +23,18 @@ namespace TestFx.Utilities
   [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static partial class EnumerableExtensions
   {
+    [DebuggerNonUserCode]
+    [DebuggerStepThrough]
+    [DebuggerHidden]
     public static IEnumerable<T> WhereNotNull<T> (this IEnumerable<T> enumerable)
         where T : class
     {
       return enumerable.Where(x => x != null);
     }
-
+    
+    [DebuggerNonUserCode]
+    [DebuggerStepThrough]
+    [DebuggerHidden]
     public static IEnumerable<T> Concat<T> ([CanBeNull] this T obj, IEnumerable<T> enumerable)
     {
       yield return obj;
@@ -35,7 +42,10 @@ namespace TestFx.Utilities
       foreach (var element in enumerable)
         yield return element;
     }
-
+    
+    [DebuggerNonUserCode]
+    [DebuggerStepThrough]
+    [DebuggerHidden]
     public static IEnumerable<T> Concat<T> (this IEnumerable<T> enumerable, [CanBeNull] T obj)
     {
       foreach (var element in enumerable)

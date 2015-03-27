@@ -21,6 +21,7 @@ namespace TestFx.Utilities
   {
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
+    [DebuggerHidden]
     public static T To<T> (this object obj)
     {
       return (T) obj;

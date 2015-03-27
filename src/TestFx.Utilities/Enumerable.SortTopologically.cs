@@ -15,12 +15,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace TestFx.Utilities
 {
   public static class TopologicalSort
   {
+    [DebuggerNonUserCode]
+    [DebuggerStepThrough]
+    [DebuggerHidden]
     public static IEnumerable<T> SortTopologically<T> (
         this IEnumerable<T> items,
         Func<T, T, bool> isDepending,
