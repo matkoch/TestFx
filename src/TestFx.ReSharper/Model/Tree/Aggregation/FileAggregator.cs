@@ -75,7 +75,6 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       if (text == null)
         return null;
 
-      text = text.Trim('"');
       var identity = _identityProvider.Next(parentIdentity);
       return new InvocationTestDeclaration(identity, _project, text, invocationExpression);
     }

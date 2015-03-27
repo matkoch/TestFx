@@ -31,6 +31,8 @@ namespace TestFx.Extensibility
 
   public partial class IntrospectionPresenter : IIntrospectionPresenter
   {
+    public const string UnknownValue = "???";
+
     public string Present (CommonAttribute displayAttribute, CommonAttribute subjectAttribute)
     {
       return Present(GetDisplayFormat(displayAttribute), subjectAttribute);
@@ -48,7 +50,7 @@ namespace TestFx.Extensibility
 
     public string Present (string displayFormat, IEnumerable<object> arguments)
     {
-      return string.Format(displayFormat, arguments.Concat(Enumerable.Repeat("???", 10)).ToArray());
+      return String.Format(displayFormat, arguments.Concat(Enumerable.Repeat(UnknownValue, 10)).ToArray());
     }
 
     private string GetDisplayFormat (CommonAttribute displayAttribute)

@@ -17,10 +17,10 @@ using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Psi.Util;
 using TestFx.Extensibility;
 using TestFx.ReSharper.Utilities.Psi;
-using TestFx.ReSharper.Utilities.Psi.Tree;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Model.Tree.Aggregation
@@ -72,14 +72,21 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
         return null;
 
       var displayFormatAttribute = displayFormatAttributeData.ToCommon();
-      var commonExpressions = invocationExpression.Arguments.Select(ConvertToCommon);
+      var commonExpressions = invocationExpression.Arguments.Select(GetConstantValue);
       return _introspectionPresenter.Present(displayFormatAttribute, commonExpressions);
     }
 
-    // TODO: ConvertToCommon handling bad values
-    private object ConvertToCommon (ICSharpArgument argument)
+    private object GetConstantValue (ICSharpArgument argument)
     {
-      return argument.Kind != ParameterKind.UNKNOWN ? (object) argument.Value.ToCommon() : "???";
+      if (argument.Kind == ParameterKind.UNKNOWN)
+        return IntrospectionPresenter.UnknownValue;
+
+      var literalExpression = argument.Value.As<ILiteralExpression>();
+      if (literalExpression == null)
+        return IntrospectionPresenter.UnknownValue;
+
+      var constantValue = literalExpression.ConstantValue.Value.AssertNotNull();
+      return constantValue.ToString().Trim('"');
     }
   }
 }
