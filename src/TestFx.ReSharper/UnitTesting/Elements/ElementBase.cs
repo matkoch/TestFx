@@ -169,7 +169,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
           : Enumerable.Empty<IUnitTestDeclaration>();
     }
 
-    public UnitTestElementDisposition GetDisposition (params ISuiteFile[] suiteFiles)
+    public UnitTestElementDisposition GetDispositionFromFiles (params ISuiteFile[] suiteFiles)
     {
       var locations = GetDeclarations(suiteFiles).ToList().Select(x => x.GetUnitTestElementLocation()).ToList();
       return locations.Count != 0
@@ -179,7 +179,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     public UnitTestElementDisposition GetDisposition ()
     {
-      return GetDisposition(GetSuiteFiles().ToArray());
+      return GetDispositionFromFiles(GetSuiteFiles().ToArray());
     }
 
     public bool Equals (IUnitTestElement other)

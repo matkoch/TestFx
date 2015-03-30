@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     public IFileAggregator Aggregate (IProject project, [CanBeNull] Func<bool> notInterrupted)
     {
       notInterrupted = notInterrupted ?? (() => true);
-      return new FileAggregator(new TreePresenter(), new IdentityProvider(), project, notInterrupted);
+      return new FileAggregator(new TreePresenter(), project, notInterrupted);
     }
   }
 }

@@ -68,13 +68,13 @@ namespace TestFx.Specifications.Implementation.Controllers
 
     public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Expression<Action<TSubject>> voidExpression)
     {
-      return CreateSpecializedSuiteController<TResult>(voidExpression, voidExpression.Compile(), null);
+      return CreateSpecializedSuiteController<TResult>(voidExpression.Compile(), null);
     }
 
     public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (
         Expression<Func<TSubject, TResult>> resultExpression)
     {
-      return CreateSpecializedSuiteController(resultExpression, null, resultExpression.Compile());
+      return CreateSpecializedSuiteController(null, resultExpression.Compile());
     }
 
     public override void ConfigureTestController (ITestController testController)
@@ -92,9 +92,7 @@ namespace TestFx.Specifications.Implementation.Controllers
           x => testControllerWithSubject.AddSetupCleanup<SetupCommon, CleanupCommon>(ConvertToNonGeneric(x.Item1), ConvertToNonGeneric(x.Item2)));
     }
 
-    private ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (
-        Expression expression,
-        [CanBeNull] Action<TSubject> voidAction,
+    private ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> ([CanBeNull] Action<TSubject> voidAction,
         [CanBeNull] Func<TSubject, TResult> resultAction)
     {
       //var actionText = _introspectionPresenter.Present("{0}", new[] { expression.ToCommon(typeof (ISuite), typeof (ITestContext)) });

@@ -23,7 +23,7 @@ namespace TestFx.Specifications.IntegrationTests
     ContextBehaviorSpecK ()
     {
       Specify (x => x.Property)
-          .Case ("Case 1", _ => _
+          .DefaultCase(_ => _
               .Given (SetSubject ("ctor arg"))
               .It (AssertProperty ("ctor arg")));
     }
@@ -68,9 +68,9 @@ namespace TestFx.Specifications.IntegrationTests
     {
       RunResult.State.Should ().Be (State.Failed);
 
-      AssertResult (OperationResults[1], "<OPERATION>", "subject with ctor arg", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[3], "<OPERATION>", "has result set to ctor arg", State.Passed, OperationType.Assertion);
-      AssertResult (OperationResults[4], "<OPERATION>", "has property set to null", State.Failed, OperationType.Assertion);
+      AssertResult (OperationResults[1], "subject with ctor arg", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[3], "has result set to ctor arg", State.Passed, OperationType.Assertion);
+      AssertResult (OperationResults[4], "has property set to null", State.Failed, OperationType.Assertion);
     }
   }
 }

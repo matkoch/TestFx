@@ -23,7 +23,7 @@ namespace TestFx.Specifications.IntegrationTests
     DefineSpecK ()
     {
       Specify (x => 1)
-          .Case ("Case", _ => _
+          .DefaultCase(_ => _
               .Define (x => new { StringBase = "Moep", IntegerBase = 2 })
               .Given ("set string property", x => x.Subject.String = x.Vars.StringBase)
               .Given ("set integer property", x => x.Subject.Integer = x.Vars.IntegerBase)

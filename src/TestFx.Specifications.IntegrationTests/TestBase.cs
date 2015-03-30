@@ -55,6 +55,16 @@ namespace TestFx.Specifications.IntegrationTests
       OperationResults = TestResults.SelectMany (x => x.OperationResults).ToList ();
     }
 
+    protected void AssertResult (IResult result, string relativeIdAndText, State state)
+    {
+      AssertResult (result, relativeIdAndText, relativeIdAndText, state);
+    }
+
+    protected void AssertResult (IOperationResult result, string text, State state)
+    {
+      AssertResult (result, "<OPERATION>", text, state);
+    }
+
     protected void AssertResult (IResult result, string relativeId, string text, State state)
     {
       result.Identity.Relative.Should ().Be (relativeId);
@@ -62,9 +72,9 @@ namespace TestFx.Specifications.IntegrationTests
       result.State.Should ().Be (state);
     }
 
-    protected void AssertResult (IOperationResult result, string relativeId, string text, State state, OperationType type)
+    protected void AssertResult (IOperationResult result, string text, State state, OperationType type)
     {
-      AssertResult (result, relativeId, text, state);
+      AssertResult (result, text, state);
       result.Type.Should ().Be (type);
     }
   }

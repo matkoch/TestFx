@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.Resources;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.Extensibility;

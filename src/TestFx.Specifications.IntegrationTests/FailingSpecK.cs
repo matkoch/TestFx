@@ -23,7 +23,7 @@ namespace TestFx.Specifications.IntegrationTests
     FailingSpecK ()
     {
       Specify (x => 1)
-          .Case ("Case", _ => _
+          .DefaultCase(_ => _
               .It ("Failing assertion", x => { throw new Exception (); })
               .It ("Passing assertion", x => x.Result.Should ().Be (1)));
     }
@@ -45,8 +45,8 @@ namespace TestFx.Specifications.IntegrationTests
     {
       RunResult.State.Should ().Be (State.Failed);
 
-      AssertResult (OperationResults[2], "<OPERATION>", "Failing assertion", State.Failed, OperationType.Assertion);
-      AssertResult (OperationResults[3], "<OPERATION>", "Passing assertion", State.Passed, OperationType.Assertion);
+      AssertResult (OperationResults[2], "Failing assertion", State.Failed, OperationType.Assertion);
+      AssertResult (OperationResults[3], "Passing assertion", State.Passed, OperationType.Assertion);
     }
   }
 }

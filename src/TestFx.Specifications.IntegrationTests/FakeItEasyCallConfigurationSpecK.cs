@@ -14,6 +14,7 @@
 
 using System;
 using FakeItEasy;
+using TestFx.Extensibility.Providers;
 using TestFx.FakeItEasy;
 
 namespace TestFx.Specifications.IntegrationTests
@@ -51,13 +52,13 @@ namespace TestFx.Specifications.IntegrationTests
     public void Test ()
     {
       RunResult.State.Should ().Be (State.Passed);
-      
-      AssertResult (OperationResults[1], "<OPERATION>", "<FakeCreation>", State.Passed);
-      AssertResult (OperationResults[2], "<OPERATION>", "<FakeSetup>", State.Passed);
-      AssertResult (OperationResults[4], "<OPERATION>", "ACallTo ServiceProvider.GetService().Throws(MyException)", State.Passed);
-      AssertResult (OperationResults[6], "<OPERATION>", "Throws MyException", State.Passed);
-      AssertResult (OperationResults[11], "<OPERATION>", "ACallTo ServiceProvider.GetService().Returns(OtherService)", State.Passed);
-      AssertResult (OperationResults[13], "<OPERATION>", "Returns OtherService", State.Passed);
+
+      AssertResult (OperationResults[1], "<FakeCreation>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[2], "<FakeSetup>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[4], "ACallTo ServiceProvider.GetService().Throws(MyException)", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[6], "Throws MyException", State.Passed, OperationType.Assertion);
+      AssertResult (OperationResults[11], "ACallTo ServiceProvider.GetService().Returns(OtherService)", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[13], "Returns OtherService", State.Passed, OperationType.Assertion);
     }
   }
 }

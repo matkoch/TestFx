@@ -1,17 +1,3 @@
-// Copyright 2014, 2013 Matthias Koch
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-// http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 using System;
 using UserNamespace;
 
@@ -37,7 +23,7 @@ namespace TestFx.Specifications.IntegrationTests
     ExceptionSpecK ()
     {
       Specify (x => UserClass.Throw (Message, InnerException))
-          .Case ("Simple generic", _ => _
+          .DefaultCase (_ => _
               .ItThrows<InvalidOperationException> ())
           .Case ("Message provider", _ => _
               .ItThrows<ArgumentException> (x => "Wrong message"))
@@ -71,11 +57,11 @@ namespace TestFx.Specifications.IntegrationTests
     [Test]
     public void Test ()
     {
-      AssertResult (TestResults[0], "0", "Simple generic", State.Failed);
-      AssertResult (TestResults[1], "1", "Message provider", State.Failed);
-      AssertResult (TestResults[2], "2", "InnerException provider", State.Failed);
-      AssertResult (TestResults[3], "3", "Passing for message and inner exception", State.Passed);
-      AssertResult (TestResults[4], "4", "Missing exception assertion", State.Failed);
+      AssertResult (TestResults[0], "<Default>", State.Failed);
+      AssertResult (TestResults[1], "Message provider", State.Failed);
+      AssertResult (TestResults[2], "InnerException provider", State.Failed);
+      AssertResult (TestResults[3], "Passing for message and inner exception", State.Passed);
+      AssertResult (TestResults[4], "Missing exception assertion", State.Failed);
 
       var actException = OperationResults.Last ().Exception.AssertNotNull ();
       actException.Name.Should ().Be ("ArgumentException");

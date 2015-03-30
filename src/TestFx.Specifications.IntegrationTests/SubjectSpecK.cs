@@ -33,10 +33,10 @@ namespace TestFx.Specifications.IntegrationTests
     SubjectSpecK ()
     {
       Specify (x => x.ToString ())
-          .Case ("Case 1", _ => _
+          .DefaultCase(_ => _
               .It ("passes disposable", x => x.Subject.Disposable.Should ().BeSameAs (Disposable))
               .It ("passes strings as collection", x => x.Subject.Strings.Should ().Equal (new[] { String1, String2, String3 })))
-          .Case ("Case 2", _ => _
+          .Case ("custom subject creation", _ => _
               .Given ("reset disposable", x => Writer = new BinaryWriter (Stream.Null))
               .GivenSubject ("is created with null values", x => new DomainType (Writer, null))
               .It ("passes null disposable", x => x.Subject.Disposable.Should ().BeSameAs (Writer))
@@ -80,10 +80,10 @@ namespace TestFx.Specifications.IntegrationTests
 
       SubjectSpecK.DomainType.ConstructorCalls.Should ().Be (2);
 
-      AssertResult (OperationResults[1], "<OPERATION>", "<SubjectCreation>", State.Passed);
+      AssertResult (OperationResults[1], "<SubjectCreation>", State.Passed);
 
-      AssertResult (OperationResults[7], "<OPERATION>", "subject is created with null values", State.Passed);
-      AssertResult (OperationResults[8], "<OPERATION>", "<Action>", State.Passed);
+      AssertResult (OperationResults[7], "subject is created with null values", State.Passed);
+      AssertResult (OperationResults[8], "<Action>", State.Passed);
     }
   }
 }

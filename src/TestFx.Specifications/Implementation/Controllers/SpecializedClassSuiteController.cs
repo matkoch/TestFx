@@ -34,7 +34,6 @@ namespace TestFx.Specifications.Implementation.Controllers
     private readonly IClassSuiteController<TSubject> _classSuiteController;
     private readonly IControllerFactory _controllerFactory;
 
-    private int _sequenceNumber;
     private bool _ignoreNext;
 
     public SpecializedSuiteController (
@@ -57,7 +56,7 @@ namespace TestFx.Specifications.Implementation.Controllers
 
     public ITestController<TSubject, TResult, object> CreateTestController (string text)
     {
-      var provider = CreateTestProvider(_sequenceNumber++.ToString(CultureInfo.InvariantCulture), text, _ignoreNext);
+      var provider = CreateTestProvider(text, text, _ignoreNext);
       var controller = _controllerFactory.CreateMainTestController(provider, _actionContainer);
       _classSuiteController.ConfigureTestController(controller);
 

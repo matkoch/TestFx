@@ -28,7 +28,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     void Update (string text, [CanBeNull] string explicitReason, IEnumerable<UnitTestElementCategory> categories);
 
     IEnumerable<IUnitTestDeclaration> GetDeclarations (IEnumerable<ISuiteFile> suiteFiles);
-    UnitTestElementDisposition GetDisposition (params ISuiteFile[] suiteFiles);
+    UnitTestElementDisposition GetDispositionFromFiles (params ISuiteFile[] suiteFiles);
     IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements);
   }
 }

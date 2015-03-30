@@ -38,7 +38,7 @@ namespace TestFx.Specifications.IntegrationTests
       Setup (SetupAction, CleanupAction);
 
       Specify (x => 1)
-          .Case ("Case 1", _ => _
+          .DefaultCase (_ => _
               .GivenSubject ("static subject1", x => Subject1))
           .Case ("Case 2", _ => _
               .GivenSubject ("static subject2", x => Subject2));

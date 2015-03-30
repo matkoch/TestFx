@@ -82,7 +82,6 @@
     <Compile Include="Model\Tree\Aggregation\FileAggregator.cs" />
     <Compile Include="Model\Tree\Aggregation\FileAggregatorFactory.cs" />
     <Compile Include="Model\Tree\Aggregation\FileExtensions.cs" />
-    <Compile Include="Model\Tree\Aggregation\IdentityProvider.cs" />
     <Compile Include="Model\Tree\Aggregation\TreePresenter.cs" />
     <Compile Include="Model\Tree\ClassSuiteDeclaration.cs" />
     <Compile Include="Model\Tree\InvocationTestDeclaration.cs" />
@@ -122,6 +121,7 @@
     <Compile Include="Model\Surrogates\TestEntitySurrogate.cs" />
     <Compile Include="UnitTesting\UnitTestElementSerializerEx.cs" />
     <Compile Include="Model\Surrogates\UnitTestEntitySurrogateBase.cs" />
+    <Compile Include="UnitTesting\UnitTestPresenterEx.cs" />
     <Compile Include="UnitTesting\UnitTestProviderEx.cs" />
     <Compile Include="UnitTesting\UnitTestProviderEx.R8.cs" />
     <Compile Include="UnitTesting\Utilities\UnitTestEntityExtensions.cs" />

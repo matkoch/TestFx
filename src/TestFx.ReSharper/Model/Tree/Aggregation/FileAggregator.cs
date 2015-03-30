@@ -31,14 +31,12 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
   public class FileAggregator : IFileAggregator
   {
     private readonly ITreePresenter _treePresenter;
-    private readonly IIdentityProvider _identityProvider;
     private readonly IProject _project;
     private readonly Func<bool> _notInterrupted;
 
-    public FileAggregator (ITreePresenter treePresenter, IIdentityProvider identityProvider, IProject project, Func<bool> notInterrupted)
+    public FileAggregator (ITreePresenter treePresenter, IProject project, Func<bool> notInterrupted)
     {
       _treePresenter = treePresenter;
-      _identityProvider = identityProvider;
       _project = project;
       _notInterrupted = notInterrupted;
     }
@@ -75,7 +73,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       if (text == null)
         return null;
 
-      var identity = _identityProvider.Next(parentIdentity);
+      var identity = parentIdentity.CreateChildIdentity(text);
       return new InvocationTestDeclaration(identity, _project, text, invocationExpression);
     }
 

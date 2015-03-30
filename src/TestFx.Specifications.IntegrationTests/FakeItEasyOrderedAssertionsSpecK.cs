@@ -14,6 +14,7 @@
 
 using System;
 using FluentAssertions;
+using TestFx.Extensibility.Providers;
 using TestFx.FakeItEasy;
 
 namespace TestFx.Specifications.IntegrationTests
@@ -54,11 +55,11 @@ namespace TestFx.Specifications.IntegrationTests
     {
       RunResult.State.Should ().Be (State.Failed);
 
-      AssertResult (OperationResults[1], "<OPERATION>", "<FakeCreation>", State.Passed);
-      AssertResult (OperationResults[2], "<OPERATION>", "<FakeSetup>", State.Passed);
-      AssertResult (OperationResults[5], "<OPERATION>", "CallsInOrder [ Disposable, ServiceProvider ]", State.Passed);
-      AssertResult (OperationResults[11], "<OPERATION>", "CallsInOrder [ Disposable.Dispose(), ServiceProvider.GetService() ]", State.Passed);
-      AssertResult (OperationResults[12], "<OPERATION>", "Returns service from provider", State.Passed);
+      AssertResult (OperationResults[1], "<FakeCreation>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[2], "<FakeSetup>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[5], "CallsInOrder [ Disposable, ServiceProvider ]", State.Passed, OperationType.Assertion);
+      AssertResult (OperationResults[11], "CallsInOrder [ Disposable.Dispose(), ServiceProvider.GetService() ]", State.Passed, OperationType.Assertion);
+      AssertResult (OperationResults[12], "Returns service from provider", State.Passed, OperationType.Assertion);
     }
   }
 }

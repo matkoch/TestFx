@@ -22,7 +22,7 @@ namespace TestFx.Specifications.IntegrationTests
     public HaltingSpecK ()
     {
       Specify (x => 1)
-          .Case ("Case", _ => _
+          .DefaultCase(_ => _
               .Given ("Throwing arrangement", x => { throw new Exception (); })
               .Given ("Halted arrangement", x => { })
               .It ("Halted assertion", x => { }));
@@ -47,8 +47,8 @@ namespace TestFx.Specifications.IntegrationTests
       RunResult.State.Should ().Be (State.Failed);
 
       OperationResults.Should ().HaveCount (2);
-      AssertResult (OperationResults[0], "<OPERATION>", "<DefaultInitialization>", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[1], "<OPERATION>", "Throwing arrangement", State.Failed, OperationType.Action);
+      AssertResult (OperationResults[0], "<DefaultInitialization>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[1], "Throwing arrangement", State.Failed, OperationType.Action);
     }
   }
 }
