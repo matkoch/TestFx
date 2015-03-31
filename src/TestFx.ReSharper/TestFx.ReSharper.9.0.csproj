@@ -212,6 +212,7 @@
     <Compile Include="UnitTesting\Explorers\UnitTestMetadataExplorerEx.R9.cs" />
     <Compile Include="UnitTesting\MetadataElementsSourceEx.cs" />
     <Compile Include="UnitTesting\UnitTestElementSerializerEx.cs" />
+    <Compile Include="UnitTesting\UnitTestPresenterEx.cs" />
     <Compile Include="UnitTesting\UnitTestProviderEx.cs" />
     <Compile Include="UnitTesting\UnitTestProviderEx.R9.cs" />
     <Compile Include="UnitTesting\UnitTestSource.cs" />
