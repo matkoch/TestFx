@@ -13,6 +13,8 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Utilities;
@@ -54,6 +56,8 @@ namespace TestFx.Extensibility.Controllers
     {
       var identity = _provider.Identity.CreateChildIdentity(relativeId);
       var provider = SuiteProvider.Create(identity, text, ignore);
+      EnsureUniqueness(provider, _provider.TestProviders.Cast<IProvider>());
+
       _provider.SuiteProviders = _provider.SuiteProviders.Concat(provider);
       return provider;
     }
@@ -62,8 +66,17 @@ namespace TestFx.Extensibility.Controllers
     {
       var identity = _provider.Identity.CreateChildIdentity(relativeId);
       var provider = TestProvider.Create(identity, text, ignore);
+      EnsureUniqueness(provider, _provider.TestProviders.Cast<IProvider>());
+
       _provider.TestProviders = _provider.TestProviders.Concat(provider);
       return provider;
+    }
+
+    private void EnsureUniqueness (IProvider newProvider, IEnumerable<IProvider> existingProviders)
+    {
+      if (existingProviders.Any(x => x.Identity.Equals(newProvider.Identity)))
+        throw new Exception(
+            string.Format("Provider with id '{0}' was already added to suite '{1}'", newProvider.Identity.Relative, _provider.Identity.Relative));
     }
   }
 }
