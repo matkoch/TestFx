@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+extern alias mscorlib;
 using System;
 using System.Linq;
-using System.Threading;
 using JetBrains.ReSharper.TaskRunnerFramework;
+using mscorlib::System.Threading;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Intents;
 using TestFx.ReSharper.Runner.Tasks;
@@ -37,7 +38,10 @@ namespace TestFx.ReSharper.Runner
     public override void ExecuteRecursive (TaskExecutionNode node)
     {
       var runIntent = CreateRunIntent(node);
-      var taskDictionary = node.DescendantsAndSelf(x => x.Children).Select(x => x.RemoteTask).Cast<Task>().ToDictionary(x => x.Identity.Absolute, x => x);
+      var taskDictionary = node.DescendantsAndSelf(x => x.Children)
+          .Select(x => x.RemoteTask)
+          .Cast<Task>()
+          .ToDictionary(x => x.Identity.Absolute, x => x);
       var listener = new ReSharperRunListener(Server, taskDictionary);
 
       try

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestFx.ReSharper.Runner</RootNamespace>
     <AssemblyName>TestFx.ReSharper.Runner</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -39,6 +39,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mscorlib">
+      <Aliases>global, mscorlib</Aliases>
+    </Reference>
     <Reference Include="antlr.runtime">
       <HintPath>..\..\packages\Antlr2.Runtime.2.7.7.02\lib\antlr.runtime.dll</HintPath>
     </Reference>
@@ -147,6 +150,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tasks\TestTask.cs" />
+    <Compile Include="ZoneMarker.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestFx.Utilities\TestFx.Utilities.csproj">

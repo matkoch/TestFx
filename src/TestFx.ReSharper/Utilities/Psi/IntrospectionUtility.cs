@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-extern alias utils;
-
 using System;
 using System.Linq;
 using JetBrains.ReSharper.Psi;
@@ -21,7 +19,6 @@ using JetBrains.Util;
 using TestFx.Utilities;
 using TestFx.Utilities.Introspection;
 using TestFx.Utilities.Reflection;
-using TestFxUtils = utils::TestFx.Utilities;
 
 namespace TestFx.ReSharper.Utilities.Psi
 {
@@ -125,17 +122,17 @@ namespace TestFx.ReSharper.Utilities.Psi
       return new CommonNamedArgument(argument.First, typeAndValue.Item1, typeAndValue.Item2);
     }
 
-    private TestFxUtils.Tuple<CommonType, object> GetTypeAndValue (AttributeValue argument)
+    private Tuple<CommonType, object> GetTypeAndValue (AttributeValue argument)
     {
       if (argument.IsType)
-        return TestFxUtils.Tuple.Create(typeof (Type).ToCommon(), ConvertToCommon(argument, x => GetCommonType(x.TypeValue)));
+        return Tuple.Create(typeof (Type).ToCommon(), ConvertToCommon(argument, x => GetCommonType(x.TypeValue)));
 
       if (argument.IsArray)
         throw new Exception(); // Use GetScalarType
       //return Tuple.Create(GetCommonType(argument.ArrayType), (object) argument.ArrayValue.Select(GetTypeAndValue).Select(x => x.Item2).ToArray());
 
       // TODO: ConvertToCommon required?
-      return TestFxUtils.Tuple.Create(GetCommonType(argument.ConstantValue.Type), ConvertToCommon(argument, x => x.ConstantValue.Value));
+      return Tuple.Create(GetCommonType(argument.ConstantValue.Type), ConvertToCommon(argument, x => x.ConstantValue.Value));
     }
 
     // TODO: ConvertToCommon handling bad values

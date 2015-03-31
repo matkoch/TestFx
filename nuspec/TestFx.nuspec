@@ -8,7 +8,7 @@
     <description>TestFx core components.</description>
     <iconUrl>https://raw.github.com/matkoch/TestFx/master/TestFx.ico</iconUrl>
     <projectUrl>https://github.com/matkoch/TestFx</projectUrl>
-    <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE.txt</licenseUrl>
+    <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
     <tags>testfx</tags>
   </metadata>
   <files>

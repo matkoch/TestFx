@@ -10,16 +10,17 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestFx.ReSharper</RootNamespace>
     <AssemblyName>TestFx.ReSharper</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <IntermediateOutputPath>obj\$(Configuration)\9.0</IntermediateOutputPath>
+    <Hive>ReSharper90</Hive>
     <StartAction>Program</StartAction>
-    <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe</StartProgram>
-    <StartArguments>/ReSharper.Internal /ReSharper.LogLevel VERBOSE /ReSharper.LogFile $(SolutionDir)\src\plugin.log $(SolutionDir)\src\Example\Example.csproj</StartArguments>
-    <HostFullIdentifier>ReSharperPlatformVs14</HostFullIdentifier>
+    <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
+    <StartArguments>/rootSuffix $(Hive) $(SolutionDir)\src\Example\Example.csproj</StartArguments>
+    <HostFullIdentifier>ReSharperPlatformVs12$(Hive)</HostFullIdentifier>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -248,12 +249,11 @@
       <Name>TestFx.ReSharper.Runner.9.0</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestFx.Utilities\TestFx.Utilities.csproj">
-      <Project>{86730939-7F40-4FF4-BCEC-39833FAAEF97}</Project>
+      <Project>{86730939-7f40-4ff4-bcec-39833faaef97}</Project>
       <Name>TestFx.Utilities</Name>
-      <Aliases>global,utils</Aliases>
     </ProjectReference>
     <ProjectReference Include="..\TestFx\TestFx.csproj">
-      <Project>{68456E60-C7A1-4B54-BB14-00063A03B7A3}</Project>
+      <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
       <Name>TestFx</Name>
     </ProjectReference>
   </ItemGroup>
