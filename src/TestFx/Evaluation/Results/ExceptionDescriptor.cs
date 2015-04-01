@@ -54,7 +54,7 @@ namespace TestFx.Evaluation.Results
 
         var stackTrace = ex.StackTrace ?? string.Empty;
         var stackTraceLines = stackTrace.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-        var userCodeStackTrace = stackTraceLines.TakeWhile(IsUserCode);
+        var userCodeStackTrace = stackTraceLines.Where(IsUserCode);
         userCodeStackTrace.ForEach(x => stackTraceBuilder.Append(x).Append(Environment.NewLine));
       }
 
