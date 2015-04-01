@@ -192,6 +192,20 @@ namespace TestFx.Specifications
 
     public sealed class Dummy
     {
+      public override bool Equals (object obj)
+      {
+        throw new NotSupportedException();
+      }
+
+      public override int GetHashCode ()
+      {
+        throw new NotSupportedException();
+      }
+
+      public override string ToString ()
+      {
+        throw new NotSupportedException();
+      }
     }
 
     #endregion
