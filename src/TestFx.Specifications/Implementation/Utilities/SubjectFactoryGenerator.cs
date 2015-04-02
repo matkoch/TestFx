@@ -14,9 +14,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 
@@ -39,15 +41,17 @@ namespace TestFx.Specifications.Implementation.Utilities
 
       var suiteParameter = Expression.Parameter(closedSpeckType, "suite");
       var constructingExpression = CreateConstructingExpression(suiteType, subjectType, suiteParameter);
-      return Expression.Lambda(delegateType, constructingExpression, new[] { suiteParameter }).Compile();
+      return Expression.Lambda(delegateType, constructingExpression, suiteParameter).Compile();
     }
 
     private Expression CreateConstructingExpression (Type suiteType, Type subjectType, Expression suiteExpression)
     {
-      var defaultSubject = Expression.Constant(null, subjectType);
       var constructors = subjectType.GetConstructors(MemberBindings.Instance);
       if (constructors.Length != 1)
-        return defaultSubject;
+      {
+        var exception = CreateThrowExpression<Exception>("Missing default constructor for subject type '{0}'.", subjectType.Name);
+        return Expression.Throw(exception, subjectType);
+      }
 
       var constructor = constructors.Single();
       var constructorParameters = constructor.GetParameters();
@@ -57,7 +61,17 @@ namespace TestFx.Specifications.Implementation.Utilities
       var argumentAccessExpressions =
           constructorParameters.Select(x => CreateArgumentAccessExpression(x, castedSuiteExpression, suiteFields)).ToList();
       if (argumentAccessExpressions.Any(x => x == null))
-        return defaultSubject;
+      {
+        var missingParameters = constructorParameters.Select((x, i) => Tuple.Create(x, argumentAccessExpressions[i]))
+            .Where(x => x.Item2 == null)
+            .Select(x => x.Item1.AssertNotNull().Name);
+
+        var exception = CreateThrowExpression<Exception>(
+            "Missing constructor arguments for subject type '{0}': {1}",
+            subjectType.Name,
+            string.Join(", ", missingParameters.ToArray()));
+        return Expression.Throw(exception, subjectType);
+      }
 
       return Expression.New(constructor, argumentAccessExpressions);
     }
@@ -92,6 +106,14 @@ namespace TestFx.Specifications.Implementation.Utilities
       }
 
       return null;
+    }
+
+    private Expression CreateThrowExpression<T>(string format, params object[] args) where T : Exception
+    {
+      var constructor = typeof (T).GetConstructor(new[] { typeof (string) }).AssertNotNull();
+      Debug.Assert(constructor.GetParameters().Single().Name == "message");
+      var message = string.Format(format, args);
+      return Expression.New(constructor, Expression.Constant(message));
     }
   }
 }
