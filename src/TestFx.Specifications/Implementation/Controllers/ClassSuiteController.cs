@@ -32,8 +32,8 @@ namespace TestFx.Specifications.Implementation.Controllers
   {
     void AddTestSetupCleanup (Action<ITestContext<TSubject>> setup, [CanBeNull] Action<ITestContext<TSubject>> cleanup);
 
-    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Expression<Action<TSubject>> voidExpression);
-    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Expression<Func<TSubject, TResult>> resultExpression);
+    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Action<TSubject> voidExpression);
+    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Func<TSubject, TResult> resultExpression);
   }
 
   public class ClassSuiteController<TSubject> : ClassSuiteController, IClassSuiteController<TSubject>
@@ -66,15 +66,14 @@ namespace TestFx.Specifications.Implementation.Controllers
       _testSetupCleanupTuples.Add(Tuple.Create(setup, cleanup));
     }
 
-    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Expression<Action<TSubject>> voidExpression)
+    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Action<TSubject> voidExpression)
     {
-      return CreateSpecializedSuiteController<TResult>(voidExpression.Compile(), null);
+      return CreateSpecializedSuiteController<TResult>(voidExpression, null);
     }
 
-    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (
-        Expression<Func<TSubject, TResult>> resultExpression)
+    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Func<TSubject, TResult> resultExpression)
     {
-      return CreateSpecializedSuiteController(null, resultExpression.Compile());
+      return CreateSpecializedSuiteController(null, resultExpression);
     }
 
     public override void ConfigureTestController (ITestController testController)

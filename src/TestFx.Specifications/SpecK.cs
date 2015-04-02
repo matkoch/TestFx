@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Linq.Expressions;
 using TestFx.Extensibility;
 using TestFx.Specifications.Implementation.Containers;
 using TestFx.Specifications.Implementation.Controllers;
@@ -38,13 +37,13 @@ namespace TestFx.Specifications
       _classSuiteController.AddTestSetupCleanup(setup, cleanup);
     }
 
-    public IIgnoreOrCase<TSubject, Dummy> Specify (Expression<Action<TSubject>> action)
+    public IIgnoreOrCase<TSubject, Dummy> Specify (Action<TSubject> action)
     {
       var expressionSuiteController = _classSuiteController.CreateSpecializedSuiteController<Dummy>(action);
       return new SpecializedSuiteContainer<TSubject, Dummy>(expressionSuiteController);
     }
 
-    public IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> action)
+    public IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Func<TSubject, TResult> action)
     {
       var expressionSuiteController = _classSuiteController.CreateSpecializedSuiteController(action);
       return new SpecializedSuiteContainer<TSubject, TResult>(expressionSuiteController);

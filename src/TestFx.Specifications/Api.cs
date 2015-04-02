@@ -30,8 +30,8 @@ namespace TestFx.Specifications
     void SetupOnce (Action setup, Action cleanup = null);
     void Setup (Action<ITestContext<TSubject>> setup, Action<ITestContext<TSubject>> cleanup = null);
 
-    IIgnoreOrCase<TSubject, Dummy> Specify (Expression<Action<TSubject>> action);
-    IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> action);
+    IIgnoreOrCase<TSubject, Dummy> Specify (Action<TSubject> action);
+    IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Func<TSubject, TResult> action);
 
     TSubject CreateSubject ();
   }
@@ -263,12 +263,12 @@ namespace TestFx.Specifications
         throw new NotImplementedException();
       }
 
-      public IIgnoreOrCase<FileStream, Dummy> Specify (Expression<Action<FileStream>> action)
+      public IIgnoreOrCase<FileStream, Dummy> Specify (Action<FileStream> action)
       {
         throw new NotImplementedException();
       }
 
-      public IIgnoreOrCase<FileStream, TResult> Specify<TResult> (Expression<Func<FileStream, TResult>> action)
+      public IIgnoreOrCase<FileStream, TResult> Specify<TResult> (Func<FileStream, TResult> action)
       {
         throw new NotImplementedException();
       }
