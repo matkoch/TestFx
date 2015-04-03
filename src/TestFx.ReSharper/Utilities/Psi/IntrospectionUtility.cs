@@ -27,12 +27,6 @@ namespace TestFx.ReSharper.Utilities.Psi
     CommonType GetCommonType (IType type);
     CommonType GetCommonType (ITypeElement type);
 
-    CommonMemberInfo GetCommonMemberInfo (ITypeMember typeMember);
-    CommonFieldInfo GetCommonFieldInfo (IField field);
-    CommonConstructorInfo GetCommonConstructorInfo (IConstructor constructor);
-    CommonPropertyInfo GetCommonPropertyInfo (IProperty property);
-    CommonMethodInfo GetCommonMethodInfo (IMethod method);
-
     CommonAttribute GetCommonAttribute (IAttributeInstance attributeInstance);
   }
 
@@ -52,20 +46,6 @@ namespace TestFx.ReSharper.Utilities.Psi
       return new CommonType(clrTypeName.ShortName, clrTypeName.FullName, type.GetImplementedTypes().Select(x => x.GetClrName().FullName));
     }
 
-    public CommonMemberInfo GetCommonMemberInfo (ITypeMember typeMember)
-    {
-      if (typeMember is IField)
-        return GetCommonFieldInfo(typeMember.To<IField>());
-      if (typeMember is IConstructor)
-        return GetCommonConstructorInfo(typeMember.To<IConstructor>());
-      if (typeMember is IProperty)
-        return GetCommonPropertyInfo(typeMember.To<IProperty>());
-      if (typeMember is IMethod)
-        return GetCommonMethodInfo(typeMember.To<IMethod>());
-
-      throw new Exception();
-    }
-
     public CommonAttribute GetCommonAttribute (IAttributeInstance attributeInstance)
     {
       var type = GetCommonType(attributeInstance.GetAttributeType());
@@ -73,35 +53,6 @@ namespace TestFx.ReSharper.Utilities.Psi
       var namedArguments = CollectionUtil.WhereNotNull(attributeInstance.NamedParameters().Select(GetNamedArguments));
 
       return new CommonAttribute(type, positionalArguments, namedArguments);
-    }
-
-    public CommonFieldInfo GetCommonFieldInfo (IField field)
-    {
-      return new CommonFieldInfo(field.GetContainingType().ToCommon(), field.ShortName, field.Type.ToCommon(), field.IsStatic);
-    }
-
-    public CommonConstructorInfo GetCommonConstructorInfo (IConstructor constructor)
-    {
-      return new CommonConstructorInfo(
-          constructor.GetContainingType().ToCommon(),
-          constructor.ShortName,
-          constructor.ReturnType.ToCommon(),
-          constructor.IsStatic);
-    }
-
-    public CommonPropertyInfo GetCommonPropertyInfo (IProperty property)
-    {
-      return new CommonPropertyInfo(property.GetContainingType().ToCommon(), property.ShortName, property.Type.ToCommon(), property.IsStatic);
-    }
-
-    public CommonMethodInfo GetCommonMethodInfo (IMethod method)
-    {
-      return new CommonMethodInfo(
-          method.GetContainingType().ToCommon(),
-          method.ShortName,
-          method.ReturnType.ToCommon(),
-          method.IsStatic,
-          method.IsExtensionMethod);
     }
 
     private CommonPositionalArgument GetPositionalArgument (AttributeValue argument, int position)

@@ -30,31 +30,6 @@ namespace TestFx.ReSharper.Utilities.Psi
       return IntrospectionUtility.Instance.GetCommonType(type);
     }
 
-    public static CommonMemberInfo ToCommon (this ITypeMember typeMember)
-    {
-      return IntrospectionUtility.Instance.GetCommonMemberInfo(typeMember);
-    }
-
-    public static CommonFieldInfo ToCommon (this IField fieldInfo)
-    {
-      return IntrospectionUtility.Instance.GetCommonFieldInfo(fieldInfo);
-    }
-
-    public static CommonConstructorInfo ToCommon (this IConstructor constructorInfo)
-    {
-      return IntrospectionUtility.Instance.GetCommonConstructorInfo(constructorInfo);
-    }
-
-    public static CommonPropertyInfo ToCommon (this IProperty propertyInfo)
-    {
-      return IntrospectionUtility.Instance.GetCommonPropertyInfo(propertyInfo);
-    }
-
-    public static CommonMethodInfo ToCommon (this IMethod methodInfo)
-    {
-      return IntrospectionUtility.Instance.GetCommonMethodInfo(methodInfo);
-    }
-
     public static CommonAttribute ToCommon (this IAttributeInstance attributeInstance)
     {
       return IntrospectionUtility.Instance.GetCommonAttribute(attributeInstance);

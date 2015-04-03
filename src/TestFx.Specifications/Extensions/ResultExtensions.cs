@@ -18,7 +18,6 @@ using TestFx.Specifications.Implementation.Controllers;
 using TestFx.Specifications.Implementation.Utilities;
 using TestFx.Specifications.InferredApi;
 using TestFx.Utilities;
-using TestFx.Utilities.Expressions;
 
 namespace TestFx.Specifications
 {

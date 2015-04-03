@@ -25,31 +25,6 @@ namespace TestFx.Utilities.Reflection
       return IntrospectionUtility.Instance.GetCommonType(type);
     }
 
-    public static CommonMemberInfo ToCommon (this MemberInfo memberInfo)
-    {
-      return IntrospectionUtility.Instance.GetCommonMemberInfo(memberInfo);
-    }
-
-    public static CommonFieldInfo ToCommon (this FieldInfo fieldInfo)
-    {
-      return IntrospectionUtility.Instance.GetCommonFieldInfo(fieldInfo);
-    }
-
-    public static CommonConstructorInfo ToCommon (this ConstructorInfo constructorInfo)
-    {
-      return IntrospectionUtility.Instance.GetCommonConstructorInfo(constructorInfo);
-    }
-
-    public static CommonPropertyInfo ToCommon (this PropertyInfo propertyInfo)
-    {
-      return IntrospectionUtility.Instance.GetCommonPropertyInfo(propertyInfo);
-    }
-
-    public static CommonMethodInfo ToCommon (this MethodInfo methodInfo)
-    {
-      return IntrospectionUtility.Instance.GetCommonMethodInfo(methodInfo);
-    }
-
     public static CommonAttribute ToCommon (this CustomAttributeData customAttributeData)
     {
       return IntrospectionUtility.Instance.GetCommonAttribute(customAttributeData);

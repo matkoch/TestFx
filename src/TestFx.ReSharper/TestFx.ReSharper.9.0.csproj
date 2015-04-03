@@ -234,8 +234,6 @@
     <Compile Include="Utilities\Psi\Modules\TypeElementExtensions.cs" />
     <Compile Include="Utilities\Psi\Modules\TypeElementUtility.cs" />
     <Compile Include="Utilities\Psi\ReferenceExtensions.cs" />
-    <Compile Include="Utilities\Psi\Tree\IntrospectionExtensions.cs" />
-    <Compile Include="Utilities\Psi\Tree\IntrospectionUtility.cs" />
     <Compile Include="Utilities\Psi\Tree\UnitTestDeclarationExtensions.cs" />
     <Compile Include="Utilities\Psi\Tree\UnitTestDeclarationUtility.cs" />
     <Compile Include="Utilities\Psi\TypeExtensions.cs" />

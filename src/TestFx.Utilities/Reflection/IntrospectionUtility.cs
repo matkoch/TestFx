@@ -23,12 +23,6 @@ namespace TestFx.Utilities.Reflection
   {
     CommonType GetCommonType (Type type);
 
-    CommonMemberInfo GetCommonMemberInfo (MemberInfo memberInfo);
-    CommonFieldInfo GetCommonFieldInfo (FieldInfo fieldInfo);
-    CommonConstructorInfo GetCommonConstructorInfo (ConstructorInfo constructorInfo);
-    CommonPropertyInfo GetCommonPropertyInfo (PropertyInfo propertyInfo);
-    CommonMethodInfo GetCommonMethodInfo (MethodInfo methodInfo);
-
     CommonAttribute GetCommonAttribute (CustomAttributeData customAttributeData);
   }
 
@@ -40,57 +34,6 @@ namespace TestFx.Utilities.Reflection
     {
       var implementedTypes = type.DescendantsAndSelf(x => x.BaseType).Concat(type.GetInterfaces());
       return new CommonType(type.Name, type.FullName, implementedTypes.Select(x => x.FullName));
-    }
-
-    public CommonMemberInfo GetCommonMemberInfo (MemberInfo memberInfo)
-    {
-      if (memberInfo is FieldInfo)
-        return GetCommonFieldInfo(memberInfo.To<FieldInfo>());
-      if (memberInfo is ConstructorInfo)
-        return GetCommonConstructorInfo(memberInfo.To<ConstructorInfo>());
-      if (memberInfo is PropertyInfo)
-        return GetCommonPropertyInfo(memberInfo.To<PropertyInfo>());
-      if (memberInfo is MethodInfo)
-        return GetCommonMethodInfo(memberInfo.To<MethodInfo>());
-
-      throw new Exception();
-    }
-
-    public CommonFieldInfo GetCommonFieldInfo (FieldInfo fieldInfo)
-    {
-      return new CommonFieldInfo(
-          GetCommonType(fieldInfo.DeclaringType),
-          fieldInfo.Name,
-          GetCommonType(fieldInfo.FieldType),
-          fieldInfo.IsStatic);
-    }
-
-    public CommonConstructorInfo GetCommonConstructorInfo (ConstructorInfo constructorInfo)
-    {
-      return new CommonConstructorInfo(
-          GetCommonType(constructorInfo.DeclaringType),
-          constructorInfo.Name,
-          GetCommonType(typeof (void)),
-          constructorInfo.IsStatic);
-    }
-
-    public CommonPropertyInfo GetCommonPropertyInfo (PropertyInfo propertyInfo)
-    {
-      return new CommonPropertyInfo(
-          GetCommonType(propertyInfo.DeclaringType),
-          propertyInfo.Name,
-          GetCommonType(propertyInfo.PropertyType),
-          propertyInfo.GetGetMethod(true).IsStatic);
-    }
-
-    public CommonMethodInfo GetCommonMethodInfo (MethodInfo methodInfo)
-    {
-      return new CommonMethodInfo(
-          GetCommonType(methodInfo.DeclaringType),
-          methodInfo.Name,
-          GetCommonType(methodInfo.ReturnType),
-          methodInfo.IsStatic,
-          methodInfo.IsExtensionMethod());
     }
 
     public CommonAttribute GetCommonAttribute (CustomAttributeData customAttributeData)
