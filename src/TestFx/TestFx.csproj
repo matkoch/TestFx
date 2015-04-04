@@ -116,7 +116,6 @@
     <Compile Include="Evaluation\Runners\SuiteRunner.cs" />
     <Compile Include="Evaluation\Results\OperationResult.cs" />
     <Compile Include="Evaluation\Runners\ContextRunner.cs" />
-    <Compile Include="Evaluation\Utilities\IntentProviderPairer.cs" />
     <Compile Include="Evaluation\Utilities\CrossAppDomainCancellation.cs" />
     <Compile Include="Evaluation\Loading\AssemblyExplorer.cs" />
     <Compile Include="Evaluation\Runners\RootRunner.cs" />

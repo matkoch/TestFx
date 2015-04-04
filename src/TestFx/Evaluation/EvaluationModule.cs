@@ -60,7 +60,6 @@ namespace TestFx.Evaluation
       else
         builder.RegisterType<FakeAppDomainFactory>().As<IAppDomainFactory>();
       builder.RegisterType<ResourceManager>().As<IResourceManager>();
-      builder.RegisterType<IntentProviderPairer>().As<IIntentProviderPairer>();
     }
   }
 }

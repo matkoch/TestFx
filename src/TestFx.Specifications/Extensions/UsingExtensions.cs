@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Linq.Expressions;
 using TestFx.Extensibility;
 using TestFx.Specifications.Implementation;
 using TestFx.Specifications.Implementation.Controllers;

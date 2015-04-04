@@ -20,7 +20,6 @@ using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 using TestFx.Evaluation.Utilities;
 using TestFx.Extensibility.Providers;
-using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Runners
 {
@@ -32,7 +31,6 @@ namespace TestFx.Evaluation.Runners
   public class SuiteRunner : ISuiteRunner
   {
     private readonly IResourceManager _resourceManager;
-    private readonly IIntentProviderPairer _intentProviderPairer;
     private readonly IResultFactory _resultFactory;
     private readonly IContextRunner _contextRunner;
     private readonly ITestRunner _testRunner;
@@ -41,7 +39,6 @@ namespace TestFx.Evaluation.Runners
 
     public SuiteRunner (
         IResourceManager resourceManager,
-        IIntentProviderPairer intentProviderPairer,
         IResultFactory resultFactory,
         IContextRunner contextRunner,
         ITestRunner testRunner,
@@ -49,7 +46,6 @@ namespace TestFx.Evaluation.Runners
         ICancellationTokenSource cancellationTokenSource)
     {
       _resourceManager = resourceManager;
-      _intentProviderPairer = intentProviderPairer;
       _resultFactory = resultFactory;
       _contextRunner = contextRunner;
       _testRunner = testRunner;
@@ -64,8 +60,8 @@ namespace TestFx.Evaluation.Runners
 
       using (_resourceManager.Acquire(new string[0]))
       {
-        var suitePairs = _intentProviderPairer.Pair(intent.SuiteIntents, provider.SuiteProviders, p => SuiteIntent.Create(p.Identity));
-        var testPairs = _intentProviderPairer.Pair(intent.TestIntents, provider.TestProviders, p => TestIntent.Create(p.Identity));
+        var suitePairs = Pair(intent.SuiteIntents, provider.SuiteProviders, p => SuiteIntent.Create(p.Identity));
+        var testPairs = Pair(intent.TestIntents, provider.TestProviders, p => TestIntent.Create(p.Identity));
 
         return RunWithResourcesAcquired(intent, provider, suitePairs, testPairs);
       }
@@ -114,6 +110,25 @@ namespace TestFx.Evaluation.Runners
     protected virtual ISuiteResult RunRecursive (ISuiteIntent intent, ISuiteProvider provider)
     {
       return Run(intent, provider);
+    }
+
+    private IEnumerable<Tuple<TIntent, TProvider>> Pair<TIntent, TProvider> (
+        IEnumerable<TIntent> intents,
+        IEnumerable<TProvider> providers,
+        Func<TProvider, TIntent> intentFactory)
+        where TIntent : IIntent
+        where TProvider : IProvider
+    {
+      var providersList = providers.ToList();
+      var intentsList = intents.ToList();
+
+      var pairs = intentsList.Join(
+          providersList,
+          x => x.Identity.Relative,
+          x => x.Identity.Relative,
+          (intent, provider) => new Tuple<TIntent, TProvider>(intent, provider)).ToList();
+
+      return intentsList.Count > 0 ? pairs : providersList.Select(provider => new Tuple<TIntent, TProvider>(intentFactory(provider), provider));
     }
   }
 }
