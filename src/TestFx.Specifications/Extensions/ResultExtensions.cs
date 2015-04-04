@@ -23,15 +23,6 @@ namespace TestFx.Specifications
 {
   public static class ResultExtensions
   {
-    public static IAssert ItReturns<TSubject, TResult, TVars, TDerivedResult> (this IAssert<TSubject, TResult, TVars> assert)
-    {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
-      controller.AddAssertion(
-          "Returns " + typeof (TDerivedResult).Name,
-          x => AssertionHelper.AssertInstanceOfType("Result", typeof (TDerivedResult), x.Result));
-      return assert;
-    }
-
     public static IAssert ItReturns<TSubject, TResult, TVars, TDerivedResult> (
         this IAssert<TSubject, TResult, TVars> assert,
         Action<TDerivedResult> resultAssertion)
@@ -50,7 +41,7 @@ namespace TestFx.Specifications
     {
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       controller.AddAssertion(
-          "Returns " + resultProvider.ToCommon(typeof (TVars)),
+          "Returns " + resultProvider,
           x => AssertionHelper.AssertObjectEquals("Result", resultProvider.Compile()(x.Vars), x.Result));
       return assert;
     }

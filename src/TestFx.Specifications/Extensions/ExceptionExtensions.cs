@@ -26,18 +26,23 @@ namespace TestFx.Specifications
   {
     private const bool c_expectException = true;
 
-    public static IAssert ItThrows<TSubject, TResult, TVars, TException> (
+    public static IAssert ItThrows<TSubject, TResult, TVars> (this IAssert<TSubject, TResult, TVars> assert, Type exceptionType, string message)
+    {
+      return assert.ItThrows(exceptionType, x => message);
+    }
+
+    public static IAssert ItThrows<TSubject, TResult, TVars> (
         this IAssert<TSubject, TResult, TVars> assert,
-        [CanBeNull] Func<TVars, string> messageProvider,
+        Type exceptionType,
+        [CanBeNull] Func<TVars, string> messageProvider = null,
         [CanBeNull] Func<TVars, Exception> innerExceptionProvider = null)
-        where TException : Exception
     {
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       controller.AddAssertion(
-          "Throws " + typeof (TException).Name,
+          "Throws " + exceptionType.Name,
           x =>
           {
-            AssertionHelper.AssertInstanceOfType("Exception", typeof (TException), x.Exception);
+            AssertionHelper.AssertInstanceOfType("Exception", exceptionType, x.Exception);
             if (messageProvider != null)
               AssertionHelper.AssertExceptionMessage(messageProvider(x.Vars), x.Exception);
             if (innerExceptionProvider != null)
@@ -67,7 +72,7 @@ namespace TestFx.Specifications
     {
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       controller.AddAssertion(
-          "Throws " + exceptionProvider.ToCommon(typeof (TVars)),
+          "Throws " + exceptionProvider,
           x => AssertionHelper.AssertObjectEquals("Exception", exceptionProvider.Compile()(x.Vars), x.Exception),
           c_expectException);
       return assert;

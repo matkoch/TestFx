@@ -1,4 +1,23 @@
+// Copyright 2014, 2013 Matthias Koch
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 using System;
+using System.Linq;
+using FluentAssertions;
+using NUnit.Framework;
+using TestFx.Evaluation.Results;
+using TestFx.Utilities;
 using UserNamespace;
 
 namespace UserNamespace
@@ -24,16 +43,16 @@ namespace TestFx.Specifications.IntegrationTests
     {
       Specify (x => UserClass.Throw (Message, InnerException))
           .DefaultCase (_ => _
-              .ItThrows<InvalidOperationException> ())
+              .ItThrows (typeof (InvalidOperationException)))
           .Case ("Message provider", _ => _
-              .ItThrows<ArgumentException> (x => "Wrong message"))
+              .ItThrows (typeof (ArgumentException), "Wrong message"))
           .Case ("InnerException provider", _ => _
               .Given ("a message", x => Message = "Message")
-              .ItThrows<ArgumentException> (x => "Message", x => new Exception ()))
+              .ItThrows (typeof (ArgumentException), x => "Message", x => new Exception ()))
           .Case ("Passing for message and inner exception", _ => _
               .Given ("a message", x => Message = "Message")
               .Given ("an inner exception", x => InnerException = new Exception ())
-              .ItThrows<ArgumentException> (x => Message, x => InnerException))
+              .ItThrows (typeof (ArgumentException), x => Message, x => InnerException))
           .Case ("Missing exception assertion", _ => _
               .Given ("a message", x => Message = "Message")
               .Given ("an inner exception with message", x => InnerException = new Exception ("InnerMessage"))
@@ -46,12 +65,6 @@ namespace TestFx.Specifications.IntegrationTests
 
 namespace TestFx.Specifications.IntegrationTests
 {
-  using System.Linq;
-  using Evaluation.Results;
-  using FluentAssertions;
-  using NUnit.Framework;
-  using Utilities;
-
   public class ExceptionTest : TestBase<ExceptionSpecK>
   {
     [Test]

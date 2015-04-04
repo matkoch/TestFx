@@ -173,9 +173,6 @@ namespace TestFx.Specifications
       IAssert<TSubject, TResult, TVars> It (Behavior behavior);
       IAssert<TSubject, TResult, TVars> It (Behavior<TResult> behavior);
       IAssert<TSubject, TResult, TVars> It (Behavior<TSubject, TResult> behavior);
-      IAssert ItThrows<T> (Func<TVars, string> messageProvider = null, Func<TVars, Exception> innerExceptionProvider = null) where T : Exception;
-      // TODO: 'T : TResult' removes 'out TResult'
-      IAssert ItReturns<T> ();
     }
 
     public interface IAssert : IContainer

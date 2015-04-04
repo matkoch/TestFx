@@ -59,8 +59,6 @@
     <Compile Include="ContextBehaviorSpecK.cs" />
     <Compile Include="ExceptionSpecK.cs" />
     <Compile Include="DefineSpecK.cs" />
-    <Compile Include="FakeItEasyCallConfigurationSpecK.cs" />
-    <Compile Include="FakeItEasyOrderedAssertionsSpecK.cs" />
     <Compile Include="SetupSpecK.cs" />
     <Compile Include="FakeItEasySpecK.cs" />
     <Compile Include="SubjectSpecK.cs" />

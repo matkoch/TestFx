@@ -82,15 +82,5 @@ namespace TestFx.Specifications.Implementation.Containers
       behavior(new TestContainer<TSubject, TResult, Dummy>(_controller.CreateDelegate<TSubject, TResult, Dummy>()));
       return this;
     }
-
-    public IAssert ItThrows<T> (Func<TVars, string> messageProvider = null, Func<TVars, Exception> innerExceptionProvider = null) where T : Exception
-    {
-      return this.ItThrows<TSubject, TResult, TVars, T>(messageProvider, innerExceptionProvider);
-    }
-
-    public IAssert ItReturns<T> ()
-    {
-      return this.ItReturns<TSubject, TResult, TVars, T>();
-    }
   }
 }
