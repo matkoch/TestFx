@@ -83,12 +83,6 @@
     <Compile Include="..\TestFx.Specifications.IntegrationTests\FailingSpecK.cs">
       <Link>FailingSpecK.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\FakeItEasyCallConfigurationSpecK.cs">
-      <Link>FakeItEasyCallConfigurationSpecK.cs</Link>
-    </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\FakeItEasyOrderedAssertionsSpecK.cs">
-      <Link>FakeItEasyOrderedAssertionsSpecK.cs</Link>
-    </Compile>
     <Compile Include="..\TestFx.Specifications.IntegrationTests\FakeItEasySpecK.cs">
       <Link>FakeItEasySpecK.cs</Link>
     </Compile>

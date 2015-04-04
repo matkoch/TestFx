@@ -37,9 +37,9 @@ namespace TestFx.Evaluation.Loading
 
       var suiteTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<ISuite>() && x.GetAttribute<SubjectAttributeBase>() != null).ToList();
       var suiteBaseTypes = suiteTypes.Select(x => x.GetDirectDerivedTypesOf<ISuite>().Single()).Distinct();
-      var testExtensions = assembly.GetAttributes<UseTestExtension>().Select(CreateTestExtension).ToList();
+      var testExtensions = assembly.GetAttributes<UseTestExtension>().Select(x => x.TestExtensionType.CreateInstance<ITestExtension>()).ToList();
       testExtensions = new[] { new DefaultInitializationTestExtension() }.Concat(testExtensions).ToList();
-      var typeLoaders = suiteBaseTypes.Select(x => CreateTypeLoader(x, testExtensions));
+      var typeLoaders = suiteBaseTypes.ToDictionary(x => x, x => CreateTypeLoader(x, testExtensions));
 
       return new AssemblyExplorationData(typeLoaders, suiteTypes, assemblySetups);
     }
@@ -56,11 +56,6 @@ namespace TestFx.Evaluation.Loading
       var container = builder.Build();
 
       return (ITypeLoader) container.Resolve(typeLoaderType);
-    }
-
-    private ITestExtension CreateTestExtension (UseTestExtension x)
-    {
-      return x.TestExtensionType.CreateInstance<ITestExtension>();
     }
   }
 }

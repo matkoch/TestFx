@@ -19,19 +19,19 @@ namespace TestFx.Evaluation.Loading
 {
   public interface IAssemblyExplorationData
   {
-    IEnumerable<ITypeLoader> TypeLoaders { get; }
+    IDictionary<Type, ITypeLoader> TypeLoaders { get; }
     IEnumerable<Type> SuiteTypes { get; }
     IEnumerable<IAssemblySetup> AssemblySetups { get; }
   }
 
   public class AssemblyExplorationData : IAssemblyExplorationData
   {
-    private readonly IEnumerable<ITypeLoader> _typeLoaders;
+    private readonly IDictionary<Type, ITypeLoader> _typeLoaders;
     private readonly IEnumerable<Type> _suiteTypes;
     private readonly IEnumerable<IAssemblySetup> _assemblySetups;
 
     public AssemblyExplorationData (
-        IEnumerable<ITypeLoader> typeLoaders,
+        IDictionary<Type, ITypeLoader> typeLoaders,
         IEnumerable<Type> suiteTypes,
         IEnumerable<IAssemblySetup> assemblySetups)
     {
@@ -40,7 +40,7 @@ namespace TestFx.Evaluation.Loading
       _assemblySetups = assemblySetups;
     }
 
-    public IEnumerable<ITypeLoader> TypeLoaders
+    public IDictionary<Type, ITypeLoader> TypeLoaders
     {
       get { return _typeLoaders; }
     }

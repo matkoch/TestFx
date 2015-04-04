@@ -47,22 +47,13 @@ namespace TestFx.Evaluation.Loading
 
       var explorationData = _assemblyExplorer.Explore(assembly);
 
-      var loaderDictionary = explorationData.TypeLoaders.ToDictionary(GetApplicableSuiteType, x => x);
-      var suiteTypes = explorationData.SuiteTypes
-          .Where(x => assemblySuiteIntent.SuiteIntents.Any(y => y.Identity.Relative == x.FullName));
       var assemblySetups = explorationData.AssemblySetups.ToList();
+      var suiteTypes = explorationData.SuiteTypes.Where(x => assemblySuiteIntent.SuiteIntents.Any(y => y.Identity.Relative == x.FullName));
 
-      provider.SuiteProviders = suiteTypes.Select(x => Load(x, loaderDictionary, assemblySetups, provider.Identity));
+      provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaders, assemblySetups, provider.Identity));
       assemblySetups.ForEach(x => controller.AddSetupCleanup<SetupCommon, CleanupCommon>(x.Setup, x.Cleanup));
 
       return provider;
-    }
-
-    private Type GetApplicableSuiteType (ITypeLoader typeLoader)
-    {
-      var typeSuiteLoaderType = typeLoader.GetType();
-      var closedTypeSuiteLoaderType = typeSuiteLoaderType.GetClosedTypeFor(typeof (ITypeLoader<>));
-      return closedTypeSuiteLoaderType.GetGenericArguments().Single();
     }
 
     private ISuiteProvider Load (
