@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TestFx.Evaluation.Intents;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
 using TestFx.Utilities;
@@ -24,7 +25,7 @@ namespace TestFx.Evaluation.Loading
 {
   public interface IAssemblyLoader
   {
-    ISuiteProvider Load (string assemblyLocation);
+    ISuiteProvider Load (ISuiteIntent assemblySuiteIntent);
   }
 
   public class AssemblyLoader : IAssemblyLoader
@@ -38,16 +39,17 @@ namespace TestFx.Evaluation.Loading
       _suiteControllerFactory = suiteControllerFactory;
     }
 
-    public ISuiteProvider Load (string assemblyLocation)
+    public ISuiteProvider Load (ISuiteIntent assemblySuiteIntent)
     {
-      var assembly = Assembly.LoadFrom(assemblyLocation);
-      var provider = SuiteProvider.Create(new Identity(assemblyLocation), assembly.GetName().Name, false);
+      var assembly = Assembly.LoadFrom(assemblySuiteIntent.Identity.Absolute);
+      var provider = SuiteProvider.Create(assemblySuiteIntent.Identity, assembly.GetName().Name, false);
       var controller = _suiteControllerFactory.Create(provider);
 
       var explorationData = _assemblyExplorer.Explore(assembly);
 
       var loaderDictionary = explorationData.TypeLoaders.ToDictionary(GetApplicableSuiteType, x => x);
-      var suiteTypes = explorationData.SuiteTypes.ToList();
+      var suiteTypes = explorationData.SuiteTypes
+          .Where(x => assemblySuiteIntent.SuiteIntents.Any(y => y.Identity.Relative == x.FullName));
       var assemblySetups = explorationData.AssemblySetups.ToList();
 
       provider.SuiteProviders = suiteTypes.Select(x => Load(x, loaderDictionary, assemblySetups, provider.Identity));
@@ -67,10 +69,10 @@ namespace TestFx.Evaluation.Loading
         Type suiteType,
         IDictionary<Type, ITypeLoader> loaderDictionary,
         IEnumerable<IAssemblySetup> assemblySetups,
-        IIdentity parentIdentity)
+        IIdentity assemblyIdentity)
     {
       var suiteTypeLoader = loaderDictionary.Single(x => x.Key.IsAssignableFrom(suiteType)).Value;
-      return suiteTypeLoader.Load(suiteType, assemblySetups, parentIdentity);
+      return suiteTypeLoader.Load(suiteType, assemblySetups, assemblyIdentity);
     }
   }
 }

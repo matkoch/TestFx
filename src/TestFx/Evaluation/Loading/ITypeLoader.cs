@@ -21,6 +21,6 @@ namespace TestFx.Evaluation.Loading
 {
   public interface ITypeLoader
   {
-    ISuiteProvider Load (Type suiteType, IEnumerable<IAssemblySetup> assemblySetups, IIdentity parentIdentity);
+    ISuiteProvider Load (Type suiteType, IEnumerable<IAssemblySetup> assemblySetups, IIdentity assemblyIdentity);
   }
 }

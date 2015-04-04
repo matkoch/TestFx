@@ -43,7 +43,7 @@ namespace TestFx.Evaluation.Runners
     {
       AddThrowingTraceListener();
 
-      var suiteProvider = _assemblyLoader.Load(suiteIntent.Identity.Relative);
+      var suiteProvider = _assemblyLoader.Load(suiteIntent);
       return _suiteRunner.Run(suiteIntent, suiteProvider);
     }
 

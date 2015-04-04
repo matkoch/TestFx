@@ -41,13 +41,13 @@ namespace TestFx.Extensibility
       _displayFormatAttribute = typeof (TSubjectAttribute).GetConstructors().Single().GetAttributeData<DisplayFormatAttribute>().ToCommon();
     }
 
-    public ISuiteProvider Load (Type suiteType, IEnumerable<IAssemblySetup> assemblySetups, IIdentity parentIdentity)
+    public ISuiteProvider Load (Type suiteType, IEnumerable<IAssemblySetup> assemblySetups, IIdentity assemblyIdentity)
     {
       var uninitializedSuite = (TSuiteType) FormatterServices.GetUninitializedObject(suiteType);
 
       var subjectAttribute = suiteType.GetAttributeData<TSubjectAttribute>().ToCommon();
       var text = _introspectionPresenter.Present(_displayFormatAttribute, subjectAttribute);
-      var identity = parentIdentity.CreateChildIdentity(suiteType.FullName);
+      var identity = assemblyIdentity.CreateChildIdentity(suiteType.FullName);
       var provider = SuiteProvider.Create(identity, text, false);
 
       InitializeAssemblyContextFields(uninitializedSuite, assemblySetups.ToList());
