@@ -26,7 +26,7 @@ namespace TestFx.Specifications.Implementation.Controllers
 {
   public interface IControllerFactory
   {
-    ISuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider);
+    IClassSuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider);
 
     ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
         SuiteProvider provider,
@@ -47,22 +47,19 @@ namespace TestFx.Specifications.Implementation.Controllers
   {
     private readonly IOperationSorter _operationSorter;
     private readonly IEnumerable<ITestExtension> _testExtensions;
-    private readonly IIntrospectionPresenter _introspectionPresenter;
 
     public ControllerFactory (
         IOperationSorter operationSorter,
-        IEnumerable<ITestExtension> testExtensions,
-        IIntrospectionPresenter introspectionPresenter)
+        IEnumerable<ITestExtension> testExtensions)
     {
       _operationSorter = operationSorter;
       _testExtensions = testExtensions;
-      _introspectionPresenter = introspectionPresenter;
     }
 
-    public ISuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider)
+    public IClassSuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider)
     {
       var suiteControllerType = typeof (ClassSuiteController<>).MakeGenericType(subjectType);
-      var controller = suiteControllerType.CreateInstance<SuiteController>(provider, suite, _testExtensions, this, _operationSorter);
+      var controller = suiteControllerType.CreateInstance<IClassSuiteController>(provider, suite, _testExtensions, this, _operationSorter);
       provider.Controller = controller;
       return controller;
     }

@@ -165,7 +165,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
       var suiteDeclaration = declaration.As<ISuiteDeclaration>();
       return suiteDeclaration != null
-          ? suiteDeclaration.SuiteDeclarations.Cast<IUnitTestDeclaration>().Concat(suiteDeclaration.TestDeclarations.Cast<IUnitTestDeclaration>())
+          ? suiteDeclaration.SuiteDeclarations.Concat(suiteDeclaration.TestDeclarations.Cast<IUnitTestDeclaration>())
           : Enumerable.Empty<IUnitTestDeclaration>();
     }
 
