@@ -43,20 +43,23 @@ namespace TestFx.Specifications.IntegrationTests
     {
       Specify (x => UserClass.Throw (Message, InnerException))
           .DefaultCase (_ => _
-              .ItThrows (typeof (InvalidOperationException)))
-          .Case ("Message provider", _ => _
-              .ItThrows (typeof (ArgumentException), "Wrong message"))
-          .Case ("InnerException provider", _ => _
-              .Given ("a message", x => Message = "Message")
-              .ItThrows (typeof (ArgumentException), x => "Message", x => new Exception ()))
-          .Case ("Passing for message and inner exception", _ => _
               .Given ("a message", x => Message = "Message")
               .Given ("an inner exception", x => InnerException = new Exception ())
               .ItThrows (typeof (ArgumentException), x => Message, x => InnerException))
           .Case ("Missing exception assertion", _ => _
               .Given ("a message", x => Message = "Message")
               .Given ("an inner exception with message", x => InnerException = new Exception ("InnerMessage"))
-              .It ("asserts something different", x => { }));
+              .It ("asserts something different", x => { }))
+          .Case ("Wrong exception type", _ => _
+              .ItThrows (typeof (InvalidOperationException)))
+          .Case ("Wrong message", _ => _
+              .ItThrows (typeof (ArgumentException), "Wrong message"))
+          .Case ("Wrong message provider", _ => _
+              .Given ("a message", x => Message = "Message")
+              .ItThrows (typeof (ArgumentException), x => "Wrong message"))
+          .Case ("Wrong inner exception provider", _ => _
+              .Given ("a message", x => Message = "Message")
+              .ItThrows (typeof (ArgumentException), x => "Message", x => new Exception ()));
     }
   }
 }
@@ -70,13 +73,14 @@ namespace TestFx.Specifications.IntegrationTests
     [Test]
     public void Test ()
     {
-      AssertResult (TestResults[0], "<Default>", State.Failed);
-      AssertResult (TestResults[1], "Message provider", State.Failed);
-      AssertResult (TestResults[2], "InnerException provider", State.Failed);
-      AssertResult (TestResults[3], "Passing for message and inner exception", State.Passed);
-      AssertResult (TestResults[4], "Missing exception assertion", State.Failed);
+      AssertResult (TestResults[0], "<Default>", State.Passed);
+      AssertResult (TestResults[1], "Missing exception assertion", State.Failed);
+      AssertResult (TestResults[2], "Wrong exception type", State.Failed);
+      AssertResult (TestResults[3], "Wrong message", State.Failed);
+      AssertResult (TestResults[4], "Wrong message provider", State.Failed);
+      AssertResult (TestResults[5], "Wrong inner exception provider", State.Failed);
 
-      var actException = OperationResults.Last ().Exception.AssertNotNull ();
+      var actException = OperationResults.Where (x => x.Text == "<Action>").ElementAt (1).Exception.AssertNotNull ();
       actException.Name.Should ().Be ("ArgumentException");
       actException.FullName.Should ().Be ("System.ArgumentException");
       actException.StackTrace.Should ().NotContain ("at TestFx");
