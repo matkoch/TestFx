@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using TestFx.Evaluation.Intents;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation
 {

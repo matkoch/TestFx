@@ -17,7 +17,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation.Results
 {

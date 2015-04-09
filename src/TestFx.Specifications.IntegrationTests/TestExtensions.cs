@@ -15,7 +15,6 @@
 using System;
 using TestFx;
 using TestFx.FakeItEasy.TestExtensions;
-using TestFx.TestExtensions;
 
 // NOTE: currently called by FakeCreationTestExtension
 //[assembly: UseTestExtension (typeof (FakeSetupTestExtension))]

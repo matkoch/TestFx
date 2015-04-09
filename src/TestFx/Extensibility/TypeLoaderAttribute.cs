@@ -16,7 +16,7 @@ using System;
 
 namespace TestFx.Extensibility
 {
-  [AttributeUsage (AttributeTargets.Interface, AllowMultiple = false)]
+  [AttributeUsage (AttributeTargets.Interface)]
   public class TypeLoaderAttribute : Attribute
   {
     private readonly Type _typeLoaderType;

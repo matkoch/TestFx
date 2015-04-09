@@ -73,10 +73,6 @@
     <Compile Include="SpecK.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestFx.Utilities\TestFx.Utilities.csproj">
-      <Project>{86730939-7f40-4ff4-bcec-39833faaef97}</Project>
-      <Name>TestFx.Utilities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestFx\TestFx.csproj">
       <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
       <Name>TestFx</Name>

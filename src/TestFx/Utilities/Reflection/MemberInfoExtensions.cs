@@ -13,24 +13,28 @@
 // limitations under the License.
 
 using System;
-using TestFx.Extensibility;
-using TestFx.Extensibility.Controllers;
-using TestFx.Utilities;
-using TestFx.Utilities.Reflection;
+using System.Reflection;
+using JetBrains.Annotations;
 
-namespace TestFx.TestExtensions
+namespace TestFx.Utilities.Reflection
 {
-  public class DefaultInitializationTestExtension : ITestExtension
+  public static class MemberInfoExtensions
   {
-    public int Priority
+    [CanBeNull]
+    public static PropertyInfo GetPropertyInfo (this MethodInfo methodInfo)
     {
-      get { return int.MaxValue; }
+      return MemberInfoUtility.Instance.GetRelatedPropertyInfo(methodInfo);
     }
 
-    public void Extend (ITestController testController, ISuite suite)
+    [CanBeNull]
+    public static EventInfo GetEventInfo (this MethodInfo methodInfo)
     {
-      var fields = suite.GetType().GetFields(MemberBindings.Instance);
-      testController.AddAction<SetupExtension>("<DefaultInitialization>", x => fields.ForEach(f => f.SetValue(suite, f.FieldType.GetDefaultValue())));
+      return MemberInfoUtility.Instance.GetRelatedEventInfo(methodInfo);
+    }
+
+    public static bool IsExtensionMethod (this MethodInfo methodInfo)
+    {
+      return MemberInfoUtility.Instance.IsExtensionMethod(methodInfo);
     }
   }
 }

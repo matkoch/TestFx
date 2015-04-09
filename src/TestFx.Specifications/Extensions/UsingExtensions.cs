@@ -17,7 +17,6 @@ using TestFx.Extensibility;
 using TestFx.Specifications.Implementation;
 using TestFx.Specifications.Implementation.Controllers;
 using TestFx.Specifications.InferredApi;
-using TestFx.Utilities;
 
 namespace TestFx.Specifications
 {

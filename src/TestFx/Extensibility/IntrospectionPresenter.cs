@@ -15,7 +15,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TestFx.Utilities;
 using TestFx.Utilities.Introspection;
 
 namespace TestFx.Extensibility
@@ -29,7 +28,7 @@ namespace TestFx.Extensibility
     string Present (string displayFormat, IEnumerable<object> arguments);
   }
 
-  public partial class IntrospectionPresenter : IIntrospectionPresenter
+  public class IntrospectionPresenter : IIntrospectionPresenter
   {
     public const string UnknownValue = "???";
 

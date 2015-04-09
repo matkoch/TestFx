@@ -13,20 +13,17 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using TestFx.Utilities.Reflection;
-// ReSharper disable once CheckNamespace
 
-namespace TestFx.Utilities
+namespace TestFx.Utilities.Reflection
 {
-  public static partial class TypeExtensions
+  public static class MemberBindings
   {
-    public static IEnumerable<T> GetAll<T> (this Type type)
-        where T : MemberInfo
-    {
-      return type.GetMembers(MemberBindings.All).OfType<T>();
-    }
+    public const BindingFlags All = Instance | Static;
+
+    public const BindingFlags Instance = PublicOrNonPublic | BindingFlags.Instance;
+    public const BindingFlags Static = PublicOrNonPublic | BindingFlags.Static;
+
+    private const BindingFlags PublicOrNonPublic = BindingFlags.Public | BindingFlags.NonPublic;
   }
 }

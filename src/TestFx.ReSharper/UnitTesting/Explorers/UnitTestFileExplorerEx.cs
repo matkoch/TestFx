@@ -18,11 +18,11 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.Model.Tree.Aggregation;
 using TestFx.ReSharper.UnitTesting.Elements;
-using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.UnitTesting.Explorers
 {
-  public partial interface IUnitTestFileExplorerEx
+  public interface IUnitTestFileExplorerEx
   {
     void Explore (IFile psiFile, Action<UnitTestElementDisposition> consumer, Func<bool> notInterrupted);
   }

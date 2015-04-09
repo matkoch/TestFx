@@ -14,7 +14,6 @@
 
 using System;
 using System.IO;
-using System.Linq.Expressions;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Containers;
@@ -74,7 +73,7 @@ namespace TestFx.Specifications
   }
 
   [MeansImplicitUse (ImplicitUseKindFlags.Access)]
-  [AttributeUsage (AttributeTargets.Field, AllowMultiple = false)]
+  [AttributeUsage (AttributeTargets.Field)]
   public class InjectedAttribute : Attribute
   {
   }

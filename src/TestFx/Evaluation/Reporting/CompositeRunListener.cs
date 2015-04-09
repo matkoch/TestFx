@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Results;
-using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation.Reporting
 {

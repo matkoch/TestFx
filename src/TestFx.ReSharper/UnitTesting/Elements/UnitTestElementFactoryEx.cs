@@ -24,6 +24,7 @@ using TestFx.ReSharper.Model.Surrogates;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Utilities;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {

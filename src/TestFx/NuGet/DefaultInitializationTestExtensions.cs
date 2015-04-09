@@ -1,4 +1,4 @@
-// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2014, 2013 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,22 +13,7 @@
 // limitations under the License.
 
 using System;
+using TestFx;
+using TestFx.TestExtensions;
 
-namespace TestFx.Utilities
-{
-  [AttributeUsage (AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = true, Inherited = true)]
-  public class AfterAttribute : Attribute
-  {
-    private readonly Type _type;
-
-    public AfterAttribute (Type type)
-    {
-      _type = type;
-    }
-
-    public Type Type
-    {
-      get { return _type; }
-    }
-  }
-}
+[assembly: UseTestExtension (typeof (DefaultInitializationTestExtension))]

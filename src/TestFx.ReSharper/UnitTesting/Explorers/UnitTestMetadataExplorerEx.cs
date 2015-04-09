@@ -20,7 +20,7 @@ using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.Extensibility;
 using TestFx.ReSharper.Model.Metadata.Aggregation;
 using TestFx.ReSharper.UnitTesting.Elements;
-using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 #if R8
 using JetBrains.Application;
 #elif R9

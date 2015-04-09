@@ -17,7 +17,6 @@ using System.Linq.Expressions;
 using TestFx.Specifications.Implementation.Controllers;
 using TestFx.Specifications.Implementation.Utilities;
 using TestFx.Specifications.InferredApi;
-using TestFx.Utilities;
 
 namespace TestFx.Specifications
 {

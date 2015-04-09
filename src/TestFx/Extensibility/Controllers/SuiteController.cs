@@ -18,6 +18,7 @@ using System.Linq;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.Extensibility.Controllers
 {
@@ -56,7 +57,7 @@ namespace TestFx.Extensibility.Controllers
     {
       var identity = _provider.Identity.CreateChildIdentity(relativeId);
       var provider = SuiteProvider.Create(identity, text, ignore);
-      EnsureUniqueness(provider, _provider.TestProviders.Cast<IProvider>());
+      EnsureUniqueness(provider, _provider.TestProviders);
 
       _provider.SuiteProviders = _provider.SuiteProviders.Concat(provider);
       return provider;
@@ -66,7 +67,7 @@ namespace TestFx.Extensibility.Controllers
     {
       var identity = _provider.Identity.CreateChildIdentity(relativeId);
       var provider = TestProvider.Create(identity, text, ignore);
-      EnsureUniqueness(provider, _provider.TestProviders.Cast<IProvider>());
+      EnsureUniqueness(provider, _provider.TestProviders);
 
       _provider.TestProviders = _provider.TestProviders.Concat(provider);
       return provider;

@@ -16,7 +16,7 @@ using System;
 
 namespace TestFx.Extensibility
 {
-  [AttributeUsage (AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+  [AttributeUsage (AttributeTargets.Class)]
   public class SubjectAttributeBase : Attribute
   {
   }

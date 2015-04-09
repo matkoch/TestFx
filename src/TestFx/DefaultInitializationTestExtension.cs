@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+// Copyright 2014, 2013 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,22 +13,24 @@
 // limitations under the License.
 
 using System;
-using System.Reflection;
+using TestFx.Extensibility;
+using TestFx.Extensibility.Controllers;
+using TestFx.Utilities.Collections;
 using TestFx.Utilities.Reflection;
 
-namespace TestFx.Utilities
+namespace TestFx
 {
-  public static partial class MemberInfoExtensions
+  public class DefaultInitializationTestExtension : ITestExtension
   {
-    public static TValue GetAttributeValueOrDefault<TAttribute, TValue> (
-        this MemberInfo member,
-        Func<TAttribute, TValue> selector,
-        Func<TValue> defaultProvider = null)
-        where TAttribute : Attribute
+    public int Priority
     {
-      defaultProvider = defaultProvider ?? (() => default(TValue));
-      var attribute = member.GetAttribute<TAttribute>();
-      return attribute != null ? selector(attribute) : defaultProvider();
+      get { return int.MaxValue; }
+    }
+
+    public void Extend (ITestController testController, ISuite suite)
+    {
+      var fields = suite.GetType().GetFields(MemberBindings.Instance);
+      testController.AddAction<SetupExtension>("<DefaultInitialization>", x => fields.ForEach(f => f.SetValue(suite, f.FieldType.GetDefaultValue())));
     }
   }
 }

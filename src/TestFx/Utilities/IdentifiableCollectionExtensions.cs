@@ -13,33 +13,23 @@
 // limitations under the License.
 
 using System;
-using System.Collections;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace TestFx.Utilities
 {
-  /// <summary>
-  /// Exception that is thrown when ordering a set of items where the order is not totally defined.
-  /// </summary>
-  public class UndefinedOrderException : Exception
+  public static class IdentifiableCollectionExtensions
   {
-    private const string c_message = "Undefined order for items:\r\n";
-
-    public UndefinedOrderException (IEnumerable items)
+    [CanBeNull]
+    public static T Search<T> (this IEnumerable<T> nodes, IIdentity identity, Func<T, IEnumerable<T>> childrenSelector) where T : class, IIdentifiable
     {
-      Items = items;
+      return IdentifiableCollectionUtility.Instance.SearchNode(nodes, identity, childrenSelector);
     }
 
-    protected UndefinedOrderException (SerializationInfo info, StreamingContext context)
-        : base(info, context)
+    [CanBeNull]
+    public static T Search<T> (this IEnumerable<T> nodes, IIdentity identity) where T : class, IIdentifiable
     {
-    }
-
-    public IEnumerable Items { get; private set; }
-
-    public override string Message
-    {
-      get { return c_message + Items; }
+      return IdentifiableCollectionUtility.Instance.SearchNode(nodes, identity);
     }
   }
 }

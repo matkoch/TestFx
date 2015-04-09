@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Reflection
 {
@@ -24,8 +25,15 @@ namespace TestFx.Utilities.Reflection
     bool HasDefaultConstructor (Type type);
     bool IsInstantiatable (Type type, Type targetType);
     object CreateInstance (Type type, object[] args);
-    IEnumerable<Type> GetDirectInterfaces (Type type);
-    IEnumerable<Type> GetDirectDerivedTypes (Type type, Type implementedType);
+
+    IEnumerable<Type> GetImmediateInterfaces (Type type);
+    IEnumerable<Type> GetImmediateDerivedTypes (Type type, Type implementedType);
+
+    [CanBeNull]
+    Type GetSingleClosedType (Type type, Type openType);
+
+    [CanBeNull]
+    object GetDefaultValueFor (Type type);
   }
 
   public class TypeUtility : ITypeUtility
@@ -50,16 +58,29 @@ namespace TestFx.Utilities.Reflection
       return Activator.CreateInstance(type, MemberBindings.Instance, null, args, null);
     }
 
-    public IEnumerable<Type> GetDirectInterfaces (Type type)
+    public IEnumerable<Type> GetImmediateInterfaces (Type type)
     {
       var allInterfaces = type.GetInterfaces();
       return allInterfaces.Except(allInterfaces.SelectMany(x => x.GetInterfaces()));
     }
 
-    public IEnumerable<Type> GetDirectDerivedTypes (Type type, Type implementedType)
+    public IEnumerable<Type> GetImmediateDerivedTypes (Type type, Type implementedType)
     {
       return type.DescendantsAndSelf(x => x.BaseType).Concat(type.GetInterfaces())
-          .Where(x => x.BaseType == implementedType || x.GetDirectInterfaces().Contains(implementedType));
+          .Where(x => x.BaseType == implementedType || x.GetImmediateInterfaces().Contains(implementedType));
+    }
+
+    [CanBeNull]
+    public Type GetSingleClosedType (Type type, Type openType)
+    {
+      var implementedTypes = type.DescendantsAndSelf(x => x.BaseType).Concat(type.GetInterfaces());
+      return implementedTypes.SingleOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == openType);
+    }
+
+    [CanBeNull]
+    public object GetDefaultValueFor (Type type)
+    {
+      return type.IsValueType ? Activator.CreateInstance(type) : null;
     }
   }
 }

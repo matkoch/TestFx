@@ -19,6 +19,7 @@ using TestFx.Extensibility.Contexts;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.Extensibility.Controllers
 {
@@ -89,7 +90,7 @@ namespace TestFx.Extensibility.Controllers
       // TODO: shared code with SuiteController
       IOperationProvider cleanupProvider = null;
       if (cleanup != null)
-        cleanupProvider = OperationProvider.Create<TCleanup>(OperationType.Action, cleanupText, InjectContextAndGuardAction(cleanup));
+        cleanupProvider = OperationProvider.Create<TCleanup>(OperationType.Action, cleanupText.AssertNotNull(), InjectContextAndGuardAction(cleanup));
       var setupProvider = OperationProvider.Create<TSetup>(OperationType.Action, setupText, InjectContextAndGuardAction(setup), cleanupProvider);
       var unsortedOperationProviders = cleanupProvider.Concat(_provider.OperationProviders).Concat(setupProvider).WhereNotNull();
       _provider.OperationProviders = _operationSorter.Sort(unsortedOperationProviders);

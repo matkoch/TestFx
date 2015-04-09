@@ -14,17 +14,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Collections
 {
-  public static class CollectionExtensions
+  public static partial class EnumerableExtensions
   {
-    // ReSharper disable once ParameterTypeCanBeEnumerable.Global
-    public static ICollection<T> AsReadOnly<T> (this ICollection<T> collection)
+    [DebuggerNonUserCode]
+    [DebuggerStepThrough]
+    [DebuggerHidden]
+    public static void ForEach<T> (this IEnumerable<T> enumerable, [InstantHandle] Action<T> action)
     {
-      return new ReadOnlyCollection<T>(collection.ToList());
+      foreach (var item in enumerable)
+        action(item);
     }
   }
 }

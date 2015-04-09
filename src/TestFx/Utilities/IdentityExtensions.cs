@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+// Copyright 2014, 2013 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,17 +13,14 @@
 // limitations under the License.
 
 using System;
-using JetBrains.Annotations;
-// ReSharper disable once CheckNamespace
 
 namespace TestFx.Utilities
 {
-  public static partial class TypeExtensions
+  public static class IdentityExtensions
   {
-    [CanBeNull]
-    public static object GetDefaultValue (this Type type)
+    public static IIdentity CreateChildIdentity (this IIdentity parent, string relativeId)
     {
-      return type.IsValueType ? Activator.CreateInstance(type) : null;
+      return new Identity(relativeId, parent);
     }
   }
 }

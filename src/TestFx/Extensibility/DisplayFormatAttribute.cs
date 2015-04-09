@@ -16,7 +16,7 @@ using System;
 
 namespace TestFx.Extensibility
 {
-  [AttributeUsage (AttributeTargets.Constructor | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+  [AttributeUsage (AttributeTargets.Constructor | AttributeTargets.Method)]
   public class DisplayFormatAttribute : Attribute
   {
     private readonly string _format;

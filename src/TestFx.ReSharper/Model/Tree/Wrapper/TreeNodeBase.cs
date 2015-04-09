@@ -25,7 +25,7 @@ using JetBrains.Text;
 
 namespace TestFx.ReSharper.Model.Tree.Wrapper
 {
-  public abstract partial class TreeNodeBase : ICSharpTreeNode
+  public abstract class TreeNodeBase : ICSharpTreeNode
   {
     private readonly ICSharpTreeNode _treeNode;
 

@@ -22,7 +22,6 @@ using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 using TestFx.Evaluation.Utilities;
-using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Runners
 {
@@ -50,7 +49,7 @@ namespace TestFx.Evaluation.Runners
             { "Component", TestType.GrayBox },
             { "Web", TestType.BlackBox },
             { "Acceptance", TestType.BlackBox },
-            { "System", TestType.BlackBox },
+            { "System", TestType.BlackBox }
         };
 
     private readonly IRunListener _listener;

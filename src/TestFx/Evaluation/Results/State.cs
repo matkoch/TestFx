@@ -22,6 +22,6 @@ namespace TestFx.Evaluation.Results
     Failed,
     Ignored,
     NotImplemented,
-    Inconclusive,
+    Inconclusive
   }
 }

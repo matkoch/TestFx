@@ -16,7 +16,6 @@ using System;
 using System.Linq;
 using JetBrains.ReSharper.Psi;
 using JetBrains.Util;
-using TestFx.Utilities;
 using TestFx.Utilities.Introspection;
 using TestFx.Utilities.Reflection;
 
@@ -49,8 +48,8 @@ namespace TestFx.ReSharper.Utilities.Psi
     public CommonAttribute GetCommonAttribute (IAttributeInstance attributeInstance)
     {
       var type = GetCommonType(attributeInstance.GetAttributeType());
-      var positionalArguments = EnumerableExtensions.WhereNotNull(attributeInstance.PositionParameters().Select(GetPositionalArgument));
-      var namedArguments = CollectionUtil.WhereNotNull(attributeInstance.NamedParameters().Select(GetNamedArguments));
+      var positionalArguments = attributeInstance.PositionParameters().Select(GetPositionalArgument).WhereNotNull();
+      var namedArguments = attributeInstance.NamedParameters().Select(GetNamedArguments).WhereNotNull();
 
       return new CommonAttribute(type, positionalArguments, namedArguments);
     }

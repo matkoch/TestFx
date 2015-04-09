@@ -13,32 +13,21 @@
 // limitations under the License.
 
 using System;
-using JetBrains.Annotations;
+using System.Reflection;
+using TestFx.Utilities.Introspection;
 
-namespace TestFx.Utilities
+namespace TestFx.Utilities.Reflection
 {
-  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
-  // ReSharper disable once ConvertToStaticClass
-  public sealed class Singleton<T>
-      where T : new()
+  public static class IntrospectionExtensions
   {
-    private Singleton ()
+    public static CommonType ToCommon (this Type type)
     {
+      return IntrospectionUtility.Instance.GetCommonType(type);
     }
 
-    public static T Instance
+    public static CommonAttribute ToCommon (this CustomAttributeData customAttributeData)
     {
-      get { return Nested.Value; }
-    }
-
-    private class Nested
-    {
-      static Nested ()
-      {
-      }
-
-      // ReSharper disable once StaticFieldInGenericType
-      internal static readonly T Value = new T();
+      return IntrospectionUtility.Instance.GetCommonAttribute(customAttributeData);
     }
   }
 }

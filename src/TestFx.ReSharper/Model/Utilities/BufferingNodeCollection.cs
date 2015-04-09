@@ -16,7 +16,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Model.Utilities
 {

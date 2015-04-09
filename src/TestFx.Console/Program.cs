@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Reporting;
-using TestFx.Evaluation.Results;
 
 namespace TestFx.Console
 {

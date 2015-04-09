@@ -14,24 +14,34 @@
 
 using System;
 
-namespace TestFx.Utilities
+namespace TestFx.Utilities.Introspection
 {
-  [Serializable]
-  public class NotReachableException : Exception
+  public class CommonNamedArgument
   {
-    private static string FormatMessage (string info)
+    private readonly string _name;
+    private readonly CommonType _type;
+    private readonly object _value;
+
+    public CommonNamedArgument (string name, CommonType type, object value)
     {
-      return string.Format("Code is not reachable: {0}", info);
+      _name = name;
+      _type = type;
+      _value = value;
     }
 
-    public NotReachableException (string info)
-        : base(FormatMessage(info))
+    public string Name
     {
+      get { return _name; }
     }
 
-    public NotReachableException (object obj)
-        : base(FormatMessage(obj.ToString()))
+    public CommonType Type
     {
+      get { return _type; }
+    }
+
+    public object Value
+    {
+      get { return _value; }
     }
   }
 }

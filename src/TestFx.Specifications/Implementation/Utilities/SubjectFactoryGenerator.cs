@@ -18,7 +18,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 
@@ -35,7 +34,7 @@ namespace TestFx.Specifications.Implementation.Utilities
 
     public Delegate GetFactory (Type suiteType)
     {
-      var closedSpeckType = suiteType.GetClosedTypeFor(typeof (ISpecK<>));
+      var closedSpeckType = suiteType.GetClosedTypeOf(typeof (ISpecK<>));
       var subjectType = closedSpeckType.GetGenericArguments().Single();
       var delegateType = typeof (Func<,>).MakeGenericType(closedSpeckType, subjectType);
 

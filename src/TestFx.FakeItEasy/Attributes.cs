@@ -17,7 +17,7 @@ using JetBrains.Annotations;
 
 namespace TestFx.FakeItEasy
 {
-  [AttributeUsage (AttributeTargets.Field, AllowMultiple = false)]
+  [AttributeUsage (AttributeTargets.Field)]
   [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
   public abstract class FakeBaseAttribute : Attribute
   {

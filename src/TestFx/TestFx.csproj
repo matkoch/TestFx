@@ -55,7 +55,7 @@
     <Compile Include="Evaluation\EvaluationModule.cs" />
     <Compile Include="Evaluation\Reporting\FillingOperationResult.cs" />
     <Compile Include="Evaluation\Reporting\ResultExtensions.cs" />
-    <Compile Include="TestExtensions\DefaultInitializationTestExtension.cs" />
+    <Compile Include="DefaultInitializationTestExtension.cs" />
     <Compile Include="Evaluation\Loading\SuiteControllerFactory.cs" />
     <Compile Include="Evaluation\RunIntentExtensions.cs" />
     <Compile Include="Evaluation\Utilities\FakeAppDomainFactory.cs" />
@@ -129,12 +129,36 @@
     <Compile Include="Evaluation\Utilities\AppDomainFactory.cs" />
     <Compile Include="Evaluation\Utilities\AppDomain.cs" />
     <Compile Include="Extensibility\TypeLoaderAttribute.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TestFx.Utilities\TestFx.Utilities.csproj">
-      <Project>{86730939-7f40-4ff4-bcec-39833faaef97}</Project>
-      <Name>TestFx.Utilities</Name>
-    </ProjectReference>
+    <Compile Include="Utilities\Collections\Enumerable.Concat.cs" />
+    <Compile Include="Utilities\Collections\Enumerable.ForEach.cs" />
+    <Compile Include="Utilities\Collections\Enumerable.TakeWhile.cs" />
+    <Compile Include="Utilities\Collections\Object.DescendantsAndSelf.cs" />
+    <Compile Include="Utilities\IdentifiableCollectionExtensions.cs" />
+    <Compile Include="Utilities\IdentifiableCollectionUtility.cs" />
+    <Compile Include="Utilities\Identity.cs" />
+    <Compile Include="Utilities\IdentityExtensions.cs" />
+    <Compile Include="Utilities\IIdentifiable.cs" />
+    <Compile Include="Utilities\Introspection\CommonAttribute.cs" />
+    <Compile Include="Utilities\Introspection\CommonNamedArgument.cs" />
+    <Compile Include="Utilities\Introspection\CommonPositionalArgument.cs" />
+    <Compile Include="Utilities\Introspection\CommonType.cs" />
+    <Compile Include="Utilities\NamespaceModule.cs" />
+    <Compile Include="Utilities\Object.AssertNotNull.cs" />
+    <Compile Include="Utilities\Reflection\Assembly.GetInstancesOf.cs" />
+    <Compile Include="Utilities\Reflection\AttributeDataExtensions.cs" />
+    <Compile Include="Utilities\Reflection\AttributeDataUtility.cs" />
+    <Compile Include="Utilities\Reflection\AttributeExtensions.cs" />
+    <Compile Include="Utilities\Reflection\AttributeUtility.cs" />
+    <Compile Include="Utilities\Reflection\IntrospectionExtensions.cs" />
+    <Compile Include="Utilities\Reflection\IntrospectionUtility.cs" />
+    <Compile Include="Utilities\Reflection\MemberBindings.cs" />
+    <Compile Include="Utilities\Reflection\MemberInfoExtensions.cs" />
+    <Compile Include="Utilities\Reflection\MemberInfoUtility.cs" />
+    <Compile Include="Utilities\Reflection\PrivateInvokeExtensions.cs" />
+    <Compile Include="Utilities\Reflection\PrivateInvokeUtility.cs" />
+    <Compile Include="Utilities\Reflection\TypeExtensions.cs" />
+    <Compile Include="Utilities\Reflection\TypeUtility.cs" />
+    <Compile Include="Utilities\UtilitiesModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />

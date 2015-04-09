@@ -18,7 +18,7 @@ using System.Linq;
 using System.Text;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Results;
-using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation.Reporting
 {

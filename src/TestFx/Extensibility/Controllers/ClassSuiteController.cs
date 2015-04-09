@@ -16,7 +16,7 @@ using System;
 using System.Collections.Generic;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
-using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.Extensibility.Controllers
 {

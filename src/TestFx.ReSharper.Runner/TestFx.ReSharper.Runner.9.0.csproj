@@ -153,10 +153,6 @@
     <Compile Include="ZoneMarker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestFx.Utilities\TestFx.Utilities.csproj">
-      <Project>{86730939-7F40-4FF4-BCEC-39833FAAEF97}</Project>
-      <Name>TestFx.Utilities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestFx\TestFx.csproj">
       <Project>{68456E60-C7A1-4B54-BB14-00063A03B7A3}</Project>
       <Name>TestFx</Name>

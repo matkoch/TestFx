@@ -28,6 +28,7 @@ using TestFx.ReSharper.UnitTesting.Utilities;
 using TestFx.ReSharper.Utilities.Psi.Tree;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
+using RecursiveRemoteTaskRunner = TestFx.ReSharper.Runner.RecursiveRemoteTaskRunner;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
@@ -35,7 +36,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
   public abstract partial class ElementBase : IUnitTestElementEx
   {
     private static readonly IUnitTestRunStrategy RunStrategy =
-        new OutOfProcessUnitTestRunStrategy(new RemoteTaskRunnerInfo(Runner.RecursiveRemoteTaskRunner.ID, typeof (Runner.RecursiveRemoteTaskRunner)));
+        new OutOfProcessUnitTestRunStrategy(new RemoteTaskRunnerInfo(RecursiveRemoteTaskRunner.ID, typeof (RecursiveRemoteTaskRunner)));
 
     private readonly IUnitTestIdentity _identity;
     private readonly IList<Task> _tasks;
@@ -136,7 +137,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     public ICollection<IUnitTestElement> Children
     {
-      get { return _children.AsReadOnly(); }
+      get { return _children.ToList().AsReadOnly(); }
     }
 
     public IUnitTestProvider Provider

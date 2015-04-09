@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+// Copyright 2014, 2013 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@ using System;
 
 namespace TestFx.Utilities
 {
-  public static partial class TypeExtensions
+  public class UtilitiesModule : NamespaceModule
   {
-    public static bool EqualsFullName (this Type type, Type otherType)
+    public UtilitiesModule ()
+        : base(typeof (UtilitiesModule))
     {
-      return type.FullName == otherType.FullName;
     }
   }
 }

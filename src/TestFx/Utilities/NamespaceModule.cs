@@ -13,22 +13,33 @@
 // limitations under the License.
 
 using System;
+using System.Reflection;
+using Autofac;
+using Module = Autofac.Module;
 
 namespace TestFx.Utilities
 {
-  [AttributeUsage (AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = true, Inherited = true)]
-  public class BeforeAttribute : Attribute
+  public class NamespaceModule : Module
   {
-    private readonly Type _type;
+    private readonly Assembly _assembly;
+    private readonly string _namespace;
 
-    public BeforeAttribute (Type type)
+    public NamespaceModule (Type typeInNamespace)
+        : this(typeInNamespace.Assembly, typeInNamespace.Namespace)
     {
-      _type = type;
     }
 
-    public Type Type
+    public NamespaceModule (Assembly assembly, string @namespace)
     {
-      get { return _type; }
+      _assembly = assembly;
+      _namespace = @namespace;
+    }
+
+    protected override void Load (ContainerBuilder builder)
+    {
+      builder.RegisterAssemblyTypes(_assembly).InNamespace(_namespace)
+          .AsImplementedInterfaces()
+          .SingleInstance();
     }
   }
 }

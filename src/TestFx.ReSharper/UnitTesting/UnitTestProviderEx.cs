@@ -15,9 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
-using JetBrains.ReSharper.Psi.Resources;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.Extensibility;
@@ -25,6 +23,7 @@ using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.ReSharper.Utilities.Psi;
 using TestFx.Utilities;
+using RecursiveRemoteTaskRunner = TestFx.ReSharper.Runner.RecursiveRemoteTaskRunner;
 
 namespace TestFx.ReSharper.UnitTesting
 {
@@ -51,7 +50,7 @@ namespace TestFx.ReSharper.UnitTesting
 
     public string ID
     {
-      get { return Runner.RecursiveRemoteTaskRunner.ID; }
+      get { return RecursiveRemoteTaskRunner.ID; }
     }
 
     public string Name

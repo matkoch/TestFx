@@ -78,10 +78,6 @@
       <Project>{805bdcc2-3399-49aa-8443-d189ac477899}</Project>
       <Name>TestFx.Specifications</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestFx.Utilities\TestFx.Utilities.csproj">
-      <Project>{86730939-7F40-4FF4-BCEC-39833FAAEF97}</Project>
-      <Name>TestFx.Utilities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestFx\TestFx.csproj">
       <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
       <Name>TestFx</Name>

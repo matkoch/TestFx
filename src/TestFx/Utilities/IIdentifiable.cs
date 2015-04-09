@@ -13,31 +13,16 @@
 // limitations under the License.
 
 using System;
-using System.Reflection;
 
 namespace TestFx.Utilities
 {
-  public struct MemberWithAttributeData<TMember, TAttribute>
-      where TMember : MemberInfo
-      where TAttribute : Attribute
+  public interface IIdentifiable
   {
-    private readonly TMember _member;
-    private readonly TAttribute _attribute;
+    IIdentity Identity { get; }
+  }
 
-    public MemberWithAttributeData (TMember member, TAttribute attribute)
-    {
-      _member = member;
-      _attribute = attribute;
-    }
-
-    public TMember Member
-    {
-      get { return _member; }
-    }
-
-    public TAttribute Attribute
-    {
-      get { return _attribute; }
-    }
+  public static class Identifiable
+  {
+    public const string DebuggerDisplay = "{GetType()} [{Identity.Relative,nq}]";
   }
 }

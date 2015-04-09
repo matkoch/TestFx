@@ -15,7 +15,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.Extensibility.Containers
 {

@@ -20,6 +20,7 @@ using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 using TestFx.ReSharper.Model.Utilities;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Model.Tree.Aggregation
 {

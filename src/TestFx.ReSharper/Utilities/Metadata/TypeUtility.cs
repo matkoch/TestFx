@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Metadata.Reader.API;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Utilities.Metadata
 {

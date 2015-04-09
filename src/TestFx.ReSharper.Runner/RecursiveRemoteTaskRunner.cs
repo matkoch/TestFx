@@ -20,7 +20,7 @@ using mscorlib::System.Threading;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Intents;
 using TestFx.ReSharper.Runner.Tasks;
-using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Runner
 {

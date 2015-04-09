@@ -15,13 +15,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Runner
 {

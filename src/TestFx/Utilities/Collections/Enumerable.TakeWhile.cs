@@ -13,17 +13,16 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
-// ReSharper disable once CheckNamespace
 
-namespace TestFx.Utilities
+namespace TestFx.Utilities.Collections
 {
-  public static partial class TypeExtensions
+  public static partial class EnumerableExtensions
   {
-    public static Type GetClosedTypeFor (this Type type, Type openType)
+    public static IEnumerable<T> TakeWhile<T> (this IEnumerable<T> enumerable, Func<bool> condition)
     {
-      var implementedTypes = type.DescendantsAndSelf(x => x.BaseType).Concat(type.GetInterfaces());
-      return implementedTypes.SingleOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == openType);
+      return enumerable.TakeWhile(x => condition());
     }
   }
 }
