@@ -21,7 +21,7 @@ namespace TestFx.Utilities
   public static partial class TypeExtensions
   {
     [CanBeNull]
-    public static object GetDefault (this Type type)
+    public static object GetDefaultValue (this Type type)
     {
       return type.IsValueType ? Activator.CreateInstance(type) : null;
     }

@@ -30,7 +30,7 @@ namespace TestFx.TestExtensions
     public void Extend (ITestController testController, ISuite suite)
     {
       var fields = suite.GetType().GetFields(MemberBindings.Instance);
-      testController.AddAction<SetupExtension>("<DefaultInitialization>", x => fields.ForEach(f => f.SetValue(suite, f.FieldType.GetDefault())));
+      testController.AddAction<SetupExtension>("<DefaultInitialization>", x => fields.ForEach(f => f.SetValue(suite, f.FieldType.GetDefaultValue())));
     }
   }
 }
