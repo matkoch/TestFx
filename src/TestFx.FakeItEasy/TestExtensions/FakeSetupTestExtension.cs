@@ -25,6 +25,11 @@ namespace TestFx.FakeItEasy.TestExtensions
   // NOTE: currently called by FakeCreationTestExtension
   public class FakeSetupTestExtension : ITestExtension
   {
+    public int Priority
+    {
+      get { throw new NotImplementedException(); }
+    }
+
     public void Extend (ITestController testController, ISuite suite)
     {
       var fieldsWithAttribute = suite.GetType().GetFieldsWithAttribute<ReturnedFromAttribute>().ToList();

@@ -24,6 +24,11 @@ namespace TestFx.FakeItEasy.TestExtensions
 {
   public class FakeCreationTestExtension : ITestExtension
   {
+    public int Priority
+    {
+      get { return 0; }
+    }
+
     public void Extend (ITestController testController, ISuite suite)
     {
       var fieldsWithAttribute = suite.GetType().GetFieldsWithAttribute<FakeBaseAttribute>().ToList();

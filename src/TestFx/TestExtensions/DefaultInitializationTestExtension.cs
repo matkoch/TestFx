@@ -22,6 +22,11 @@ namespace TestFx.TestExtensions
 {
   public class DefaultInitializationTestExtension : ITestExtension
   {
+    public int Priority
+    {
+      get { return int.MaxValue; }
+    }
+
     public void Extend (ITestController testController, ISuite suite)
     {
       var fields = suite.GetType().GetFields(MemberBindings.Instance);

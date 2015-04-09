@@ -18,7 +18,6 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using TestFx.Extensibility;
-using TestFx.TestExtensions;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 
@@ -37,8 +36,9 @@ namespace TestFx.Evaluation.Loading
 
       var suiteTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<ISuite>() && x.GetAttribute<SubjectAttributeBase>() != null).ToList();
       var suiteBaseTypes = suiteTypes.Select(x => x.GetDirectDerivedTypesOf<ISuite>().Single()).Distinct();
-      var testExtensions = assembly.GetAttributes<UseTestExtension>().Select(x => x.TestExtensionType.CreateInstance<ITestExtension>()).ToList();
-      testExtensions = new[] { new DefaultInitializationTestExtension() }.Concat(testExtensions).ToList();
+      var testExtensions = assembly.GetAttributes<UseTestExtension>()
+          .Select(x => x.TestExtensionType.CreateInstance<ITestExtension>())
+          .OrderByDescending(x => x.Priority);
       var typeLoaders = suiteBaseTypes.ToDictionary(x => x, x => CreateTypeLoader(x, testExtensions));
 
       return new AssemblyExplorationData(typeLoaders, suiteTypes, assemblySetups);

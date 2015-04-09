@@ -22,6 +22,11 @@ namespace TestFx.FakeItEasy.TestExtensions
 {
   public class FakeScopeTestExtension : ITestExtension
   {
+    public int Priority
+    {
+      get { return -1; }
+    }
+
     public void Extend (ITestController testController, ISuite suite)
     {
       testController.Wrap<Act>(
