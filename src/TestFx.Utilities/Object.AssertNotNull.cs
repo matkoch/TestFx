@@ -14,6 +14,7 @@
 
 using System;
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace TestFx.Utilities
 {
@@ -21,7 +22,7 @@ namespace TestFx.Utilities
   {
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
-    public static T AssertNotNull<T> (this T obj, string reason = null) where T : class
+    public static T AssertNotNull<T> ([CanBeNull] this T obj, string reason = null) where T : class
     {
       Debug.Assert(obj != null, reason ?? "previous value is null");
       return obj;
