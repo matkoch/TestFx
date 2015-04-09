@@ -24,7 +24,7 @@ namespace TestFx.Specifications.Implementation.Utilities
     {
       // TODO: own exception type / 
       if (!Equals(expectedObject, actualObject))
-        throw new Exception(String.Format("{0} must be equal to '{1}' but was '{2}'.", objectName, expectedObject, actualObject));
+        throw new Exception(String.Format("{0} must be equal to '{1}' but was '{2}'.", objectName, expectedObject ?? "null", actualObject ?? "null"));
     }
 
     public static void AssertInstanceOfType (string objectName, Type expectedType, object actualObject)
