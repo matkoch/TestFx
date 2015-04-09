@@ -248,7 +248,7 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
 
     ITypeMember ICSharpTypeMemberDeclaration.DeclaredElement
     {
-      get { return _classDeclaration.To<ICSharpTypeMemberDeclaration>().DeclaredElement; }
+      get { return ((ICSharpTypeMemberDeclaration) _classDeclaration).DeclaredElement; }
     }
 
     public new ITypeDeclaration GetContainingTypeDeclaration ()
@@ -258,7 +258,7 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
 
     ITypeMember ITypeMemberDeclaration.DeclaredElement
     {
-      get { return _classDeclaration.To<ITypeMemberDeclaration>().DeclaredElement; }
+      get { return ((ITypeMemberDeclaration) _classDeclaration).DeclaredElement; }
     }
 
     ITypeElement ICSharpTypeDeclaration.DeclaredElement
@@ -293,7 +293,7 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
 
     IModifiersOwner IModifiersOwnerDeclaration.DeclaredElement
     {
-      get { return _classDeclaration.To<IModifiersOwnerDeclaration>().DeclaredElement; }
+      get { return ((IModifiersOwnerDeclaration) _classDeclaration).DeclaredElement; }
     }
 
     ITypeElement ITypeDeclaration.DeclaredElement
@@ -303,12 +303,12 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
 
     TreeNodeCollection<ITypeDeclaration> ITypeDeclaration.NestedTypeDeclarations
     {
-      get { return _classDeclaration.To<ITypeDeclaration>().NestedTypeDeclarations; }
+      get { return ((ITypeDeclaration) _classDeclaration).NestedTypeDeclarations; }
     }
 
     TreeNodeCollection<ITypeMemberDeclaration> ITypeDeclaration.MemberDeclarations
     {
-      get { return _classDeclaration.To<ITypeDeclaration>().MemberDeclarations; }
+      get { return ((ITypeDeclaration) _classDeclaration).MemberDeclarations; }
     }
 
     public IDeclarationsRange GetAllDeclarationsRange ()

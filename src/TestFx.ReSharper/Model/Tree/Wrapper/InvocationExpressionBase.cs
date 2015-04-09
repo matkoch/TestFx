@@ -82,7 +82,7 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
 
     IList<ICSharpArgumentInfo> ICSharpInvocationInfo.Arguments
     {
-      get { return _invocationExpression.To<ICSharpInvocationInfo>().Arguments; }
+      get { return ((ICSharpInvocationInfo) _invocationExpression).Arguments; }
     }
 
     public ICSharpArgumentInfo ExtensionQualifier
@@ -102,7 +102,7 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
 
     IList<IArgument> IArgumentsOwner.Arguments
     {
-      get { return _invocationExpression.To<IArgumentsOwner>().Arguments; }
+      get { return ((IArgumentsOwner) _invocationExpression).Arguments; }
     }
 
     IArgumentInfo IInvocationInfo.ExtensionQualifier
@@ -122,7 +122,7 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
 
     IList<IArgumentInfo> IInvocationInfo.Arguments
     {
-      get { return _invocationExpression.To<IInvocationInfo>().Arguments; }
+      get { return ((IInvocationInfo) _invocationExpression).Arguments; }
     }
 
     public ConstantValue ConstantValue

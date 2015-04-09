@@ -82,7 +82,7 @@ namespace TestFx.Specifications.Implementation.Controllers
 
       base.ConfigureTestController(testController);
 
-      var testControllerWithSubject = testController.To<ITestController<TSubject>>();
+      var testControllerWithSubject = (ITestController<TSubject>) testController;
 
       if (typeof (TSubject) != typeof (Dummy))
         testControllerWithSubject.SetSubjectFactory<SetupSubject>("<SubjectCreation>", x => _suite.CreateSubject());
@@ -101,7 +101,7 @@ namespace TestFx.Specifications.Implementation.Controllers
 
     private Action<Extensibility.Contexts.ITestContext> ConvertToNonGeneric (Action<ITestContext<TSubject>> action)
     {
-      return action != null ? (x => action(x.To<ITestContext<TSubject>>())) : (Action<Extensibility.Contexts.ITestContext>) null;
+      return action != null ? (x => action((ITestContext<TSubject>) x)) : (Action<Extensibility.Contexts.ITestContext>) null;
     }
   }
 }

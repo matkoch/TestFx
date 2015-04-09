@@ -35,7 +35,7 @@ namespace TestFx.Specifications.IntegrationTests
       Specify (x => x.ToString ())
           .DefaultCase(_ => _
               .It ("passes disposable", x => x.Subject.Disposable.Should ().BeSameAs (Disposable))
-              .It ("passes strings as collection", x => x.Subject.Strings.Should ().Equal (new[] { String1, String2, String3 })))
+              .It ("passes strings as collection", x => x.Subject.Strings.Should ().Equal (String1, String2, String3)))
           .Case ("custom subject creation", _ => _
               .Given ("reset disposable", x => Writer = new BinaryWriter (Stream.Null))
               .GivenSubject ("is created with null values", x => new DomainType (Writer, null))

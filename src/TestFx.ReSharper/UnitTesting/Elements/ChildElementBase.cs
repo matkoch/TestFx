@@ -54,7 +54,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     internal override IEnumerable<ISuiteFile> GetSuiteFiles ()
     {
-      return Parent != null ? Parent.To<ElementBase>().GetSuiteFiles() : Enumerable.Empty<ISuiteFile>();
+      return Parent != null ? ((ElementBase) Parent).GetSuiteFiles() : Enumerable.Empty<ISuiteFile>();
     }
   }
 }

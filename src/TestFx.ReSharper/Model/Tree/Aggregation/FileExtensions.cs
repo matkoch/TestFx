@@ -32,7 +32,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       if (project == null)
         return null;
 
-      var csharpFile = file.As<ICSharpFile>();
+      var csharpFile = file as ICSharpFile;
       if (csharpFile == null)
         return null;
 

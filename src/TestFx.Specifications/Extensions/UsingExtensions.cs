@@ -33,10 +33,10 @@ namespace TestFx.Specifications
       IDisposable scope = null;
       controller.AddSetupCleanup<Arrange, CleanupCommon>(
           "Create " + typeof (TDisposable).Name,
-          x => scope = scopeProvider(x.To<ITestContext<TSubject, TResult, TVars>>()),
+          x => scope = scopeProvider((ITestContext<TSubject, TResult, TVars>) x),
           "Dispose " + typeof (TDisposable).Name,
           x => scope.Dispose());
-      return arrange.To<IArrangeOrAssert<TSubject, TResult, TVars>>();
+      return (IArrangeOrAssert<TSubject, TResult, TVars>) arrange;
     }
   }
 }

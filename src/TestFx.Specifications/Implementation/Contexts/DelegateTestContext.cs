@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using TestFx.Utilities;
 
 namespace TestFx.Specifications.Implementation.Contexts
 {
@@ -29,19 +28,19 @@ namespace TestFx.Specifications.Implementation.Contexts
 
     public override TDelegateSubject Subject
     {
-      get { return _context.Subject.To<TDelegateSubject>(); }
-      set { _context.Subject = value.To<TSubject>(); }
+      get { return (TDelegateSubject) (object) _context.Subject; }
+      set { _context.Subject = (TSubject) (object) value; }
     }
 
     public override TDelegateResult Result
     {
-      get { return _context.Result.To<TDelegateResult>(); }
+      get { return (TDelegateResult) (object) _context.Result; }
       set { throw new NotSupportedException(); }
     }
 
     public override TDelegateVars Vars
     {
-      get { return _context.Vars.To<TDelegateVars>(); }
+      get { return (TDelegateVars) (object) _context.Vars; }
       set { throw new NotSupportedException(); }
     }
 

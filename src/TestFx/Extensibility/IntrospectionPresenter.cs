@@ -55,7 +55,7 @@ namespace TestFx.Extensibility
 
     private string GetDisplayFormat (CommonAttribute displayAttribute)
     {
-      return displayAttribute.PositionalArguments.Single().Value.To<string>();
+      return (string) displayAttribute.PositionalArguments.Single().Value;
     }
   }
 }

@@ -49,7 +49,7 @@ namespace TestFx.ReSharper.UnitTesting
     {
       xmlElement.SetAttribute(c_elementType, element.GetType().FullName);
       xmlElement.SetAttribute(c_absoluteId, element.Id);
-      xmlElement.SetAttribute(c_projectId, element.To<IUnitTestElementEx>().GetProject().AssertNotNull().GetPersistentID());
+      xmlElement.SetAttribute(c_projectId, ((IUnitTestElementEx) element).GetProject().AssertNotNull().GetPersistentID());
       xmlElement.SetAttribute(c_text, element.GetPresentation());
     }
 

@@ -80,7 +80,7 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
 
     IList<ITypeDeclaration> ITypeDeclarationHolder.TypeDeclarations
     {
-      get { return _file.To<ITypeDeclarationHolder>().TypeDeclarations; }
+      get { return ((ITypeDeclarationHolder) _file).TypeDeclarations; }
     }
 
     public IUsingList ImportsList
@@ -95,7 +95,7 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
 
     IList<INamespaceDeclaration> INamespaceDeclarationHolder.NamespaceDeclarations
     {
-      get { return _file.To<INamespaceDeclarationHolder>().NamespaceDeclarations; }
+      get { return ((INamespaceDeclarationHolder) _file).NamespaceDeclarations; }
     }
 
     public IDeclarationsRange GetAllDeclarationsRange ()

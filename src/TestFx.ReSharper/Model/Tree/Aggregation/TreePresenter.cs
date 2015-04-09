@@ -46,7 +46,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     [CanBeNull]
     public string Present (IClassDeclaration classDeclaration)
     {
-      var clazz = classDeclaration.DeclaredElement.To<IClass>();
+      var clazz = (IClass) classDeclaration.DeclaredElement;
 
       var subjectAttributeData = clazz.GetAttributeData<SubjectAttributeBase>();
       if (subjectAttributeData == null)
@@ -63,7 +63,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     public string Present (IInvocationExpression invocationExpression)
     {
       var resolution = invocationExpression.Reference.AssertNotNull().GetResolveResult();
-      var method = resolution.DeclaredElement.As<IMethod>();
+      var method = resolution.DeclaredElement as IMethod;
       if (method == null)
         return null;
 
@@ -81,7 +81,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       if (argument.Kind == ParameterKind.UNKNOWN)
         return IntrospectionPresenter.UnknownValue;
 
-      var literalExpression = argument.Value.As<ILiteralExpression>();
+      var literalExpression = argument.Value as ILiteralExpression;
       if (literalExpression == null)
         return IntrospectionPresenter.UnknownValue;
 

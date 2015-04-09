@@ -31,7 +31,7 @@ namespace TestFx.Specifications
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       controller.AddAssertion(
           "Returns " + typeof (TDerivedResult).Name,
-          x => resultAssertion(x.Result.As<TDerivedResult>()));
+          x => resultAssertion(x.Result as TDerivedResult));
       return assert;
     }
 

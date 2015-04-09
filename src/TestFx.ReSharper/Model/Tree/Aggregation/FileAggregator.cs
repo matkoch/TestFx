@@ -89,7 +89,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     {
       var statementExpressions = constructorDeclarations.SelectMany(x => x.Body.Children<IExpressionStatement>()).Select(x => x.Expression);
       var invocationExpressions = statementExpressions.OfType<IInvocationExpression>()
-          .SelectMany(z => z.DescendantsAndSelf(x => x.InvokedExpression.FirstChild.As<IInvocationExpression>()).Reverse());
+          .SelectMany(z => z.DescendantsAndSelf(x => x.InvokedExpression.FirstChild as IInvocationExpression).Reverse());
       return invocationExpressions;
     }
   }

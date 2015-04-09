@@ -60,7 +60,7 @@ namespace TestFx.Specifications
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
       controller.AddAssertion(
           "Throws " + typeof (TException).Name,
-          x => exceptionAssertion(x.Exception.As<TException>()),
+          x => exceptionAssertion(x.Exception as TException),
           c_expectException);
       return assert;
     }

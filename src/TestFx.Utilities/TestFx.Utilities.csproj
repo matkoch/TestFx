@@ -94,8 +94,6 @@
     <Compile Include="Enumerable.ForEach.cs" />
     <Compile Include="Reflection\MemberBindings.cs" />
     <Compile Include="MemberInfo.GetAttributeValueOrDefault.cs" />
-    <Compile Include="Object.To.cs" />
-    <Compile Include="Object.As.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="Type.EqualsFullName.cs" />

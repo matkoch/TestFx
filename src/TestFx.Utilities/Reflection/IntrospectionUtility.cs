@@ -63,7 +63,7 @@ namespace TestFx.Utilities.Reflection
         return valueAsTypeArray.Select(GetCommonType).ToArray();
 
       if (value is Type)
-        return value.To<Type>().ToCommon();
+        return ((Type) value).ToCommon();
 
       return value;
     }

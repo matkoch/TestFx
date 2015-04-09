@@ -127,7 +127,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
         if (_parent != null)
           _parent._children.Remove(this);
 
-        _parent = value.As<ElementBase>();
+        _parent = value as ElementBase;
 
         if (_parent != null)
           _parent._children.Add(this);
@@ -163,7 +163,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     // TODO: move to IUnitTestDeclaration.Children?
     private IEnumerable<IUnitTestDeclaration> GetChildren (IUnitTestDeclaration declaration)
     {
-      var suiteDeclaration = declaration.As<ISuiteDeclaration>();
+      var suiteDeclaration = declaration as ISuiteDeclaration;
       return suiteDeclaration != null
           ? suiteDeclaration.SuiteDeclarations.Concat(suiteDeclaration.TestDeclarations.Cast<IUnitTestDeclaration>())
           : Enumerable.Empty<IUnitTestDeclaration>();

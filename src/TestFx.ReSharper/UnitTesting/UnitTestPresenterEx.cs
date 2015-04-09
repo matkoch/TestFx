@@ -6,7 +6,6 @@ using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.TreeModels;
 using JetBrains.UI.TreeView;
 using TestFx.ReSharper.UnitTesting.Elements;
-using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting
 {
@@ -25,8 +24,8 @@ namespace TestFx.ReSharper.UnitTesting
     {
       public int Compare (TreeModelNode x, TreeModelNode y)
       {
-        var first = x.DataValue.As<IUnitTestElementEx>();
-        var second = y.DataValue.As<IUnitTestElementEx>();
+        var first = x.DataValue as IUnitTestElementEx;
+        var second = y.DataValue as IUnitTestElementEx;
         if (first == null || second == null)
           return 0;
 

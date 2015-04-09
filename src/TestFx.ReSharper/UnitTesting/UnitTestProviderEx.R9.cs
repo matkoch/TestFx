@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.UnitTesting
           absoluteId =>
           {
             IUnitTestElement element;
-            return elements.TryGetValue(absoluteId, out element) ? element.To<IUnitTestElementEx>() : null;
+            return elements.TryGetValue(absoluteId, out element) ? (IUnitTestElementEx) element : null;
           });
     }
   }

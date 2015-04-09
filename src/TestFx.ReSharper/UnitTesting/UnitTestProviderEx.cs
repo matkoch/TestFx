@@ -61,10 +61,10 @@ namespace TestFx.ReSharper.UnitTesting
 
     public bool IsElementOfKind (IDeclaredElement declaredElement, UnitTestElementKind elementKind)
     {
-      var clazz = declaredElement.As<ITypeElement>();
+      var clazz = declaredElement as ITypeElement;
       if (clazz == null)
       {
-        var member = declaredElement.As<ITypeMember>();
+        var member = declaredElement as ITypeMember;
         if (member == null)
           return false;
 
@@ -76,7 +76,7 @@ namespace TestFx.ReSharper.UnitTesting
 
     public bool IsElementOfKind (IUnitTestElement element, UnitTestElementKind elementKind)
     {
-      var testElement = element.As<IUnitTestElementEx>();
+      var testElement = element as IUnitTestElementEx;
       return testElement != null && testElement.ElementKind == elementKind;
     }
 
@@ -92,7 +92,7 @@ namespace TestFx.ReSharper.UnitTesting
 
     public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, IUnitTestElementEx> elementProvider)
     {
-      var dynamicTask = remoteTask.To<DynamicTask>();
+      var dynamicTask = (DynamicTask) remoteTask;
       var parentElement = elementProvider(dynamicTask.ParentAbsoluteId);
       Trace.Assert(parentElement != null, "parentElement != null");
 

@@ -34,11 +34,11 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
     public UnitTestElementLocation GetUnitTestElementLocation (IUnitTestDeclaration declaration)
     {
       if (declaration is IClassDeclaration)
-        return GetUnitTestElementLocation(declaration.To<IClassDeclaration>());
+        return GetUnitTestElementLocation((IClassDeclaration) declaration);
       if (declaration is IExpressionStatement)
-        return GetUnitTestElementLocation(declaration.To<IExpressionStatement>());
+        return GetUnitTestElementLocation((IExpressionStatement) declaration);
       if (declaration is IInvocationExpression)
-        return GetUnitTestElementLocation(declaration.To<IInvocationExpression>());
+        return GetUnitTestElementLocation((IInvocationExpression) declaration);
 
       throw new Exception();
     }
@@ -61,7 +61,7 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
     private UnitTestElementLocation GetUnitTestElementLocation (IInvocationExpression invocation)
     {
       var projectFile = invocation.GetSourceFile().ToProjectFile();
-      var reference = invocation.InvokedExpression.As<IReferenceExpression>()
+      var reference = (invocation.InvokedExpression as IReferenceExpression)
           .AssertNotNull("invocationExpression.InvokedExpression is not a IReferenceExpression");
 
       var startOffset = reference.NameIdentifier.GetDocumentStartOffset();
