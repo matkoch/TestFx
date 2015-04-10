@@ -12,10 +12,9 @@
     <tags>testfx</tags>
   </metadata>
   <files>
-    <file src="TestFx\bin\$configuration$\merged\*" target="lib\net35" />
-    <file src="TestFx\bin\$configuration$\TestFx.Utilities.*" target="lib\net35" />
+    <file src="TestFx\bin\$configuration$\merged\*" target="lib\net45" />
     <file src="TestFx\**\*.cs" exclude="obj\**\*" target="src\TestFx" />
     <file src="TestFx\NuGet\*" target="content\Properties" />
-    <!--<file src="TestFx.Console\bin\$configuration$\SpecK.exe" target="tools" />-->
+    <!--<file src="TestFx.Console\bin\$configuration$\TestFx.exe" target="tools" />-->
   </files>
 </package>
