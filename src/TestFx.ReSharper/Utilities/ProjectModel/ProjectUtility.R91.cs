@@ -34,7 +34,7 @@ namespace TestFx.ReSharper.Utilities.ProjectModel
       var solution = project.GetSolution();
       var psiServices = solution.GetPsiServices();
       var modules = psiServices.Modules;
-      return modules.GetPrimaryPsiModule(project);
+      return modules.GetPrimaryPsiModule(project, TargetFrameworkId.Default);
     }
   }
 }
