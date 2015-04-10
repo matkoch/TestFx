@@ -14,6 +14,5 @@
 
 using System;
 using TestFx;
-using TestFx.TestExtensions;
 
 [assembly: UseTestExtension (typeof (DefaultInitializationTestExtension))]
