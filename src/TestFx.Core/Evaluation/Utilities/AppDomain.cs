@@ -38,10 +38,17 @@ namespace TestFx.Evaluation.Utilities
 
     public T CreateProxy<T> (Type proxyType, params object[] proxyArgs)
     {
-      var assemblyName = proxyType.Assembly.GetName().Name;
-      var fullName = proxyType.FullName;
-      var culture = CultureInfo.InvariantCulture;
-      return (T) _appDomain.CreateInstanceAndUnwrap(assemblyName, fullName, false, c_bindingFlags, null, proxyArgs, culture, null, null);
+      var instance = _appDomain.CreateInstanceAndUnwrap(
+          proxyType.Assembly.GetName().Name,
+          proxyType.FullName,
+          ignoreCase: false,
+          bindingAttr: c_bindingFlags,
+          binder: null,
+          args: proxyArgs,
+          culture: CultureInfo.InvariantCulture,
+          activationAttributes: null);
+
+      return (T) instance;
     }
 
     public void Dispose ()

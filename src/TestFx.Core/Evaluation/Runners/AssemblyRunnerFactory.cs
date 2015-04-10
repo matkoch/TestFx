@@ -32,7 +32,7 @@ namespace TestFx.Evaluation.Runners
     public IAssemblyRunner Create (IRunListener listener, IResourceManager resourceManager, ICancellationTokenSource cancellationTokenSource)
     {
       var builder = new ContainerBuilder();
-      builder.RegisterModule(new EvaluationModule(listener, false /* don't care */));
+      builder.RegisterModule(new EvaluationModule(listener, useSeparateAppDomains: false /* don't care */));
       // Re-registering
       builder.RegisterInstance(resourceManager).As<IResourceManager>();
       builder.RegisterInstance(cancellationTokenSource).As<ICancellationTokenSource>();

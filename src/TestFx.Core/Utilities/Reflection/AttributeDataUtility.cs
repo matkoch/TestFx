@@ -84,18 +84,18 @@ namespace TestFx.Utilities.Reflection
       return
           from customAttributeData in customAttributeDatas
           let originalAttributeType = customAttributeData.Constructor.DeclaringType
-          where originalAttributeType.DescendantsAndSelf(x => x.BaseType).Any(x => x.FullName == typeof(T).FullName)
+          where originalAttributeType.DescendantsAndSelf(x => x.BaseType).Any(x => x.FullName == typeof (T).FullName)
           select customAttributeData;
     }
 
     public Attribute GetAttribute (CustomAttributeData attributeData)
     {
       var originalAttributeType = attributeData.Constructor.DeclaringType.AssertNotNull();
-      var attributeType = Type.GetType(originalAttributeType.AssemblyQualifiedName.AssertNotNull(), true);
+      var attributeType = Type.GetType(originalAttributeType.AssemblyQualifiedName.AssertNotNull(), throwOnError: true);
 
       var arguments = attributeData.ConstructorArguments.Select(GetArgumentValue).ToArray();
       var attribute = attributeType.CreateInstance<Attribute>(arguments);
-      attributeData.NamedArguments.ForEach(x => attribute.SetMemberValue(x.MemberInfo.Name, GetArgumentValue(x.TypedValue)));
+      attributeData.NamedArguments.AssertNotNull().ForEach(x => attribute.SetMemberValue(x.MemberInfo.Name, GetArgumentValue(x.TypedValue)));
 
       return attribute;
     }

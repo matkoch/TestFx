@@ -28,7 +28,7 @@ namespace TestFx.Evaluation.Utilities
         IEnumerable<Assembly> fullTrustAssemblies = null)
     {
       // TODO: log warnings?
-      return new AppDomain(System.AppDomain.CurrentDomain, false);
+      return new AppDomain(System.AppDomain.CurrentDomain, unloadOnDispose: false);
     }
   }
 }

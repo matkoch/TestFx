@@ -47,17 +47,17 @@ namespace TestFx.Utilities.Reflection
 
     public IEnumerable<T> GetAttributes<T> (Assembly assembly) where T : Attribute
     {
-      return Attribute.GetCustomAttributes(assembly, typeof (T), true).Cast<T>();
+      return Attribute.GetCustomAttributes(assembly, typeof (T), inherit: true).Cast<T>();
     }
 
     public IEnumerable<T> GetAttributes<T> (Type type) where T : Attribute
     {
-      return Attribute.GetCustomAttributes(type, typeof (T), true).Cast<T>();
+      return Attribute.GetCustomAttributes(type, typeof (T), inherit: true).Cast<T>();
     }
 
     public IEnumerable<T> GetAttributes<T> (MemberInfo memberInfo) where T : Attribute
     {
-      return Attribute.GetCustomAttributes(memberInfo, typeof (T), true).Cast<T>();
+      return Attribute.GetCustomAttributes(memberInfo, typeof (T), inherit: true).Cast<T>();
     }
 
     [CanBeNull]
