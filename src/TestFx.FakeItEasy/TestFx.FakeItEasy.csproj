@@ -61,13 +61,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestFx.Core\TestFx.Core.csproj">
+      <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
+      <Name>TestFx.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestFx.Specifications\TestFx.Specifications.csproj">
       <Project>{805BDCC2-3399-49AA-8443-D189AC477899}</Project>
       <Name>TestFx.Specifications</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestFx\TestFx.csproj">
-      <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
-      <Name>TestFx</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

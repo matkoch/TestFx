@@ -1,4 +1,4 @@
-// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2014, 2013 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,14 +13,14 @@
 // limitations under the License.
 
 using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-namespace TestFx.Utilities
-{
-  public class UtilitiesModule : NamespaceModule
-  {
-    public UtilitiesModule ()
-        : base(typeof (UtilitiesModule))
-    {
-    }
-  }
-}
+[assembly: AssemblyTitle ("TestFx.Core")]
+[assembly: Guid ("cad20806-c555-4584-be36-41cdf60d030c")]
+
+[assembly: AssemblyConfiguration("DEBUG")]
+[assembly: AssemblyVersion ("1.3.3.7")]
+[assembly: AssemblyFileVersion ("1.3.3.7")]
+[assembly: AssemblyInformationalVersion ("DEV")]
+

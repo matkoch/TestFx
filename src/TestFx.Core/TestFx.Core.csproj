@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestFx</RootNamespace>
-    <AssemblyName>TestFx</AssemblyName>
+    <AssemblyName>TestFx.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -170,7 +170,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir merged
-$(SolutionDir)\tools\ILMerge\ILMerge.exe /targetplatform:v4 /lib:$(TargetDir) /out:merged\TestFx.dll TestFx.dll Autofac.dll /Internalize</PostBuildEvent>
+$(SolutionDir)\tools\ILMerge\ILMerge.exe /targetplatform:v4 /lib:$(TargetDir) /out:merged\TestFx.Core.dll TestFx.Core.dll Autofac.dll /Internalize</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.1.28.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

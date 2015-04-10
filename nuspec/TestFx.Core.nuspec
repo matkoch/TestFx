@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>TestFx</id>
+    <id>TestFx.Core</id>
     <version>$version$</version>
     <authors>Matthias Koch</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,9 +12,9 @@
     <tags>testfx</tags>
   </metadata>
   <files>
-    <file src="TestFx\bin\$configuration$\merged\*" target="lib\net45" />
-    <file src="TestFx\**\*.cs" exclude="obj\**\*" target="src\TestFx" />
-    <file src="TestFx\NuGet\*" target="content\Properties" />
+    <file src="TestFx.Core\bin\$configuration$\merged\*" target="lib\net45" />
+    <file src="TestFx.Core\**\*.cs" exclude="obj\**\*" target="src\TestFx.Core" />
+    <file src="TestFx.Core\NuGet\*" target="content\Properties" />
     <!--<file src="TestFx.Console\bin\$configuration$\TestFx.exe" target="tools" />-->
   </files>
 </package>

@@ -11,7 +11,7 @@
     <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
     <tags>testfx fakeiteasy</tags>
     <dependencies>
-      <dependency id="TestFx" version="$version$" />
+      <dependency id="TestFx.Core" version="$version$" />
       <dependency id="TestFx.Specifications" version="$version$" />
       <dependency id="FakeItEasy" version="[1.21.0,2.0)" />
     </dependencies>

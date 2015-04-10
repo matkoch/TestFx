@@ -11,7 +11,7 @@
     <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
     <tags>testfx specifications tdd bdd unit-testing</tags>
     <dependencies>
-      <dependency id="TestFx" version="$version$" />
+      <dependency id="TestFx.Core" version="$version$" />
     </dependencies>
   </metadata>
   <files>

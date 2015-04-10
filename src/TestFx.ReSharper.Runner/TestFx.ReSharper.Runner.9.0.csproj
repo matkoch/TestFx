@@ -153,16 +153,16 @@
     <Compile Include="ZoneMarker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestFx\TestFx.csproj">
-      <Project>{68456E60-C7A1-4B54-BB14-00063A03B7A3}</Project>
-      <Name>TestFx</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.TestFx.ReSharper.Runner.9.0.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestFx.Core\TestFx.Core.csproj">
+      <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
+      <Name>TestFx.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

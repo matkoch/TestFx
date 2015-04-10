@@ -241,13 +241,13 @@
     <Compile Include="ZoneMarker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestFx.Core\TestFx.Core.csproj">
+      <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
+      <Name>TestFx.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestFx.ReSharper.Runner\TestFx.ReSharper.Runner.9.0.csproj">
       <Project>{ecbd9877-3289-48b3-94fb-581bca0a8db6}</Project>
       <Name>TestFx.ReSharper.Runner.9.0</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestFx\TestFx.csproj">
-      <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
-      <Name>TestFx</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
