@@ -56,7 +56,7 @@ namespace TestFx.Utilities.Reflection
 
     public static IEnumerable<Tuple<FieldInfo, TAttribute>> GetFieldsWithAttribute<TAttribute> (
         this Type type,
-        BindingFlags bindingFlags = MemberBindings.Instance | BindingFlags.DeclaredOnly)
+        BindingFlags bindingFlags = MemberBindings.All | BindingFlags.DeclaredOnly)
         where TAttribute : Attribute
     {
       return AttributeUtility.Instance.GetMembersWithAttribute<FieldInfo, TAttribute>(type, bindingFlags);
