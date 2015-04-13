@@ -79,7 +79,7 @@ namespace TestFx.Specifications.Implementation.Utilities
     {
       var argumentField = candidates.SingleOrDefault(x => x.Name.Equals(parameter.Name, StringComparison.OrdinalIgnoreCase));
       if (argumentField != null)
-        return Expression.Field(suiteExpression, argumentField);
+        return Expression.Field(argumentField.IsStatic ? null : suiteExpression, argumentField);
 
       var elementType = GetElementType(parameter);
       if (elementType == null || !parameter.Name.EndsWith("s"))
@@ -87,8 +87,8 @@ namespace TestFx.Specifications.Implementation.Utilities
 
       var argumentPrefix = parameter.Name.Substring(0, parameter.Name.Length - 1);
       var collectionElements = candidates.Where(x => x.Name.StartsWith(argumentPrefix, StringComparison.OrdinalIgnoreCase)).OrderBy(x => x.Name);
-      var collectionElementAccessExpressions = collectionElements.Select(x => Expression.Field(suiteExpression, x));
-      return Expression.NewArrayInit(elementType, collectionElementAccessExpressions.Cast<Expression>());
+      var collectionElementAccessExpressions = collectionElements.Select(x => Expression.Field(x.IsStatic ? null : suiteExpression, x));
+      return Expression.NewArrayInit(elementType, collectionElementAccessExpressions);
     }
 
     private Type GetElementType (ParameterInfo parameter)
