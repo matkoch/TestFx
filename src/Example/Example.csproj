@@ -94,8 +94,14 @@
     <Compile Include="..\TestFx.Specifications.IntegrationTests\SetupSpecK.cs">
       <Link>SetupSpecK.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\SubjectSpecK.cs">
-      <Link>SubjectSpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\SubjectCreationSpecK.cs">
+      <Link>SubjectCreationSpecK.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\SubjectCreationWithMissingArgumentsConstructorSpecK.cs">
+      <Link>SubjectCreationWithMissingArgumentsConstructorSpecK.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\SubjectCreationWithoutDefaultConstructorSpecK.cs">
+      <Link>SubjectCreationWithoutDefaultConstructorSpecK.cs</Link>
     </Compile>
     <Compile Include="TestExtensions.cs" />
   </ItemGroup>
