@@ -23,18 +23,22 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx.Specifications.Implementation.Utilities
 {
+  /// <summary>
+  /// Generator for a factory delegate that creates an instance of the subject based on the fields marked with <see cref="InjectedAttribute"/>
+  /// available in the <see cref="ISpecK{TSubject}"/> instance.
+  /// </summary>
   public interface ISubjectFactoryGenerator
   {
     Delegate GetFactory (Type suiteType);
   }
 
+  /// <summary>
+  /// </summary>
   public class SubjectFactoryGenerator : ISubjectFactoryGenerator
   {
-    private const BindingFlags c_bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
-
     public Delegate GetFactory (Type suiteType)
     {
-      var closedSpeckType = suiteType.GetClosedTypeOf(typeof (ISpecK<>));
+      var closedSpeckType = suiteType.GetClosedTypeOf(typeof (ISpecK<>)).AssertNotNull();
       var subjectType = closedSpeckType.GetGenericArguments().Single();
       var delegateType = typeof (Func<,>).MakeGenericType(closedSpeckType, subjectType);
 
@@ -80,29 +84,6 @@ namespace TestFx.Specifications.Implementation.Utilities
       var argumentField = candidates.SingleOrDefault(x => x.Name.Equals(parameter.Name, StringComparison.OrdinalIgnoreCase));
       if (argumentField != null)
         return Expression.Field(argumentField.IsStatic ? null : suiteExpression, argumentField);
-
-      var elementType = GetElementType(parameter);
-      if (elementType == null || !parameter.Name.EndsWith("s"))
-        return null;
-
-      var argumentPrefix = parameter.Name.Substring(0, parameter.Name.Length - 1);
-      var collectionElements = candidates.Where(x => x.Name.StartsWith(argumentPrefix, StringComparison.OrdinalIgnoreCase)).OrderBy(x => x.Name);
-      var collectionElementAccessExpressions = collectionElements.Select(x => Expression.Field(x.IsStatic ? null : suiteExpression, x));
-      return Expression.NewArrayInit(elementType, collectionElementAccessExpressions);
-    }
-
-    private Type GetElementType (ParameterInfo parameter)
-    {
-      var parameterType = parameter.ParameterType;
-      if (parameterType.IsArray)
-        return parameterType.GetElementType();
-
-      if (parameterType.IsGenericType)
-      {
-        var genericTypeDefinition = parameterType.GetGenericTypeDefinition();
-        if (new[] { typeof (IEnumerable<>), typeof (ICollection<>), typeof (IList<>) }.Contains(genericTypeDefinition))
-          return parameterType.GetGenericArguments().Single();
-      }
 
       return null;
     }

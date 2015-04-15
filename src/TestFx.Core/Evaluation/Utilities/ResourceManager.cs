@@ -47,7 +47,7 @@ namespace TestFx.Evaluation.Utilities
       return resourceAllocation;
     }
 
-    private bool TryAllocateResources (IList<string> resourcesList, out IDisposable resourceAllocation)
+    private bool TryAllocateResources (ICollection<string> resourcesList, out IDisposable resourceAllocation)
     {
       resourceAllocation = null;
 
@@ -57,18 +57,18 @@ namespace TestFx.Evaluation.Utilities
           return false;
 
         _resourcesAllocated.AddRange(resourcesList);
-        resourceAllocation = new CrossAppDomainDisposable(() => ReleaseResources(resourcesList));
-        return true;
       }
+
+      resourceAllocation = new CrossAppDomainDisposable(() => ReleaseResources(resourcesList));
+      return true;
     }
 
-    private void ReleaseResources (IList<string> resourcesList)
+    private void ReleaseResources (ICollection<string> resourcesList)
     {
       lock (_lockObject)
-      {
         _resourcesAllocated.RemoveAll(resourcesList.Contains);
-        _autoResetEvent.Set();
-      }
+
+      _autoResetEvent.Set();
     }
   }
 }
