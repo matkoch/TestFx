@@ -26,12 +26,12 @@ namespace TestFx.Specifications
   {
     private const bool c_expectException = true;
 
-    public static IAssert ItThrows<TSubject, TResult, TVars> (this IAssert<TSubject, TResult, TVars> assert, Type exceptionType, string message)
+    public static IAssert<TSubject, TResult, TVars> ItThrows<TSubject, TResult, TVars> (this IAssert<TSubject, TResult, TVars> assert, Type exceptionType, string message)
     {
       return assert.ItThrows(exceptionType, x => message);
     }
 
-    public static IAssert ItThrows<TSubject, TResult, TVars> (
+    public static IAssert<TSubject, TResult, TVars> ItThrows<TSubject, TResult, TVars> (
         this IAssert<TSubject, TResult, TVars> assert,
         Type exceptionType,
         [CanBeNull] Func<TVars, string> messageProvider = null,
@@ -52,7 +52,7 @@ namespace TestFx.Specifications
       return assert;
     }
 
-    public static IAssert ItThrows<TSubject, TResult, TVars, TException> (
+    public static IAssert<TSubject, TResult, TVars> ItThrows<TSubject, TResult, TVars, TException> (
         this IAssert<TSubject, TResult, TVars> assert,
         Action<TException> exceptionAssertion)
         where TException : Exception
@@ -65,7 +65,7 @@ namespace TestFx.Specifications
       return assert;
     }
 
-    public static IAssert ItThrows<TSubject, TResult, TVars, TException> (
+    public static IAssert<TSubject, TResult, TVars> ItThrows<TSubject, TResult, TVars, TException> (
         this IAssert<TSubject, TResult, TVars> assert,
         Expression<Func<TVars, TException>> exceptionProvider)
         where TException : Exception
