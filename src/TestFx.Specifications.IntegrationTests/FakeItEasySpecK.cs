@@ -21,6 +21,7 @@ using TestFx.FakeItEasy;
 namespace TestFx.Specifications.IntegrationTests
 {
   [Subject (typeof (FakeItEasySpecK), "Method")]
+  [OrderedAssertions]
   public class FakeItEasySpecK : SpecK<FakeItEasySpecK.DomainType>
   {
     [Faked] [Injected] protected IDisposable Disposable;
@@ -38,7 +39,13 @@ namespace TestFx.Specifications.IntegrationTests
           .Case ("adjusting fake setup", _ => _
               .Given ("service provider returns other service",
                   x => A.CallTo (() => ServiceProvider.GetService (typeof (IFormatProvider))).Returns (OtherService))
-              .It ("returns other service", x => x.Result.Should ().BeSameAs (OtherService)));
+              .It ("returns other service", x => x.Result.Should ().BeSameAs (OtherService)))
+          .Case ("ordered assertions", _ => _
+              .ItCallsInOrder ("disposable and service provider", x =>
+              {
+                A.CallTo (() => Disposable.Dispose ()).MustHaveHappened ();
+                A.CallTo (() => ServiceProvider.GetService (A<Type>._)).MustHaveHappened ();
+              }));
     }
 
     public class DomainType

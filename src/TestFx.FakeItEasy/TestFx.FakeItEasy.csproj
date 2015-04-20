@@ -52,6 +52,7 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="AssertionExtensions.cs" />
     <Compile Include="Attributes.cs" />
     <None Include="NuGet\FakeItEasyTestExtensions.cs" />
     <Compile Include="FakeItEasyTestExtension.cs" />
