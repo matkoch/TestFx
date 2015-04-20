@@ -54,10 +54,8 @@
     </Compile>
     <Compile Include="Attributes.cs" />
     <None Include="NuGet\FakeItEasyTestExtensions.cs" />
-    <Compile Include="TestExtensions\FakeScopeTestExtension.cs" />
-    <Compile Include="TestExtensions\FakeCreationTestExtension.cs" />
+    <Compile Include="FakeItEasyTestExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestExtensions\FakeSetupTestExtension.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -57,7 +57,7 @@ namespace TestFx.Specifications.IntegrationTests
     {
       AssertResult (TestResults[0], "<Default>", State.Failed);
 
-      var exception = OperationResults.Single (x => x.Text == "<SubjectCreation>").Exception;
+      var exception = OperationResults.Single (x => x.Text == "<CreateSubject>").Exception;
       exception.Message.Should ().Be ("Missing default constructor for subject type 'DomainType'.");
     }
   }

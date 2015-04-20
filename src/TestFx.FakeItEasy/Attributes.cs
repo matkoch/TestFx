@@ -23,16 +23,25 @@ namespace TestFx.FakeItEasy
   {
   }
 
-  public class DummyAttribute : FakeBaseAttribute
+  [UsedImplicitly]
+  public sealed class DummyAttribute : FakeBaseAttribute
   {
   }
 
-  public class FakedAttribute : FakeBaseAttribute
+  [UsedImplicitly]
+  public sealed class FakedAttribute : FakeBaseAttribute
+  {
+  }
+
+  [AttributeUsage (AttributeTargets.Class)]
+  [UsedImplicitly]
+  public sealed class OrderedAssertionsAttribute : Attribute
   {
   }
 
   [MeansImplicitUse (ImplicitUseKindFlags.Access)]
-  public class ReturnedFromAttribute : Attribute
+  [UsedImplicitly]
+  public sealed class ReturnedFromAttribute : Attribute
   {
     private readonly string _fakeField;
 

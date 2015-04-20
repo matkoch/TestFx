@@ -69,7 +69,7 @@ namespace TestFx.Specifications.IntegrationTests
       SubjectCreationSpecK.DomainType.ConstructorCalls.Should ().Be (2);
 
       AssertResult (TestResults[0], "<Default>", State.Passed);
-      AssertResult (TestResults[1], "custom subject creation", State.Passed);
+      AssertResult (TestResults[1], "Custom subject creation", State.Passed);
     }
   }
 }

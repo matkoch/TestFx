@@ -54,7 +54,7 @@ namespace TestFx.Specifications.IntegrationTests
     {
       AssertResult (TestResults[0], "<Default>", State.Failed);
 
-      var exception = OperationResults.Single (x => x.Text == "<SubjectCreation>").Exception.AssertNotNull ();
+      var exception = OperationResults.Single (x => x.Text == "<CreateSubject>").Exception.AssertNotNull ();
       exception.Message.Should ().Be ("Missing constructor arguments for subject type 'DomainType': firstMissingString, secondMissingString");
     }
   }
