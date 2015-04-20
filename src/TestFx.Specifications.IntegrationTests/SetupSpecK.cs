@@ -60,7 +60,7 @@ namespace TestFx.Specifications.IntegrationTests
 
 namespace TestFx.Specifications.IntegrationTests
 {
-using System.Linq;
+  using System.Linq;
   using FluentAssertions;
   using NUnit.Framework;
 

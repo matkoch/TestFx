@@ -13,16 +13,33 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy;
+using FluentAssertions;
+using TestFx.Evaluation.Results;
 using TestFx.FakeItEasy;
 
 namespace TestFx.Specifications.IntegrationTests
 {
-  public abstract class FakeItEasySpecK : SpecK<FakeItEasySpecK.DomainType>
+  [Subject (typeof (FakeItEasySpecK), "Method")]
+  public class FakeItEasySpecK : SpecK<FakeItEasySpecK.DomainType>
   {
     [Faked] [Injected] protected IDisposable Disposable;
     [Faked] [Injected] protected IServiceProvider ServiceProvider;
     [Dummy] [ReturnedFrom ("ServiceProvider")] protected object Service;
     [Dummy] protected object OtherService;
+
+    public FakeItEasySpecK ()
+    {
+      Specify (x => x.DoSomething ())
+          .DefaultCase (_ => _
+              .It ("calls disposable", x => A.CallTo (() => Disposable.Dispose ()).MustHaveHappened ())
+              .It ("resolves services", x => A.CallTo (() => ServiceProvider.GetService (typeof (IFormatProvider))).MustHaveHappened ())
+              .It ("returns formatter", x => x.Result.Should ().BeSameAs (Service)))
+          .Case ("adjusting fake setup", _ => _
+              .Given ("service provider returns other service",
+                  x => A.CallTo (() => ServiceProvider.GetService (typeof (IFormatProvider))).Returns (OtherService))
+              .It ("returns other service", x => x.Result.Should ().BeSameAs (OtherService)));
+    }
 
     public class DomainType
     {
@@ -35,11 +52,30 @@ namespace TestFx.Specifications.IntegrationTests
         _serviceProvider = serviceProvider;
       }
 
-      public object DoSomething2 ()
+      public object DoSomething ()
       {
         _disposable.Dispose ();
-        return _serviceProvider.GetService (typeof (int));
+        return _serviceProvider.GetService (typeof (IFormatProvider));
       }
     }
   }
 }
+
+#if !EXAMPLE
+
+namespace TestFx.Specifications.IntegrationTests
+{
+  using FluentAssertions;
+  using NUnit.Framework;
+
+  public class FakeItEasyTest : TestBase<FakeItEasySpecK>
+  {
+    [Test]
+    public void Test ()
+    {
+      RunResult.State.Should ().Be (State.Passed);
+    }
+  }
+}
+
+#endif
