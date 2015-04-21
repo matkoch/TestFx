@@ -103,7 +103,9 @@
     <Compile Include="..\TestFx.Specifications.IntegrationTests\SubjectCreationWithoutDefaultConstructorSpecK.cs">
       <Link>SubjectCreationWithoutDefaultConstructorSpecK.cs</Link>
     </Compile>
-    <Compile Include="TestExtensions.cs" />
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\TestExtensions.cs">
+      <Link>TestExtensions.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
