@@ -26,7 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspec", "nuspec", "{38E0FF
 		nuspec\TestFx.Core.nuspec = nuspec\TestFx.Core.nuspec
 		nuspec\TestFx.FakeItEasy.nuspec = nuspec\TestFx.FakeItEasy.nuspec
 		nuspec\TestFx.ReSharper.8.2.nuspec_ = nuspec\TestFx.ReSharper.8.2.nuspec_
-		nuspec\TestFx.ReSharper.9.0.nuspec = nuspec\TestFx.ReSharper.9.0.nuspec
+		nuspec\TestFx.ReSharper.9.0.nuspec_ = nuspec\TestFx.ReSharper.9.0.nuspec_
+		nuspec\TestFx.ReSharper.9.1.nuspec = nuspec\TestFx.ReSharper.9.1.nuspec
 		nuspec\TestFx.Specifications.nuspec = nuspec\TestFx.Specifications.nuspec
 	EndProjectSection
 EndProject

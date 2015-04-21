@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>TestFx.ReSharper</id>
+    <id>TestFx.ReSharper.9.1</id>
     <version>$version$</version>
     <authors>Matthias Koch</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,12 +11,12 @@
     <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
     <tags>testfx resharper</tags>
     <dependencies>
-      <dependency id="Wave" version="[1.0]" />
+      <dependency id="Wave" version="[2.0]" />
     </dependencies>
   </metadata>
   <files>
-    <file src="TestFx.ReSharper\bin\$configuration$\9.0\Autofac.*" target="DotFiles" />
-    <file src="TestFx.ReSharper\bin\$configuration$\9.0\TestFx.*" target="DotFiles" />
+    <file src="TestFx.ReSharper\bin\$configuration$\9.1\Autofac.*" target="DotFiles" />
+    <file src="TestFx.ReSharper\bin\$configuration$\9.1\TestFx.*" target="DotFiles" />
     <file src="TestFx.ReSharper\*.DotSettings" target="DotFiles\Extensions\TestFx.ReSharper\settings" />
   </files>
 </package>
