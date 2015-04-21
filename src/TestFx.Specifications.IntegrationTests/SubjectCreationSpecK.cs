@@ -30,7 +30,7 @@ namespace TestFx.Specifications.IntegrationTests
       Specify (x => x.ToString ())
           .DefaultCase (_ => _
               .It ("passes InjectedString", x => x.Subject.InjectedString.Should ().Be ("MyString")))
-          .Case ("custom subject creation", _ => _
+          .Case ("Custom subject creation", _ => _
               .Given ("init TempString", x => TempString = "OtherString")
               .GivenSubject ("is created with TempString", x => new DomainType (TempString))
               .It ("passes TempString", x => x.Subject.InjectedString.Should ().Be ("OtherString")));

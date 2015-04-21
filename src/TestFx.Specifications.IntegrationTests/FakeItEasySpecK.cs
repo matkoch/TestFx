@@ -24,10 +24,10 @@ namespace TestFx.Specifications.IntegrationTests
   [OrderedAssertions]
   public class FakeItEasySpecK : SpecK<FakeItEasySpecK.DomainType>
   {
-    [Faked] [Injected] protected IDisposable Disposable;
-    [Faked] [Injected] protected IServiceProvider ServiceProvider;
-    [Dummy] [ReturnedFrom ("ServiceProvider")] protected object Service;
-    [Dummy] protected object OtherService;
+    [Faked] [Injected] IDisposable Disposable;
+    [Faked] [Injected] IServiceProvider ServiceProvider;
+    [Dummy] [ReturnedFrom ("ServiceProvider")] object Service;
+    [Dummy] object OtherService;
 
     public FakeItEasySpecK ()
     {
@@ -36,11 +36,11 @@ namespace TestFx.Specifications.IntegrationTests
               .It ("calls disposable", x => A.CallTo (() => Disposable.Dispose ()).MustHaveHappened ())
               .It ("resolves services", x => A.CallTo (() => ServiceProvider.GetService (typeof (IFormatProvider))).MustHaveHappened ())
               .It ("returns formatter", x => x.Result.Should ().BeSameAs (Service)))
-          .Case ("adjusting fake setup", _ => _
+          .Case ("Adjusting fake setup", _ => _
               .Given ("service provider returns other service",
                   x => A.CallTo (() => ServiceProvider.GetService (typeof (IFormatProvider))).Returns (OtherService))
               .It ("returns other service", x => x.Result.Should ().BeSameAs (OtherService)))
-          .Case ("ordered assertions", _ => _
+          .Case ("Ordered assertions", _ => _
               .ItCallsInOrder ("disposable and service provider", x =>
               {
                 A.CallTo (() => Disposable.Dispose ()).MustHaveHappened ();
