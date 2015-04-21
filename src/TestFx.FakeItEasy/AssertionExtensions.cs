@@ -39,7 +39,7 @@ namespace TestFx.FakeItEasy
           "calls in order " + text,
           x =>
           {
-            var scope = (IFakeScope) x[typeof (FakeItEasyTestExtension).FullName];
+            var scope = (IFakeScope) x[FakeItEasyTestExtension.Key];
             using (scope.OrderedAssertions())
             {
               orderedAssertion(x);

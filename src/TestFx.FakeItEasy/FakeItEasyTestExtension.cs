@@ -26,6 +26,8 @@ namespace TestFx.FakeItEasy
 {
   public class FakeItEasyTestExtension : ITestExtension
   {
+    public const string Key = "FakeItEasy";
+
     public int Priority
     {
       get { return 0; }
@@ -67,7 +69,7 @@ namespace TestFx.FakeItEasy
           (x, inner) =>
           {
             var scope = Fake.CreateScope();
-            x[typeof (FakeItEasyTestExtension).FullName] = scope;
+            x[Key] = scope;
             using (scope)
             {
               inner();
