@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -54,7 +54,12 @@ namespace TestFx.ReSharper.UnitTesting
     }
 
 #if R9
-    public IUnitTestElement DeserializeElement (XmlElement parent, string id, [CanBeNull] IUnitTestElement parentElement, IProject project, PersistentProjectId projectId)
+    public IUnitTestElement DeserializeElement (
+        XmlElement parent,
+        string id,
+        [CanBeNull] IUnitTestElement parentElement,
+        IProject project,
+        PersistentProjectId projectId)
     {
       return DeserializeElement(parent, parentElement);
     }

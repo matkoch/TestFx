@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
       _unitTestElementFactory = unitTestElementFactory;
     }
 
-    public void Explore(IProject project, IMetadataAssembly assembly, IUnitTestElementsObserver observer)
+    public void Explore (IProject project, IMetadataAssembly assembly, IUnitTestElementsObserver observer)
     {
       Explore(
           project,

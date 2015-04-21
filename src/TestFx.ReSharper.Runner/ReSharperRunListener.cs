@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ namespace TestFx.ReSharper.Runner
     private void Finished (IResult result, IEnumerable<IOperationResult> operationResults, IEnumerable<OutputEntry> entries, Task task)
     {
       if (!task.IsMeaningfulTask)
-        // Affects results representing the assembly.
+          // Affects results representing the assembly.
         return;
 
       var operations = operationResults.ToList();

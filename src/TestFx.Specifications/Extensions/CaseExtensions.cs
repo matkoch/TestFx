@@ -1,4 +1,4 @@
-// Copyright 2014, 2013 Matthias Koch
+// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ namespace TestFx.Specifications
 {
   public static class CaseExtensions
   {
-    [DisplayFormat("<Default>")]
+    [DisplayFormat ("<Default>")]
     public static IIgnoreOrCase<TSubject, TResult> DefaultCase<TSubject, TResult> (
         this ICase<TSubject, TResult> @case,
         Func<IDefineOrArrangeOrAssert<TSubject, TResult, object>, IAssert> succession)

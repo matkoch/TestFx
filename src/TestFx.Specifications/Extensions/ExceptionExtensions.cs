@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,7 +26,10 @@ namespace TestFx.Specifications
   {
     private const bool c_expectException = true;
 
-    public static IAssert<TSubject, TResult, TVars> ItThrows<TSubject, TResult, TVars> (this IAssert<TSubject, TResult, TVars> assert, Type exceptionType, string message)
+    public static IAssert<TSubject, TResult, TVars> ItThrows<TSubject, TResult, TVars> (
+        this IAssert<TSubject, TResult, TVars> assert,
+        Type exceptionType,
+        string message)
     {
       return assert.ItThrows(exceptionType, x => message);
     }

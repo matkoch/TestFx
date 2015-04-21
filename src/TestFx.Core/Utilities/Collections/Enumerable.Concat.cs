@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ namespace TestFx.Utilities.Collections
     {
       return enumerable.Where(x => x != null);
     }
-    
+
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
     [DebuggerHidden]
@@ -42,7 +42,7 @@ namespace TestFx.Utilities.Collections
       foreach (var element in enumerable)
         yield return element;
     }
-    
+
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
     [DebuggerHidden]

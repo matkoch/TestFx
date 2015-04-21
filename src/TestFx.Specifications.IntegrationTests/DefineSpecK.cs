@@ -1,4 +1,4 @@
-// Copyright 2014, 2013 Matthias Koch
+// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ namespace TestFx.Specifications.IntegrationTests
     DefineSpecK ()
     {
       Specify (x => 1)
-          .DefaultCase(_ => _
+          .DefaultCase (_ => _
               .Define (x => new { StringBase = "Moep", IntegerBase = 2 })
               .Given ("set string property", x => x.Subject.String = x.Vars.StringBase)
               .Given ("set integer property", x => x.Subject.Integer = x.Vars.IntegerBase)

@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle ("TestFx.ReSharper.Runner")]
 [assembly: Guid ("c0a2b9b0-64e7-4797-b22b-b5bf43047305")]
 
-[assembly: AssemblyConfiguration("DEBUG")]
+[assembly: AssemblyConfiguration ("DEBUG")]
 [assembly: AssemblyVersion ("1.3.3.7")]
 [assembly: AssemblyFileVersion ("1.3.3.7")]
 [assembly: AssemblyInformationalVersion ("DEV")]

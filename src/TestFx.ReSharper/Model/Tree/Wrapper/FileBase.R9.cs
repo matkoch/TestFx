@@ -1,4 +1,4 @@
-// Copyright 2014, 2013 Matthias Koch
+// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ using JetBrains.ReSharper.Psi.CSharp.Tree;
 
 namespace TestFx.ReSharper.Model.Tree.Wrapper
 {
-  public abstract partial class FileBase 
+  public abstract partial class FileBase
   {
     public IExternAliasDirective AddExternAliasAfter (IExternAliasDirective externAlias, IExternAliasDirective anchor)
     {

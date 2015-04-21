@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -88,7 +88,7 @@ namespace TestFx.Specifications.Implementation.Utilities
       return null;
     }
 
-    private Expression CreateThrowExpression<T>(string format, params object[] args) where T : Exception
+    private Expression CreateThrowExpression<T> (string format, params object[] args) where T : Exception
     {
       var constructor = typeof (T).GetConstructor(new[] { typeof (string) }).AssertNotNull();
       Debug.Assert(constructor.GetParameters().Single().Name == "message");

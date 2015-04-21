@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ namespace TestFx.Utilities.Reflection
     }
 
     [CanBeNull]
-    public static object GetDefaultValue(this Type type)
+    public static object GetDefaultValue (this Type type)
     {
       return TypeUtility.Instance.GetDefaultValueFor(type);
     }

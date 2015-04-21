@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -88,7 +88,8 @@ namespace TestFx.Specifications.Implementation.Controllers
           x => testControllerWithSubject.AddSetupCleanup<SetupCommon, CleanupCommon>(ConvertToNonGeneric(x.Item1), ConvertToNonGeneric(x.Item2)));
     }
 
-    private ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> ([CanBeNull] Action<TSubject> voidAction,
+    private ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (
+        [CanBeNull] Action<TSubject> voidAction,
         [CanBeNull] Func<TSubject, TResult> resultAction)
     {
       //var actionText = _introspectionPresenter.Present("{0}", new[] { expression.ToCommon(typeof (ISuite), typeof (ITestContext)) });
