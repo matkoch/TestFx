@@ -16,7 +16,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <IntermediateOutputPath>obj\$(Configuration)\9.1</IntermediateOutputPath>
-    <Hive>ReSharper90</Hive>
+    <Hive>ReSharper91</Hive>
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
     <StartArguments>/rootSuffix $(Hive) /ReSharper.Internal $(SolutionDir)\src\Example\Example.csproj</StartArguments>
@@ -260,8 +260,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(TargetDir)TestFx.*" "C:\Users\matthias.koch\AppData\Local\JetBrains\Installations\ReSharperPlatformVs12ReSharper91_000\"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
