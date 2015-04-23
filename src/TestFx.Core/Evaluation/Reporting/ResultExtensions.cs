@@ -20,19 +20,19 @@ namespace TestFx.Evaluation.Reporting
 {
   public static class ResultExtensions
   {
-    private static readonly Dictionary<State, char> s_stateSymbols;
+    private static readonly Dictionary<State, string> s_stateSymbols;
 
     static ResultExtensions ()
     {
-      s_stateSymbols = new Dictionary<State, char>
+      s_stateSymbols = new Dictionary<State, string>
                        {
-                           { State.Passed, '\u2713' },
-                           { State.Failed, '\u2717' },
-                           { State.Inconclusive, 'N' }
+                           { State.Passed, "\u2713  " },
+                           { State.Failed, " \u2717 " },
+                           { State.Inconclusive, "  N" }
                        };
     }
 
-    public static char GetSymbol (this IResult result)
+    public static string GetSymbol (this IResult result)
     {
       return s_stateSymbols[result.State];
     }
