@@ -1,3 +1,5 @@
+**NOTE: TestFx is in an early development stage. It is not published to the offical NuGet Gallery and ReSharper Extension Gallery. Please use https://www.myget.org/F/matkoch/api/v2 to install the NuGet Package and ReSharper Extension.**
+
 [<img src="http://catholictechtalk.com/wp-content/uploads/2012/09/Skid.jpg" height="300px"/>](https://github.com/matkoch/TestFx/wiki/Meanwhile-in-a-parallel-universe)
 
 # TestFx <img src="https://raw.githubusercontent.com/ao5357/retina-spacer-gif/master/spacer@2x.gif" width="385px" height="10px" /> [<img src="https://www.myget.org/BuildSource/Badge/matkoch?identifier=2f4ec854-4227-47f0-8bca-6bea2ef5e555" height="14px"/>](https://www.myget.org/) [<img src="http://teamcity.codebetter.com/app/rest/builds/buildType:bt1226/statusIcon" height="14px"/>](http://teamcity.codebetter.com/viewType.html?buildTypeId=bt1226&guest=1)#
