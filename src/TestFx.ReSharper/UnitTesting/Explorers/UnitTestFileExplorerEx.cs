@@ -42,14 +42,6 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
       var dispositions = allElements.Select(x => x.GetDispositionFromFiles(file))
           .Where(x => x != UnitTestElementDisposition.InvalidDisposition).ToList();
       dispositions.ForEach(consumer);
-      //.OrderBy(x => x != UnitTestElementDisposition.InvalidDisposition ? x.Locations.First().ContainingRange.StartOffset : 0);
-
-      //var sequence = 0;
-      //foreach (var disposition in dispositions)
-      //{
-      //  disposition.UnitTestElement.To<IUnitTestElementEx>().SequenceNumber = sequence++;
-      //  consumer(disposition);
-      //}
     }
   }
 }

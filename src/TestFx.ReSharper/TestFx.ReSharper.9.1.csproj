@@ -260,7 +260,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(TargetDir)TestFx.*" "C:\Users\matthias.koch\AppData\Local\JetBrains\Installations\ReSharperPlatformVs12ReSharper91_000\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(TargetDir)TestFx.*" "C:\Users\matthias.koch\AppData\Local\JetBrains\Installations\ReSharperPlatformVs12ReSharper91_001\"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

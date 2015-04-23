@@ -17,6 +17,6 @@
   <files>
     <file src="TestFx.Specifications\bin\$configuration$\TestFx.Specifications.*" target="lib\net45" />
     <file src="TestFx.Specifications\**\*.cs" exclude="obj\**\*" target="src\TestFx.Specifications" />
-    <file src="TestFx.Specifications\NuGet\*" target="tools" />
+    <file src="TestFx.Specifications\NuGet\tools\**\*" target="tools" />
   </files>
 </package>

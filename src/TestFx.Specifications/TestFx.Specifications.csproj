@@ -74,9 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <None Include="NuGet\Formatting.DotSettings" />
-    <None Include="NuGet\Uninstall.ps1" />
-    <None Include="NuGet\Install.ps1" />
+    <None Include="NuGet\tools\Formatting.DotSettings" />
+    <None Include="NuGet\tools\Uninstall.ps1" />
+    <None Include="NuGet\tools\Install.ps1" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
