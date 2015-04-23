@@ -81,6 +81,9 @@ namespace TestFx.Specifications.IntegrationTests
     public void Test ()
     {
       RunResult.State.Should ().Be (State.Passed);
+
+      AssertResult (OperationResults[1], "<Create_Fakes>", State.Passed);
+      AssertResult (OperationResults[2], "<Setup_Fakes>", State.Passed);
     }
   }
 }

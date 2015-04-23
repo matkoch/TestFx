@@ -48,7 +48,7 @@ namespace TestFx.FakeItEasy
       if (fieldsWithAttribute.Count == 0)
         return;
 
-      testController.AddAction<SetupExtension>("<CreateFakes>", x => fieldsWithAttribute.ForEach(t => CreateAndAssignFake(suite, t.Item2, t.Item1)));
+      testController.AddAction<SetupExtension>("<Create_Fakes>", x => fieldsWithAttribute.ForEach(t => CreateAndAssignFake(suite, t.Item2, t.Item1)));
     }
 
     private void SetupFakes (ITestController testController, ISuite suite)
@@ -57,7 +57,7 @@ namespace TestFx.FakeItEasy
       if (fieldsWithAttribute.Count == 0)
         return;
 
-      testController.AddAction<SetupExtension>("<SetupFakes>", x => fieldsWithAttribute.ForEach(t => SetupFakeReturnValue(suite, t.Item2, t.Item1)));
+      testController.AddAction<SetupExtension>("<Setup_Fakes>", x => fieldsWithAttribute.ForEach(t => SetupFakeReturnValue(suite, t.Item2, t.Item1)));
     }
 
     private void WrapActionForOrderedAssertions (ITestController testController, ISuite suite)
