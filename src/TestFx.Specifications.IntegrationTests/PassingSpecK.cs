@@ -49,7 +49,7 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (AssemblyResults.Single (), typeof (PassingSpecK).Assembly.Location, typeof (PassingSpecK).Assembly.GetName ().Name, State.Passed);
       AssertResult (TypeResults.Single (), typeof (PassingSpecK).FullName, "PassingSpecK.Method", State.Passed);
       AssertResult (TestResults.Single (), "<Default>", "<Default>", State.Passed);
-      AssertResult (OperationResults[0], "<DefaultInitialization>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[0], "<Reset_Instance_Fields>", State.Passed, OperationType.Action);
       AssertResult (OperationResults[1], "Arrangement", State.Passed, OperationType.Action);
       AssertResult (OperationResults[2], "<Action>", State.Passed, OperationType.Action);
       AssertResult (OperationResults[3], "Assertion", State.Passed, OperationType.Assertion);

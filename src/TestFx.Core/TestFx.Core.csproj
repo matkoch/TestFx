@@ -55,7 +55,7 @@
     <Compile Include="Evaluation\EvaluationModule.cs" />
     <Compile Include="Evaluation\Reporting\FillingOperationResult.cs" />
     <Compile Include="Evaluation\Reporting\ResultExtensions.cs" />
-    <Compile Include="DefaultInitializationTestExtension.cs" />
+    <Compile Include="ResetInstanceFieldsTestExtensions.cs" />
     <Compile Include="Evaluation\Loading\SuiteControllerFactory.cs" />
     <Compile Include="Evaluation\RunIntentExtensions.cs" />
     <Compile Include="Evaluation\Utilities\FakeAppDomainFactory.cs" />
@@ -66,7 +66,7 @@
     <Compile Include="Extensibility\IntrospectionPresenter.cs" />
     <Compile Include="Extensibility\Utilities\OperationSorter.cs" />
     <Compile Include="Extensibility\Providers\OperationCollectionProvider.cs" />
-    <Compile Include="NuGet\content\_TestExtensions\DefaultInitializationTestExtension.cs" />
+    <Compile Include="NuGet\content\_TestExtensions\ResetInstanceFieldsTestExtension.cs" />
     <Compile Include="UseTestExtension.cs" />
     <Compile Include="Extensibility\Containers\Container.cs" />
     <Compile Include="Extensibility\DisplayFormatAttribute.cs" />

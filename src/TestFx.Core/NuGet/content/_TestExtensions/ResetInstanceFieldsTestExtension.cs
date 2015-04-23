@@ -15,4 +15,4 @@
 using System;
 using TestFx;
 
-[assembly: UseTestExtension (typeof (DefaultInitializationTestExtension))]
+[assembly: UseTestExtension (typeof (ResetInstanceFieldsTestExtensions))]

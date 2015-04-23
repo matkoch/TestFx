@@ -20,7 +20,7 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx
 {
-  public class DefaultInitializationTestExtension : ITestExtension
+  public class ResetInstanceFieldsTestExtensions : ITestExtension
   {
     public int Priority
     {
@@ -30,7 +30,7 @@ namespace TestFx
     public void Extend (ITestController testController, ISuite suite)
     {
       var fields = suite.GetType().GetFields(MemberBindings.Instance);
-      testController.AddAction<SetupExtension>("<DefaultInitialization>", x => fields.ForEach(f => f.SetValue(suite, f.FieldType.GetDefaultValue())));
+      testController.AddAction<SetupExtension>("<Reset_Instance_Fields>", x => fields.ForEach(f => f.SetValue(suite, f.FieldType.GetDefaultValue())));
     }
   }
 }

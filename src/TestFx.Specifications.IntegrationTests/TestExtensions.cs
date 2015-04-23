@@ -16,5 +16,5 @@ using System;
 using TestFx;
 using TestFx.FakeItEasy;
 
-[assembly: UseTestExtension (typeof (DefaultInitializationTestExtension))]
+[assembly: UseTestExtension (typeof (ResetInstanceFieldsTestExtensions))]
 [assembly: UseTestExtension (typeof (FakeItEasyTestExtension))]
