@@ -64,7 +64,7 @@
     <Compile Include="Implementation\ISpecK.cs" />
     <Compile Include="Implementation\OperationDescriptors.cs" />
     <Compile Include="Implementation\Utilities\AssertionHelper.cs" />
-    <Compile Include="Implementation\Utilities\SubjectFactoryGenerator.cs" />
+    <Compile Include="Implementation\Utilities\SubjectFactory.cs" />
     <Compile Include="Implementation\Contexts\MainTestContext.cs" />
     <Compile Include="Implementation\Controllers\TestController.cs" />
     <Compile Include="Implementation\SpecKTypeLoader.cs" />

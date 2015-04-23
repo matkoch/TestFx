@@ -26,16 +26,16 @@ namespace TestFx.Specifications.Implementation
   public class SpecKTypeLoader : TypeLoader<ISpecK, SubjectAttribute>
   {
     private readonly IControllerFactory _controllerFactory;
-    private readonly ISubjectFactoryGenerator _subjectFactoryGenerator;
+    private readonly ISubjectFactory _subjectFactory;
 
     public SpecKTypeLoader (
         IControllerFactory controllerFactory,
-        ISubjectFactoryGenerator subjectFactoryGenerator,
+        ISubjectFactory subjectFactory,
         IIntrospectionPresenter introspectionPresenter)
         : base(introspectionPresenter)
     {
       _controllerFactory = controllerFactory;
-      _subjectFactoryGenerator = subjectFactoryGenerator;
+      _subjectFactory = subjectFactory;
     }
 
     protected override void InitializeTypeSpecificFields (ISpecK suite, SuiteProvider provider)
@@ -45,10 +45,9 @@ namespace TestFx.Specifications.Implementation
       var subjectType = closedSpeckType.GetGenericArguments().Single();
 
       var suiteController = _controllerFactory.CreateClassSuiteController(suite, subjectType, provider);
-      var subjectFactory = _subjectFactoryGenerator.GetFactory(suiteType);
 
       suite.SetMemberValue("_classSuiteController", suiteController);
-      suite.SetMemberValue("_subjectFactory", subjectFactory);
+      suite.SetMemberValue("_subjectFactory", _subjectFactory);
     }
   }
 }

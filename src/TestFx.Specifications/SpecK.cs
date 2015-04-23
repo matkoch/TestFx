@@ -16,6 +16,7 @@ using System;
 using TestFx.Extensibility;
 using TestFx.Specifications.Implementation.Containers;
 using TestFx.Specifications.Implementation.Controllers;
+using TestFx.Specifications.Implementation.Utilities;
 using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications
@@ -24,7 +25,7 @@ namespace TestFx.Specifications
   {
     // ReSharper disable UnassignedField.Compiler
     private IClassSuiteController<TSubject> _classSuiteController;
-    private Func<ISpecK<TSubject>, TSubject> _subjectFactory;
+    private ISubjectFactory _subjectFactory;
     // ReSharper restore UnassignedField.Compiler
 
     public void SetupOnce (Action setup, Action cleanup = null)
@@ -51,7 +52,7 @@ namespace TestFx.Specifications
 
     public virtual TSubject CreateSubject ()
     {
-      return _subjectFactory(this);
+      return _subjectFactory.CreateFor(this);
     }
   }
 
