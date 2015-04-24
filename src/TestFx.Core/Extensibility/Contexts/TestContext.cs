@@ -21,6 +21,7 @@ namespace TestFx.Extensibility.Contexts
   {
     bool IsFailing { get; }
     object this [string key] { get; set; }
+    bool HasKey(string key);
   }
 
   public class TestContext : ITestContext
@@ -33,6 +34,11 @@ namespace TestFx.Extensibility.Contexts
     {
       get { return _data[key]; }
       set { _data[key] = value; }
+    }
+
+    public bool HasKey(string key)
+    {
+      return _data.ContainsKey(key);
     }
   }
 }
