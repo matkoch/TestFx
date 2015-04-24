@@ -53,23 +53,23 @@ namespace TestFx.Farada
       if (propertiesWithAttribute.Count == 0)
         return;
 
-      testController.AddAssertion<Assert>("<Setup_Autos>", x => CreateAndAssignFakes(x, propertiesWithAttribute, suite));
+      testController.AddAssertion<Assert>("<Setup_Autos>", x => CreateAndAssignAutos(x, propertiesWithAttribute, suite));
     }
 
-    private void CreateAndAssignFakes (ITestContext context, IEnumerable<Tuple<PropertyInfo, AutoAttribute>> propertiesWithAttribute, ISuite suite)
+    private void CreateAndAssignAutos (ITestContext context, IEnumerable<Tuple<PropertyInfo, AutoAttribute>> propertiesWithAttribute, ISuite suite)
     {
-      var testDataGeneratorContext = context.HasKey(ConfigurationKey) ? (TestDataDomainConfiguration) context[ConfigurationKey] : null;
+      var testDataGeneratorContext = (TestDataDomainConfiguration) context[ConfigurationKey];
       var testDataGenerator = TestDataGeneratorFactory.Create(testDataGeneratorContext);
 
       foreach (var property in propertiesWithAttribute.Select(x => x.Item1))
       {
-        var fake = this.InvokeGenericMethod("FillAuto", new object[] { testDataGenerator, property }, new[] { property.PropertyType });
-        property.SetValue(suite, fake);
+        var autoValue = this.InvokeGenericMethod("GetAutoValue", new object[] { testDataGenerator, property }, new[] { property.PropertyType });
+        property.SetValue(suite, autoValue);
       }
     }
 
     [UsedImplicitly]
-    private object FillAuto<T> (ITestDataGenerator testDataGenerator, PropertyInfo property)
+    private object GetAutoValue<T> (ITestDataGenerator testDataGenerator, PropertyInfo property)
     {
       return testDataGenerator.Create<T>(propertyInfo: FastReflectionUtility.GetPropertyInfo(property));
     }
