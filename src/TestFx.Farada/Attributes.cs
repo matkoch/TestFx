@@ -13,32 +13,13 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
+using JetBrains.Annotations;
 
-namespace TestFx.Extensibility.Contexts
+namespace TestFx.Farada
 {
-  public interface ITestContext
+  [AttributeUsage (AttributeTargets.Property)]
+  [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
+  public sealed class AutoAttribute : Attribute
   {
-    bool IsFailing { get; }
-    object this [string key] { get; set; }
-    bool HasKey(string key);
-  }
-
-  public class TestContext : ITestContext
-  {
-    private readonly Dictionary<string, object> _data = new Dictionary<string, object>();
-
-    public bool IsFailing { get; set; }
-
-    public object this [string key]
-    {
-      get { return _data[key]; }
-      set { _data[key] = value; }
-    }
-
-    public bool HasKey(string key)
-    {
-      return _data.ContainsKey(key);
-    }
   }
 }
