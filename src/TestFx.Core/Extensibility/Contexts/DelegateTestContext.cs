@@ -36,5 +36,10 @@ namespace TestFx.Extensibility.Contexts
       get { return _context[key]; }
       set { _context[key] = value; }
     }
+
+    public bool HasKey (string key)
+    {
+      return _context.HasKey(key);
+    }
   }
 }

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Farada.TestDataGeneration;
@@ -20,15 +21,17 @@ using Farada.TestDataGeneration.CompoundValueProviders;
 using Farada.TestDataGeneration.FastReflection;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
+using TestFx.Extensibility.Contexts;
 using TestFx.Extensibility.Controllers;
+using TestFx.Specifications.Implementation;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.Farada
 {
   public class FaradaTestExtensions : ITestExtension
   {
-    private ITestDataGenerator _testDataGenerator;
     public const string Key = "Farada";
+    public const string ConfigurationKey = "TestDataDomainConfiguration";
 
     public int Priority
     {
@@ -37,8 +40,6 @@ namespace TestFx.Farada
 
     public void Extend (ITestController testController, ISuite suite)
     {
-      _testDataGenerator = TestDataGeneratorFactory.Create();
-
       FillAutos(testController, suite);
     }
 
@@ -52,19 +53,25 @@ namespace TestFx.Farada
       if (propertiesWithAttribute.Count == 0)
         return;
 
-      testController.AddAction<SetupExtension>("<Create_Fakes>", x => propertiesWithAttribute.ForEach(t => CreateAndAssignFake(suite, t.Item1)));
+      testController.AddAssertion<Assert>("<Setup_Autos>", x => CreateAndAssignFakes(x, propertiesWithAttribute, suite));
     }
 
-    private void CreateAndAssignFake (ISuite suite, PropertyInfo property)
+    private void CreateAndAssignFakes (ITestContext context, IEnumerable<Tuple<PropertyInfo, AutoAttribute>> propertiesWithAttribute, ISuite suite)
     {
-      var fake = this.InvokeGenericMethod("FillAuto", new object[]{property}, new[] { property.PropertyType });
-      property.SetValue(suite, fake);
+      var testDataGeneratorContext = context.HasKey(ConfigurationKey) ? (TestDataDomainConfiguration) context[ConfigurationKey] : null;
+      var testDataGenerator = TestDataGeneratorFactory.Create(testDataGeneratorContext);
+
+      foreach (var property in propertiesWithAttribute.Select(x => x.Item1))
+      {
+        var fake = this.InvokeGenericMethod("FillAuto", new object[] { testDataGenerator, property }, new[] { property.PropertyType });
+        property.SetValue(suite, fake);
+      }
     }
 
     [UsedImplicitly]
-    private object FillAuto<T> (PropertyInfo property)
+    private object FillAuto<T> (ITestDataGenerator testDataGenerator, PropertyInfo property)
     {
-      return _testDataGenerator.Create<T>(propertyInfo: FastReflectionUtility.GetPropertyInfo(property));
+      return testDataGenerator.Create<T>(propertyInfo: FastReflectionUtility.GetPropertyInfo(property));
     }
   }
 }
