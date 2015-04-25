@@ -21,9 +21,7 @@ using Farada.TestDataGeneration.CompoundValueProviders;
 using Farada.TestDataGeneration.FastReflection;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
-using TestFx.Extensibility.Contexts;
 using TestFx.Extensibility.Controllers;
-using TestFx.Specifications.Implementation;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.Farada
@@ -79,10 +77,10 @@ namespace TestFx.Farada
       if (propertiesWithAttribute.Count == 0)
         return;
 
-      testController.AddAction<SetupExtension>("<Setup_Autos>", x => CreateAndAssignAutos(x, propertiesWithAttribute, suite));
+      testController.AddAction<SetupExtension>("<Setup_Autos>", x => CreateAndAssignAutos(propertiesWithAttribute, suite));
     }
 
-    private void CreateAndAssignAutos (ITestContext context, IEnumerable<Tuple<PropertyInfo, AutoAttribute>> propertiesWithAttribute, ISuite suite)
+    private void CreateAndAssignAutos (IEnumerable<Tuple<PropertyInfo, AutoAttribute>> propertiesWithAttribute, ISuite suite)
     {
       foreach (var property in propertiesWithAttribute.Select(x => x.Item1))
       {
