@@ -49,15 +49,14 @@ namespace TestFx.Farada
           .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
           .FirstOrDefault(m => m.GetCustomAttribute<TestDomainConfigurationAttribute>() != null);
 
-      TestDataDomainConfiguration context;
       if (setupMethod == null)
       {
         _testDataGenerator = TestDataGeneratorFactory.Create();
       }
       else
       {
-        context = setupMethod.Invoke(null, new object[0]) as TestDataDomainConfiguration;
-        if (context == null)
+        var configuration = setupMethod.Invoke(null, new object[0]) as TestDataDomainConfiguration;
+        if (configuration == null)
         {
           throw new ArgumentException(
               string.Format(
@@ -66,7 +65,7 @@ namespace TestFx.Farada
                   typeof (TestDataDomainConfiguration).Name));
         }
 
-        _testDataGenerator = TestDataGeneratorFactory.Create(context);
+        _testDataGenerator = TestDataGeneratorFactory.Create(configuration);
       }
     }
 
