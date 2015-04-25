@@ -31,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Farada.TestDataGeneration">
-      <HintPath>..\packages\Farada.TestDataGeneration.1.0.0.100\lib\net45\Farada.TestDataGeneration.dll</HintPath>
+      <HintPath>..\..\packages\Farada.TestDataGeneration.1.0.0.102\lib\net45\Farada.TestDataGeneration.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Annotations">
-      <HintPath>..\packages\JetBrains.Annotations.9.1.1\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <HintPath>..\..\packages\JetBrains.Annotations.9.1.1\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes.cs" />
-    <Compile Include="SpecKExtensions.cs" />
     <None Include="NuGet\content\_TestExtensions\FaradaTestExtensions.cs" />
     <Compile Include="FaradaTestExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -30,8 +30,7 @@ namespace TestFx.Farada
 {
   public class FaradaTestExtensions : ITestExtension
   {
-    public const string Key = "Farada";
-    public const string ConfigurationKey = "TestDataDomainConfiguration";
+    private ITestDataGenerator _testDataGenerator;
 
     public int Priority
     {
@@ -40,7 +39,35 @@ namespace TestFx.Farada
 
     public void Extend (ITestController testController, ISuite suite)
     {
+      InitTestDataGenerator(suite);
       FillAutos(testController, suite);
+    }
+
+    private void InitTestDataGenerator (ISuite suite)
+    {
+      var setupMethod = suite.GetType()
+          .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
+          .FirstOrDefault(m => m.GetCustomAttribute<TestDomainConfigurationAttribute>() != null);
+
+      TestDataDomainConfiguration context;
+      if (setupMethod == null)
+      {
+        _testDataGenerator = TestDataGeneratorFactory.Create();
+      }
+      else
+      {
+        context = setupMethod.Invoke(null, new object[0]) as TestDataDomainConfiguration;
+        if (context == null)
+        {
+          throw new ArgumentException(
+              string.Format(
+                  "The method marked with the {0} must return a valid non-null {1}",
+                  typeof (TestDomainConfigurationAttribute).Name,
+                  typeof (TestDataDomainConfiguration).Name));
+        }
+
+        _testDataGenerator = TestDataGeneratorFactory.Create(context);
+      }
     }
 
     private void FillAutos (ITestController testController, ISuite suite)
@@ -53,25 +80,22 @@ namespace TestFx.Farada
       if (propertiesWithAttribute.Count == 0)
         return;
 
-      testController.AddAssertion<Assert>("<Setup_Autos>", x => CreateAndAssignAutos(x, propertiesWithAttribute, suite));
+      testController.AddAction<SetupExtension>("<Setup_Autos>", x => CreateAndAssignAutos(x, propertiesWithAttribute, suite));
     }
 
     private void CreateAndAssignAutos (ITestContext context, IEnumerable<Tuple<PropertyInfo, AutoAttribute>> propertiesWithAttribute, ISuite suite)
     {
-      var testDataGeneratorContext = (TestDataDomainConfiguration) context[ConfigurationKey];
-      var testDataGenerator = TestDataGeneratorFactory.Create(testDataGeneratorContext);
-
       foreach (var property in propertiesWithAttribute.Select(x => x.Item1))
       {
-        var autoValue = this.InvokeGenericMethod("GetAutoValue", new object[] { testDataGenerator, property }, new[] { property.PropertyType });
+        var autoValue = this.InvokeGenericMethod("GetAutoValue", new object[] { property }, new[] { property.PropertyType });
         property.SetValue(suite, autoValue);
       }
     }
 
     [UsedImplicitly]
-    private object GetAutoValue<T> (ITestDataGenerator testDataGenerator, PropertyInfo property)
+    private object GetAutoValue<T> (PropertyInfo property)
     {
-      return testDataGenerator.Create<T>(propertyInfo: FastReflectionUtility.GetPropertyInfo(property));
+      return _testDataGenerator.Create<T>(propertyInfo: FastReflectionUtility.GetPropertyInfo(property));
     }
   }
 }

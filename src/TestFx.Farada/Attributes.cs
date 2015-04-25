@@ -22,4 +22,10 @@ namespace TestFx.Farada
   public sealed class AutoAttribute : Attribute
   {
   }
+
+  [AttributeUsage (AttributeTargets.Method)]
+  [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
+  public sealed class TestDomainConfigurationAttribute : Attribute
+  {
+  }
 }
