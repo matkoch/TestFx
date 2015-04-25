@@ -92,7 +92,7 @@ namespace TestFx.ReSharper.UnitTesting
     public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, IUnitTestElementEx> elementProvider)
     {
       var dynamicTask = (DynamicTask) remoteTask;
-      var parentElement = elementProvider(dynamicTask.ParentAbsoluteId);
+      var parentElement = elementProvider(dynamicTask.ParentGuid);
       Trace.Assert(parentElement != null, "parentElement != null");
 
       var project = parentElement.GetProject().AssertNotNull();
@@ -101,7 +101,7 @@ namespace TestFx.ReSharper.UnitTesting
       var elementTypeFullName = _taskTypeToElementType[dynamicTask.TaskTypeFullName];
       var element = elementFactory.GetOrCreateSingleElement(elementTypeFullName, dynamicTask.Identity, project, dynamicTask.Text, parentElement);
       // TODO: parameter for elementFactory instead?
-      //element.State = UnitTestElementState.Dynamic;
+      element.State = UnitTestElementState.Dynamic;
 
       return element;
     }

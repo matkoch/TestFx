@@ -115,7 +115,8 @@ namespace TestFx.ReSharper.UnitTesting.Elements
         string text,
         [CanBeNull] IUnitTestElement parentElement)
     {
-      var element = _factoryMethods[elementTypeFullName](identity, project, text);
+      var factory = _factoryMethods[elementTypeFullName];
+      var element = factory(identity, project, text);
       element.Parent = parentElement;
       return element;
     }

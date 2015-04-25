@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Reporting;
@@ -66,8 +67,8 @@ namespace TestFx.ReSharper.Runner
       var operations = MergeSetupsAndCleanups(result);
       Finished(result, operations, result.OutputEntries, task);
 
-      result.SuiteResults.Where(TaskDoesNotExist).ForEach(CreateDynamicTask);
-      result.TestResults.Where(TaskDoesNotExist).ForEach(CreateDynamicTask);
+      result.SuiteResults.Where(TaskDoesNotExist).ForEach(x => CreateDynamicTask(task.Id, x));
+      result.TestResults.Where(TaskDoesNotExist).ForEach(x => CreateDynamicTask(task.Id, x));
     }
 
     private void Finished (ITestResult result, Task task)
@@ -92,16 +93,16 @@ namespace TestFx.ReSharper.Runner
       _server.TaskFinished(task, message, result.GetTaskResult());
     }
 
-    private void CreateDynamicTask (ISuiteResult result)
+    private void CreateDynamicTask (string parentGuid, ISuiteResult result)
     {
-      var dynamicTask = new DynamicTask(typeof (SuiteTask), result.Identity, result.Text);
+      var dynamicTask = new DynamicTask(typeof (SuiteTask), parentGuid, result.Identity, result.Text);
       _server.CreateDynamicElement(dynamicTask);
       Finished(result, dynamicTask);
     }
 
-    private void CreateDynamicTask (ITestResult result)
+    private void CreateDynamicTask (string parentGuid, ITestResult result)
     {
-      var dynamicTask = new DynamicTask(typeof (TestTask), result.Identity, result.Text);
+      var dynamicTask = new DynamicTask(typeof (TestTask), parentGuid, result.Identity, result.Text);
       _server.CreateDynamicElement(dynamicTask);
       Finished(result, dynamicTask);
     }
@@ -115,10 +116,10 @@ namespace TestFx.ReSharper.Runner
 
     private bool TaskDoesNotExist (IResult result)
     {
-      var task = GetTask(result.Identity);
-      return task == null;
+      return GetTask(result.Identity) == null;
     }
 
+    [CanBeNull]
     private Task GetTask (IIdentity identity)
     {
       Task task;
