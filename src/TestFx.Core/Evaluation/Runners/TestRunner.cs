@@ -55,6 +55,7 @@ namespace TestFx.Evaluation.Runners
 
       using (outputRecording = _resultFactory.CreateOutputRecording())
       {
+        // TODO: Repetition with ContextRunner
         foreach (var operationProvider in provider.OperationProviders)
         {
           Trace.Assert(

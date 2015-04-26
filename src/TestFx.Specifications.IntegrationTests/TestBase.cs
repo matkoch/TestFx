@@ -39,7 +39,7 @@ namespace TestFx.Specifications.IntegrationTests
     protected IList<IOperationResult> OperationResults;
 
     [SetUp]
-    public void Setup ()
+    public virtual void SetUp ()
     {
       var runIntent = RunIntent.Create (useSeparateAppDomains: false);
       runIntent.AddType (typeof (T));

@@ -72,12 +72,18 @@ namespace TestFx.Evaluation.Runners
       _operationRunner = operationRunner;
     }
 
+
     public IContextScope Run (IEnumerable<IOperationProvider> contextProviders)
     {
       var setupResults = new List<IOperationResult>();
       var cleanupProviders = new Stack<IOperationProvider>();
+
+      // TODO: Repetition with TestRunner
       foreach (var contextProvider in contextProviders)
       {
+        if (cleanupProviders.Contains(contextProvider))
+          continue;
+
         var setupResult = _operationRunner.Run(contextProvider);
         setupResults.Add(setupResult);
         if (setupResult.State == State.Passed && contextProvider.CleanupProvider != null)

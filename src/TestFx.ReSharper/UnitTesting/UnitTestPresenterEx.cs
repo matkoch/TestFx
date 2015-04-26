@@ -40,9 +40,10 @@ namespace TestFx.ReSharper.UnitTesting
       {
         var first = x.DataValue as IUnitTestElementEx;
         var second = y.DataValue as IUnitTestElementEx;
-        if (first == null || second == null)
+        //if (first == null || second == null)
           return 0;
 
+        // TODO: Performance critical. should cache suite file
         var firstDisposition = first.GetDisposition();
         var secondDisposition = second.GetDisposition();
         if (firstDisposition == UnitTestElementDisposition.InvalidDisposition || secondDisposition == UnitTestElementDisposition.InvalidDisposition)

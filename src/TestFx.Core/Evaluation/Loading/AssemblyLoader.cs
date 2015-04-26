@@ -51,7 +51,8 @@ namespace TestFx.Evaluation.Loading
       var suiteTypes = explorationData.SuiteTypes.Where(x => assemblySuiteIntent.SuiteIntents.Any(y => y.Identity.Relative == x.FullName));
 
       provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaders, assemblySetups, provider.Identity));
-      assemblySetups.ForEach(x => controller.AddSetupCleanup<SetupCommon, CleanupCommon>(x.Setup, x.Cleanup));
+      assemblySetups.ForEach(
+          x => controller.AddSetupCleanup<SetupCommon, CleanupCommon>(x.GetType().Name + ".Setup", x.Setup, x.GetType().Name + ".Cleanup", x.Cleanup));
 
       return provider;
     }

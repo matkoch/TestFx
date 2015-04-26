@@ -17,6 +17,22 @@ using FakeItEasy;
 
 namespace TestFx.Specifications.IntegrationTests
 {
+  public class MyAssemblySetup : IAssemblySetup
+  {
+    public static Action AssemblySetupAction = A.Fake<Action> ();
+    public static Action AssemblyCleanupAction = A.Fake<Action> ();
+
+    public void Setup ()
+    {
+      AssemblySetupAction ();
+    }
+
+    public void Cleanup ()
+    {
+      AssemblyCleanupAction ();
+    }
+  }
+
   [Subject (typeof (SetupSpecK), "Method")]
   public class SetupSpecK : SpecK<object>
   {
@@ -30,6 +46,8 @@ namespace TestFx.Specifications.IntegrationTests
 
     public static readonly object Subject1 = new object ();
     public static readonly object Subject2 = new object ();
+
+    public static MyAssemblySetup MyAssemblySetup;
 
     public SetupSpecK ()
     {
@@ -66,23 +84,43 @@ namespace TestFx.Specifications.IntegrationTests
 
   public class SetupTest : TestBase<SetupSpecK>
   {
+    [SetUp]
+    public override void SetUp()
+    {
+      MyAssemblySetup.AssemblySetupAction = A.Fake<Action> ();
+      MyAssemblySetup.AssemblyCleanupAction = A.Fake<Action> ();
+
+      base.SetUp ();
+    }
+
     [Test]
     public void Test ()
     {
       using (Scope.OrderedAssertions ())
       {
-        A.CallTo (() => SetupSpecK.SetupOnceAction1 ()).MustHaveHappened ();
-        A.CallTo (() => SetupSpecK.SetupOnceAction2 ()).MustHaveHappened ();
+        A.CallTo (() => MyAssemblySetup.AssemblySetupAction ()).MustHaveHappened (Repeated.Exactly.Once);
 
-        A.CallTo (() => SetupSpecK.SetupAction (A<ITestContext<object>>.That.Matches (x => x.Subject == SetupSpecK.Subject1))).MustHaveHappened ();
-        A.CallTo (() => SetupSpecK.CleanupAction (A<ITestContext<object>>.That.Matches (x => x.Subject == SetupSpecK.Subject1))).MustHaveHappened ();
+        A.CallTo (() => SetupSpecK.SetupOnceAction1 ()).MustHaveHappened (Repeated.Exactly.Once);
+        A.CallTo (() => SetupSpecK.SetupOnceAction2 ()).MustHaveHappened (Repeated.Exactly.Once);
 
-        A.CallTo (() => SetupSpecK.SetupAction (A<ITestContext<object>>.That.Matches (x => x.Subject == SetupSpecK.Subject2))).MustHaveHappened ();
-        A.CallTo (() => SetupSpecK.CleanupAction (A<ITestContext<object>>.That.Matches (x => x.Subject == SetupSpecK.Subject2))).MustHaveHappened ();
+        A.CallTo (() => SetupSpecK.SetupAction (A<ITestContext<object>>.That.Matches (x => x.Subject == SetupSpecK.Subject1)))
+            .MustHaveHappened (Repeated.Exactly.Once);
+        A.CallTo (() => SetupSpecK.CleanupAction (A<ITestContext<object>>.That.Matches (x => x.Subject == SetupSpecK.Subject1)))
+            .MustHaveHappened (Repeated.Exactly.Once);
 
-        A.CallTo (() => SetupSpecK.CleanupOnceAction2 ()).MustHaveHappened ();
-        A.CallTo (() => SetupSpecK.CleanupOnceAction1 ()).MustHaveHappened ();
+        A.CallTo (() => SetupSpecK.SetupAction (A<ITestContext<object>>.That.Matches (x => x.Subject == SetupSpecK.Subject2)))
+            .MustHaveHappened (Repeated.Exactly.Once);
+        A.CallTo (() => SetupSpecK.CleanupAction (A<ITestContext<object>>.That.Matches (x => x.Subject == SetupSpecK.Subject2)))
+            .MustHaveHappened (Repeated.Exactly.Once);
+
+        A.CallTo (() => SetupSpecK.CleanupOnceAction2 ()).MustHaveHappened (Repeated.Exactly.Once);
+        A.CallTo (() => SetupSpecK.CleanupOnceAction1 ()).MustHaveHappened (Repeated.Exactly.Once);
+
+        A.CallTo (() => MyAssemblySetup.AssemblyCleanupAction ()).MustHaveHappened (Repeated.Exactly.Once);
       }
+
+      AssemblyResults[0].SetupResults.ElementAt (0).Text.Should ().Be ("MyAssemblySetup.Setup");
+      AssemblyResults[0].CleanupResults.ElementAt (0).Text.Should ().Be ("MyAssemblySetup.Cleanup");
 
       TypeResults[0].SetupResults.ElementAt (0).Text.Should ().Be ("SetupOnceMethod");
       TypeResults[0].SetupResults.ElementAt (1).Text.Should ().Be ("<lambda method>");
