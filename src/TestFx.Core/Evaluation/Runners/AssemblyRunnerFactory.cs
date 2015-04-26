@@ -36,8 +36,8 @@ namespace TestFx.Evaluation.Runners
       // Re-registering
       builder.RegisterInstance(resourceManager).As<IResourceManager>();
       builder.RegisterInstance(cancellationTokenSource).As<ICancellationTokenSource>();
-      // Only SetupCommon's should be added for assembly suite
-      builder.RegisterInstance(new OperationSorter(new[] { typeof (SetupCommon) })).As<IOperationSorter>();
+      // Only SetupCommon's and CleanupCommon's should be added for assembly suite
+      builder.RegisterInstance(new OperationSorter(new[] { typeof (SetupCommon), typeof (CleanupCommon) })).As<IOperationSorter>();
       var container = builder.Build();
       return new AssemblyRunner(container.Resolve<IAssemblyLoader>(), container.Resolve<ISuiteRunner>());
     }

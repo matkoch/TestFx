@@ -50,7 +50,7 @@ namespace TestFx.Extensibility
       var identity = assemblyIdentity.CreateChildIdentity(suiteType.FullName);
       var provider = SuiteProvider.Create(identity, text, ignored: false);
 
-      InitializeAssemblyContextFields(uninitializedSuite, assemblySetups.ToList());
+      InitializeAssemblySetupFields(uninitializedSuite, assemblySetups.ToList());
       InitializeTypeSpecificFields(uninitializedSuite, provider);
 
       InvokeConstructor(uninitializedSuite);
@@ -60,15 +60,16 @@ namespace TestFx.Extensibility
 
     protected abstract void InitializeTypeSpecificFields (TSuiteType suite, SuiteProvider provider);
 
-    private void InitializeAssemblyContextFields (TSuiteType suite, ICollection<IAssemblySetup> assemblySetups)
+    private void InitializeAssemblySetupFields (TSuiteType suite, ICollection<IAssemblySetup> assemblySetups)
     {
       var suiteType = suite.GetType();
-      var fields = suiteType.GetFields(MemberBindings.Instance);
+      var fields = suiteType.GetFields(MemberBindings.Static);
+      // TODO: only static fields with special attribute
       foreach (var field in fields)
       {
-        var injectableAssemblyContext = assemblySetups.FirstOrDefault(x => field.FieldType.IsInstanceOfType(x));
-        if (injectableAssemblyContext != null)
-          field.SetValue(suite, injectableAssemblyContext);
+        var assemblySetup = assemblySetups.FirstOrDefault(x => field.FieldType == x.GetType());
+        if (assemblySetup != null)
+          field.SetValue(suite, assemblySetup);
       }
     }
 
