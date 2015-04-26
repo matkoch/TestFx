@@ -23,7 +23,7 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx.Specifications.Implementation
 {
-  public class SpecKTypeLoader : TypeLoader<ISpecK, SubjectAttribute>
+  public class SpecKTypeLoader : TypeLoader<ISpecK>
   {
     private readonly IControllerFactory _controllerFactory;
     private readonly ISubjectFactory _subjectFactory;

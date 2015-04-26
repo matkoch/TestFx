@@ -29,24 +29,23 @@ namespace TestFx.Extensibility
   {
   }
 
-  public abstract class TypeLoader<TSuiteType, TSubjectAttribute> : ITypeLoader<TSuiteType>
-      where TSubjectAttribute : SubjectAttributeBase
+  public abstract class TypeLoader<TSuiteType> : ITypeLoader<TSuiteType>
   {
     private readonly IIntrospectionPresenter _introspectionPresenter;
-    private readonly CommonAttribute _displayFormatAttribute;
 
     protected TypeLoader (IIntrospectionPresenter introspectionPresenter)
     {
       _introspectionPresenter = introspectionPresenter;
-      _displayFormatAttribute = typeof (TSubjectAttribute).GetConstructors().Single().GetAttributeData<DisplayFormatAttribute>().ToCommon();
     }
 
     public ISuiteProvider Load (Type suiteType, IEnumerable<IAssemblySetup> assemblySetups, IIdentity assemblyIdentity)
     {
       var uninitializedSuite = (TSuiteType) FormatterServices.GetUninitializedObject(suiteType);
 
-      var subjectAttribute = suiteType.GetAttributeData<TSubjectAttribute>().ToCommon();
-      var text = _introspectionPresenter.Present(_displayFormatAttribute, subjectAttribute);
+      var subjectAttribute = suiteType.GetAttributeData<SubjectAttributeBase>();
+      var displayFormatAttribute = subjectAttribute.Constructor.GetAttributeData<DisplayFormatAttribute>();
+
+      var text = _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), subjectAttribute.ToCommon());
       var identity = assemblyIdentity.CreateChildIdentity(suiteType.FullName);
       var provider = SuiteProvider.Create(identity, text, ignored: false);
 

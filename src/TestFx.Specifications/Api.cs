@@ -64,12 +64,11 @@ namespace TestFx.Specifications
   [BaseTypeRequired (typeof (ISpecK<>))]
   public class SubjectAttribute : SubjectAttributeBase
   {
-    // ReSharper disable UnusedParameter.Local
+    [UsedImplicitly]
     [DisplayFormat ("{0}.{1}")]
     public SubjectAttribute (Type type, string method)
     {
     }
-    // ReSharper restore UnusedParameter.Local
   }
 
   [MeansImplicitUse (ImplicitUseKindFlags.Access)]
