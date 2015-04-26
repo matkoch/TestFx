@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using TestFx.Evaluation;
 using TestFx.Evaluation.Loading;
 using TestFx.Extensibility.Providers;
 using TestFx.Utilities;
@@ -71,18 +72,22 @@ namespace TestFx.Extensibility
       }
     }
 
-    private void InvokeConstructor (TSuiteType suite)
+    private void InvokeConstructor (object suite)
     {
       var suiteType = suite.GetType();
-      var constructor = suiteType.GetConstructor(MemberBindings.Instance, null, new Type[0], new ParameterModifier[0])
-          .AssertNotNull("Suite types must have a default constructor.");
+      var constructor = suiteType.GetConstructor(MemberBindings.Instance, null, new Type[0], new ParameterModifier[0]);
+      if (constructor == null)
+        throw new EvaluationException(string.Format("Suite '{0}' doesn't provide a default constructor.", suiteType.Name));
+
       try
       {
         constructor.Invoke(suite, new object[0]);
       }
       catch (TargetInvocationException exception)
       {
-        throw exception.InnerException;
+        throw new EvaluationException(
+            string.Format("Executing constructor for '{0}' has thrown an exception.", suiteType.Name),
+            exception.InnerException);
       }
     }
   }
