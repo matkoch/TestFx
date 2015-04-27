@@ -44,7 +44,7 @@ namespace TestFx.Farada
     private void InitTestDataGenerator (ISuite suite)
     {
       var setupMethod = suite.GetType()
-          .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
+          .GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
           .FirstOrDefault(m => m.GetCustomAttribute<TestDomainConfigurationAttribute>() != null);
 
       if (setupMethod == null)
@@ -92,7 +92,9 @@ namespace TestFx.Farada
     [UsedImplicitly]
     private object GetAutoValue<T> (PropertyInfo property)
     {
-      return _testDataGenerator.Create<T>(propertyInfo: FastReflectionUtility.GetPropertyInfo(property));
+      //We use a max recursion depth of 3 here, because the property itself counts already as a recursion depth of 1,
+      //so not even the first nested property of the same type would be filled.
+      return _testDataGenerator.Create<T>(maxRecursionDepth:3, propertyInfo: FastReflectionUtility.GetPropertyInfo(property));
     }
   }
 }

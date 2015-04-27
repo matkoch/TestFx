@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FakeItEasy.1.25.2\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
+    <Reference Include="Farada.TestDataGeneration, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Farada.TestDataGeneration.1.0.0.102\lib\net45\Farada.TestDataGeneration.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.dll</HintPath>
@@ -45,9 +49,17 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=9.1.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\JetBrains.Annotations.9.1.1\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Remotion">
+      <HintPath>..\..\..\Farada\Farada.TestDataGeneration\bin\Debug\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -59,6 +71,7 @@
     <Compile Include="ContextBehaviorSpecK.cs" />
     <Compile Include="ExceptionSpecK.cs" />
     <Compile Include="DefineSpecK.cs" />
+    <Compile Include="FaradaSpecK.cs" />
     <Compile Include="SubjectCreationWithoutDefaultConstructorSpecK.cs" />
     <Compile Include="SubjectCreationWithMissingArgumentsConstructorSpecK.cs" />
     <Compile Include="SetupSpecK.cs" />
@@ -79,6 +92,10 @@
     <ProjectReference Include="..\TestFx.FakeItEasy\TestFx.FakeItEasy.csproj">
       <Project>{c7f266e7-f9d5-4882-9f0f-d0c142535bca}</Project>
       <Name>TestFx.FakeItEasy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestFx.Farada\TestFx.Farada.csproj">
+      <Project>{e560e6da-3e1b-4acd-b061-4ffd84a9838c}</Project>
+      <Name>TestFx.Farada</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestFx.Specifications\TestFx.Specifications.csproj">
       <Project>{805bdcc2-3399-49aa-8443-d189ac477899}</Project>
