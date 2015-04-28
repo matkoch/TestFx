@@ -27,13 +27,22 @@ namespace TestFx.Specifications
         Func<ITestContext<TSubject, TResult, TVars>, TDisposable> scopeProvider)
         where TDisposable : IDisposable
     {
+      return arrange.GivenUsing(typeof (TDisposable).Name, scopeProvider);
+    }
+
+    public static IArrangeOrAssert<TSubject, TResult, TVars> GivenUsing<TSubject, TResult, TVars, TDisposable> (
+        this IArrange<TSubject, TResult, TVars> arrange,
+        string text,
+        Func<ITestContext<TSubject, TResult, TVars>, TDisposable> scopeProvider)
+        where TDisposable : IDisposable
+    {
       var controller = arrange.Get<ITestController<TSubject, TResult, TVars>>();
 
       IDisposable scope = null;
       controller.AddSetupCleanup<Arrange, CleanupCommon>(
-          "Create " + typeof (TDisposable).Name,
+          "Create " + text,
           x => scope = scopeProvider((ITestContext<TSubject, TResult, TVars>) x),
-          "Dispose " + typeof (TDisposable).Name,
+          "Dispose " + text,
           x => scope.Dispose());
       return (IArrangeOrAssert<TSubject, TResult, TVars>) arrange;
     }

@@ -59,6 +59,7 @@
     <Compile Include="ContextBehaviorSpecK.cs" />
     <Compile Include="ExceptionSpecK.cs" />
     <Compile Include="DefineSpecK.cs" />
+    <Compile Include="UsingSpecK.cs" />
     <Compile Include="SubjectCreationWithoutDefaultConstructorSpecK.cs" />
     <Compile Include="SubjectCreationWithMissingArgumentsConstructorSpecK.cs" />
     <Compile Include="SetupSpecK.cs" />
