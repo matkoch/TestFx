@@ -59,7 +59,9 @@ namespace TestFx.Specifications.IntegrationTests
               .ItThrows (typeof (ArgumentException), x => "Wrong message"))
           .Case ("Wrong inner exception provider", _ => _
               .Given ("a message", x => Message = "Message")
-              .ItThrows (typeof (ArgumentException), x => "Message", x => new Exception ()));
+              .ItThrows (typeof (ArgumentException), x => "Message", x => new Exception ()))
+          .Case ("Custom assertion", _ => _
+              .ItThrows ("exception with special properties", x => x.Exception.InnerException.Should ().BeNull ()));
     }
   }
 }
@@ -79,6 +81,7 @@ namespace TestFx.Specifications.IntegrationTests
       AssertResult (TestResults[3], "Wrong message", State.Failed);
       AssertResult (TestResults[4], "Wrong message provider", State.Failed);
       AssertResult (TestResults[5], "Wrong inner exception provider", State.Failed);
+      AssertResult (TestResults[6], "Custom assertion", State.Passed);
 
       var actException = OperationResults.Where (x => x.Text == "<Action>").ElementAt (1).Exception.AssertNotNull ();
       actException.Name.Should ().Be ("ArgumentException");

@@ -80,5 +80,15 @@ namespace TestFx.Specifications
           c_expectException);
       return assert;
     }
+
+    public static IAssert<TSubject, TResult, TVars> ItThrows<TSubject, TResult, TVars> (
+        this IAssert<TSubject, TResult, TVars> assert,
+        string text,
+        Assertion<TSubject, TResult, TVars> assertion)
+    {
+      var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
+      controller.AddAssertion("Throws " + text, assertion, c_expectException);
+      return assert;
+    }
   }
 }
