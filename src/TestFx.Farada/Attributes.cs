@@ -13,10 +13,19 @@
 // limitations under the License.
 
 using System;
-using TestFx;
-using TestFx.FakeItEasy;
-using TestFx.Farada;
+using JetBrains.Annotations;
 
-[assembly: UseTestExtension (typeof (ResetInstanceFieldsTestExtensions))]
-[assembly: UseTestExtension (typeof (FakeItEasyTestExtension))]
-[assembly: UseTestExtension (typeof (FaradaTestExtensions))]
+namespace TestFx.Farada
+{
+  [AttributeUsage (AttributeTargets.Property)]
+  [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
+  public sealed class AutoAttribute : Attribute
+  {
+  }
+
+  [AttributeUsage (AttributeTargets.Method)]
+  [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
+  public sealed class TestDomainConfigurationAttribute : Attribute
+  {
+  }
+}
