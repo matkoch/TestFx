@@ -19,6 +19,8 @@ namespace TestFx.Specifications.IntegrationTests
   [Subject (typeof (PassingSpecK), "Method")]
   public class PassingSpecK : SpecK
   {
+    object Object;
+
     public PassingSpecK ()
     {
       Specify (x => Console.WriteLine (true))

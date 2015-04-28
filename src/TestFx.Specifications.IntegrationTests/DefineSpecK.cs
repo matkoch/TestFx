@@ -28,6 +28,12 @@ namespace TestFx.Specifications.IntegrationTests
               .Given ("set string property", x => x.Subject.String = x.Vars.StringBase)
               .Given ("set integer property", x => x.Subject.Integer = x.Vars.IntegerBase)
               .It ("appends '1' to set string", x => x.Subject.String.Should ().Be ("Moep1"))
+              .It ("adds 1 to set integer", x => x.Subject.Integer.Should ().Be (3)))
+          .Case ("muh", _ => _
+              .Define (x => new { StringBase = "Moep", IntegerBase = 2 })
+              .Given ("set string property", x => x.Subject.String = x.Vars.StringBase)
+              .Given ("set integer property", x => x.Subject.Integer = x.Vars.IntegerBase)
+              .It ("appends '1' to set string", x => x.Subject.String.Should ().Be ("Moep1"))
               .It ("adds 1 to set integer", x => x.Subject.Integer.Should ().Be (3)));
     }
 

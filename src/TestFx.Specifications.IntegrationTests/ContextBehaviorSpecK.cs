@@ -67,9 +67,9 @@ namespace TestFx.Specifications.IntegrationTests
     {
       RunResult.State.Should ().Be (State.Failed);
 
-      AssertResult (OperationResults[1], "subject with ctor arg", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[3], "has result set to ctor arg", State.Passed, OperationType.Assertion);
-      AssertResult (OperationResults[4], "has property set to null", State.Failed, OperationType.Assertion);
+      AssertResult (OperationResults[0], "subject with ctor arg", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[2], "has result set to ctor arg", State.Passed, OperationType.Assertion);
+      AssertResult (OperationResults[3], "has property set to null", State.Failed, OperationType.Assertion);
     }
   }
 }

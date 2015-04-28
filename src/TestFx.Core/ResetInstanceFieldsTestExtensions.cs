@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
 using TestFx.Utilities.Collections;
@@ -29,7 +30,10 @@ namespace TestFx
 
     public void Extend (ITestController testController, ISuite suite)
     {
-      var fields = suite.GetType().GetFields(MemberBindings.Instance);
+      var fields = suite.GetType().GetFields(MemberBindings.Instance).ToList();
+      if (fields.Count == 0)
+        return;
+
       testController.AddAction<SetupExtension>("<Reset_Instance_Fields>", x => fields.ForEach(f => f.SetValue(suite, f.FieldType.GetDefaultValue())));
     }
   }
