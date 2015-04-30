@@ -94,7 +94,7 @@ namespace TestFx.Specifications.IntegrationTests
     }
 
     [Test]
-    public void Test ()
+    public override void Test ()
     {
       using (Scope.OrderedAssertions ())
       {

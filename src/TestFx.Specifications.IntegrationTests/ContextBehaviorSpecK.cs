@@ -63,13 +63,17 @@ namespace TestFx.Specifications.IntegrationTests
   public class ContextBehaviorTest : TestBase<ContextBehaviorSpecK>
   {
     [Test]
-    public void Test ()
+    public override void Test ()
     {
-      RunResult.State.Should ().Be (State.Failed);
-
-      AssertResult (OperationResults[0], "subject with ctor arg", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[2], "has result set to ctor arg", State.Passed, OperationType.Assertion);
-      AssertResult (OperationResults[3], "has property set to null", State.Failed, OperationType.Assertion);
+      AssertTestFailed ("<Default>",
+          operationTexts: new[]
+                          {
+                              "subject with ctor arg",
+                              "<Action>",
+                              "has result set to ctor arg",
+                              "has property set to null"
+                          },
+          failedOperationTexts: new[] { "has property set to null" });
     }
   }
 }

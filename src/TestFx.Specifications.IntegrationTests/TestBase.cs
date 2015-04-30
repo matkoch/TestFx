@@ -24,6 +24,8 @@ using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Results;
 using TestFx.Extensibility.Providers;
 using TestFx.Specifications.Implementation;
+using TestFx.Utilities;
+using Assert = NUnit.Framework.Assert;
 
 namespace TestFx.Specifications.IntegrationTests
 {
@@ -54,6 +56,69 @@ namespace TestFx.Specifications.IntegrationTests
       TestResults = TypeResults.SelectMany (x => x.TestResults).ToList ();
       OperationResults = TestResults.SelectMany (x => x.OperationResults).ToList ();
     }
+
+    [Test]
+    public abstract void Test ();
+
+    protected ITestResult AssertTestPassed (string text, params string[] operationTexts)
+    {
+      return AssertTest (text, State.Passed, operationTexts);
+    }
+
+    protected ITestResult AssertTestFailed (string text, string[] operationTexts = null, string[] failedOperationTexts = null)
+    {
+      var testResult = AssertTest (text, State.Failed, operationTexts);
+
+      if (failedOperationTexts != null)
+        AssertFailedOperations (testResult, failedOperationTexts);
+
+      return testResult;
+    }
+
+    protected IExceptionDescriptor GetFailedException(ITestResult testResult, string operationText)
+    {
+      var operationResult = testResult.OperationResults.SingleOrDefault (x => x.Text == operationText);
+      if (operationResult == null)
+        Assert.Fail ("Operation '{0}' is not present.", operationText);
+
+      return operationResult.Exception.AssertNotNull ();
+    }
+
+    protected IOperationResult[] AssertFailedOperations (ITestResult testResult, params string[] operationTexts)
+    {
+      var failedOperations = testResult.OperationResults.Where (x => x.State == State.Failed).ToArray ();
+      Assert.That (failedOperations.Select (x => x.Text).ToArray (), Is.EqualTo (operationTexts));
+      return failedOperations;
+    }
+
+    protected ITestResult AssertTest (string text, State state, params string[] operationTexts)
+    {
+      var testResult = TestResults.SingleOrDefault (x => x.Text == text);
+      if (testResult == null)
+        Assert.Fail ("Test '{0}' is not present.", text);
+
+      Assert.That (testResult.State, Is.EqualTo (state));
+      if (operationTexts != null)
+        Assert.That (testResult.OperationResults.Select (x => x.Text).ToArray (), Is.EqualTo (operationTexts));
+
+      return testResult;
+    }
+
+
+    //protected IOperationResult AssertOperation(string text, State? state = null, OperationType? type = null)
+    //{
+    //  var operationResults = OperationResults.Where (x => x.Text == text).ToList ();
+    //  if (operationResults.Count != 1)
+    //    Assert.Fail ("Operation '{0}' ist not uniquely existent.", text);
+
+    //  var operationResult = operationResults.Single ();
+    //  if (state != null)
+    //    Assert.That (operationResult.State, Is.EqualTo (state));
+    //  if (type != null)
+    //    Assert.That (operationResult.Type, Is.EqualTo (type));
+
+    //  return operationResult;
+    //}
 
     protected void AssertResult (IResult result, string relativeIdAndText, State state)
     {

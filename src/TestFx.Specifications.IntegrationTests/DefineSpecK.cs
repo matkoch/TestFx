@@ -58,7 +58,7 @@ namespace TestFx.Specifications.IntegrationTests
   public class DefineTest : TestBase<DefineSpecK>
   {
     [Test]
-    public void Test ()
+    public override void Test ()
     {
       RunResult.State.Should ().Be (State.Passed);
     }

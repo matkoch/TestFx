@@ -17,11 +17,19 @@ using TestFx.Extensibility;
 using TestFx.Specifications.Implementation;
 using TestFx.Specifications.Implementation.Controllers;
 using TestFx.Specifications.InferredApi;
+using TestFx.Utilities.Reflection;
 
 namespace TestFx.Specifications
 {
   public static class UsingExtensions
   {
+    public static IArrangeOrAssert<TSubject, TResult, TVars> GivenUsing<TSubject, TResult, TVars> (
+        this IArrange<TSubject, TResult, TVars> arrange,
+        Type disposableType)
+    {
+      return arrange.GivenUsing(disposableType.Name, x => disposableType.CreateInstance<IDisposable>());
+    }
+
     public static IArrangeOrAssert<TSubject, TResult, TVars> GivenUsing<TSubject, TResult, TVars, TDisposable> (
         this IArrange<TSubject, TResult, TVars> arrange,
         Func<ITestContext<TSubject, TResult, TVars>, TDisposable> scopeProvider)
