@@ -18,7 +18,7 @@ using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications
 {
-  public static class CaseExtensions
+  public static class UnnamedExtensions
   {
     [DisplayFormat ("<Default>")]
     public static IIgnoreOrCase<TSubject, TResult> DefaultCase<TSubject, TResult> (
@@ -26,6 +26,13 @@ namespace TestFx.Specifications
         Func<IArrangeOrAssert<TSubject, TResult, object>, IAssert> succession)
     {
       return @case.Case("<Default>", succession);
+    }
+
+    public static IArrangeOrAssert<TSubject, TResult, TVars> Given<TSubject, TResult, TVars> (
+        this IArrange<TSubject, TResult, TVars> arrange,
+        Arrangement<TSubject, TResult, TVars> arrangement)
+    {
+      return arrange.Given("<Arrangement>", arrangement);
     }
   }
 }

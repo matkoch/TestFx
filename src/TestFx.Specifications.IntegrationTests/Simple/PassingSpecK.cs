@@ -32,7 +32,7 @@ namespace TestFx.Specifications.IntegrationTests.Simple
       {
         Specify (x => Console.WriteLine (true))
             .DefaultCase (_ => _
-                .Given ("Arrangement", x => { })
+                .Given (x => { })
                 .It ("Assertion", x => { }));
       }
     }
@@ -58,7 +58,7 @@ namespace TestFx.Specifications.IntegrationTests.Simple
           state: State.Passed);
 
       AssertResult (OperationResults[0], "<Reset_Instance_Fields>", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[1], "Arrangement", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[1], "<Arrangement>", State.Passed, OperationType.Action);
       AssertResult (OperationResults[2], "<Action>", State.Passed, OperationType.Action);
       AssertResult (OperationResults[3], "Assertion", State.Passed, OperationType.Assertion);
 
