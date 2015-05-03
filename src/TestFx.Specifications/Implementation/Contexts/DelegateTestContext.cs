@@ -20,6 +20,7 @@ namespace TestFx.Specifications.Implementation.Contexts
       : TestContext<TDelegateSubject, TDelegateResult, TDelegateVars>
   {
     private readonly TestContext<TSubject, TResult, TVars> _context;
+    private object _varsObject;
 
     public DelegateTestContext (TestContext<TSubject, TResult, TVars> context)
     {
@@ -38,10 +39,16 @@ namespace TestFx.Specifications.Implementation.Contexts
       set { throw new NotSupportedException(); }
     }
 
+    public override object VarsObject
+    {
+      get { return _context.VarsObject; }
+      set { _context.VarsObject = value; }
+    }
+
     public override TDelegateVars Vars
     {
-      get { return (TDelegateVars) (object) _context.Vars; }
-      set { throw new NotSupportedException(); }
+      get { return (TDelegateVars) _context.VarsObject; }
+      set { _context.VarsObject = (TVars) (object) value; }
     }
 
     public override Exception Exception

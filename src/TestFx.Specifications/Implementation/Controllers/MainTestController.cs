@@ -43,12 +43,6 @@ namespace TestFx.Specifications.Implementation.Controllers
       AddAction<Act>(actionContainer.Text, x => wrappedAction());
     }
 
-    public override ITestController<TSubject, TResult, TNewVars> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
-    {
-      _context.Vars = variablesProvider(null);
-      return CreateDelegate<TSubject, TResult, TNewVars>();
-    }
-
     private Action GuardAction (Action<TSubject> action)
     {
       return () =>

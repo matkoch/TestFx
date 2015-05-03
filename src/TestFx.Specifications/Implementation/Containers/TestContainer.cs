@@ -19,7 +19,7 @@ using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Containers
 {
-  public class TestContainer<TSubject, TResult, TVars> : Container, IDefineOrArrangeOrAssert<TSubject, TResult, TVars>
+  public class TestContainer<TSubject, TResult, TVars> : Container, IArrangeOrAssert<TSubject, TResult, TVars>
   {
     private readonly ITestController<TSubject, TResult, TVars> _controller;
 
@@ -29,7 +29,7 @@ namespace TestFx.Specifications.Implementation.Containers
       _controller = controller;
     }
 
-    public IArrangeOrAssert<TSubject, TResult, TNewVars> Define<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
+    public IArrangeOrAssert<TSubject, TResult, TNewVars> GivenVars<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
     {
       var controller = _controller.SetVariables(variablesProvider);
       return new TestContainer<TSubject, TResult, TNewVars>(controller);

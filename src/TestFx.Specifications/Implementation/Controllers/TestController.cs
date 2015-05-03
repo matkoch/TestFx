@@ -64,7 +64,8 @@ namespace TestFx.Specifications.Implementation.Controllers
 
     public virtual ITestController<TSubject, TResult, TNewVars> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
     {
-      throw new NotSupportedException();
+      AddAction<Arrange>("<Set_Variables>", x => _context.VarsObject = variablesProvider(null));
+      return CreateDelegate<TSubject, TResult, TNewVars>();
     }
 
     public void AddArrangement (string text, Arrangement<TSubject, TResult, TVars> arrangement)

@@ -23,7 +23,7 @@ namespace TestFx.Specifications
     [DisplayFormat ("<Default>")]
     public static IIgnoreOrCase<TSubject, TResult> DefaultCase<TSubject, TResult> (
         this ICase<TSubject, TResult> @case,
-        Func<IDefineOrArrangeOrAssert<TSubject, TResult, object>, IAssert> succession)
+        Func<IArrangeOrAssert<TSubject, TResult, object>, IAssert> succession)
     {
       return @case.Case("<Default>", succession);
     }

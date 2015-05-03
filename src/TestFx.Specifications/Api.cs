@@ -120,30 +120,18 @@ namespace TestFx.Specifications
     {
     }
 
-    public interface IDefineOrArrangeOrAssert<TSubject, out TResult, TVars>
-        : IDefine<TSubject, TResult, TVars>,
-            IArrangeOrAssert<TSubject, TResult, TVars>
-    {
-    }
-
     public interface IArrangeOrAssert<TSubject, out TResult, TVars>
         : IArrange<TSubject, TResult, TVars>,
             IAssert<TSubject, TResult, TVars>
     {
     }
 
-    //public interface ISpecify<TSubject>
-    //{
-    //  IIgnoreOrCase<TSubject, Dummy> Specify (Expression<Action<TSubject>> voidAction);
-    //  IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Expression<Func<TSubject, TResult>> resultAction);
-    //}
-
     public interface ICase<TSubject, TResult>
     {
       [DisplayFormat ("{0}")]
       IIgnoreOrCase<TSubject, TResult> Case (
           string description,
-          Func<IDefineOrArrangeOrAssert<TSubject, TResult, object>, IAssert> succession);
+          Func<IArrangeOrAssert<TSubject, TResult, object>, IAssert> succession);
     }
 
     public interface IIgnore<TSubject, TResult>
@@ -151,15 +139,13 @@ namespace TestFx.Specifications
       ICase<TSubject, TResult> Skip (string reason);
     }
 
-    public interface IDefine<TSubject, out TResult, TVars>
-    {
-      IArrangeOrAssert<TSubject, TResult, TNewVars> Define<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
-    }
-
     public interface IArrange<TSubject, out TResult, TVars> : IArrange
     {
+      IArrangeOrAssert<TSubject, TResult, TNewVars> GivenVars<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
+      
       // TODO: should check whether there is a setup that requires the subject... then possibly throw exception
       IArrangeOrAssert<TSubject, TResult, TVars> GivenSubject (string description, Func<Dummy, TSubject> subjectFactory);
+
       IArrangeOrAssert<TSubject, TResult, TVars> Given (string description, Arrangement<TSubject, TResult, TVars> arrangement);
       IArrangeOrAssert<TSubject, TResult, TVars> Given (Context context);
       IArrangeOrAssert<TSubject, TResult, TVars> Given (Context<TSubject> context);
@@ -217,13 +203,13 @@ namespace TestFx.Specifications
         ////Specify ((x, a) => x.EndRead (null), Adv.Combine()
         Specify (x => x.EndRead (null))
             .Case ("bla", _ => _
-                .Define(x => new { A = "bla", B = 2 })
+                .GivenVars(x => new { A = "bla", B = 2 })
                 .GivenSubject ("file stream", x => File.OpenRead ("bla"))
                 .Given ("", x => x.Subject.Close ())
                 .ItForStream ())
             .Skip ("reason")
             .Case ("case2", _ => _
-                .Define(x => new { A = "bla", B = 2 })
+                .GivenVars(x => new { A = "bla", B = 2 })
                 .Given ("", x => { })
                 .Given (MyContext (1, 2))
                 .Given (MyContext2 (1, 2))

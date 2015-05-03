@@ -23,6 +23,8 @@ namespace TestFx.Specifications.Implementation.Contexts
     private TResult _result;
     private Exception _exception;
     private TimeSpan _duration;
+    private object _varsObject;
+    private object _vars;
 
     public override TSubject Subject
     {
@@ -54,7 +56,17 @@ namespace TestFx.Specifications.Implementation.Contexts
       set { _result = value; }
     }
 
-    public override object Vars { get; set; }
+    public override object Vars
+    {
+      get { return _varsObject; }
+      set { _varsObject = value; }
+    }
+
+    public override object VarsObject
+    {
+      get { return _varsObject; }
+      set { _varsObject = value; }
+    }
 
     public override Exception Exception
     {
