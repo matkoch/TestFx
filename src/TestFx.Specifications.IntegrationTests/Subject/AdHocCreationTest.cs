@@ -15,6 +15,7 @@
 using System;
 using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests.Subject
 {
@@ -40,13 +41,14 @@ namespace TestFx.Specifications.IntegrationTests.Subject
     [Test]
     public override void Test ()
     {
-      AssertTestPassed ("<Default>",
-          "<Reset_Instance_Fields>",
-          "init OtherString",
-          "subject is created with OtherString",
-          "<Action>",
-          "passes OtherString",
-          "creates subject only once");
+      AssertDefaultTest (State.Passed)
+          .WithOperations (
+              "<Reset_Instance_Fields>",
+              "init OtherString",
+              "subject is created with OtherString",
+              "<Action>",
+              "passes OtherString",
+              "creates subject only once");
     }
 
     public class DomainType

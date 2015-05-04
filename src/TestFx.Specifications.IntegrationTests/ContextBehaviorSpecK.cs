@@ -16,32 +16,46 @@ using System;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
-using TestFx.Extensibility.Providers;
 
 namespace TestFx.Specifications.IntegrationTests
 {
-  [Subject (typeof (ContextBehaviorSpecK), "Method")]
-  public class ContextBehaviorSpecK : SpecK<ContextBehaviorSpecK.DomainType>
+  public class ContextBehaviorTest : TestBase<ContextBehaviorTest.DomainSpecK>
   {
-    ContextBehaviorSpecK ()
+    [Subject (typeof (ContextBehaviorTest), "Test")]
+    public class DomainSpecK : SpecK<DomainType>
     {
-      Specify (x => x.Property)
-          .DefaultCase (_ => _
-              .Given (SetSubject ("ctor arg"))
-              .It (AssertProperty ("ctor arg")));
+      DomainSpecK ()
+      {
+        Specify (x => x.Property)
+            .DefaultCase (_ => _
+                .Given (SetSubject ("ctor arg"))
+                .It (AssertProperty ("ctor arg")));
+      }
+
+      Context<DomainType> SetSubject (string value)
+      {
+        return context => context
+            .GivenSubject ("with ctor arg", x => new DomainType (value));
+      }
+
+      Behavior<DomainType, string> AssertProperty (string value)
+      {
+        return behavior => behavior
+            .It ("has result set to " + value, x => x.Result.Should ().Be (value))
+            .It ("has property set to null", x => x.Subject.Property.Should ().BeNull ());
+      }
     }
 
-    Context<DomainType> SetSubject (string value)
+    [Test]
+    public override void Test ()
     {
-      return context => context
-          .GivenSubject ("with ctor arg", x => new DomainType (value));
-    }
-
-    Behavior<DomainType, string> AssertProperty (string value)
-    {
-      return behavior => behavior
-          .It ("has result set to " + value, x => x.Result.Should ().Be (value))
-          .It ("has property set to null", x => x.Subject.Property.Should ().BeNull ());
+      AssertDefaultTest (State.Failed)
+          .WithOperations (
+              "subject with ctor arg",
+              "<Action>",
+              "has result set to ctor arg",
+              "has property set to null")
+          .WithFailures ("has property set to null");
     }
 
     public class DomainType
@@ -55,27 +69,3 @@ namespace TestFx.Specifications.IntegrationTests
     }
   }
 }
-
-#if !EXAMPLE
-
-namespace TestFx.Specifications.IntegrationTests
-{
-  public class ContextBehaviorTest : TestBase<ContextBehaviorSpecK>
-  {
-    [Test]
-    public override void Test ()
-    {
-      AssertTestFailed ("<Default>",
-          operationTexts: new[]
-                          {
-                              "subject with ctor arg",
-                              "<Action>",
-                              "has result set to ctor arg",
-                              "has property set to null"
-                          },
-          failedOperationTexts: new[] { "has property set to null" });
-    }
-  }
-}
-
-#endif

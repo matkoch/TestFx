@@ -13,8 +13,8 @@
 // limitations under the License.
 
 using System;
-using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests.Subject
 {
@@ -35,9 +35,10 @@ namespace TestFx.Specifications.IntegrationTests.Subject
     [Test]
     public override void Test ()
     {
-      var failedTest = AssertTestFailed ("<Default>");
-      var exception = GetFailedException (failedTest, "<CreateSubject>");
-      exception.Message.Should ().Be ("Missing constructor arguments for subject type 'DomainType': firstMissingString, secondMissingString");
+      AssertDefaultTest (State.Failed)
+          .WithFailureDetails (
+              "<CreateSubject>",
+              message: "Missing constructor arguments for subject type 'DomainType': firstMissingString, secondMissingString");
     }
 
     public class DomainType

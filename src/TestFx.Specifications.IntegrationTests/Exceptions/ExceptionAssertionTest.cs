@@ -15,6 +15,7 @@
 using System;
 using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 using UserNamespace;
 
 namespace TestFx.Specifications.IntegrationTests.Exceptions
@@ -54,19 +55,22 @@ namespace TestFx.Specifications.IntegrationTests.Exceptions
     [Test]
     public override void Test ()
     {
-      AssertTestPassed ("<Default>",
-          "<Reset_Instance_Fields>",
-          "a message",
-          "an inner exception",
-          "<Action>",
-          "Throws ArgumentException");
+      AssertDefaultTest (State.Passed)
+          .WithOperations (
+              "<Reset_Instance_Fields>",
+              "a message",
+              "an inner exception",
+              "<Action>",
+              "Throws ArgumentException");
 
-      AssertTestFailed ("Wrong exception type");
-      AssertTestFailed ("Wrong message");
-      AssertTestFailed ("Wrong message provider");
-      AssertTestFailed ("Wrong inner exception provider");
-      AssertTestFailed ("Custom failing assertion", failedOperationTexts: new[] { "Throws exception with special properties" });
-      AssertTestPassed ("Custom passing assertion", operationTexts: null /* don't care */);
+      AssertTest ("Wrong exception type", State.Failed);
+      AssertTest ("Wrong message", State.Failed);
+      AssertTest ("Wrong message provider", State.Failed);
+      AssertTest ("Wrong inner exception provider", State.Failed);
+      AssertTest ("Custom failing assertion", State.Failed)
+          .WithFailures ("Throws exception with special properties");
+
+      AssertTest ("Custom passing assertion", State.Passed);
     }
   }
 }

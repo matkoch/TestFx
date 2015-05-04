@@ -16,6 +16,7 @@ using System;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 using TestFx.Utilities;
 using UserNamespace;
 
@@ -42,22 +43,22 @@ namespace TestFx.Specifications.IntegrationTests.Exceptions
     [Test]
     public override void Test ()
     {
-      var failedTest = AssertTestFailed ("<Default>",
-          operationTexts: new[]
-                          {
-                              "<Reset_Instance_Fields>",
-                              "a message",
-                              "an inner exception with message",
-                              "<Action>"
-                          },
-          failedOperationTexts: new[] { "<Action>" });
-
-      var exception = failedTest.OperationResults.Single (x => x.Text == "<Action>").Exception.AssertNotNull ();
-      exception.Name.Should ().Be ("ArgumentException");
-      exception.FullName.Should ().Be ("System.ArgumentException");
-      exception.StackTrace.Should ().NotContain ("at TestFx");
-      exception.StackTrace.Should ().Contain ("at UserNamespace");
-      exception.Message.Should ().Be ("Message\r\n---> InnerMessage");
+      AssertDefaultTest (State.Failed)
+          .WithOperations (
+              "<Reset_Instance_Fields>",
+              "a message",
+              "an inner exception with message",
+              "<Action>")
+          .WithFailureDetails (
+              "<Action>",
+              x =>
+              {
+                x.Name.Should ().Be ("ArgumentException");
+                x.FullName.Should ().Be ("System.ArgumentException");
+                x.StackTrace.Should ().NotContain ("at TestFx");
+                x.StackTrace.Should ().Contain ("at UserNamespace");
+                x.Message.Should ().Be ("Message\r\n---> InnerMessage");
+              });
     }
   }
 }

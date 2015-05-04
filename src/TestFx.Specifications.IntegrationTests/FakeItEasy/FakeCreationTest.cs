@@ -16,6 +16,7 @@ using System;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 using TestFx.FakeItEasy;
 
 namespace TestFx.Specifications.IntegrationTests.FakeItEasy
@@ -44,13 +45,14 @@ namespace TestFx.Specifications.IntegrationTests.FakeItEasy
     [Test]
     public override void Test ()
     {
-      AssertTestPassed ("<Default>",
-          "<Reset_Instance_Fields>",
-          "<Create_Fakes>",
-          "<CreateSubject>",
-          "FormatProvider returns",
-          "<Action>",
-          "returns FormatProvider");
+      AssertDefaultTest (State.Passed)
+          .WithOperations (
+              "<Reset_Instance_Fields>",
+              "<Create_Fakes>",
+              "<CreateSubject>",
+              "FormatProvider returns",
+              "<Action>",
+              "returns FormatProvider");
     }
 
     public class DomainType

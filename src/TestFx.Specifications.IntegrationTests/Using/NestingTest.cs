@@ -38,16 +38,17 @@ namespace TestFx.Specifications.IntegrationTests.Using
     [Test]
     public override void Test ()
     {
-      AssertTest ("<Default>", State.Failed,
-          "Create FirstDisposable",
-          "Create SecondDisposable (named)",
-          "Arrangement",
-          "Create ThirdDisposable",
-          "<Action>",
-          "Failing Assertion",
-          "Dispose ThirdDisposable",
-          "Dispose SecondDisposable (named)",
-          "Dispose FirstDisposable");
+      AssertDefaultTest (State.Failed)
+          .WithOperations (
+              "Create FirstDisposable",
+              "Create SecondDisposable (named)",
+              "Arrangement",
+              "Create ThirdDisposable",
+              "<Action>",
+              "Failing Assertion",
+              "Dispose ThirdDisposable",
+              "Dispose SecondDisposable (named)",
+              "Dispose FirstDisposable");
     }
 
     class FirstDisposable : IDisposable

@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;EXAMPLE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -62,9 +62,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\TestFx.FakeItEasy\bin\Debug\TestFx.Specifications.dll</HintPath>
     </Reference>
-    <Reference Include="TestFx.Utilities">
-      <HintPath>..\TestFx.FakeItEasy\bin\Debug\TestFx.Utilities.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -73,40 +70,66 @@
     <Compile Include="..\TestFx.Specifications.IntegrationTests\ContextBehaviorSpecK.cs">
       <Link>ContextBehaviorSpecK.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\DefineSpecK.cs">
-      <Link>DefineSpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Exceptions\ExceptionAssertionTest.cs">
+      <Link>Exceptions\ExceptionAssertionTest.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\ExceptionSpecK.cs">
-      <Link>ExceptionSpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Exceptions\UnexpectedExceptionTest.cs">
+      <Link>Exceptions\UnexpectedExceptionTest.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\FailingSpecK.cs">
-      <Link>FailingSpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Exceptions\UserClass.cs">
+      <Link>Exceptions\UserClass.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\FakeItEasySpecK.cs">
-      <Link>FakeItEasySpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\FakeItEasy\FakeCreationTest.cs">
+      <Link>FakeItEasy\FakeCreationTest.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\HaltingSpecK.cs">
-      <Link>HaltingSpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\FakeItEasy\FakeSetupTest.cs">
+      <Link>FakeItEasy\FakeSetupTest.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\PassingSpecK.cs">
-      <Link>PassingSpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\FakeItEasy\OrderedAssertionsTest.cs">
+      <Link>FakeItEasy\OrderedAssertionsTest.cs</Link>
     </Compile>
     <Compile Include="..\TestFx.Specifications.IntegrationTests\SetupSpecK.cs">
       <Link>SetupSpecK.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\SubjectCreationSpecK.cs">
-      <Link>SubjectCreationSpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Simple\FailingSpecK.cs">
+      <Link>Simple\FailingSpecK.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\SubjectCreationWithMissingArgumentsConstructorSpecK.cs">
-      <Link>SubjectCreationWithMissingArgumentsConstructorSpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Simple\HaltingSpecK.cs">
+      <Link>Simple\HaltingSpecK.cs</Link>
     </Compile>
-    <Compile Include="..\TestFx.Specifications.IntegrationTests\SubjectCreationWithoutDefaultConstructorSpecK.cs">
-      <Link>SubjectCreationWithoutDefaultConstructorSpecK.cs</Link>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Simple\PassingSpecK.cs">
+      <Link>Simple\PassingSpecK.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Simple\VariableTest.cs">
+      <Link>Simple\VariableTest.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Subject\AdHocCreationTest.cs">
+      <Link>Subject\AdHocCreationTest.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Subject\CustomCreationTest.cs">
+      <Link>Subject\CustomCreationTest.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Subject\DefaultCreationTest.cs">
+      <Link>Subject\DefaultCreationTest.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Subject\MissingArgumentsTest.cs">
+      <Link>Subject\MissingArgumentsTest.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Subject\NoDefaultConstructorTest.cs">
+      <Link>Subject\NoDefaultConstructorTest.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\TestBase.cs">
+      <Link>TestBase.cs</Link>
     </Compile>
     <Compile Include="..\TestFx.Specifications.IntegrationTests\TestExtensions.cs">
       <Link>TestExtensions.cs</Link>
     </Compile>
-    <Compile Include="Class1.cs" />
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Using\FailingTest.cs">
+      <Link>Using\FailingTest.cs</Link>
+    </Compile>
+    <Compile Include="..\TestFx.Specifications.IntegrationTests\Using\NestingTest.cs">
+      <Link>Using\NestingTest.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

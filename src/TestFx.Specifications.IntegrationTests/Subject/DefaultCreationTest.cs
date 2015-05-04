@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests.Subject
 {
@@ -40,11 +41,12 @@ namespace TestFx.Specifications.IntegrationTests.Subject
     [Test]
     public override void Test ()
     {
-      AssertTestPassed ("<Default>",
-          "<CreateSubject>",
-          "<Action>",
-          "passes InjectedString",
-          "creates subject only once");
+      AssertDefaultTest (State.Passed)
+          .WithOperations (
+              "<CreateSubject>",
+              "<Action>",
+              "passes InjectedString",
+              "creates subject only once");
     }
 
     public class DomainType

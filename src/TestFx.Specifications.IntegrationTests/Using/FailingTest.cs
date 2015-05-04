@@ -37,10 +37,11 @@ namespace TestFx.Specifications.IntegrationTests.Using
     [Test]
     public override void Test ()
     {
-      AssertTest ("<Default>", State.Failed,
-          "Create PassingDisposable",
-          "Create ThrowingDisposable",
-          "Dispose PassingDisposable");
+      AssertDefaultTest (State.Failed)
+          .WithOperations (
+              "Create PassingDisposable",
+              "Create ThrowingDisposable",
+              "Dispose PassingDisposable");
     }
 
     class PassingDisposable : IDisposable

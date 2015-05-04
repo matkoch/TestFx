@@ -38,10 +38,12 @@ namespace TestFx.Specifications.IntegrationTests.Simple
     [Test]
     public override void Test ()
     {
-      AssertTestFailed ("<Default>",
-          operationTexts: new[] { "Throwing arrangement" });
+      AssertDefaultTest (State.Failed)
+          .WithOperations ("Throwing arrangement")
+          .WithFailures ("Throwing arrangement");
 
-      AssertTestPassed ("Passing", operationTexts: null /* don't care */);
+      AssertTest ("Passing", State.Passed);
+
       RunResult.State.Should ().Be (State.Failed);
     }
   }

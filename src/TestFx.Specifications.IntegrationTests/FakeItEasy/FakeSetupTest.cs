@@ -15,6 +15,7 @@
 using System;
 using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 using TestFx.FakeItEasy;
 
 namespace TestFx.Specifications.IntegrationTests.FakeItEasy
@@ -43,13 +44,14 @@ namespace TestFx.Specifications.IntegrationTests.FakeItEasy
     [Test]
     public override void Test ()
     {
-      AssertTestPassed ("<Default>",
-          "<Reset_Instance_Fields>",
-          "<Create_Fakes>",
-          "<Setup_Fakes>",
-          "<CreateSubject>",
-          "<Action>",
-          "retrieves Service from ServiceProvider");
+      AssertDefaultTest (State.Passed)
+          .WithOperations (
+              "<Reset_Instance_Fields>",
+              "<Create_Fakes>",
+              "<Setup_Fakes>",
+              "<CreateSubject>",
+              "<Action>",
+              "retrieves Service from ServiceProvider");
     }
 
     public class DomainType

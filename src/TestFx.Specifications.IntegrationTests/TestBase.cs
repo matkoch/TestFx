@@ -59,72 +59,7 @@ namespace TestFx.Specifications.IntegrationTests
 
     [Test]
     public abstract void Test ();
-
-    protected ITestResult AssertTestPassed (string text, params string[] operationTexts)
-    {
-      return AssertTest (text, State.Passed, operationTexts);
-    }
-
-    protected ITestResult AssertTestFailed (string text, string[] operationTexts = null, string[] failedOperationTexts = null)
-    {
-      var testResult = AssertTest (text, State.Failed, operationTexts);
-
-      if (failedOperationTexts != null)
-        AssertFailedOperations (testResult, failedOperationTexts);
-
-      return testResult;
-    }
-
-    protected IExceptionDescriptor GetFailedException(ITestResult testResult, string operationText)
-    {
-      var operationResult = testResult.OperationResults.SingleOrDefault (x => x.Text == operationText);
-      if (operationResult == null)
-        Assert.Fail ("Operation '{0}' is not present.", operationText);
-
-      return operationResult.Exception.AssertNotNull ();
-    }
-
-    protected IOperationResult[] AssertFailedOperations (ITestResult testResult, params string[] operationTexts)
-    {
-      var failedOperations = testResult.OperationResults.Where (x => x.State == State.Failed).ToArray ();
-      Assert.That (failedOperations.Select (x => x.Text).ToArray (), Is.EqualTo (operationTexts));
-      return failedOperations;
-    }
-
-    protected ITestResult AssertTest (string text, State state, params string[] operationTexts)
-    {
-      var testResult = TestResults.SingleOrDefault (x => x.Text == text);
-      if (testResult == null)
-        Assert.Fail ("Test '{0}' is not present.", text);
-
-      Assert.That (testResult.State, Is.EqualTo (state));
-      if (operationTexts != null)
-        Assert.That (testResult.OperationResults.Select (x => x.Text).ToArray (), Is.EqualTo (operationTexts));
-
-      return testResult;
-    }
-
-
-    //protected IOperationResult AssertOperation(string text, State? state = null, OperationType? type = null)
-    //{
-    //  var operationResults = OperationResults.Where (x => x.Text == text).ToList ();
-    //  if (operationResults.Count != 1)
-    //    Assert.Fail ("Operation '{0}' ist not uniquely existent.", text);
-
-    //  var operationResult = operationResults.Single ();
-    //  if (state != null)
-    //    Assert.That (operationResult.State, Is.EqualTo (state));
-    //  if (type != null)
-    //    Assert.That (operationResult.Type, Is.EqualTo (type));
-
-    //  return operationResult;
-    //}
-
-    protected void AssertResult (IResult result, string relativeIdAndText, State state)
-    {
-      AssertResult (result, relativeIdAndText, relativeIdAndText, state);
-    }
-
+    
     protected void AssertResult (IOperationResult result, string text, State state)
     {
       AssertResult (result, "<OPERATION>", text, state);
@@ -141,6 +76,92 @@ namespace TestFx.Specifications.IntegrationTests
     {
       AssertResult (result, text, state);
       result.Type.Should ().Be (type);
+    }
+
+    protected TestAssertion AssertDefaultTest (State state)
+    {
+      return GetTestResult ("<Default>").HasState (state);
+    }
+
+    protected TestAssertion AssertTest (string testText, State state)
+    {
+      return GetTestResult (testText).HasState (state);
+    }
+
+    private TestAssertion GetTestResult (string text)
+    {
+      var testResult = TestResults.SingleOrDefault (x => x.Text == text);
+      if (testResult == null)
+        Assert.Fail ("Test '{0}' is not present.", text);
+      return new TestAssertion (testResult);
+    }
+
+    protected class TestAssertion
+    {
+      readonly ITestResult _testResult;
+
+      public TestAssertion (ITestResult testResult)
+      {
+        _testResult = testResult;
+      }
+
+      public TestAssertion Passed ()
+      {
+        return HasState (State.Passed);
+      }
+
+      public TestAssertion Failed ()
+      {
+        return HasState (State.Failed);
+      }
+
+      public TestAssertion HasState (State state)
+      {
+        Assert.That (_testResult.State, Is.EqualTo (state));
+        return this;
+      }
+
+      public TestAssertion WithOperations (params string[] operationTexts)
+      {
+        var operations = _testResult.OperationResults;
+        Assert.That (operations.Select (x => x.Text).ToArray (), Is.EqualTo (operationTexts), "Operations");
+        return this;
+      }
+
+      public TestAssertion WithFailures (params string[] failureTexts)
+      {
+        var failures = _testResult.OperationResults.Where (x => x.State == State.Failed);
+        Assert.That (failures.Select (x => x.Text).ToArray (), Is.EqualTo (failureTexts), "Failures");
+        return this;
+      }
+
+      public TestAssertion WithFailureDetails (string failureText, string message)
+      {
+        var failure = GetFailure (failureText);
+
+        var exception = failure.Exception.AssertNotNull ();
+        if (message != null)
+          Assert.That (exception.Message, Is.EqualTo (message));
+
+        return this;
+      }
+
+      public TestAssertion WithFailureDetails (string failureText, Action<IExceptionDescriptor> exceptionAssertion)
+      {
+        var failure = GetFailure (failureText);
+
+        exceptionAssertion (failure.Exception);
+
+        return this;
+      }
+
+      private IOperationResult GetFailure (string failureText)
+      {
+        var failure = _testResult.OperationResults.SingleOrDefault (x => x.State == State.Failed && x.Text == failureText);
+        if (failure == null)
+          Assert.Fail ("Failure '{0}' is not present.", failureText);
+        return failure;
+      }
     }
   }
 }

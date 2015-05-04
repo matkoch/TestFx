@@ -15,6 +15,7 @@
 using System;
 using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests.Subject
 {
@@ -35,9 +36,10 @@ namespace TestFx.Specifications.IntegrationTests.Subject
     [Test]
     public override void Test ()
     {
-      var failedTest = AssertTestFailed ("<Default>");
-      var exception = GetFailedException (failedTest, "<CreateSubject>");
-      exception.Message.Should ().Be ("Missing default constructor for subject type 'DomainType'.");
+      AssertDefaultTest (State.Failed)
+          .WithFailureDetails (
+              "<CreateSubject>",
+              message: "Missing default constructor for subject type 'DomainType'.");
     }
 
     public class DomainType

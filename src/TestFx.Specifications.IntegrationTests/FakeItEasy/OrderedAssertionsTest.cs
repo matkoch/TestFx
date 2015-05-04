@@ -16,6 +16,7 @@ using System;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 using TestFx.FakeItEasy;
 
 namespace TestFx.Specifications.IntegrationTests.FakeItEasy
@@ -49,10 +50,10 @@ namespace TestFx.Specifications.IntegrationTests.FakeItEasy
     [Test]
     public override void Test ()
     {
-      AssertTestFailed ("<Default>",
-          operationTexts: null,
-          failedOperationTexts: new[] { "calls in order first and second disposable" });
-      // TODO: test for FakeItEasy exception
+      AssertDefaultTest (State.Failed)
+          .WithFailureDetails (
+              "calls in order first and second disposable",
+              exceptionAssertion: x => x.Name.Should ().Be ("ExpectationException"));
     }
 
     public class DomainType

@@ -15,6 +15,7 @@
 using System;
 using FluentAssertions;
 using NUnit.Framework;
+using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests.Simple
 {
@@ -43,12 +44,13 @@ namespace TestFx.Specifications.IntegrationTests.Simple
     [Test]
     public override void Test ()
     {
-      AssertTestPassed ("<Default>",
-          "<Reset_Instance_Fields>",
-          "set MyInteger",
-          "<Set_Variables>",
-          "<Action>",
-          "holds variables");
+      AssertDefaultTest (State.Passed)
+          .WithOperations (
+              "<Reset_Instance_Fields>",
+              "set MyInteger",
+              "<Set_Variables>",
+              "<Action>",
+              "holds variables");
     }
   }
 }
