@@ -15,6 +15,7 @@
 using System;
 using FakeItEasy;
 using TestFx.FakeItEasy;
+using TestFx.Farada;
 using TestFx.Specifications;
 
 namespace Example._104_PaymentController
@@ -24,12 +25,10 @@ namespace Example._104_PaymentController
   {
     [Injected] [Faked] IPaymentService PaymentService;
 
-    PaymentModel Model;
+    [Auto] PaymentModel Model;
 
     PaymentControllerSpecK ()
     {
-      Setup (CreateRandomPaymentModel);
-
       Specify (x => x.Pay (Model))
           .DefaultCase (_ => _
               .Given ("PaymentService returns true", x => A.CallTo (PaymentService).WithReturnType<bool> ().Returns (true))
@@ -39,17 +38,6 @@ namespace Example._104_PaymentController
           .Case ("Rejection", _ => _
               .Given ("PaymentService returns false", x => A.CallTo (PaymentService).WithReturnType<bool> ().Returns (false))
               .ItReturns (x => "Error"));
-    }
-
-    void CreateRandomPaymentModel (ITestContext<PaymentController> ctx)
-    {
-      Model = new PaymentModel
-              {
-                  Owner = "Willy Wonka",
-                  Number = "1111222233334444",
-                  Validity = DateTime.MaxValue,
-                  Cvc = "123"
-              };
     }
   }
 }

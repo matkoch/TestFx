@@ -49,8 +49,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="TestFx.Core">
       <HintPath>..\TestFx.FakeItEasy\bin\Debug\TestFx.Core.dll</HintPath>
@@ -58,6 +56,9 @@
     <Reference Include="TestFx.FakeItEasy, Version=1.3.3.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\TestFx.FakeItEasy\bin\Debug\TestFx.FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="TestFx.Farada">
+      <HintPath>..\TestFx.Farada\bin\Debug\TestFx.Farada.dll</HintPath>
     </Reference>
     <Reference Include="TestFx.Specifications, Version=1.3.3.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

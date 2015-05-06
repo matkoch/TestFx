@@ -27,9 +27,28 @@ namespace Example._104_PaymentController
 
     public string Pay (PaymentModel model)
     {
-      return _paymentService.PayWithCreditCard (model.Owner, model.Number, model.Validity, model.Cvc)
-          ? "Success"
-          : "Error";
+      Validate (model);
+
+      var paymentSucceeded = _paymentService.PayWithCreditCard (model.Owner, model.Number, model.Validity, model.Cvc);
+
+      return View (paymentSucceeded ? "Success" : "Error");
+    }
+
+    void Validate (PaymentModel model)
+    {
+      if (model.Owner == null || model.Owner.Length < 3)
+        throw new Exception ("Owner must be not null and have length greater 3.");
+
+      if (model.Number == null || model.Number.Length != 12)
+        throw new Exception ("Number must have exactly 12 characters.");
+
+      if (model.Cvc == null || model.Cvc.Length != 3)
+        throw new Exception ("CVC is not valid.");
+    }
+
+    string View (string view)
+    {
+      return view;
     }
   }
 }
