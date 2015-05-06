@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.ReSharper.Runner.9.1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.ReSharper.9.1", "src\TestFx.ReSharper\TestFx.ReSharper.9.1.csproj", "{340CA0B3-563A-47DA-858D-2CF4FEAF12B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.Farada", "src\TestFx.Farada\TestFx.Farada.csproj", "{D829BE92-9835-4B84-B6BA-6FE6AD8A3CCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{340CA0B3-563A-47DA-858D-2CF4FEAF12B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340CA0B3-563A-47DA-858D-2CF4FEAF12B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{340CA0B3-563A-47DA-858D-2CF4FEAF12B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D829BE92-9835-4B84-B6BA-6FE6AD8A3CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D829BE92-9835-4B84-B6BA-6FE6AD8A3CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D829BE92-9835-4B84-B6BA-6FE6AD8A3CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D829BE92-9835-4B84-B6BA-6FE6AD8A3CCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,5 +126,6 @@ Global
 		{68456E60-C7A1-4B54-BB14-00063A03B7A3} = {01FD6DA1-370A-4940-BB19-58E4D9462864}
 		{B33814B8-345A-4C20-8B23-8F34AFD04FF0} = {79DDE74A-B790-4CB2-8F4D-A8A6D546B55C}
 		{340CA0B3-563A-47DA-858D-2CF4FEAF12B3} = {79DDE74A-B790-4CB2-8F4D-A8A6D546B55C}
+		{D829BE92-9835-4B84-B6BA-6FE6AD8A3CCF} = {CAA446D8-5B3A-40B1-AC06-E0AB0FFCD409}
 	EndGlobalSection
 EndGlobal

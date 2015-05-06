@@ -13,10 +13,13 @@
 // limitations under the License.
 
 using System;
-using TestFx;
-using TestFx.FakeItEasy;
-using TestFx.Farada;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-[assembly: UseTestExtension (typeof (ResetInstanceFieldsTestExtensions))]
-[assembly: UseTestExtension (typeof (FakeItEasyTestExtension))]
-[assembly: UseTestExtension (typeof (FaradaTestExtension))]
+[assembly: AssemblyTitle ("TestFx.Farada")]
+[assembly: Guid ("013804b8-ebd5-4a82-afd4-b08688c1a42f")]
+
+[assembly: AssemblyConfiguration ("DEBUG")]
+[assembly: AssemblyVersion ("1.3.3.7")]
+[assembly: AssemblyFileVersion ("1.3.3.7")]
+[assembly: AssemblyInformationalVersion ("DEV")]

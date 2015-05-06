@@ -48,6 +48,8 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -59,6 +61,7 @@
     <Compile Include="ContextBehaviorSpecK.cs" />
     <Compile Include="Exceptions\UnexpectedExceptionTest.cs" />
     <Compile Include="Exceptions\ExceptionAssertionTest.cs" />
+    <Compile Include="Farada\AutoCreationTest.cs" />
     <Compile Include="Simple\VariableTest.cs" />
     <Compile Include="Exceptions\UserClass.cs" />
     <Compile Include="FakeItEasy\OrderedAssertionsTest.cs" />
@@ -87,6 +90,10 @@
     <ProjectReference Include="..\TestFx.FakeItEasy\TestFx.FakeItEasy.csproj">
       <Project>{c7f266e7-f9d5-4882-9f0f-d0c142535bca}</Project>
       <Name>TestFx.FakeItEasy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestFx.Farada\TestFx.Farada.csproj">
+      <Project>{d829be92-9835-4b84-b6ba-6fe6ad8a3ccf}</Project>
+      <Name>TestFx.Farada</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestFx.Specifications\TestFx.Specifications.csproj">
       <Project>{805bdcc2-3399-49aa-8443-d189ac477899}</Project>
