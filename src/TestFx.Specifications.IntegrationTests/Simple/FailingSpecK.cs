@@ -29,7 +29,8 @@ namespace TestFx.Specifications.IntegrationTests.Simple
         Specify (x => 1)
             .DefaultCase (_ => _
                 .It ("Failing assertion", x => { throw new Exception (); })
-                .It ("Passing assertion", x => x.Result.Should ().Be (1)))
+                .It ("Passing assertion", x => x.Result.Should ().Be (1))
+                .It ("Another failing assertion", x => { throw new Exception (); }))
             .Case ("Passing", _ => _);
       }
     }
@@ -38,8 +39,8 @@ namespace TestFx.Specifications.IntegrationTests.Simple
     public override void Test ()
     {
       AssertDefaultTest (State.Failed)
-          .WithOperations ("<Action>", "Failing assertion", "Passing assertion")
-          .WithFailures ("Failing assertion");
+          .WithOperations ("<Action>", "Failing assertion", "Passing assertion", "Another failing assertion")
+          .WithFailures ("Failing assertion", "Another failing assertion");
 
       AssertTest ("Passing", State.Passed);
 

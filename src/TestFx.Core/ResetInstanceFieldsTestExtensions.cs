@@ -16,7 +16,6 @@ using System;
 using System.Linq;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
-using TestFx.Utilities.Collections;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx

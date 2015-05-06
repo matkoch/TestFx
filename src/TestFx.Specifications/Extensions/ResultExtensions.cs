@@ -22,7 +22,10 @@ namespace TestFx.Specifications
 {
   public static class ResultExtensions
   {
-    public static IAssert ItReturns<TSubject, TResult, TVars, TDerivedResult> (
+    /// <summary>
+    /// .ItReturns((DerivedType x) => x);
+    /// </summary>
+    public static IAssert<TSubject, TResult, TVars> ItReturns<TSubject, TResult, TVars, TDerivedResult> (
         this IAssert<TSubject, TResult, TVars> assert,
         Action<TDerivedResult> resultAssertion)
         where TDerivedResult : class, TResult
@@ -33,8 +36,11 @@ namespace TestFx.Specifications
           x => resultAssertion(x.Result as TDerivedResult));
       return assert;
     }
-
-    public static IAssert ItReturns<TSubject, TResult, TVars> (
+    
+    /// <summary>
+    /// .ItReturns(x => x.Exception);
+    /// </summary>
+    public static IAssert<TSubject, TResult, TVars> ItReturns<TSubject, TResult, TVars> (
         this IAssert<TSubject, TResult, TVars> assert,
         Expression<Func<TVars, TResult>> resultProvider)
     {
