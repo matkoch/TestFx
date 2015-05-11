@@ -50,7 +50,7 @@ namespace TestFx.Specifications.IntegrationTests.FakeItEasy
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Failed)
+      AssertTest (Default, State.Failed)
           .WithFailureDetails (
               "calls in order first and second disposable",
               exceptionAssertion: x => x.Name.Should ().Be ("ExpectationException"));

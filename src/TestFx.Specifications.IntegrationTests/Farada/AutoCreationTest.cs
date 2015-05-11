@@ -59,12 +59,12 @@ namespace TestFx.Specifications.IntegrationTests.Farada
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Passed)
+      AssertTest (Default, State.Passed)
           .WithOperations (
-              "<Reset_Instance_Fields>",
+              Reset_Instance_Fields,
               "<Create_Autos>",
-              "<CreateSubject>",
-              "<Action>",
+              Create_Subject,
+              Action,
               "returns FormatProvider");
     }
 

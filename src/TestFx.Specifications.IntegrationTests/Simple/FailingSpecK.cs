@@ -38,8 +38,8 @@ namespace TestFx.Specifications.IntegrationTests.Simple
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Failed)
-          .WithOperations ("<Action>", "Failing assertion", "Passing assertion", "Another failing assertion")
+      AssertTest (Default, State.Failed)
+          .WithOperations (Action, "Failing assertion", "Passing assertion", "Another failing assertion")
           .WithFailures ("Failing assertion", "Another failing assertion");
 
       AssertTest ("Passing", State.Passed);

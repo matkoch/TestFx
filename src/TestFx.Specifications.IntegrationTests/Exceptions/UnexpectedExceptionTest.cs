@@ -43,14 +43,14 @@ namespace TestFx.Specifications.IntegrationTests.Exceptions
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Failed)
+      AssertTest (Default, State.Failed)
           .WithOperations (
-              "<Reset_Instance_Fields>",
+              Reset_Instance_Fields,
               "a message",
               "an inner exception with message",
-              "<Action>")
+              Action)
           .WithFailureDetails (
-              "<Action>",
+              Action,
               x =>
               {
                 x.Name.Should ().Be ("ArgumentException");

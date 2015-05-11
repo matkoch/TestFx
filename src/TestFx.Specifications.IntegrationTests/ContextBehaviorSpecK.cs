@@ -49,10 +49,10 @@ namespace TestFx.Specifications.IntegrationTests
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Failed)
+      AssertTest (Default, State.Failed)
           .WithOperations (
               "subject with ctor arg",
-              "<Action>",
+              Action,
               "has result set to ctor arg",
               "has property set to null")
           .WithFailures ("has property set to null");

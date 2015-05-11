@@ -55,12 +55,12 @@ namespace TestFx.Specifications.IntegrationTests.Exceptions
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Passed)
+      AssertTest (Default, State.Passed)
           .WithOperations (
-              "<Reset_Instance_Fields>",
+              Reset_Instance_Fields,
               "a message",
               "an inner exception",
-              "<Action>",
+              Action,
               "Throws ArgumentException");
 
       AssertTest ("Wrong exception type", State.Failed);

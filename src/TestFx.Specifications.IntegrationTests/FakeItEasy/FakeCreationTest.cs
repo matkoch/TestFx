@@ -45,13 +45,13 @@ namespace TestFx.Specifications.IntegrationTests.FakeItEasy
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Passed)
+      AssertTest (Default, State.Passed)
           .WithOperations (
-              "<Reset_Instance_Fields>",
-              "<Create_Fakes>",
-              "<CreateSubject>",
+              Reset_Instance_Fields,
+              Create_Fakes,
+              Create_Subject,
               "FormatProvider returns",
-              "<Action>",
+              Action,
               "returns FormatProvider");
     }
 

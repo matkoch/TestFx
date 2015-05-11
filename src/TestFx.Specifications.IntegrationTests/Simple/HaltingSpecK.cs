@@ -38,7 +38,7 @@ namespace TestFx.Specifications.IntegrationTests.Simple
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Failed)
+      AssertTest (Default, State.Failed)
           .WithOperations ("Throwing arrangement")
           .WithFailures ("Throwing arrangement");
 

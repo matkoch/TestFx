@@ -44,12 +44,12 @@ namespace TestFx.Specifications.IntegrationTests.Simple
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Passed)
+      AssertTest (Default, State.Passed)
           .WithOperations (
-              "<Reset_Instance_Fields>",
+              Reset_Instance_Fields,
               "set MyInteger",
               "<Set_Variables>",
-              "<Action>",
+              Action,
               "holds variables");
     }
   }

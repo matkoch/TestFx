@@ -41,10 +41,10 @@ namespace TestFx.Specifications.IntegrationTests.Subject
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Passed)
+      AssertTest (Default, State.Passed)
           .WithOperations (
-              "<CreateSubject>",
-              "<Action>",
+              Create_Subject,
+              Action,
               "passes InjectedString",
               "creates subject only once");
     }

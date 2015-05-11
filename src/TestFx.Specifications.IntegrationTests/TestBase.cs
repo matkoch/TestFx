@@ -32,6 +32,13 @@ namespace TestFx.Specifications.IntegrationTests
   public abstract class TestBase<T>
       where T : ISpecK
   {
+    protected const string Default = "<Default>";
+    protected const string Action = "<Action>";
+    protected const string Create_Subject = "<Create_Subject>";
+    protected const string Reset_Instance_Fields = "<Reset_Instance_Fields>";
+    protected const string Create_Fakes = "<Create_Fakes>";
+    protected const string Setup_Fakes = "<Setup_Fakes>";
+
     protected IFakeScope Scope;
 
     protected IRunResult RunResult;
@@ -78,11 +85,6 @@ namespace TestFx.Specifications.IntegrationTests
       result.Type.Should ().Be (type);
     }
 
-    protected TestAssertion AssertDefaultTest (State state)
-    {
-      return GetTestResult ("<Default>").HasState (state);
-    }
-
     protected TestAssertion AssertTest (string testText, State state)
     {
       return GetTestResult (testText).HasState (state);
@@ -103,16 +105,6 @@ namespace TestFx.Specifications.IntegrationTests
       public TestAssertion (ITestResult testResult)
       {
         _testResult = testResult;
-      }
-
-      public TestAssertion Passed ()
-      {
-        return HasState (State.Passed);
-      }
-
-      public TestAssertion Failed ()
-      {
-        return HasState (State.Failed);
       }
 
       public TestAssertion HasState (State state)

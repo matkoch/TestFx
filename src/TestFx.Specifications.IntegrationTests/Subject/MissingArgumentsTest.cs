@@ -35,9 +35,9 @@ namespace TestFx.Specifications.IntegrationTests.Subject
     [Test]
     public override void Test ()
     {
-      AssertDefaultTest (State.Failed)
+      AssertTest (Default, State.Failed)
           .WithFailureDetails (
-              "<CreateSubject>",
+              Create_Subject,
               message: "Missing constructor arguments for subject type 'DomainType': firstMissingString, secondMissingString");
     }
 

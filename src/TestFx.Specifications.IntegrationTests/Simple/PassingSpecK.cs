@@ -57,9 +57,9 @@ namespace TestFx.Specifications.IntegrationTests.Simple
           text: "<Default>",
           state: State.Passed);
 
-      AssertResult (OperationResults[0], "<Reset_Instance_Fields>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[0], Reset_Instance_Fields, State.Passed, OperationType.Action);
       AssertResult (OperationResults[1], "<Arrangement>", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[2], "<Action>", State.Passed, OperationType.Action);
+      AssertResult (OperationResults[2], Action, State.Passed, OperationType.Action);
       AssertResult (OperationResults[3], "Assertion", State.Passed, OperationType.Assertion);
 
       TestResults.Single ().Identity.Absolute.Should ()
