@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Farada.TestDataGeneration;
@@ -21,6 +22,7 @@ using Farada.TestDataGeneration.Fluent;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
+using TestFx.Utilities.Collections;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.Farada
@@ -39,18 +41,29 @@ namespace TestFx.Farada
 
     private void CreateAutos (ITestController testController, ISuite suite)
     {
-      var fieldsWithAttribute = suite.GetType().GetFieldsWithAttribute<AutoAttribute>().ToList();
+      var fieldsWithAttribute = suite.GetType().GetFieldsWithAttribute<AutoAttribute>()
+          .OrderBy(x => x.Item1.Name)
+          .SortTopologically(IsDependentAutoData).ToList();
+
       if (fieldsWithAttribute.Count == 0)
         return;
 
       var random = new Random();
       var configuration = GetTestDataConfiguration(suite.GetType());
+
+
       var generator = TestDataGeneratorFactory.Create(x => configuration(x).UseRandom(random));
 
       // TODO: add seed to data
       testController.AddAction<SetupExtension>(
           "<Create_Autos>",
           x => fieldsWithAttribute.ForEach(t => CreateAndAssignAuto(suite, generator, t.Item2, t.Item1)));
+    }
+
+    private bool IsDependentAutoData (Tuple<FieldInfo, AutoAttribute> autoData1, Tuple<FieldInfo, AutoAttribute> autoData2)
+    {
+      var memberDependencies = autoData1.Item2.GetType().GetFieldsWithAttribute<SuiteMemberDependencyAttribute>();
+      return memberDependencies.Any(x => x.Item1.Name == autoData2.Item1.Name);
     }
 
     private Func<ITestDataConfigurator, ITestDataConfigurator> GetTestDataConfiguration (Type suiteType)
@@ -64,15 +77,18 @@ namespace TestFx.Farada
 
     private void CreateAndAssignAuto (ISuite suite, ITestDataGenerator generator, AutoAttribute attribute, FieldInfo field)
     {
-      var auto = this.InvokeGenericMethod("CreateAuto", new object[] { generator }, new[] { field.FieldType });
-      attribute.Mutate(auto, suite);
+      var auto = this.InvokeGenericMethod("CreateAuto", new object[] { generator, attribute.MaxRecursionDepth }, new[] { field.FieldType });
+
+      attribute.CurrentSuite = suite;
+      attribute.Mutate(auto);
+
       field.SetValue(suite, auto);
     }
 
     [UsedImplicitly]
-    private object CreateAuto<T> (ITestDataGenerator generator)
+    private object CreateAuto<T> (ITestDataGenerator generator, int maxRecursionDepth)
     {
-      return generator.Create<T>();
+      return generator.Create<T>(maxRecursionDepth);
     }
   }
 }

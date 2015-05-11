@@ -16,6 +16,7 @@ using System;
 using Farada.TestDataGeneration.Fluent;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
+using TestFx.Utilities.Reflection;
 
 namespace TestFx.Farada
 {
@@ -24,11 +25,50 @@ namespace TestFx.Farada
     Func<ITestDataConfigurator, ITestDataConfigurator> Configuration { get; }
   }
 
+
+  [AttributeUsage (AttributeTargets.Property)]
+  public class SuiteMemberDependencyAttribute : Attribute
+  {
+  }
+
   [AttributeUsage (AttributeTargets.Field)]
   [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
   public class AutoAttribute : Attribute
   {
-    public virtual void Mutate (object auto, ISuite suite)
+    private ISuite _currentSuite;
+
+    public AutoAttribute ()
+    {
+      MaxRecursionDepth = 3;
+    }
+
+    public int MaxRecursionDepth { get; set; }
+
+    public ISuite CurrentSuite
+    {
+      get { return _currentSuite; }
+      internal set { _currentSuite = value; }
+    }
+
+    [CanBeNull]
+    public T GetValueFromSuiteMember<T> (string memberName)
+    {
+      return _currentSuite.GetMemberValue<T>(memberName);
+    }
+
+    public T GetNonNullValueFromSuiteMember<T> (string memberName)
+    {
+      var value = GetValueFromSuiteMember<T>(memberName);
+      if (value == null)
+        throw new ArgumentException(
+            string.Format(
+                "Member '{0}' was null. If necessary adjust the descending initialization order using the AutoAttributeOrder property.",
+                memberName));
+
+      return value;
+    }
+
+    public virtual void Mutate (object auto)
     {
     }
   }

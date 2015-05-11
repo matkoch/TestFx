@@ -21,13 +21,27 @@ using TestFx.Farada;
 
 namespace TestFx.Specifications.IntegrationTests.Farada
 {
+  public class AutoModelAttribute : AutoAttribute
+  {
+    [SuiteMemberDependency]
+    public string IdMember { get; set; }
+
+    public override void Mutate (object auto)
+    {
+      var id = GetNonNullValueFromSuiteMember<Guid> (IdMember);
+      var model = (AutoCreationTest.DomainModel) auto;
+
+      model.FirstName = id.ToString ();
+    }
+  }
+
   public class AutoCreationTest : TestBase<AutoCreationTest.DomainSpecK>
   {
     [Subject (typeof (AutoCreationTest), "Test")]
     public class DomainSpecK : SpecK<DomainType>
     {
       [Auto] Guid Id;
-      [Auto] DomainModel Model;
+      [AutoModel (IdMember = "Id")] DomainModel Model;
 
       public DomainSpecK ()
       {
