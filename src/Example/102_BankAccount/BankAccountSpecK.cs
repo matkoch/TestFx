@@ -67,8 +67,8 @@ namespace Example._102_BankAccount
             .DefaultCase (_ => _
                 .Given (x => Amount = 50)
                 .It ("Increases balance", x => x.Subject.CurrentBalance.Should ().Be (150)))
-            .Case ("Negative amount", _ => _
-                .Given (x => Amount = -50)
+            .Case ("Non-positive amount", _ => _
+                .Given (x => Amount = 0)
                 .ItThrows (typeof (ArgumentException), "Amount must be greater than zero."));
       }
     }
@@ -86,8 +86,8 @@ namespace Example._102_BankAccount
                 .Given (x => Amount = 150)
                 .ItThrows (typeof (BlankException), "Current balance of 100 doesn't allow withdrawal of 150.")
                 .It ("Keeps balance", x => x.Subject.CurrentBalance.Should ().Be (100)))
-            .Case ("Negative amount", _ => _
-                .Given (x => Amount = -50)
+            .Case ("Non-positive amount", _ => _
+                .Given (x => Amount = 0)
                 .ItThrows (typeof (ArgumentException), "Amount must be greater than zero."));
       }
     }
