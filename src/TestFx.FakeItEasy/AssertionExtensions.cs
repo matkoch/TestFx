@@ -15,6 +15,7 @@
 using System;
 using FakeItEasy;
 using FakeItEasy.Core;
+using TestFx.Specifications.Implementation;
 using TestFx.Specifications.Implementation.Controllers;
 using TestFx.Specifications.InferredApi;
 
@@ -22,6 +23,8 @@ namespace TestFx.FakeItEasy
 {
   public static class AssertionExtensions
   {
+    private const string Key = "FakeItEasy.OrderedAssertions";
+
     public static IAssert ItCallsInOrder<TSubject, TResult, TVars> (
         this IAssert<TSubject, TResult, TVars> assert,
         Assertion<TSubject, TResult, TVars> orderedAssertion)
@@ -35,11 +38,21 @@ namespace TestFx.FakeItEasy
         Assertion<TSubject, TResult, TVars> orderedAssertion)
     {
       var controller = assert.Get<ITestController<TSubject, TResult, TVars>>();
+      controller.Wrap<Act>(
+          (x, inner) =>
+          {
+            var scope = Fake.CreateScope();
+            x[Key] = scope;
+            using (scope)
+            {
+              inner();
+            }
+          });
       controller.AddAssertion(
           "calls in order " + text,
           x =>
           {
-            var scope = (IFakeScope) x[FakeItEasyTestExtension.Key];
+            var scope = (IFakeScope) x[Key];
             using (scope.OrderedAssertions())
             {
               orderedAssertion(x);

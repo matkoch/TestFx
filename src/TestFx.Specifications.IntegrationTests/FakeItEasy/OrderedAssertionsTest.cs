@@ -24,7 +24,6 @@ namespace TestFx.Specifications.IntegrationTests.FakeItEasy
   public class OrderedAssertionsTest : TestBase<OrderedAssertionsTest.DomainSpecK>
   {
     [Subject (typeof (OrderedAssertionsTest), "Test")]
-    [OrderedAssertions]
     public class DomainSpecK : SpecK<DomainType>
     {
       [Faked] IDisposable FirstDisposable;

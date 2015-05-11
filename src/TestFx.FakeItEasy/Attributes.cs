@@ -33,12 +33,6 @@ namespace TestFx.FakeItEasy
   {
   }
 
-  [AttributeUsage (AttributeTargets.Class)]
-  [UsedImplicitly]
-  public sealed class OrderedAssertionsAttribute : Attribute
-  {
-  }
-
   [MeansImplicitUse (ImplicitUseKindFlags.Access)]
   [UsedImplicitly]
   public sealed class ReturnedFromAttribute : Attribute

@@ -19,7 +19,6 @@ using FakeItEasy;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
-using TestFx.Specifications.Implementation;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.FakeItEasy
@@ -38,8 +37,6 @@ namespace TestFx.FakeItEasy
       CreateFakes(testController, suite);
 
       SetupFakes(testController, suite);
-
-      WrapActionForOrderedAssertions(testController, suite);
     }
 
     private void CreateFakes (ITestController testController, ISuite suite)
@@ -58,23 +55,6 @@ namespace TestFx.FakeItEasy
         return;
 
       testController.AddAction<SetupExtension>("<Setup_Fakes>", x => fieldsWithAttribute.ForEach(t => SetupFakeReturnValue(suite, t.Item2, t.Item1)));
-    }
-
-    private void WrapActionForOrderedAssertions (ITestController testController, ISuite suite)
-    {
-      if (suite.GetType().GetAttribute<OrderedAssertionsAttribute>() == null)
-        return;
-
-      testController.Wrap<Act>(
-          (x, inner) =>
-          {
-            var scope = Fake.CreateScope();
-            x[Key] = scope;
-            using (scope)
-            {
-              inner();
-            }
-          });
     }
 
     private void CreateAndAssignFake (ISuite suite, FakeBaseAttribute attribute, FieldInfo field)
