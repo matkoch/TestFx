@@ -22,7 +22,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
 {
   public static class FileExtensions
   {
-    private static readonly Key<ISuiteFile> s_suiteFileKey = new Key<ISuiteFile>("SuiteFile");
+    private static readonly Key<ISuiteFile> s_suiteFileKey = new Key<ISuiteFile>(typeof (ISuiteFile).Name);
 
     [CanBeNull]
     public static ISuiteFile ToSuiteFile (this IFile file, Func<bool> notInterrupted = null)
@@ -35,7 +35,14 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       if (csharpFile == null)
         return null;
 
-      return FileAggregatorFactory.Instance.Aggregate(project, notInterrupted).GetSuiteFile(csharpFile);
+      var suiteFile = csharpFile.UserData.GetData(s_suiteFileKey);
+      if (suiteFile == null)
+      {
+        suiteFile = FileAggregatorFactory.Instance.Aggregate(project, notInterrupted).GetSuiteFile(csharpFile);
+        csharpFile.UserData.PutData(s_suiteFileKey, suiteFile);
+      }
+
+      return suiteFile;
     }
   }
 }
