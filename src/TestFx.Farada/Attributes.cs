@@ -33,11 +33,11 @@ namespace TestFx.Farada
 
   [AttributeUsage (AttributeTargets.Field)]
   [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
-  public class AutoAttribute : Attribute
+  public class AutoDataAttribute : Attribute
   {
     private ISuite _currentSuite;
 
-    public AutoAttribute ()
+    public AutoDataAttribute ()
     {
       MaxRecursionDepth = 3;
     }
@@ -56,30 +56,19 @@ namespace TestFx.Farada
       return _currentSuite.GetMemberValue<T>(memberName);
     }
 
-    public T GetNonNullValueFromSuiteMember<T> (string memberName)
-    {
-      var value = GetValueFromSuiteMember<T>(memberName);
-      if (value == null)
-        throw new ArgumentException(
-            string.Format(
-                "Member '{0}' was null. If necessary adjust the descending initialization order using the AutoAttributeOrder property.",
-                memberName));
-
-      return value;
-    }
-
-    public virtual void Mutate (object auto)
+    [UsedImplicitly]
+    public virtual void Mutate (object autoData)
     {
     }
   }
 
   [AttributeUsage (AttributeTargets.Class)]
   [UsedImplicitly]
-  public sealed class TestDataConfigurationAttribute : Attribute
+  public sealed class AutoDataConfigurationAttribute : Attribute
   {
     private readonly Type _configurationType;
 
-    public TestDataConfigurationAttribute (Type configurationType)
+    public AutoDataConfigurationAttribute (Type configurationType)
     {
       _configurationType = configurationType;
     }
@@ -87,6 +76,23 @@ namespace TestFx.Farada
     public Type ConfigurationType
     {
       get { return _configurationType; }
+    }
+  }
+
+  [AttributeUsage (AttributeTargets.Class)]
+  [UsedImplicitly]
+  public sealed class AutoDataSeedAttribute : Attribute
+  {
+    private readonly int _seed;
+
+    public AutoDataSeedAttribute (int seed)
+    {
+      _seed = seed;
+    }
+
+    public int Seed
+    {
+      get { return _seed; }
     }
   }
 }

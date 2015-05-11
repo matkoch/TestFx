@@ -38,6 +38,7 @@ namespace TestFx.Specifications.IntegrationTests
     protected const string Reset_Instance_Fields = "<Reset_Instance_Fields>";
     protected const string Create_Fakes = "<Create_Fakes>";
     protected const string Setup_Fakes = "<Setup_Fakes>";
+    protected const string Create_AutoData = "<Create_AutoData>";
 
     protected IFakeScope Scope;
 

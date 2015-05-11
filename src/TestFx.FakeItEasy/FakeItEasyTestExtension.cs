@@ -25,8 +25,6 @@ namespace TestFx.FakeItEasy
 {
   public class FakeItEasyTestExtension : ITestExtension
   {
-    public const string Key = "FakeItEasy";
-
     public int Priority
     {
       get { return 0; }

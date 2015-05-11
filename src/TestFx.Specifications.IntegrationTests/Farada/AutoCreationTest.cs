@@ -21,38 +21,23 @@ using TestFx.Farada;
 
 namespace TestFx.Specifications.IntegrationTests.Farada
 {
-  public class AutoModelAttribute : AutoAttribute
-  {
-    [SuiteMemberDependency]
-    public string IdMember { get; set; }
-
-    public override void Mutate (object auto)
-    {
-      var id = GetNonNullValueFromSuiteMember<Guid> (IdMember);
-      var model = (AutoCreationTest.DomainModel) auto;
-
-      model.FirstName = id.ToString ();
-    }
-  }
-
   public class AutoCreationTest : TestBase<AutoCreationTest.DomainSpecK>
   {
     [Subject (typeof (AutoCreationTest), "Test")]
-    public class DomainSpecK : SpecK<DomainType>
+    [AutoDataSeed (1337)]
+    public class DomainSpecK : SpecK
     {
-      [Auto] Guid Id;
-      [AutoModel (IdMember = "Id")] DomainModel Model;
+      [AutoData] DomainModel Model;
 
       public DomainSpecK ()
       {
         Specify (x => 0)
             .DefaultCase (_ => _
-                .It ("injects non-empty Guid", x => x.Subject.Id.Should ().NotBe (Guid.Empty)));
-      }
-
-      public override DomainType CreateSubject ()
-      {
-        return new DomainType (Id, Model);
+                .It ("Fills properties", x =>
+                {
+                  Model.Age.Should ().BeInRange (30, 33);
+                  Model.FirstName.Length.Should ().BeInRange (3, 10);
+                }));
       }
     }
 
@@ -62,22 +47,9 @@ namespace TestFx.Specifications.IntegrationTests.Farada
       AssertTest (Default, State.Passed)
           .WithOperations (
               Reset_Instance_Fields,
-              "<Create_Autos>",
-              Create_Subject,
+              Create_AutoData + "<1337>",
               Action,
-              "returns FormatProvider");
-    }
-
-    public class DomainType
-    {
-      public DomainType (Guid id, DomainModel model)
-      {
-        Id = id;
-        Model = model;
-      }
-
-      public Guid Id { get; private set; }
-      public DomainModel Model { get; private set; }
+              "Fills properties");
     }
 
     public class DomainModel
