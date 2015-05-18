@@ -27,25 +27,26 @@ namespace TestFx.Specifications.Implementation.Controllers
         where T : SubjectFactory;
   }
 
-  public interface ITestController<TSubject, out TResult, out TVars> : ITestController<TSubject>
+  public interface ITestController<TSubject, out TResult, out TVars, out TCombi> : ITestController<TSubject>
   {
-    ITestController<TSubject, TResult, TNewVars> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
+    ITestController<TSubject, TResult, TNewVars, TCombi> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
 
-    void AddArrangement (string text, Arrangement<TSubject, TResult, TVars> arrangement);
-    void AddAssertion (string text, Assertion<TSubject, TResult, TVars> assertion, bool expectException = false);
+    void AddArrangement (string text, Arrangement<TSubject, TResult, TVars, TCombi> arrangement);
+    void AddAssertion (string text, Assertion<TSubject, TResult, TVars, TCombi> assertion, bool expectException = false);
 
-    ITestController<TDelegateSubject, TDelegateResult, TDelegateVars> CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars> ();
+    ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
+        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo> ();
   }
 
-  public class TestController<TSubject, TResult, TVars> : TestController, ITestController<TSubject, TResult, TVars>
+  public class TestController<TSubject, TResult, TVars, TCombi> : TestController, ITestController<TSubject, TResult, TVars, TCombi>
   {
     private readonly TestProvider _provider;
-    private readonly TestContext<TSubject, TResult, TVars> _context;
+    private readonly TestContext<TSubject, TResult, TVars, TCombi> _context;
     private readonly IControllerFactory _controllerFactory;
 
     public TestController (
         TestProvider provider,
-        TestContext<TSubject, TResult, TVars> context,
+        TestContext<TSubject, TResult, TVars, TCombi> context,
         IOperationSorter operationSorter,
         IControllerFactory controllerFactory)
         : base(provider, context, operationSorter)
@@ -62,31 +63,33 @@ namespace TestFx.Specifications.Implementation.Controllers
       AddAction<T>(text, x => _context.Subject = subjectFactory(null));
     }
 
-    public virtual ITestController<TSubject, TResult, TNewVars> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
+    public virtual ITestController<TSubject, TResult, TNewVars, TCombi> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
     {
       AddAction<Arrange>("<Set_Variables>", x => _context.VarsObject = variablesProvider(null));
-      return CreateDelegate<TSubject, TResult, TNewVars>();
+      return CreateDelegate<TSubject, TResult, TNewVars, TCombi>();
     }
 
-    public void AddArrangement (string text, Arrangement<TSubject, TResult, TVars> arrangement)
+    public void AddArrangement (string text, Arrangement<TSubject, TResult, TVars, TCombi> arrangement)
     {
       AddAction<Arrange>(text, x => arrangement(_context));
     }
 
-    public void AddAssertion (string text, Assertion<TSubject, TResult, TVars> assertion, bool expectException = false)
+    public void AddAssertion (string text, Assertion<TSubject, TResult, TVars, TCombi> assertion, bool expectException = false)
     {
       _context.ExpectsException |= expectException;
       AddAssertion<Assert>(text, x => assertion(_context));
     }
 
-    public ITestController<TDelegateSubject, TDelegateResult, TDelegateVars> CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars> ()
+    public ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
+        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo> ()
     {
       CheckDelegateCompatibility(typeof (TDelegateSubject), typeof (TSubject));
       CheckDelegateCompatibility(typeof (TDelegateResult), typeof (TResult));
 
-      return _controllerFactory.CreateDelegateTestController<TDelegateSubject, TDelegateResult, TDelegateVars, TSubject, TResult, TVars>(
-          _provider,
-          _context);
+      return _controllerFactory
+          .CreateDelegateTestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi>(
+              _provider,
+              _context);
     }
 
     private void CheckDelegateCompatibility (Type delegateType, Type originalType)

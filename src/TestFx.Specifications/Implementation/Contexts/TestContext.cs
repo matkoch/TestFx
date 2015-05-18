@@ -17,12 +17,14 @@ using TestFx.Extensibility.Contexts;
 
 namespace TestFx.Specifications.Implementation.Contexts
 {
-  public abstract class TestContext<TSubject, TResult, TVars> : TestContext, ITestContext<TSubject, TResult, TVars>
+  public abstract class TestContext<TSubject, TResult, TVars, TCombi> : TestContext, ITestContext<TSubject, TResult, TVars, TCombi>
   {
     public abstract TSubject Subject { get; set; }
     public abstract TResult Result { get; set; }
     public abstract object VarsObject { get; set; }
     public abstract TVars Vars { get; set; }
+    public abstract object ComboObject { get; set; }
+    public abstract TCombi Combi { get; set; }
     public abstract Exception Exception { get; set; }
     public abstract TimeSpan Duration { get; set; }
     public abstract bool ExpectsException { get; set; }

@@ -23,14 +23,14 @@ namespace TestFx.Specifications
     [DisplayFormat ("<Default>")]
     public static IIgnoreOrCase<TSubject, TResult> DefaultCase<TSubject, TResult> (
         this ICase<TSubject, TResult> @case,
-        Func<IArrangeOrAssert<TSubject, TResult, object>, IAssert> succession)
+        Func<ICombineOrArrangeOrAssert<TSubject, TResult, object, object>, IAssert> succession)
     {
       return @case.Case("<Default>", succession);
     }
 
-    public static IArrangeOrAssert<TSubject, TResult, TVars> Given<TSubject, TResult, TVars> (
-        this IArrange<TSubject, TResult, TVars> arrange,
-        Arrangement<TSubject, TResult, TVars> arrangement)
+    public static IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given<TSubject, TResult, TVars, TCombi> (
+        this IArrange<TSubject, TResult, TVars, TCombi> arrange,
+        Arrangement<TSubject, TResult, TVars, TCombi> arrangement)
     {
       return arrange.Given("<Arrangement>", arrangement);
     }

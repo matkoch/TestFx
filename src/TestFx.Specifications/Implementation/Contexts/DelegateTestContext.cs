@@ -16,13 +16,13 @@ using System;
 
 namespace TestFx.Specifications.Implementation.Contexts
 {
-  public class DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TSubject, TResult, TVars>
-      : TestContext<TDelegateSubject, TDelegateResult, TDelegateVars>
+  public class DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi>
+      : TestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
   {
-    private readonly TestContext<TSubject, TResult, TVars> _context;
+    private readonly TestContext<TSubject, TResult, TVars, TCombi> _context;
     private object _varsObject;
 
-    public DelegateTestContext (TestContext<TSubject, TResult, TVars> context)
+    public DelegateTestContext (TestContext<TSubject, TResult, TVars, TCombi> context)
     {
       _context = context;
     }
@@ -49,6 +49,18 @@ namespace TestFx.Specifications.Implementation.Contexts
     {
       get { return (TDelegateVars) _context.VarsObject; }
       set { _context.VarsObject = (TVars) (object) value; }
+    }
+
+    public override object ComboObject
+    {
+      get { return _context.ComboObject; }
+      set { _context.ComboObject = value; }
+    }
+
+    public override TDelegateCombo Combi
+    {
+      get { return (TDelegateCombo) _context.ComboObject; }
+      set { _context.ComboObject = (TVars) (object) value; }
     }
 
     public override Exception Exception

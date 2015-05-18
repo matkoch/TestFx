@@ -17,14 +17,14 @@ using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Contexts
 {
-  public class MainTestContext<TSubject, TResult> : TestContext<TSubject, TResult, object>
+  public class MainTestContext<TSubject, TResult> : TestContext<TSubject, TResult, object, object>
   {
     private TSubject _subject;
     private TResult _result;
     private Exception _exception;
     private TimeSpan _duration;
     private object _varsObject;
-    private object _vars;
+    private object _comboObject;
 
     public override TSubject Subject
     {
@@ -66,6 +66,18 @@ namespace TestFx.Specifications.Implementation.Contexts
     {
       get { return _varsObject; }
       set { _varsObject = value; }
+    }
+
+    public override object Combi
+    {
+      get { return _comboObject; }
+      set { _comboObject = value; }
+    }
+
+    public override object ComboObject
+    {
+      get { return _comboObject; }
+      set { _comboObject = value; }
     }
 
     public override Exception Exception

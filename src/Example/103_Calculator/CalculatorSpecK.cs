@@ -68,25 +68,25 @@ namespace Example._103_Calculator
 
   public static class CalculatorSpecKExtensions
   {
-    public static IArrangeOrAssert<Calculator, int, TVars> GivenPressPlus<TVars> (this IArrange<Calculator, int, TVars> arrange)
+    public static IArrangeOrAssert<Calculator, int, TVars, TCombi> GivenPressPlus<TVars, TCombi> (this IArrange<Calculator, int, TVars, TCombi> arrange)
     {
       return arrange.Given ("Press plus", x => x.Subject.PressPlus ());
     }
 
-    public static IArrangeOrAssert<Calculator, int, TVars> GivenPressMinus<TVars> (this IArrange<Calculator, int, TVars> arrange)
+    public static IArrangeOrAssert<Calculator, int, TVars, TCombi> GivenPressMinus<TVars, TCombi> (this IArrange<Calculator, int, TVars, TCombi> arrange)
     {
       return arrange.Given ("Press minus", x => x.Subject.PressMinus ());
     }
 
-    public static IArrangeOrAssert<Calculator, int, TVars> GivenEnter<TVars> (
-        this IArrange<Calculator, int, TVars> arrange,
+    public static IArrangeOrAssert<Calculator, int, TVars, TCombi> GivenEnter<TVars, TCombi> (
+        this IArrange<Calculator, int, TVars, TCombi> arrange,
         ushort value)
     {
       return arrange.Given ("Enter " + value, x => x.Subject.Enter (value));
     }
 
-    public static IAssert<Calculator, int, TVars> ItDisplays<TVars> (
-        this IAssert<Calculator, int, TVars> arrange,
+    public static IAssert<Calculator, int, TVars, TCombi> ItDisplays<TVars, TCombi> (
+        this IAssert<Calculator, int, TVars, TCombi> arrange,
         int value)
     {
       return arrange.It ("Displays " + value, x => x.Result.Should ().Be (value));

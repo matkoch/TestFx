@@ -21,11 +21,12 @@ using TestFx.Specifications;
 namespace Example._104_PaymentController
 {
   [Subject (typeof (PaymentController), "Pay")]
+  //[AutoDataSeed(1337)]
   public class PaymentControllerSpecK : SpecK<PaymentController>
   {
     [Injected] [Faked] IPaymentService PaymentService;
 
-    [Auto] PaymentModel Model;
+    [AutoData] PaymentModel Model;
 
     PaymentControllerSpecK ()
     {

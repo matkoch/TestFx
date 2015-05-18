@@ -23,7 +23,7 @@ using TestFx.Utilities;
 
 namespace TestFx.Specifications.Implementation.Controllers
 {
-  public class MainTestController<TSubject, TResult> : TestController<TSubject, TResult, object>
+  public class MainTestController<TSubject, TResult> : TestController<TSubject, TResult, object, object>
   {
     private readonly MainTestContext<TSubject, TResult> _context;
 

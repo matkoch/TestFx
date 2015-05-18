@@ -143,6 +143,12 @@
     <Compile Include="104_PaymentController\IPaymentService.cs" />
     <Compile Include="104_PaymentController\PaymentControllerSpecK.cs" />
     <Compile Include="104_PaymentController\PaymentModel.cs" />
+    <Compile Include="105_CurrencyConverter\CurrencyConverter.cs" />
+    <Compile Include="105_CurrencyConverter\CurrencyConverterSpecK.cs" />
+    <Compile Include="106_FeatureExtractor\AdvancedFeatureExtractor.cs" />
+    <Compile Include="106_FeatureExtractor\CurrencyConverterSpecK.cs" />
+    <Compile Include="106_FeatureExtractor\SimpleFeatureExtractor.cs" />
+    <Compile Include="106_FeatureExtractor\IFeatureExtractor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

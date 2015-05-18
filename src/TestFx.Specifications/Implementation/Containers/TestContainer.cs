@@ -13,73 +13,79 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using TestFx.Extensibility.Containers;
 using TestFx.Specifications.Implementation.Controllers;
 using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Containers
 {
-  public class TestContainer<TSubject, TResult, TVars> : Container, IArrangeOrAssert<TSubject, TResult, TVars>
+  public class TestContainer<TSubject, TResult, TVars, TCombi> : Container, ICombineOrArrangeOrAssert<TSubject, TResult, TVars, TCombi>
   {
-    private readonly ITestController<TSubject, TResult, TVars> _controller;
+    private readonly ITestController<TSubject, TResult, TVars, TCombi> _controller;
 
-    public TestContainer (ITestController<TSubject, TResult, TVars> controller)
+    public TestContainer (ITestController<TSubject, TResult, TVars, TCombi> controller)
         : base(controller)
     {
       _controller = controller;
     }
 
-    public IArrangeOrAssert<TSubject, TResult, TNewVars> GivenVars<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
+    public IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations)
     {
-      var controller = _controller.SetVariables(variablesProvider);
-      return new TestContainer<TSubject, TResult, TNewVars>(controller);
+      throw new NotImplementedException();
     }
 
-    public IArrangeOrAssert<TSubject, TResult, TVars> GivenSubject (string description, Func<Dummy, TSubject> subjectFactory)
+    public IArrangeOrAssert<TSubject, TResult, TNewVars, TCombi> GivenVars<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
+    {
+      var controller = _controller.SetVariables(variablesProvider);
+      return new TestContainer<TSubject, TResult, TNewVars, TCombi>(controller);
+    }
+
+    public IArrangeOrAssert<TSubject, TResult, TVars, TCombi> GivenSubject (string description, Func<Dummy, TSubject> subjectFactory)
     {
       _controller.SetSubjectFactory<ArrangeSubject>("subject " + description, subjectFactory);
       return this;
     }
 
-    public IArrangeOrAssert<TSubject, TResult, TVars> Given (string description, Arrangement<TSubject, TResult, TVars> arrangement)
+    public IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given (string description, Arrangement<TSubject, TResult, TVars, TCombi> arrangement)
     {
       _controller.AddArrangement(description, arrangement);
       return this;
     }
 
-    public IArrangeOrAssert<TSubject, TResult, TVars> Given (Context context)
+    public IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given (Context context)
     {
-      context(new TestContainer<Dummy, Dummy, Dummy>(_controller.CreateDelegate<Dummy, Dummy, Dummy>()));
+      context(new TestContainer<Dummy, Dummy, Dummy, Dummy>(_controller.CreateDelegate<Dummy, Dummy, Dummy, Dummy>()));
       return this;
     }
 
-    public IArrangeOrAssert<TSubject, TResult, TVars> Given (Context<TSubject> context)
+    public IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given (Context<TSubject> context)
     {
-      context(new TestContainer<TSubject, Dummy, Dummy>(_controller.CreateDelegate<TSubject, Dummy, Dummy>()));
+      context(new TestContainer<TSubject, Dummy, Dummy, Dummy>(_controller.CreateDelegate<TSubject, Dummy, Dummy, Dummy>()));
       return this;
     }
 
-    public IAssert<TSubject, TResult, TVars> It (string description, Assertion<TSubject, TResult, TVars> assertion)
+    public IAssert<TSubject, TResult, TVars, TCombi> It (string description, Assertion<TSubject, TResult, TVars, TCombi> assertion)
     {
       _controller.AddAssertion(description, assertion);
       return this;
     }
 
-    public IAssert<TSubject, TResult, TVars> It (Behavior behavior)
+    public IAssert<TSubject, TResult, TVars, TCombi> It (Behavior behavior)
     {
-      behavior(new TestContainer<Dummy, Dummy, Dummy>(_controller.CreateDelegate<Dummy, Dummy, Dummy>()));
+      behavior(new TestContainer<Dummy, Dummy, Dummy, Dummy>(_controller.CreateDelegate<Dummy, Dummy, Dummy, Dummy>()));
       return this;
     }
 
-    public IAssert<TSubject, TResult, TVars> It (Behavior<TResult> behavior)
+    public IAssert<TSubject, TResult, TVars, TCombi> It (Behavior<TResult> behavior)
     {
-      behavior(new TestContainer<Dummy, TResult, Dummy>(_controller.CreateDelegate<Dummy, TResult, Dummy>()));
+      behavior(new TestContainer<Dummy, TResult, Dummy, Dummy>(_controller.CreateDelegate<Dummy, TResult, Dummy, Dummy>()));
       return this;
     }
 
-    public IAssert<TSubject, TResult, TVars> It (Behavior<TSubject, TResult> behavior)
+    public IAssert<TSubject, TResult, TVars, TCombi> It (Behavior<TSubject, TResult> behavior)
     {
-      behavior(new TestContainer<TSubject, TResult, Dummy>(_controller.CreateDelegate<TSubject, TResult, Dummy>()));
+      behavior(new TestContainer<TSubject, TResult, Dummy, Dummy>(_controller.CreateDelegate<TSubject, TResult, Dummy, Dummy>()));
       return this;
     }
   }

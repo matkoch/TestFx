@@ -13,6 +13,8 @@
 // limitations under the License.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
@@ -50,10 +52,11 @@ namespace TestFx.Specifications
     TSubject Subject { get; }
   }
 
-  public interface ITestContext<out TSubject, out TResult, out TVars> : ITestContext<TSubject>
+  public interface ITestContext<out TSubject, out TResult, out TVars, out TCombi> : ITestContext<TSubject>
   {
     TResult Result { get; }
     TVars Vars { get; }
+    TCombi Combi { get; }
   }
 
   #endregion
@@ -81,15 +84,15 @@ namespace TestFx.Specifications
 
   #region Context / Behavior delegates
 
-  public delegate IArrange Context (IArrange<Dummy, Dummy, Dummy> arrange);
+  public delegate IArrange Context (IArrange<Dummy, Dummy, Dummy, Dummy> arrange);
 
-  public delegate IArrange Context<TSubject> (IArrange<TSubject, Dummy, Dummy> arrange);
+  public delegate IArrange Context<TSubject> (IArrange<TSubject, Dummy, Dummy, Dummy> arrange);
 
-  public delegate IAssert Behavior (IAssert<Dummy, Dummy, Dummy> assert);
+  public delegate IAssert Behavior (IAssert<Dummy, Dummy, Dummy, Dummy> assert);
 
-  public delegate IAssert Behavior<in TResult> (IAssert<Dummy, TResult, Dummy> assert);
+  public delegate IAssert Behavior<in TResult> (IAssert<Dummy, TResult, Dummy, Dummy> assert);
 
-  public delegate IAssert Behavior<TSubject, in TResult> (IAssert<TSubject, TResult, Dummy> assert);
+  public delegate IAssert Behavior<TSubject, in TResult> (IAssert<TSubject, TResult, Dummy, Dummy> assert);
 
   #endregion
 
@@ -98,9 +101,9 @@ namespace TestFx.Specifications
     #region Arrangement / Assertion delegates
 
     // TODO: only ITestContext<TSubject>
-    public delegate void Arrangement<in TSubject, in TResult, in TVars> (ITestContext<TSubject, TResult, TVars> context);
+    public delegate void Arrangement<in TSubject, in TResult, in TVars, in TCombi> (ITestContext<TSubject, TResult, TVars, TCombi> context);
 
-    public delegate void Assertion<in TSubject, in TResult, in TVars> (ITestContext<TSubject, TResult, TVars> context);
+    public delegate void Assertion<in TSubject, in TResult, in TVars, in TCombi> (ITestContext<TSubject, TResult, TVars, TCombi> context);
 
     #endregion
 
@@ -120,9 +123,15 @@ namespace TestFx.Specifications
     {
     }
 
-    public interface IArrangeOrAssert<TSubject, out TResult, TVars>
-        : IArrange<TSubject, TResult, TVars>,
-            IAssert<TSubject, TResult, TVars>
+    public interface ICombineOrArrangeOrAssert<TSubject, out TResult, TVars, TCombi>
+        : ICombine<TSubject, TResult, TVars, TCombi>,
+            IArrangeOrAssert<TSubject, TResult, TVars, TCombi>
+    {
+    }
+
+    public interface IArrangeOrAssert<TSubject, out TResult, TVars, TCombi>
+        : IArrange<TSubject, TResult, TVars, TCombi>,
+            IAssert<TSubject, TResult, TVars, TCombi>
     {
     }
 
@@ -131,7 +140,7 @@ namespace TestFx.Specifications
       [DisplayFormat ("{0}")]
       IIgnoreOrCase<TSubject, TResult> Case (
           string description,
-          Func<IArrangeOrAssert<TSubject, TResult, object>, IAssert> succession);
+          Func<ICombineOrArrangeOrAssert<TSubject, TResult, object, object>, IAssert> succession);
     }
 
     public interface IIgnore<TSubject, TResult>
@@ -139,24 +148,29 @@ namespace TestFx.Specifications
       ICase<TSubject, TResult> Skip (string reason);
     }
 
-    public interface IArrange<TSubject, out TResult, TVars> : IArrange
+    public interface ICombine<TSubject, out TResult, TVars, TCombi>
     {
-      IArrangeOrAssert<TSubject, TResult, TNewVars> GivenVars<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
-      
-      // TODO: should check whether there is a setup that requires the subject... then possibly throw exception
-      IArrangeOrAssert<TSubject, TResult, TVars> GivenSubject (string description, Func<Dummy, TSubject> subjectFactory);
-
-      IArrangeOrAssert<TSubject, TResult, TVars> Given (string description, Arrangement<TSubject, TResult, TVars> arrangement);
-      IArrangeOrAssert<TSubject, TResult, TVars> Given (Context context);
-      IArrangeOrAssert<TSubject, TResult, TVars> Given (Context<TSubject> context);
+      IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations);
     }
 
-    public interface IAssert<TSubject, out TResult, TVars> : IAssert
+    public interface IArrange<TSubject, out TResult, TVars, TCombi> : IArrange
     {
-      IAssert<TSubject, TResult, TVars> It (string description, Assertion<TSubject, TResult, TVars> assertion);
-      IAssert<TSubject, TResult, TVars> It (Behavior behavior);
-      IAssert<TSubject, TResult, TVars> It (Behavior<TResult> behavior);
-      IAssert<TSubject, TResult, TVars> It (Behavior<TSubject, TResult> behavior);
+      IArrangeOrAssert<TSubject, TResult, TNewVars, TCombi> GivenVars<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
+      
+      // TODO: should check whether there is a setup that requires the subject... then possibly throw exception
+      IArrangeOrAssert<TSubject, TResult, TVars, TCombi> GivenSubject (string description, Func<Dummy, TSubject> subjectFactory);
+
+      IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given (string description, Arrangement<TSubject, TResult, TVars, TCombi> arrangement);
+      IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given (Context context);
+      IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given (Context<TSubject> context);
+    }
+
+    public interface IAssert<TSubject, out TResult, TVars, TCombi> : IAssert
+    {
+      IAssert<TSubject, TResult, TVars, TCombi> It (string description, Assertion<TSubject, TResult, TVars, TCombi> assertion);
+      IAssert<TSubject, TResult, TVars, TCombi> It (Behavior behavior);
+      IAssert<TSubject, TResult, TVars, TCombi> It (Behavior<TResult> behavior);
+      IAssert<TSubject, TResult, TVars, TCombi> It (Behavior<TSubject, TResult> behavior);
     }
 
     public interface IAssert : IContainer
@@ -268,7 +282,8 @@ namespace TestFx.Specifications
 
     internal static class Extensions
     {
-      public static IAssert<TSubject, TResult, TVars> ItForStream<TSubject, TResult, TVars> (this IAssert<TSubject, TResult, TVars> assert)
+      public static IAssert<TSubject, TResult, TVars, TCombi> ItForStream<TSubject, TResult, TVars, TCombi> (
+          this IAssert<TSubject, TResult, TVars, TCombi> assert)
           where TSubject : Stream
       {
         throw new NotImplementedException();

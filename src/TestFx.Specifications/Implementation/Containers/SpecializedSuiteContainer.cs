@@ -39,10 +39,10 @@ namespace TestFx.Specifications.Implementation.Containers
     [DisplayFormat ("{0}")]
     public IIgnoreOrCase<TSubject, TResult> Case (
         string description,
-        Func<IArrangeOrAssert<TSubject, TResult, object>, IAssert> succession)
+        Func<ICombineOrArrangeOrAssert<TSubject, TResult, object, object>, IAssert> succession)
     {
       var testController = _controller.CreateTestController(description);
-      var testContainer = new TestContainer<TSubject, TResult, object>(testController);
+      var testContainer = new TestContainer<TSubject, TResult, object, object>(testController);
       succession(testContainer);
       return this;
     }
