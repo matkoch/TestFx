@@ -63,7 +63,7 @@ namespace TestFx.Specifications
 
   #region Attributes
 
-  [MeansImplicitUse (ImplicitUseTargetFlags.WithMembers)]
+  [MeansImplicitUse]
   [BaseTypeRequired (typeof (ISpecK<>))]
   public class SubjectAttribute : SubjectAttributeBase
   {
