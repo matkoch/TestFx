@@ -19,6 +19,7 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests.Combinatorics
 {
+  [Ignore]
   public class PermutationsTest : TestBase<SequencesTest.DomainSpecK>
   {
     [Subject (typeof (PermutationsTest), "Test")]
