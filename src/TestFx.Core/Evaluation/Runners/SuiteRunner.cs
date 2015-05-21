@@ -86,10 +86,14 @@ namespace TestFx.Evaluation.Runners
         {
           if (contextScope.SetupResults.All(x => x.State == State.Passed))
           {
-            suiteResults = suitePairs.Select(x => RunRecursive(x.Item1, x.Item2)).ToList();
+            suiteResults = suitePairs
+#if PARALLEL
+                .AsParallel()
+                .WithCancellation(_cancellationTokenSource.Token)
+#endif
+                .Select(x => Run(x.Item1, x.Item2)).ToList();
 
-            testResults = testPairs.AsParallel().WithDegreeOfParallelism(1).WithCancellation(_cancellationTokenSource.Token)
-                .Select(x => _testRunner.Run(x.Item1, x.Item2)).ToList();
+            testResults = testPairs.Select(x => _testRunner.Run(x.Item1, x.Item2)).ToList();
           }
         }
       }
@@ -105,11 +109,6 @@ namespace TestFx.Evaluation.Runners
       _listener.OnSuiteFinished(result);
 
       return result;
-    }
-
-    protected virtual ISuiteResult RunRecursive (IIntent intent, ISuiteProvider provider)
-    {
-      return Run(intent, provider);
     }
 
     private IEnumerable<Tuple<IIntent, TProvider>> Pair<TProvider> (IEnumerable<IIntent> intents, IEnumerable<TProvider> providers)

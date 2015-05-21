@@ -74,16 +74,18 @@ namespace TestFx.Evaluation.Runners
       {
         var suiteResults = intent.Intents
             .Select(x => Tuple.Create(x, Assembly.LoadFrom(x.Identity.Relative)))
-            .OrderBy(x => GetTestType(x.Item2))
-            //.AsParallel().WithCancellation(intent.CancellationTokenSource.Token)
-            //.WithExecutionMode(ParallelExecutionMode.ForceParallelism)
-            .Select(x => RunAssemblySuites(x.Item2, intent.ShadowCopyPath, intent.CancellationTokenSource, x.Item1)).ToList();
-        //.GroupBy(GetTestType)
-        //.OrderByDescending(x => x.Key)
-        //.SelectMany(
-        //    group => group
-        //        .AsParallel().WithCancellation(intent.CancellationTokenSource.Token)
-        //        .Select(x => RunAssemblySuites(x, intent.ShadowCopyPath, intent.CancellationTokenSource))).ToList();
+            //.OrderBy(x => GetTestType(x.Item2))
+            //.Select(x => RunAssemblySuites(x.Item2, intent.ShadowCopyPath, intent.CancellationTokenSource, x.Item1)).ToList();
+            .GroupBy(x => GetTestType(x.Item2))
+            .OrderByDescending(x => x.Key)
+            .SelectMany(
+                group => group
+#if PARALLEL
+                    .AsParallel()
+                    .WithCancellation(intent.CancellationTokenSource.Token)
+                    .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
+#endif
+                    .Select(x => RunAssemblySuites(x.Item2, intent.ShadowCopyPath, intent.CancellationTokenSource, x.Item1))).ToList();
         result = _resultFactory.CreateRunResult(intent, suiteResults);
       }
       catch (Exception exception)
