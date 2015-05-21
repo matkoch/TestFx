@@ -52,7 +52,7 @@ namespace TestFx.Evaluation.Reporting
       _listener.OnSuiteFinished(result);
     }
 
-    public void OnSuiteStarted (ISuiteIntent intent)
+    public void OnSuiteStarted (IIntent intent)
     {
       _listener.OnSuiteStarted(intent);
     }
@@ -62,7 +62,7 @@ namespace TestFx.Evaluation.Reporting
       _listener.OnTestFinished(result);
     }
 
-    public void OnTestStarted (ITestIntent intent)
+    public void OnTestStarted (IIntent intent)
     {
       _listener.OnTestStarted(intent);
     }

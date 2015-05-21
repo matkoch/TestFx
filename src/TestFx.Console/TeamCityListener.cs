@@ -29,7 +29,7 @@ namespace TestFx.Console
       _writer = writer;
     }
 
-    public override void OnSuiteStarted (ISuiteIntent intent)
+    public override void OnSuiteStarted (IIntent intent)
     {
       _writer.WriteTestSuiteStarted(intent.Identity.Absolute);
     }

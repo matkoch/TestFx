@@ -26,7 +26,7 @@ namespace TestFx.Evaluation.Runners
 {
   public interface ITestRunner
   {
-    ITestResult Run (ITestIntent intent, ITestProvider provider);
+    ITestResult Run (IIntent intent, ITestProvider provider);
   }
 
   public class TestRunner : ITestRunner
@@ -42,7 +42,7 @@ namespace TestFx.Evaluation.Runners
       _listener = listener;
     }
 
-    public ITestResult Run (ITestIntent intent, ITestProvider provider)
+    public ITestResult Run (IIntent intent, ITestProvider provider)
     {
       if (provider.Ignored)
         return _resultFactory.CreateIgnoredTestResult(provider);

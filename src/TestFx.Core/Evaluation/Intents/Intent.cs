@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TestFx.Utilities;
 
@@ -20,22 +21,43 @@ namespace TestFx.Evaluation.Intents
 {
   public interface IIntent : IIdentifiable
   {
+    IEnumerable<IIntent> Intents { get; }
+
+    void AddIntent (IIntent intent);
   }
 
   [Serializable]
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public abstract class Intent : IIntent
+  public class Intent : IIntent
   {
-    private readonly IIdentity _identity;
+    public static IIntent Create (IIdentity identity)
+    {
+      return new Intent(identity);
+    }
 
-    protected Intent (IIdentity identity)
+    private readonly IIdentity _identity;
+    private readonly List<IIntent> _intents;
+
+    private Intent (IIdentity identity)
     {
       _identity = identity;
+      _intents = new List<IIntent>();
     }
 
     public IIdentity Identity
     {
       get { return _identity; }
+    }
+
+    public IEnumerable<IIntent> Intents
+    {
+      get { return _intents; }
+    }
+
+    public void AddIntent (IIntent intent)
+    {
+      Trace.Assert(Identity.Equals(intent.Identity.Parent));
+      _intents.Add(intent);
     }
   }
 }

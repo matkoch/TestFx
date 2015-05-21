@@ -123,9 +123,6 @@
     <Compile Include="Evaluation\Intents\RunIntent.cs" />
     <Compile Include="Extensibility\Contexts\TestContext.cs" />
     <Compile Include="Evaluation\Intents\Intent.cs" />
-    <Compile Include="Evaluation\Intents\ISuiteIntentHolder.cs" />
-    <Compile Include="Evaluation\Intents\SuiteIntent.cs" />
-    <Compile Include="Evaluation\Intents\TestIntent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Evaluation\Utilities\AppDomainFactory.cs" />
     <Compile Include="Evaluation\Utilities\AppDomain.cs" />

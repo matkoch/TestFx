@@ -72,7 +72,7 @@ namespace TestFx.Evaluation.Runners
       IRunResult result;
       try
       {
-        var suiteResults = intent.SuiteIntents
+        var suiteResults = intent.Intents
             .Select(x => Tuple.Create(x, Assembly.LoadFrom(x.Identity.Relative)))
             .OrderBy(x => GetTestType(x.Item2))
             //.AsParallel().WithCancellation(intent.CancellationTokenSource.Token)
@@ -101,7 +101,7 @@ namespace TestFx.Evaluation.Runners
         Assembly assembly,
         [CanBeNull] string cachePath,
         CancellationTokenSource cancellationTokenSource,
-        ISuiteIntent suiteIntent)
+        IIntent assemblyIntent)
     {
       using (var appDomain = _appDomainFactory.Create(assembly, cachePath))
       {
@@ -111,7 +111,7 @@ namespace TestFx.Evaluation.Runners
         var assemblyRunner = assemblyRunnerFactory.Create(_listener, _resourceManager, cancellation);
         cancellationTokenSource.Token.Register(cancellation.Cancel);
 
-        return assemblyRunner.Run(suiteIntent);
+        return assemblyRunner.Run(assemblyIntent);
       }
     }
 

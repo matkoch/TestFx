@@ -25,7 +25,7 @@ namespace TestFx.Evaluation.Runners
 {
   public interface ISuiteRunner
   {
-    ISuiteResult Run (ISuiteIntent intent, ISuiteProvider provider);
+    ISuiteResult Run (IIntent intent, ISuiteProvider provider);
   }
 
   public class SuiteRunner : ISuiteRunner
@@ -53,25 +53,25 @@ namespace TestFx.Evaluation.Runners
       _cancellationTokenSource = cancellationTokenSource;
     }
 
-    public ISuiteResult Run (ISuiteIntent intent, ISuiteProvider provider)
+    public ISuiteResult Run (IIntent intent, ISuiteProvider provider)
     {
       if (provider.Ignored)
         return _resultFactory.CreateIgnoredSuiteResult(provider);
 
       using (_resourceManager.Acquire(new string[0]))
       {
-        var suitePairs = Pair(intent.SuiteIntents, provider.SuiteProviders, p => SuiteIntent.Create(p.Identity));
-        var testPairs = Pair(intent.TestIntents, provider.TestProviders, p => TestIntent.Create(p.Identity));
+        var suitePairs = Pair(intent.Intents, provider.SuiteProviders);
+        var testPairs = Pair(intent.Intents, provider.TestProviders);
 
         return RunWithResourcesAcquired(intent, provider, suitePairs, testPairs);
       }
     }
 
     private ISuiteResult RunWithResourcesAcquired (
-        ISuiteIntent intent,
+        IIntent intent,
         ISuiteProvider provider,
-        IEnumerable<Tuple<ISuiteIntent, ISuiteProvider>> suitePairs,
-        IEnumerable<Tuple<ITestIntent, ITestProvider>> testPairs)
+        IEnumerable<Tuple<IIntent, ISuiteProvider>> suitePairs,
+        IEnumerable<Tuple<IIntent, ITestProvider>> testPairs)
     {
       _listener.OnSuiteStarted(intent);
 
@@ -107,16 +107,12 @@ namespace TestFx.Evaluation.Runners
       return result;
     }
 
-    protected virtual ISuiteResult RunRecursive (ISuiteIntent intent, ISuiteProvider provider)
+    protected virtual ISuiteResult RunRecursive (IIntent intent, ISuiteProvider provider)
     {
       return Run(intent, provider);
     }
 
-    private IEnumerable<Tuple<TIntent, TProvider>> Pair<TIntent, TProvider> (
-        IEnumerable<TIntent> intents,
-        IEnumerable<TProvider> providers,
-        Func<TProvider, TIntent> intentFactory)
-        where TIntent : IIntent
+    private IEnumerable<Tuple<IIntent, TProvider>> Pair<TProvider> (IEnumerable<IIntent> intents, IEnumerable<TProvider> providers)
         where TProvider : IProvider
     {
       var providersList = providers.ToList();
@@ -126,9 +122,11 @@ namespace TestFx.Evaluation.Runners
           providersList,
           x => x.Identity.Relative,
           x => x.Identity.Relative,
-          (intent, provider) => new Tuple<TIntent, TProvider>(intent, provider)).ToList();
+          (intent, provider) => new Tuple<IIntent, TProvider>(intent, provider)).ToList();
 
-      return intentsList.Count > 0 ? pairs : providersList.Select(provider => new Tuple<TIntent, TProvider>(intentFactory(provider), provider));
+      return intentsList.Count > 0
+          ? pairs
+          : providersList.Select(provider => new Tuple<IIntent, TProvider>(Intent.Create(provider.Identity), provider));
     }
   }
 }

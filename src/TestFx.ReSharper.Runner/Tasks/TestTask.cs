@@ -18,6 +18,7 @@ using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Runner.Tasks
 {
+  // TODO: better naming
   [Serializable]
   public class TestTask : Task
   {

@@ -25,7 +25,7 @@ namespace TestFx.Evaluation.Loading
 {
   public interface IAssemblyLoader
   {
-    ISuiteProvider Load (ISuiteIntent assemblySuiteIntent);
+    ISuiteProvider Load (IIntent assemblyIntent);
   }
 
   public class AssemblyLoader : IAssemblyLoader
@@ -39,16 +39,16 @@ namespace TestFx.Evaluation.Loading
       _suiteControllerFactory = suiteControllerFactory;
     }
 
-    public ISuiteProvider Load (ISuiteIntent assemblySuiteIntent)
+    public ISuiteProvider Load (IIntent assemblyIntent)
     {
-      var assembly = Assembly.LoadFrom(assemblySuiteIntent.Identity.Absolute);
-      var provider = SuiteProvider.Create(assemblySuiteIntent.Identity, assembly.GetName().Name, ignored: false);
+      var assembly = Assembly.LoadFrom(assemblyIntent.Identity.Absolute);
+      var provider = SuiteProvider.Create(assemblyIntent.Identity, assembly.GetName().Name, ignored: false);
       var controller = _suiteControllerFactory.Create(provider);
 
       var explorationData = _assemblyExplorer.Explore(assembly);
 
       var assemblySetups = explorationData.AssemblySetups.ToList();
-      var suiteTypes = explorationData.SuiteTypes.Where(x => assemblySuiteIntent.SuiteIntents.Any(y => y.Identity.Relative == x.FullName));
+      var suiteTypes = explorationData.SuiteTypes.Where(x => assemblyIntent.Intents.Any(y => y.Identity.Relative == x.FullName));
 
       provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaders, assemblySetups, provider.Identity));
       assemblySetups.ForEach(

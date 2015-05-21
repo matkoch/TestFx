@@ -31,16 +31,16 @@ namespace TestFx.Evaluation
 
     public static void AddAssemblies (this IRunIntent runIntent, IEnumerable<Assembly> assemblies)
     {
-      assemblies.Select(GetIdentity).Select(SuiteIntent.Create).ForEach(runIntent.AddSuiteIntent);
+      assemblies.Select(GetIdentity).Select(Intent.Create).ForEach(runIntent.AddIntent);
     }
 
     public static void AddTypes (this IRunIntent runIntent, IEnumerable<Type> types)
     {
       foreach (var assemblyWithTypes in types.GroupBy(x => x.Assembly))
       {
-        var suiteIntent = SuiteIntent.Create(GetIdentity(assemblyWithTypes.Key));
-        runIntent.AddSuiteIntent(suiteIntent);
-        assemblyWithTypes.ForEach(x => suiteIntent.AddSuiteIntent(SuiteIntent.Create(GetIdentity(x))));
+        var intent = Intent.Create(GetIdentity(assemblyWithTypes.Key));
+        runIntent.AddIntent(intent);
+        assemblyWithTypes.ForEach(x => intent.AddIntent(Intent.Create(GetIdentity(x))));
       }
     }
 

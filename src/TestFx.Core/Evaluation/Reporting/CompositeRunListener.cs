@@ -49,7 +49,7 @@ namespace TestFx.Evaluation.Reporting
       _listeners.ForEach(x => x.OnSuiteFinished(result));
     }
 
-    public void OnSuiteStarted (ISuiteIntent intent)
+    public void OnSuiteStarted (IIntent intent)
     {
       _listeners.ForEach(x => x.OnSuiteStarted(intent));
     }
@@ -59,7 +59,7 @@ namespace TestFx.Evaluation.Reporting
       _listeners.ForEach(x => x.OnTestFinished(result));
     }
 
-    public void OnTestStarted (ITestIntent intent)
+    public void OnTestStarted (IIntent intent)
     {
       _listeners.ForEach(x => x.OnTestStarted(intent));
     }

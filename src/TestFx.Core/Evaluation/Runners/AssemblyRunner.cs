@@ -25,7 +25,7 @@ namespace TestFx.Evaluation.Runners
 {
   public interface IAssemblyRunner
   {
-    ISuiteResult Run (ISuiteIntent suiteIntent);
+    ISuiteResult Run (IIntent assemblyIntent);
   }
 
   public class AssemblyRunner : MarshalByRefObject, IAssemblyRunner
@@ -39,12 +39,12 @@ namespace TestFx.Evaluation.Runners
       _suiteRunner = suiteRunner;
     }
 
-    public ISuiteResult Run (ISuiteIntent suiteIntent)
+    public ISuiteResult Run (IIntent assemblyIntent)
     {
       AddThrowingTraceListener();
 
-      var suiteProvider = _assemblyLoader.Load(suiteIntent);
-      return _suiteRunner.Run(suiteIntent, suiteProvider);
+      var suiteProvider = _assemblyLoader.Load(assemblyIntent);
+      return _suiteRunner.Run(assemblyIntent, suiteProvider);
     }
 
     private void AddThrowingTraceListener ()

@@ -22,7 +22,7 @@ using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Intents
 {
-  public interface IRunIntent : ISuiteIntentHolder
+  public interface IRunIntent : IIntent
   {
     [CanBeNull]
     string ShadowCopyPath { get; }
@@ -32,7 +32,9 @@ namespace TestFx.Evaluation.Intents
     CancellationTokenSource CancellationTokenSource { get; }
   }
 
-  public class RunIntent : Intent, IRunIntent
+  [Serializable]
+  [DebuggerDisplay (Identifiable.DebuggerDisplay)]
+  public class RunIntent : IRunIntent
   {
     public static IRunIntent Create (bool useSeparateAppDomains = true, bool shadowCopy = true, int visualStudioProcessId = -1)
     {
@@ -43,18 +45,24 @@ namespace TestFx.Evaluation.Intents
       return new RunIntent(identity, useSeparateAppDomains, shadowCopyPath);
     }
 
+    private readonly IIdentity _identity;
     private readonly bool _useSeparateAppDomains;
     private readonly string _shadowCopyPath;
     private readonly CancellationTokenSource _cancellationTokenSource;
-    private readonly List<ISuiteIntent> _suiteIntents;
+    private readonly List<IIntent> _intents;
 
     private RunIntent (IIdentity identity, bool useSeparateAppDomains, [CanBeNull] string shadowCopyPath)
-        : base(identity)
     {
+      _identity = identity;
       _useSeparateAppDomains = useSeparateAppDomains;
       _shadowCopyPath = shadowCopyPath;
       _cancellationTokenSource = new CancellationTokenSource();
-      _suiteIntents = new List<ISuiteIntent>();
+      _intents = new List<IIntent>();
+    }
+
+    public IIdentity Identity
+    {
+      get { return _identity; }
     }
 
     [CanBeNull]
@@ -73,15 +81,15 @@ namespace TestFx.Evaluation.Intents
       get { return _cancellationTokenSource; }
     }
 
-    public IEnumerable<ISuiteIntent> SuiteIntents
+    public IEnumerable<IIntent> Intents
     {
-      get { return _suiteIntents; }
+      get { return _intents; }
     }
 
-    public void AddSuiteIntent (ISuiteIntent suiteIntent)
+    public void AddIntent (IIntent intent)
     {
-      Trace.Assert(suiteIntent.Identity.Parent == null);
-      _suiteIntents.Add(suiteIntent);
+      Trace.Assert(intent.Identity.Parent == null);
+      _intents.Add(intent);
     }
   }
 }
