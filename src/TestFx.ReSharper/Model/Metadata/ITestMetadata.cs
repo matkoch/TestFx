@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace TestFx.ReSharper.Model.Tree
+namespace TestFx.ReSharper.Model.Metadata
 {
-  public interface ISuiteDeclarationHolder
+  public interface ITestMetadata : ITestEntity, IUnitTestMetadata
   {
-    IEnumerable<ISuiteDeclaration> SuiteDeclarations { get; }
+    IEnumerable<ITestMetadata> TestMetadatas { get; }
   }
 }

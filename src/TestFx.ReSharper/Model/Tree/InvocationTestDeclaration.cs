@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
@@ -53,6 +54,16 @@ namespace TestFx.ReSharper.Model.Tree
     public string Text
     {
       get { return _text; }
+    }
+
+    public IEnumerable<ITestEntity> TestEntities
+    {
+      get { yield break; }
+    }
+
+    public IEnumerable<ITestDeclaration> TestDeclarations
+    {
+      get { yield break; }
     }
   }
 }

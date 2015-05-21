@@ -13,18 +13,28 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
+using TestFx.ReSharper.Model.Metadata.Wrapper;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Model.Surrogates
+namespace TestFx.ReSharper.Model.Metadata
 {
-  public abstract class UnitTestEntitySurrogateBase : IUnitTestEntity
+  [DebuggerDisplay (Identifiable.DebuggerDisplay)]
+  public class TypeTestMetadata : MetadataTypeInfoBase, ITestMetadata
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;
     private readonly string _text;
 
-    protected UnitTestEntitySurrogateBase (IIdentity identity, IProject project, string text)
+    public TypeTestMetadata (
+        IIdentity identity,
+        IProject project,
+        string text,
+        IMetadataTypeInfo metadataTypeInfo)
+        : base(metadataTypeInfo)
     {
       _identity = identity;
       _project = project;
@@ -44,6 +54,16 @@ namespace TestFx.ReSharper.Model.Surrogates
     public string Text
     {
       get { return _text; }
+    }
+
+    public IEnumerable<ITestMetadata> TestMetadatas
+    {
+      get { yield break; }
+    }
+
+    public IEnumerable<ITestEntity> TestEntities
+    {
+      get { yield break; }
     }
   }
 }

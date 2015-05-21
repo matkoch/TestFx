@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace TestFx.ReSharper.Model.Tree
 {
-  public interface ISuiteDeclaration : ISuiteEntity, IUnitTestDeclaration, ISuiteDeclarationHolder
+  public interface ITestDeclarationHolder
   {
     IEnumerable<ITestDeclaration> TestDeclarations { get; }
   }

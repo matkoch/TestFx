@@ -34,29 +34,24 @@ using JetBrains.Metadata.Reader.Impl;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public class ClassSuiteElement : ElementBase
+  public class ClassTestElement : ElementBase
   {
-    private readonly ClrTypeName _suiteTypeName;
+    private readonly ClrTypeName _testTypeName;
 
-    public ClassSuiteElement (IUnitTestIdentity identity, IList<Task> tasks)
+    public ClassTestElement (IUnitTestIdentity identity, IList<Task> tasks)
         : base(identity, tasks)
     {
-      _suiteTypeName = new ClrTypeName(identity.Relative);
+      _testTypeName = new ClrTypeName(identity.Relative);
     }
 
     public override string Kind
     {
-      get { return "ClassSuite"; }
-    }
-
-    public override UnitTestElementKind ElementKind
-    {
-      get { return UnitTestElementKind.TestContainer; }
+      get { return "ClassTest"; }
     }
 
     public override string ShortName
     {
-      get { return _suiteTypeName.ShortName; }
+      get { return _testTypeName.ShortName; }
     }
 
     [CanBeNull]
@@ -72,9 +67,9 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     public override UnitTestNamespace GetNamespace ()
     {
 #if R8
-      return new UnitTestNamespace(_suiteTypeName.GetNamespaceName());
+      return new UnitTestNamespace(_testTypeName.GetNamespaceName());
 #elif R9
-      return new UnitTestNamespace(_suiteTypeName.NamespaceNames);
+      return new UnitTestNamespace(_testTypeName.NamespaceNames);
 #endif
     }
 
@@ -86,20 +81,20 @@ namespace TestFx.ReSharper.UnitTesting.Elements
         return null;
 
       var psiModule = project.GetPrimaryPsiModule();
-      return psiModule.GetTypeElement(_suiteTypeName);
+      return psiModule.GetTypeElement(_testTypeName);
     }
 
-    internal override IEnumerable<ISuiteFile> GetSuiteFiles ()
+    internal override IEnumerable<ITestFile> GetTestFiles ()
     {
       var declaredElement = GetDeclaredElement();
       var project = GetProject();
       if (declaredElement == null || project == null)
-        return Enumerable.Empty<ISuiteFile>();
+        return Enumerable.Empty<ITestFile>();
 
       return declaredElement.GetDeclarations()
           .Select(x => x.GetSourceFile().AssertNotNull())
           .SelectMany(x => x.GetPsiFiles<CSharpLanguage>())
-          .Select(x => x.ToSuiteFile());
+          .Select(x => x.ToTestFile());
     }
   }
 }

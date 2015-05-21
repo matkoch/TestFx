@@ -14,12 +14,28 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.ReSharper.Psi.CSharp.Tree;
+using TestFx.ReSharper.Model.Tree.Wrapper;
 
-namespace TestFx.ReSharper.Model
+namespace TestFx.ReSharper.Model.Tree
 {
-  public interface ISuiteEntity : IUnitTestEntity
+  public interface ITestFile : ICSharpFile, ITestDeclarationHolder
   {
-    IEnumerable<ISuiteEntity> SuiteEntities { get; }
-    IEnumerable<ITestEntity> TestEntities { get; }
+  }
+
+  public class TestFile : FileBase, ITestFile
+  {
+    private readonly IEnumerable<ITestDeclaration> _testDeclarations;
+
+    public TestFile (IEnumerable<ITestDeclaration> testDeclarations, ICSharpFile file)
+        : base(file)
+    {
+      _testDeclarations = testDeclarations;
+    }
+
+    public IEnumerable<ITestDeclaration> TestDeclarations
+    {
+      get { return _testDeclarations; }
+    }
   }
 }

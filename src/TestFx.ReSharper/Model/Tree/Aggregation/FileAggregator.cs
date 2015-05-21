@@ -26,7 +26,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
 {
   public interface IFileAggregator
   {
-    ISuiteFile GetSuiteFile (ICSharpFile file);
+    ITestFile GetTestFile (ICSharpFile file);
   }
 
   public class FileAggregator : IFileAggregator
@@ -42,16 +42,16 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       _notInterrupted = notInterrupted;
     }
 
-    public ISuiteFile GetSuiteFile (ICSharpFile csharpFile)
+    public ITestFile GetTestFile (ICSharpFile csharpFile)
     {
       var assemblyIdentity = new Identity(_project.GetOutputFilePath().FullPath);
       var classDeclarations = GetClassDeclarations(csharpFile);
-      var classSuites = TreeNodeCollection.Create(classDeclarations, x => GetClassSuite(x, assemblyIdentity), _notInterrupted);
+      var classTests = TreeNodeCollection.Create(classDeclarations, x => GetClassTest(x, assemblyIdentity), _notInterrupted);
 
-      return new SuiteFile(classSuites, csharpFile);
+      return new TestFile(classTests, csharpFile);
     }
 
-    private ISuiteDeclaration GetClassSuite (IClassDeclaration classDeclaration, IIdentity parentIdentity)
+    private ITestDeclaration GetClassTest (IClassDeclaration classDeclaration, IIdentity parentIdentity)
     {
       var constructorDeclarations = classDeclaration.ConstructorDeclarations.Where(x => !x.IsStatic && x.ParameterDeclarations.Count == 0).ToList();
       if (constructorDeclarations.Count == 0)
@@ -65,7 +65,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       var invocationExpressions = GetInvocationExpressions(constructorDeclarations);
       var expressionTests = TreeNodeCollection.Create(invocationExpressions, x => GetInvocationTest(x, identity), _notInterrupted);
 
-      return new ClassSuiteDeclaration(identity, _project, text, new ISuiteDeclaration[0], expressionTests, classDeclaration);
+      return new ClassTestDeclaration(identity, _project, text, expressionTests, classDeclaration);
     }
 
     private ITestDeclaration GetInvocationTest (IInvocationExpression invocationExpression, IIdentity parentIdentity)
@@ -86,7 +86,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       return classDeclarations;
     }
 
-    private IEnumerable<IInvocationExpression> GetInvocationExpressions (List<IConstructorDeclaration> constructorDeclarations)
+    private IEnumerable<IInvocationExpression> GetInvocationExpressions (IEnumerable<IConstructorDeclaration> constructorDeclarations)
     {
       var statementExpressions = constructorDeclarations.SelectMany(x => x.Body.Children<IExpressionStatement>()).Select(x => x.Expression);
       var invocationExpressions = statementExpressions.OfType<IInvocationExpression>()

@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 {
   public interface IUnitTestElementFactoryEx
   {
-    IUnitTestElement GetOrCreateClassSuiteRecursively (ISuiteEntity suiteEntity);
+    IUnitTestElement GetOrCreateClassTestRecursively (ITestEntity testEntity);
 
     IUnitTestElement GetOrCreateSingleElement (
         string elementTypeFullName,
@@ -53,36 +53,25 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       _unitTestElementManager = unitTestElementManager;
       _factoryMethods = new Dictionary<string, Func<IIdentity, IProject, string, IUnitTestElement>>
                         {
-                            { typeof (ClassSuiteElement).FullName, GetOrCreateClassSuite },
-                            { typeof (SuiteElement).FullName, GetOrCreateSuite },
-                            { typeof (TestElement).FullName, GetOrCreateTest }
+                            { typeof (ClassTestElement).FullName, GetOrCreateClassTest },
+                            { typeof (TestElement).FullName, GetOrCreateChildTest }
                         };
     }
 
-    public IUnitTestElement GetOrCreateClassSuiteRecursively (ISuiteEntity suiteEntity)
+    public IUnitTestElement GetOrCreateClassTestRecursively (ITestEntity testEntity)
     {
       var element = GetOrCreateAndUpdateElement(
-          suiteEntity,
+          testEntity,
           identity =>
-              new ClassSuiteElement(
+              new ClassTestElement(
                   identity,
-                  new Task[] { new RunTask(), new AssemblySuiteTask(identity.Parent), new SuiteTask(identity) }));
+                  new Task[] { new RunTask(), new AssemblyTestTask(identity.Parent), new TestTask(identity) }));
 
-      CreateAndAppendChildren(element, suiteEntity);
+      CreateAndAppendChildren(element, testEntity);
       return element;
     }
 
-    private IUnitTestElement GetOrCreateSuite (ISuiteEntity suiteEntity)
-    {
-      var element = GetOrCreateAndUpdateElement(
-          suiteEntity,
-          identity => new SuiteElement(identity, new Task[] { new SuiteTask(identity) }));
-
-      CreateAndAppendChildren(element, suiteEntity);
-      return element;
-    }
-
-    private IUnitTestElement GetOrCreateTest (ITestEntity testEntity)
+    private IUnitTestElement GetOrCreateChildTest (ITestEntity testEntity)
     {
       return GetOrCreateAndUpdateElement(
           testEntity,
@@ -91,21 +80,20 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     [CanBeNull]
     private IUnitTestElement GetOrCreateAndUpdateElement (
-        IUnitTestEntity unitTestEntity,
+        ITestEntity testEntity,
         Func<IUnitTestIdentity, IUnitTestElementEx> factory)
     {
-      var identity = new UnitTestIdentity(_unitTestProvider, unitTestEntity.Project, unitTestEntity.Identity);
+      var identity = new UnitTestIdentity(_unitTestProvider, testEntity.Project, testEntity.Identity);
       var element = _unitTestElementManager.GetElementByIdentity(identity) ?? factory(identity);
 
-      element.Update(unitTestEntity.Text, null, Enumerable.Empty<UnitTestElementCategory>());
+      element.Update(testEntity.Text, null, Enumerable.Empty<UnitTestElementCategory>());
 
       return element;
     }
 
-    private void CreateAndAppendChildren (IUnitTestElement suiteElement, ISuiteEntity suiteEntity)
+    private void CreateAndAppendChildren (IUnitTestElement testElement, ITestEntity testEntity)
     {
-      suiteEntity.SuiteEntities.Select(GetOrCreateSuite).ForEach(x => x.Parent = suiteElement);
-      suiteEntity.TestEntities.Select(GetOrCreateTest).ForEach(x => x.Parent = suiteElement);
+      testEntity.TestEntities.Select(GetOrCreateChildTest).ForEach(x => x.Parent = testElement);
     }
 
     public IUnitTestElement GetOrCreateSingleElement (
@@ -121,22 +109,17 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return element;
     }
 
-    private IUnitTestElement GetOrCreateClassSuite (IIdentity identity, IProject project, string text)
-    {
-      var suiteEntity = new SuiteEntitySurrogate(identity, project, text);
-      return GetOrCreateClassSuiteRecursively(suiteEntity);
-    }
-
-    private IUnitTestElement GetOrCreateSuite (IIdentity identity, IProject project, string text)
-    {
-      var suiteEntity = new SuiteEntitySurrogate(identity, project, text);
-      return GetOrCreateSuite(suiteEntity);
-    }
-
-    private IUnitTestElement GetOrCreateTest (IIdentity identity, IProject project, string text)
+    // TODO: repetition
+    private IUnitTestElement GetOrCreateClassTest (IIdentity identity, IProject project, string text)
     {
       var testEntity = new TestEntitySurrogate(identity, project, text);
-      return GetOrCreateTest(testEntity);
+      return GetOrCreateClassTestRecursively(testEntity);
+    }
+
+    private IUnitTestElement GetOrCreateChildTest (IIdentity identity, IProject project, string text)
+    {
+      var testEntity = new TestEntitySurrogate(identity, project, text);
+      return GetOrCreateChildTest(testEntity);
     }
   }
 }

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
@@ -36,16 +35,10 @@ namespace TestFx.ReSharper.UnitTesting
   public partial class UnitTestProviderEx : IUnitTestProviderEx
   {
     private readonly UnitTestElementComparer _unitTestElementComparer;
-    private readonly Dictionary<string, string> _taskTypeToElementType;
 
     public UnitTestProviderEx ()
     {
-      _unitTestElementComparer = new UnitTestElementComparer(typeof (ClassSuiteElement), typeof (SuiteElement), typeof (TestElement));
-      _taskTypeToElementType = new Dictionary<string, string>
-                               {
-                                   { typeof (SuiteTask).FullName, typeof (SuiteElement).FullName },
-                                   { typeof (TestTask).FullName, typeof (TestElement).FullName }
-                               };
+      _unitTestElementComparer = new UnitTestElementComparer(typeof (ClassTestElement), typeof (TestElement));
     }
 
     public string ID
@@ -98,7 +91,7 @@ namespace TestFx.ReSharper.UnitTesting
       var project = parentElement.GetProject().AssertNotNull();
       var elementFactory = project.GetComponent<IUnitTestElementFactoryEx>();
 
-      var elementTypeFullName = _taskTypeToElementType[dynamicTask.TaskTypeFullName];
+      var elementTypeFullName = typeof(TestTask).FullName;
       var element = elementFactory.GetOrCreateSingleElement(elementTypeFullName, dynamicTask.Identity, project, dynamicTask.Text, parentElement);
       // TODO: parameter for elementFactory instead?
       element.State = UnitTestElementState.Dynamic;

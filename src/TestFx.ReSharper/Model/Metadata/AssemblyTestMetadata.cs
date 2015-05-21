@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,37 +15,33 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
-using JetBrains.ReSharper.Psi.CSharp.Tree;
-using TestFx.ReSharper.Model.Tree.Wrapper;
+using TestFx.ReSharper.Model.Metadata.Wrapper;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Model.Tree
+namespace TestFx.ReSharper.Model.Metadata
 {
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public class StatementSuiteDeclaration : ExpressionStatementBase, ISuiteDeclaration
+  public class AssemblyTestMetadata : MetadataAssemblyBase, ITestMetadata
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;
     private readonly string _text;
-    private readonly IEnumerable<ISuiteDeclaration> _suiteDeclarations;
-    private readonly IEnumerable<ITestDeclaration> _testDeclarations;
+    private readonly IEnumerable<ITestMetadata> _testMetadatas;
 
-    public StatementSuiteDeclaration (
+    public AssemblyTestMetadata (
         IIdentity identity,
         IProject project,
         string text,
-        IEnumerable<ISuiteDeclaration> suiteDeclarations,
-        IEnumerable<ITestDeclaration> testDeclarations,
-        IExpressionStatement statement)
-        : base(statement)
+        IEnumerable<ITestMetadata> testMetadatas,
+        IMetadataAssembly metadataAssembly)
+        : base(metadataAssembly)
     {
       _identity = identity;
       _project = project;
       _text = text;
-      _suiteDeclarations = suiteDeclarations;
-      _testDeclarations = testDeclarations;
+      _testMetadatas = testMetadatas;
     }
 
     public IIdentity Identity
@@ -63,24 +59,14 @@ namespace TestFx.ReSharper.Model.Tree
       get { return _text; }
     }
 
-    public IEnumerable<ISuiteDeclaration> SuiteDeclarations
+    public IEnumerable<ITestMetadata> TestMetadatas
     {
-      get { return _suiteDeclarations; }
-    }
-
-    public IEnumerable<ITestDeclaration> TestDeclarations
-    {
-      get { return _testDeclarations; }
-    }
-
-    public IEnumerable<ISuiteEntity> SuiteEntities
-    {
-      get { return _suiteDeclarations.Cast<ISuiteEntity>(); }
+      get { return _testMetadatas; }
     }
 
     public IEnumerable<ITestEntity> TestEntities
     {
-      get { return _testDeclarations.Cast<ITestEntity>(); }
+      get { return _testMetadatas; }
     }
   }
 }

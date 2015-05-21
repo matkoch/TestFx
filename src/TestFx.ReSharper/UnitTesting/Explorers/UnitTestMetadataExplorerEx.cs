@@ -13,6 +13,8 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
@@ -53,9 +55,12 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
 
       using (ReadLockCookie.Create())
       {
-        var assemblySuite = assembly.ToAssemblySuite(project, notInterrupted);
-        var suiteElements = assemblySuite.SuiteEntities.Select(_unitTestElementFactory.GetOrCreateClassSuiteRecursively);
-        suiteElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).ForEach(consumer);
+        var assemblyTest = assembly.ToAssemblyTest(project, notInterrupted);
+        var testElements = assemblyTest.TestEntities.Select(_unitTestElementFactory.GetOrCreateClassTestRecursively);
+        var allTestElements = testElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).ToList();
+
+        Debug.Assert(allTestElements.Count > 0, "Found no tests.");
+        allTestElements.ForEach(consumer);
       }
     }
   }

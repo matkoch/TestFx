@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.UnitTesting
 
     public void Present (IUnitTestElement element, IPresentableItem item, TreeModelNode node, PresentationState state)
     {
-      if (element is ChildElementBase)
+      if (element is TestElement)
         node.Model.Comparer = _comparer;
     }
 
@@ -43,7 +43,7 @@ namespace TestFx.ReSharper.UnitTesting
         if (first == null || second == null)
           return 0;
 
-        // TODO: Performance critical. should cache suite file
+        // TODO: Performance critical. should cache test file
         var firstDisposition = first.GetDisposition();
         var secondDisposition = second.GetDisposition();
         if (firstDisposition == UnitTestElementDisposition.InvalidDisposition || secondDisposition == UnitTestElementDisposition.InvalidDisposition)

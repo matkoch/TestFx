@@ -37,27 +37,27 @@ namespace TestFx.ReSharper.Runner
       _taskDictionary = taskDictionary;
     }
 
-    public override void OnSuiteStarted (ISuiteIntent intent)
+    public override void OnSuiteStarted (IIntent intent)
     {
-      IfTaskExists(Started, intent);
+      IfTaskExists(intent, Started);
     }
 
-    public override void OnTestStarted (ITestIntent intent)
+    public override void OnTestStarted (IIntent intent)
     {
-      IfTaskExists(Started, intent);
+      IfTaskExists(intent, Started);
     }
 
     public override void OnTestFinished (ITestResult result)
     {
-      IfTaskExists(Finished, result);
+      IfTaskExists(result, x => Finished(result, x));
     }
 
     public override void OnSuiteFinished (ISuiteResult result)
     {
-      IfTaskExists(Finished, result);
+      IfTaskExists(result, x => Finished(result, x));
     }
 
-    private void Started (IIntent intent, Task task)
+    private void Started (Task task)
     {
       _server.TaskStarting(task);
     }
@@ -93,9 +93,10 @@ namespace TestFx.ReSharper.Runner
       _server.TaskFinished(task, message, result.GetTaskResult());
     }
 
+    // TODO: repetition
     private void CreateDynamicTask (string parentGuid, ISuiteResult result)
     {
-      var dynamicTask = new DynamicTask(typeof (SuiteTask), parentGuid, result.Identity, result.Text);
+      var dynamicTask = new DynamicTask(typeof (TestTask), parentGuid, result.Identity, result.Text);
       _server.CreateDynamicElement(dynamicTask);
       Finished(result, dynamicTask);
     }
@@ -107,11 +108,11 @@ namespace TestFx.ReSharper.Runner
       Finished(result, dynamicTask);
     }
 
-    private void IfTaskExists<T> (Action<T, Task> action, T node) where T : IIdentifiable
+    private void IfTaskExists<T> (T node, Action<Task> action) where T : IIdentifiable
     {
       var task = GetTask(node.Identity);
       if (task != null)
-        action(node, task);
+        action(task);
     }
 
     private bool TaskDoesNotExist (IResult result)

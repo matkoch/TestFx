@@ -15,7 +15,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using TestFx.ReSharper.Model.Tree.Wrapper;
@@ -24,19 +23,17 @@ using TestFx.Utilities;
 namespace TestFx.ReSharper.Model.Tree
 {
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public class ClassSuiteDeclaration : ClassDeclarationBase, ISuiteDeclaration
+  public class ClassTestDeclaration : ClassDeclarationBase, ITestDeclaration
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;
     private readonly string _text;
-    private readonly IEnumerable<ISuiteDeclaration> _suiteDeclarations;
     private readonly IEnumerable<ITestDeclaration> _testDeclarations;
 
-    public ClassSuiteDeclaration (
+    public ClassTestDeclaration (
         IIdentity identity,
         IProject project,
         string text,
-        IEnumerable<ISuiteDeclaration> suiteDeclarations,
         IEnumerable<ITestDeclaration> testDeclarations,
         IClassDeclaration classDeclaration)
         : base(classDeclaration)
@@ -44,7 +41,6 @@ namespace TestFx.ReSharper.Model.Tree
       _identity = identity;
       _project = project;
       _text = text;
-      _suiteDeclarations = suiteDeclarations;
       _testDeclarations = testDeclarations;
     }
 
@@ -63,24 +59,14 @@ namespace TestFx.ReSharper.Model.Tree
       get { return _text; }
     }
 
-    public IEnumerable<ISuiteDeclaration> SuiteDeclarations
-    {
-      get { return _suiteDeclarations; }
-    }
-
     public IEnumerable<ITestDeclaration> TestDeclarations
     {
       get { return _testDeclarations; }
     }
 
-    public IEnumerable<ISuiteEntity> SuiteEntities
-    {
-      get { return _suiteDeclarations.Cast<ISuiteEntity>(); }
-    }
-
     public IEnumerable<ITestEntity> TestEntities
     {
-      get { return _testDeclarations.Cast<ITestEntity>(); }
+      get { return _testDeclarations; }
     }
   }
 }

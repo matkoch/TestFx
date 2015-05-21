@@ -19,21 +19,21 @@ using TestFx.Utilities;
 namespace TestFx.ReSharper.Runner.Tasks
 {
   [Serializable]
-  public class SuiteTask : Task
+  public class AssemblyTestTask : TestTask
   {
-    public SuiteTask (XmlElement element)
+    public AssemblyTestTask (XmlElement element)
         : base(element)
     {
     }
 
-    public SuiteTask (IIdentity identity)
+    public AssemblyTestTask (IIdentity identity)
         : base(identity)
     {
     }
 
     public override bool IsMeaningfulTask
     {
-      get { return true; }
+      get { return false; }
     }
   }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,13 +14,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
+using JetBrains.ProjectModel;
+using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.UnitTestFramework;
+using TestFx.ReSharper.Model.Tree;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public class TestElement : ChildElementBase
+  public class TestElement : ElementBase
   {
     public TestElement (IUnitTestIdentity identity, IList<Task> tasks)
         : base(identity, tasks)
@@ -32,9 +37,28 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       get { return "Test"; }
     }
 
-    public override UnitTestElementKind ElementKind
+    [CanBeNull]
+    public override IDeclaredElement GetDeclaredElement ()
     {
-      get { return UnitTestElementKind.Test; }
+      return null;
+    }
+
+    [CanBeNull]
+    public override IEnumerable<IProjectFile> GetProjectFiles ()
+    {
+      return Parent != null ? Parent.GetProjectFiles() : Enumerable.Empty<IProjectFile>();
+    }
+
+    // TODO: introduced invariance!
+    [CanBeNull]
+    public override UnitTestNamespace GetNamespace ()
+    {
+      return Parent != null ? Parent.GetNamespace() : null;
+    }
+
+    internal override IEnumerable<ITestFile> GetTestFiles ()
+    {
+      return Parent != null ? ((ElementBase) Parent).GetTestFiles() : Enumerable.Empty<ITestFile>();
     }
   }
 }

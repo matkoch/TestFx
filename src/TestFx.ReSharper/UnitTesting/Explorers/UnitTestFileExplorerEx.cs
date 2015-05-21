@@ -33,14 +33,15 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
 
     public void Explore (IFile psiFile, Action<UnitTestElementDisposition> consumer, Func<bool> notInterrupted)
     {
-      var file = psiFile.ToSuiteFile(notInterrupted);
+      var file = psiFile.ToTestFile(notInterrupted);
       if (file == null)
         return;
 
-      var suiteElements = file.SuiteDeclarations.Select(_unitTestElementFactory.GetOrCreateClassSuiteRecursively);
-      var allElements = suiteElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).Cast<IUnitTestElementEx>();
+      var testElements = file.TestDeclarations.Select(_unitTestElementFactory.GetOrCreateClassTestRecursively);
+      var allElements = testElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).Cast<IUnitTestElementEx>();
       var dispositions = allElements.Select(x => x.GetDispositionFromFiles(file))
           .Where(x => x != UnitTestElementDisposition.InvalidDisposition).ToList();
+
       dispositions.ForEach(consumer);
     }
   }

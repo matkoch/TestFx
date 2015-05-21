@@ -13,10 +13,16 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using JetBrains.ProjectModel;
+using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Model
 {
-  public interface ITestEntity : IUnitTestEntity
+  public interface ITestEntity : IIdentifiable
   {
+    IProject Project { get; }
+    string Text { get; }
+    IEnumerable<ITestEntity> TestEntities { get; }
   }
 }

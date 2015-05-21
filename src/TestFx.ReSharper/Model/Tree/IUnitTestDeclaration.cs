@@ -18,6 +18,8 @@ using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Model.Tree
 {
+  // TODO: why not inherit from ITestEntity ? (also in IUnitTestMetadata)
+  // TODO: rename to ITestDeclaration ?
   public interface IUnitTestDeclaration : ICSharpTreeNode, IIdentifiable
   {
   }

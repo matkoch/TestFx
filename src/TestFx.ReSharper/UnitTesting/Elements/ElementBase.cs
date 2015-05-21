@@ -58,7 +58,6 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     }
 
     public abstract string Kind { get; }
-    public abstract UnitTestElementKind ElementKind { get; }
 
     [CanBeNull]
     public abstract IEnumerable<IProjectFile> GetProjectFiles ();
@@ -68,7 +67,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     [CanBeNull]
     public abstract IDeclaredElement GetDeclaredElement ();
 
-    internal abstract IEnumerable<ISuiteFile> GetSuiteFiles ();
+    internal abstract IEnumerable<ITestFile> GetTestFiles ();
 
     public IIdentity Identity
     {
@@ -84,6 +83,11 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     public virtual string ShortName
     {
       get { return Identity.Relative; }
+    }
+
+    public UnitTestElementKind ElementKind
+    {
+      get { return _children.Any() ? UnitTestElementKind.TestContainer : UnitTestElementKind.Test; }
     }
 
     public void Update (string text, [CanBeNull] string explicitReason, IEnumerable<UnitTestElementCategory> categories)
@@ -156,23 +160,23 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return parentTasks.Concat(_tasks.Select(x => new UnitTestTask(this, x))).ToList();
     }
 
-    public IEnumerable<IUnitTestDeclaration> GetDeclarations (IEnumerable<ISuiteFile> suiteFiles)
+    public IEnumerable<IUnitTestDeclaration> GetDeclarations (IEnumerable<ITestFile> testFiles)
     {
-      return suiteFiles.Select(x => x.SuiteDeclarations.Cast<IUnitTestDeclaration>().Search(Identity, GetChildren)).WhereNotNull();
+      return testFiles.Select(x => x.TestDeclarations.Cast<IUnitTestDeclaration>().Search(Identity, GetChildren)).WhereNotNull();
     }
 
     // TODO: move to IUnitTestDeclaration.Children?
     private IEnumerable<IUnitTestDeclaration> GetChildren (IUnitTestDeclaration declaration)
     {
-      var suiteDeclaration = declaration as ISuiteDeclaration;
-      return suiteDeclaration != null
-          ? suiteDeclaration.SuiteDeclarations.Concat(suiteDeclaration.TestDeclarations.Cast<IUnitTestDeclaration>())
+      var testDeclaration = declaration as ITestDeclaration;
+      return testDeclaration != null
+          ? testDeclaration.TestDeclarations
           : Enumerable.Empty<IUnitTestDeclaration>();
     }
 
-    public UnitTestElementDisposition GetDispositionFromFiles (params ISuiteFile[] suiteFiles)
+    public UnitTestElementDisposition GetDispositionFromFiles (params ITestFile[] testFiles)
     {
-      var locations = GetDeclarations(suiteFiles).ToList().Select(x => x.GetUnitTestElementLocation()).ToList();
+      var locations = GetDeclarations(testFiles).ToList().Select(x => x.GetUnitTestElementLocation()).ToList();
       return locations.Count != 0
           ? new UnitTestElementDisposition(locations, this)
           : UnitTestElementDisposition.InvalidDisposition;
@@ -180,7 +184,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     public UnitTestElementDisposition GetDisposition ()
     {
-      return GetDispositionFromFiles(GetSuiteFiles().ToArray());
+      return GetDispositionFromFiles(GetTestFiles().ToArray());
     }
 
     public bool Equals (IUnitTestElement other)

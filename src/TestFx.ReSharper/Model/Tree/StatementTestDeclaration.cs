@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,30 +15,34 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using JetBrains.Metadata.Reader.API;
+using System.Linq;
 using JetBrains.ProjectModel;
-using TestFx.ReSharper.Model.Metadata.Wrapper;
+using JetBrains.ReSharper.Psi.CSharp.Tree;
+using TestFx.ReSharper.Model.Tree.Wrapper;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Model.Metadata
+namespace TestFx.ReSharper.Model.Tree
 {
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public class TypeSuiteMetadata : MetadataTypeInfoBase, ISuiteMetadata
+  public class StatementTestDeclaration : ExpressionStatementBase, ITestDeclaration
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;
     private readonly string _text;
+    private readonly IEnumerable<ITestDeclaration> _testDeclarations;
 
-    public TypeSuiteMetadata (
+    public StatementTestDeclaration (
         IIdentity identity,
         IProject project,
         string text,
-        IMetadataTypeInfo metadataTypeInfo)
-        : base(metadataTypeInfo)
+        IEnumerable<ITestDeclaration> testDeclarations,
+        IExpressionStatement statement)
+        : base(statement)
     {
       _identity = identity;
       _project = project;
       _text = text;
+      _testDeclarations = testDeclarations;
     }
 
     public IIdentity Identity
@@ -56,19 +60,14 @@ namespace TestFx.ReSharper.Model.Metadata
       get { return _text; }
     }
 
-    public IEnumerable<ISuiteMetadata> SuiteMetadatas
+    public IEnumerable<ITestDeclaration> TestDeclarations
     {
-      get { yield break; }
-    }
-
-    public IEnumerable<ISuiteEntity> SuiteEntities
-    {
-      get { yield break; }
+      get { return _testDeclarations; }
     }
 
     public IEnumerable<ITestEntity> TestEntities
     {
-      get { yield break; }
+      get { return _testDeclarations; }
     }
   }
 }

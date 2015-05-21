@@ -13,10 +13,11 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 
 namespace TestFx.ReSharper.Model.Tree
 {
-  public interface ITestDeclaration : ITestEntity, IUnitTestDeclaration
+  public interface ITestDeclaration : ITestEntity, IUnitTestDeclaration, ITestDeclarationHolder
   {
   }
 }
