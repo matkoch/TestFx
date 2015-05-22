@@ -40,17 +40,20 @@ namespace TestFx.Specifications.Implementation.Controllers
 
   public class TestController<TSubject, TResult, TVars, TCombi> : TestController, ITestController<TSubject, TResult, TVars, TCombi>
   {
+    private readonly SuiteProvider _suiteProvider;
     private readonly TestProvider _provider;
     private readonly TestContext<TSubject, TResult, TVars, TCombi> _context;
     private readonly IControllerFactory _controllerFactory;
 
     public TestController (
+        SuiteProvider suiteProvider,
         TestProvider provider,
         TestContext<TSubject, TResult, TVars, TCombi> context,
         IOperationSorter operationSorter,
         IControllerFactory controllerFactory)
         : base(provider, context, operationSorter)
     {
+      _suiteProvider = suiteProvider;
       _provider = provider;
       _context = context;
       _controllerFactory = controllerFactory;
@@ -88,6 +91,7 @@ namespace TestFx.Specifications.Implementation.Controllers
 
       return _controllerFactory
           .CreateDelegateTestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi>(
+              _suiteProvider,
               _provider,
               _context);
     }

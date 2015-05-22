@@ -34,11 +34,13 @@ namespace TestFx.Specifications.Implementation.Controllers
         IClassSuiteController<TSubject> classSuiteController);
 
     ITestController<TSubject, TResult, object, object> CreateMainTestController<TSubject, TResult> (
+        SuiteProvider suiteProvider,
         TestProvider provider,
         ActionContainer<TSubject, TResult> actionContainer);
 
     ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
         CreateDelegateTestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi> (
+        SuiteProvider suiteProvider,
         TestProvider provider,
         TestContext<TSubject, TResult, TVars, TCombi> context);
   }
@@ -75,22 +77,29 @@ namespace TestFx.Specifications.Implementation.Controllers
     }
 
     public ITestController<TSubject, TResult, object, object> CreateMainTestController<TSubject, TResult> (
+        SuiteProvider suiteProvider,
         TestProvider provider,
         ActionContainer<TSubject, TResult> actionContainer)
     {
       var context = new MainTestContext<TSubject, TResult>();
-      var controller = new MainTestController<TSubject, TResult>(provider, context, actionContainer, _operationSorter, this);
+      var controller = new MainTestController<TSubject, TResult>(suiteProvider, provider, context, actionContainer, _operationSorter, this);
       return controller;
     }
 
     public ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
         CreateDelegateTestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi> (
+        SuiteProvider suiteProvider,
         TestProvider provider,
         TestContext<TSubject, TResult, TVars, TCombi> context)
     {
       var delegateContext =
           new DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi>(context);
-      return new TestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>(provider, delegateContext, _operationSorter, this);
+      return new TestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>(
+          suiteProvider,
+          provider,
+          delegateContext,
+          _operationSorter,
+          this);
     }
   }
 }

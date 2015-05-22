@@ -29,6 +29,7 @@ namespace TestFx.Specifications.Implementation.Controllers
 
   public class SpecializedSuiteController<TSubject, TResult> : SuiteController, ISpecializedSuiteController<TSubject, TResult>
   {
+    private readonly SuiteProvider _provider;
     private readonly ActionContainer<TSubject, TResult> _actionContainer;
     private readonly IClassSuiteController<TSubject> _classSuiteController;
     private readonly IControllerFactory _controllerFactory;
@@ -43,6 +44,7 @@ namespace TestFx.Specifications.Implementation.Controllers
         IOperationSorter operationSorter)
         : base(provider, operationSorter)
     {
+      _provider = provider;
       _actionContainer = actionContainer;
       _classSuiteController = classSuiteController;
       _controllerFactory = controllerFactory;
@@ -55,8 +57,8 @@ namespace TestFx.Specifications.Implementation.Controllers
 
     public ITestController<TSubject, TResult, object, object> CreateTestController (string text)
     {
-      var provider = CreateTestProvider(text, text, _ignoreNext);
-      var controller = _controllerFactory.CreateMainTestController(provider, _actionContainer);
+      var testProvider = CreateTestProvider(text, text, _ignoreNext);
+      var controller = _controllerFactory.CreateMainTestController(_provider, testProvider, _actionContainer);
       _classSuiteController.ConfigureTestController(controller);
 
       _ignoreNext = false;

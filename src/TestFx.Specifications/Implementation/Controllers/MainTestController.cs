@@ -18,7 +18,6 @@ using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Contexts;
 using TestFx.Specifications.Implementation.Utilities;
-using TestFx.Specifications.InferredApi;
 using TestFx.Utilities;
 
 namespace TestFx.Specifications.Implementation.Controllers
@@ -27,13 +26,8 @@ namespace TestFx.Specifications.Implementation.Controllers
   {
     private readonly MainTestContext<TSubject, TResult> _context;
 
-    public MainTestController (
-        TestProvider provider,
-        MainTestContext<TSubject, TResult> context,
-        ActionContainer<TSubject, TResult> actionContainer,
-        IOperationSorter operationSorter,
-        IControllerFactory controllerFactory)
-        : base(provider, context, operationSorter, controllerFactory)
+    public MainTestController (SuiteProvider suiteProvider, TestProvider provider, MainTestContext<TSubject, TResult> context, ActionContainer<TSubject, TResult> actionContainer, IOperationSorter operationSorter, IControllerFactory controllerFactory)
+        : base(suiteProvider, provider, context, operationSorter, controllerFactory)
     {
       _context = context;
 
