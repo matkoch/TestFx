@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using FakeItEasy;
 using FakeItEasy.Core;
 using FluentAssertions;
@@ -25,6 +26,7 @@ using TestFx.Evaluation.Results;
 using TestFx.Extensibility.Providers;
 using TestFx.Specifications.Implementation;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 using Assert = NUnit.Framework.Assert;
 
 namespace TestFx.Specifications.IntegrationTests
@@ -43,10 +45,8 @@ namespace TestFx.Specifications.IntegrationTests
     protected IFakeScope Scope;
 
     protected IRunResult RunResult;
-    protected IList<ISuiteResult> AssemblyResults;
-    protected IList<ISuiteResult> TypeResults;
-    protected IList<ITestResult> TestResults;
-    protected IList<IOperationResult> OperationResults;
+    protected IList<ISuiteResult> SuiteResults; 
+    protected IList<ITestResult> TestResults; 
 
     [SetUp]
     public virtual void SetUp ()
@@ -59,10 +59,8 @@ namespace TestFx.Specifications.IntegrationTests
         RunResult = Evaluator.Run (runIntent);
       }
 
-      AssemblyResults = RunResult.SuiteResults.ToList ();
-      TypeResults = AssemblyResults.SelectMany (x => x.SuiteResults).ToList ();
-      TestResults = TypeResults.SelectMany (x => x.TestResults).ToList ();
-      OperationResults = TestResults.SelectMany (x => x.OperationResults).ToList ();
+      SuiteResults = RunResult.SuiteResults.SelectMany (x => x.DescendantsAndSelf (y => y.SuiteResults)).ToList ();
+      TestResults = SuiteResults.SelectMany (x => x.TestResults).ToList ();
     }
 
     [Test]

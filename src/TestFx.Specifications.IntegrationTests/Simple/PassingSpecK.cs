@@ -42,27 +42,31 @@ namespace TestFx.Specifications.IntegrationTests.Simple
     {
       RunResult.State.Should ().Be (State.Passed);
 
-      AssertResult (AssemblyResults.Single (),
+      var assemblyResult = RunResult.SuiteResults.Single ();
+      AssertResult (assemblyResult,
           relativeId: typeof (DomainSpecK).Assembly.Location,
           text: typeof (DomainSpecK).Assembly.GetName ().Name,
           state: State.Passed);
 
-      AssertResult (TypeResults.Single (),
+      var typeResult = assemblyResult.SuiteResults.Single ();
+      AssertResult (typeResult,
           relativeId: typeof (DomainSpecK).FullName,
           text: "PassingTest.Test",
           state: State.Passed);
 
-      AssertResult (TestResults.Single (),
+      var testResult = typeResult.TestResults.Single ();
+      AssertResult (testResult,
           relativeId: "<Default>",
           text: "<Default>",
           state: State.Passed);
 
-      AssertResult (OperationResults[0], Reset_Instance_Fields, State.Passed, OperationType.Action);
-      AssertResult (OperationResults[1], "<Arrangement>", State.Passed, OperationType.Action);
-      AssertResult (OperationResults[2], Action, State.Passed, OperationType.Action);
-      AssertResult (OperationResults[3], "Assertion", State.Passed, OperationType.Assertion);
+      var operationResults = testResult.OperationResults.ToList ();
+      AssertResult (operationResults[0], Reset_Instance_Fields, State.Passed, OperationType.Action);
+      AssertResult (operationResults[1], "<Arrangement>", State.Passed, OperationType.Action);
+      AssertResult (operationResults[2], Action, State.Passed, OperationType.Action);
+      AssertResult (operationResults[3], "Assertion", State.Passed, OperationType.Assertion);
 
-      TestResults.Single ().Identity.Absolute.Should ()
+      testResult.Identity.Absolute.Should ()
           .EndWith (
               "TestFx.Specifications.IntegrationTests.dll » " +
               "TestFx.Specifications.IntegrationTests.Simple.PassingTest+DomainSpecK » " +

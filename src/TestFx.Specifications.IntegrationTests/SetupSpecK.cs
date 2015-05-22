@@ -119,13 +119,15 @@ namespace TestFx.Specifications.IntegrationTests
         A.CallTo (() => MyAssemblySetup.AssemblyCleanupAction ()).MustHaveHappened (Repeated.Exactly.Once);
       }
 
-      AssemblyResults[0].SetupResults.ElementAt (0).Text.Should ().Be ("MyAssemblySetup.Setup");
-      AssemblyResults[0].CleanupResults.ElementAt (0).Text.Should ().Be ("MyAssemblySetup.Cleanup");
+      var assemblyResult = RunResult.SuiteResults.Single ();
+      assemblyResult.SetupResults.ElementAt (0).Text.Should ().Be ("MyAssemblySetup.Setup");
+      assemblyResult.CleanupResults.ElementAt (0).Text.Should ().Be ("MyAssemblySetup.Cleanup");
 
-      TypeResults[0].SetupResults.ElementAt (0).Text.Should ().Be ("SetupOnceMethod");
-      TypeResults[0].SetupResults.ElementAt (1).Text.Should ().Be ("<lambda method>");
-      TypeResults[0].CleanupResults.ElementAt (0).Text.Should ().Be ("<lambda method>");
-      TypeResults[0].CleanupResults.ElementAt (1).Text.Should ().Be ("CleanupOnceMethod");
+      var typeResult = assemblyResult.SuiteResults.Single ();
+      typeResult.SetupResults.ElementAt (0).Text.Should ().Be ("SetupOnceMethod");
+      typeResult.SetupResults.ElementAt (1).Text.Should ().Be ("<lambda method>");
+      typeResult.CleanupResults.ElementAt (0).Text.Should ().Be ("<lambda method>");
+      typeResult.CleanupResults.ElementAt (1).Text.Should ().Be ("CleanupOnceMethod");
     }
   }
 }
