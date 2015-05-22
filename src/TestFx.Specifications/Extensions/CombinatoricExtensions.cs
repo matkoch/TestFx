@@ -23,8 +23,8 @@ namespace TestFx.Specifications
 {
   public static class CombinatoricExtensions
   {
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithSequences<TSubject, TResult, TVars, TCombi, TNewCombi> (
-        this ICombine<TSubject, TResult, TVars, TCombi> combine,
+    public static IArrangeOrAssert<TSubject, TResult, Dummy, TNewCombi> WithSequences<TSubject, TResult, TNewCombi> (
+        this ICombine<TSubject, TResult> combine,
         string text1,
         TNewCombi sequence1,
         string text2,
@@ -38,8 +38,8 @@ namespace TestFx.Specifications
           });
     }
 
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithSequences<TSubject, TResult, TVars, TCombi, TNewCombi> (
-        this ICombine<TSubject, TResult, TVars, TCombi> combine,
+    public static IArrangeOrAssert<TSubject, TResult, Dummy, TNewCombi> WithSequences<TSubject, TResult, TNewCombi> (
+        this ICombine<TSubject, TResult> combine,
         TNewCombi sequence1,
         TNewCombi sequence2)
     {
@@ -51,8 +51,8 @@ namespace TestFx.Specifications
           });
     }
 
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithPermutations<TSubject, TResult, TVars, TCombi, TNewCombi, T1, T2> (
-        this ICombine<TSubject, TResult, TVars, TCombi> combine,
+    public static IArrangeOrAssert<TSubject, TResult, Dummy, TNewCombi> WithPermutations<TSubject, TResult, TNewCombi, T1, T2> (
+        this ICombine<TSubject, TResult> combine,
         TNewCombi template,
         Expression<Func<TNewCombi, T1>> propertySelector1,
         IEnumerable<T1> propertyValues1,
@@ -68,8 +68,8 @@ namespace TestFx.Specifications
       return combine.WithCombinations(values.ToDictionary(GetText, x => x));
     }
 
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithPermutations<TSubject, TResult, TVars, TCombi, TNewCombi, T1, T2, T3> (
-        this ICombine<TSubject, TResult, TVars, TCombi> combine,
+    public static IArrangeOrAssert<TSubject, TResult, Dummy, TNewCombi> WithPermutations<TSubject, TResult, TNewCombi, T1, T2, T3> (
+        this ICombine<TSubject, TResult> combine,
         TNewCombi template,
         Expression<Func<TNewCombi, T1>> propertySelector1,
         IEnumerable<T1> propertyValues1,
@@ -88,9 +88,9 @@ namespace TestFx.Specifications
       return combine.WithCombinations(values.ToDictionary(GetText, x => x));
     }
 
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithPermutations<TSubject, TResult, TVars, TCombi, TNewCombi, T1, T2, T3, T4>
+    public static IArrangeOrAssert<TSubject, TResult, Dummy, TNewCombi> WithPermutations<TSubject, TResult, TNewCombi, T1, T2, T3, T4>
         (
-        this ICombine<TSubject, TResult, TVars, TCombi> combine,
+        this ICombine<TSubject, TResult> combine,
         TNewCombi template,
         Expression<Func<TNewCombi, T1>> propertySelector1,
         IEnumerable<T1> propertyValues1,

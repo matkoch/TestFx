@@ -15,13 +15,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Contexts;
 using TestFx.Specifications.Implementation.Utilities;
-using TestFx.Specifications.InferredApi;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 
@@ -40,8 +40,10 @@ namespace TestFx.Specifications.Implementation.Controllers
         SuiteProvider suiteProvider,
         TestProvider provider,
         ActionContainer<TSubject, TResult> actionContainer,
-        TVars vars,
         TCombi combi);
+
+    ITestController<TSubject, TResult, TVars, TCombi> CreateCompositeTestController<TSubject, TResult, TVars, TCombi> (
+        IEnumerable<ITestController<TSubject, TResult, TVars, TCombi>> controllers);
 
     ITestController<TSubject, TResult, TVars, TCombi> CreateTestController<TSubject, TResult, TVars, TCombi> (
         SuiteProvider suiteProvider,
@@ -80,10 +82,9 @@ namespace TestFx.Specifications.Implementation.Controllers
         SuiteProvider suiteProvider,
         TestProvider provider,
         ActionContainer<TSubject, TResult> actionContainer,
-        TVars vars,
         TCombi combi)
     {
-      var context = new MainTestContext<TSubject, TResult, TVars, TCombi>(actionContainer);
+      var context = new MainTestContext<TSubject, TResult, TVars, TCombi>(actionContainer) { Combi = combi };
       var controller = CreateTestController(suiteProvider, provider, context);
 
       var wrappedAction = actionContainer.VoidAction != null
@@ -92,6 +93,12 @@ namespace TestFx.Specifications.Implementation.Controllers
       controller.AddAction<Act>(actionContainer.Text, x => wrappedAction());
 
       return controller;
+    }
+
+    public ITestController<TSubject, TResult, TVars, TCombi> CreateCompositeTestController<TSubject, TResult, TVars, TCombi> (
+        IEnumerable<ITestController<TSubject, TResult, TVars, TCombi>> controllers)
+    {
+      return new CompositeTestController<TSubject, TResult, TVars, TCombi>(controllers.ToList(), this);
     }
 
     public ITestController<TSubject, TResult, TVars, TCombi> CreateTestController<TSubject, TResult, TVars, TCombi> (

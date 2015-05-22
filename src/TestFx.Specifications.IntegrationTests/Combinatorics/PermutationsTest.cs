@@ -19,8 +19,7 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests.Combinatorics
 {
-  [Ignore]
-  public class PermutationsTest : TestBase<SequencesTest.DomainSpecK>
+  public class PermutationsTest : TestBase<PermutationsTest.DomainSpecK>
   {
     [Subject (typeof (PermutationsTest), "Test")]
     public class DomainSpecK : SpecK
@@ -45,12 +44,12 @@ namespace TestFx.Specifications.IntegrationTests.Combinatorics
     [Test]
     public override void Test ()
     {
-      AssertTest ("A = 1, B = 3", State.Failed);
       AssertTest ("A = 1, B = 4", State.Passed);
       AssertTest ("A = 1, B = 5", State.Failed);
       AssertTest ("A = 2, B = 3", State.Passed);
       AssertTest ("A = 2, B = 4", State.Failed);
       AssertTest ("A = 2, B = 5", State.Failed);
+      AssertTest ("A = 1, B = 3", State.Failed);
     }
   }
 }

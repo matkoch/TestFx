@@ -14,11 +14,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TestFx.Extensibility.Controllers;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Contexts;
+using TestFx.Specifications.Implementation.Utilities;
 using TestFx.Specifications.InferredApi;
+using TestFx.Utilities;
 
 namespace TestFx.Specifications.Implementation.Controllers
 {
@@ -31,13 +34,13 @@ namespace TestFx.Specifications.Implementation.Controllers
   public interface ITestController<TSubject, out TResult, out TVars, out TCombi> : ITestController<TSubject>
   {
     ITestController<TSubject, TResult, TNewVars, TCombi> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
-    ITestController<TSubject, TResult, TVars, TNewCombi> SetCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations);
+    ITestController<TSubject, TResult, Dummy, TNewCombi> SetCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations);
 
     void AddArrangement (string text, Arrangement<TSubject, TResult, TVars, TCombi> arrangement);
     void AddAssertion (string text, Assertion<TSubject, TResult, TVars, TCombi> assertion, bool expectException = false);
 
-    ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
-        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo> ();
+    ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi>
+        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi> ();
   }
 
   public class TestController<TSubject, TResult, TVars, TCombi> : TestController, ITestController<TSubject, TResult, TVars, TCombi>
@@ -68,11 +71,32 @@ namespace TestFx.Specifications.Implementation.Controllers
       AddAction<T>(text, x => _context.Subject = subjectFactory(null));
     }
 
-    public ITestController<TSubject, TResult, TVars, TNewCombi> SetCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations)
+    public ITestController<TSubject, TResult, Dummy, TNewCombi> SetCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations)
     {
-      // Create CompositeController
-      // 
-      throw new NotImplementedException();
+      var mainContext = (MainTestContext<TSubject, TResult, Dummy, TCombi>) (object) _context;
+      var actionContainer = mainContext.ActionContainer;
+
+      var combinationSuiteProvider = SuiteProvider.Create(_provider.Identity, _provider.Text, _provider.Ignored);
+
+      _suiteProvider.SuiteProviders = _suiteProvider.SuiteProviders.Concat(new[] { combinationSuiteProvider });
+      _suiteProvider.TestProviders = _suiteProvider.TestProviders.Except(new[] { _provider });
+
+      var testControllers = combinations.Select(
+          x => CreateCombinationTestController(combinationSuiteProvider, actionContainer, x.Key, x.Value));
+
+      return _controllerFactory.CreateCompositeTestController(testControllers);
+    }
+
+    private ITestController<TSubject, TResult, Dummy, TNewCombi> CreateCombinationTestController<TNewCombi> (
+        SuiteProvider suiteProvider,
+        ActionContainer<TSubject, TResult> actionContainer,
+        string text,
+        TNewCombi combi)
+    {
+      var identity = _provider.Identity.CreateChildIdentity(text);
+      var testProvider = TestProvider.Create(identity, text, ignored: false);
+      suiteProvider.TestProviders = suiteProvider.TestProviders.Concat(new[] { testProvider });
+      return _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, TNewCombi>(suiteProvider, testProvider, actionContainer, combi);
     }
 
     public ITestController<TSubject, TResult, TNewVars, TCombi> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)

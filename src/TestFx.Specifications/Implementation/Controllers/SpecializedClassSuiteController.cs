@@ -59,7 +59,7 @@ namespace TestFx.Specifications.Implementation.Controllers
     public ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text)
     {
       var testProvider = CreateTestProvider(text, text, _ignoreNext);
-      var controller = _controllerFactory.CreateMainTestController(_provider, testProvider, _actionContainer, new Dummy(), new Dummy());
+      var controller = _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, Dummy>(_provider, testProvider, _actionContainer, new Dummy());
       _classSuiteController.ConfigureTestController(controller);
 
       _ignoreNext = false;

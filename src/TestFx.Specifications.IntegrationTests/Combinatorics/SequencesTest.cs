@@ -19,7 +19,6 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests.Combinatorics
 {
-  [Ignore]
   public class SequencesTest : TestBase<SequencesTest.DomainSpecK>
   {
     [Subject (typeof (SequencesTest), "Test")]

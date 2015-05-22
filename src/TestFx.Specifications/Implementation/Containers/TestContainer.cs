@@ -39,7 +39,7 @@ namespace TestFx.Specifications.Implementation.Containers
       _controller = controller;
     }
 
-    public IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations)
+    public IArrangeOrAssert<TSubject, TResult, Dummy, TNewCombi> WithCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations)
     {
       var controller = _controller.SetCombinations(combinations);
       return TestContainer.Create(controller);

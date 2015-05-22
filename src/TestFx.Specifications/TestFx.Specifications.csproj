@@ -55,6 +55,7 @@
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Implementation\Contexts\DelegateTestContext.cs" />
     <Compile Include="Implementation\Contexts\TestContext.cs" />
+    <Compile Include="Implementation\Controllers\CompositeTestController.cs" />
     <Compile Include="Implementation\Utilities\ActionContainer.cs" />
     <Compile Include="Implementation\Controllers\ClassSuiteController.cs" />
     <Compile Include="Implementation\Containers\SpecializedSuiteContainer.cs" />

@@ -124,7 +124,7 @@ namespace TestFx.Specifications
     }
 
     public interface ICombineOrArrangeOrAssert<TSubject, out TResult, TVars, TCombi>
-        : ICombine<TSubject, TResult, TVars, TCombi>,
+        : ICombine<TSubject, TResult>,
             IArrangeOrAssert<TSubject, TResult, TVars, TCombi>
     {
     }
@@ -148,9 +148,9 @@ namespace TestFx.Specifications
       ICase<TSubject, TResult> Skip (string reason);
     }
 
-    public interface ICombine<TSubject, out TResult, TVars, TCombi>
+    public interface ICombine<TSubject, out TResult>
     {
-      IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations);
+      IArrangeOrAssert<TSubject, TResult, Dummy, TNewCombi> WithCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations);
     }
 
     public interface IArrange<TSubject, out TResult, TVars, TCombi> : IArrange
