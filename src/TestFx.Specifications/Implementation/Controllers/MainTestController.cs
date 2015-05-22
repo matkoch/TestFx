@@ -22,11 +22,17 @@ using TestFx.Utilities;
 
 namespace TestFx.Specifications.Implementation.Controllers
 {
-  public class MainTestController<TSubject, TResult> : TestController<TSubject, TResult, object, object>
+  public class MainTestController<TSubject, TResult, TVars, TCombi> : TestController<TSubject, TResult, TVars, TCombi>
   {
-    private readonly MainTestContext<TSubject, TResult> _context;
+    private readonly MainTestContext<TSubject, TResult, TVars, TCombi> _context;
 
-    public MainTestController (SuiteProvider suiteProvider, TestProvider provider, MainTestContext<TSubject, TResult> context, ActionContainer<TSubject, TResult> actionContainer, IOperationSorter operationSorter, IControllerFactory controllerFactory)
+    public MainTestController (
+        SuiteProvider suiteProvider,
+        TestProvider provider,
+        MainTestContext<TSubject, TResult, TVars, TCombi> context,
+        ActionContainer<TSubject, TResult> actionContainer,
+        IOperationSorter operationSorter,
+        IControllerFactory controllerFactory)
         : base(suiteProvider, provider, context, operationSorter, controllerFactory)
     {
       _context = context;

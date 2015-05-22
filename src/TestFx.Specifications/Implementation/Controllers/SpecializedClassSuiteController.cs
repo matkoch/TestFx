@@ -17,6 +17,7 @@ using TestFx.Extensibility.Controllers;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Utilities;
+using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Controllers
 {
@@ -58,7 +59,7 @@ namespace TestFx.Specifications.Implementation.Controllers
     public ITestController<TSubject, TResult, object, object> CreateTestController (string text)
     {
       var testProvider = CreateTestProvider(text, text, _ignoreNext);
-      var controller = _controllerFactory.CreateMainTestController(_provider, testProvider, _actionContainer);
+      var controller = _controllerFactory.CreateMainTestController(_provider, testProvider, _actionContainer, new Dummy(), new Dummy());
       _classSuiteController.ConfigureTestController(controller);
 
       _ignoreNext = false;

@@ -17,7 +17,7 @@ using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Contexts
 {
-  public class MainTestContext<TSubject, TResult> : TestContext<TSubject, TResult, object, object>
+  public class MainTestContext<TSubject, TResult, TVars, TCombi> : TestContext<TSubject, TResult, TVars, TCombi>
   {
     private TSubject _subject;
     private TResult _result;
@@ -56,9 +56,9 @@ namespace TestFx.Specifications.Implementation.Contexts
       set { _result = value; }
     }
 
-    public override object Vars
+    public override TVars Vars
     {
-      get { return _varsObject; }
+      get { return (TVars) _varsObject; }
       set { _varsObject = value; }
     }
 
@@ -68,9 +68,9 @@ namespace TestFx.Specifications.Implementation.Contexts
       set { _varsObject = value; }
     }
 
-    public override object Combi
+    public override TCombi Combi
     {
-      get { return _comboObject; }
+      get { return (TCombi) _comboObject; }
       set { _comboObject = value; }
     }
 

@@ -20,6 +20,7 @@ using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Contexts;
 using TestFx.Specifications.Implementation.Utilities;
+using TestFx.Specifications.InferredApi;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.Specifications.Implementation.Controllers
@@ -33,10 +34,12 @@ namespace TestFx.Specifications.Implementation.Controllers
         ActionContainer<TSubject, TResult> actionContainer,
         IClassSuiteController<TSubject> classSuiteController);
 
-    ITestController<TSubject, TResult, object, object> CreateMainTestController<TSubject, TResult> (
+    ITestController<TSubject, TResult, TVars, TCombi> CreateMainTestController<TSubject, TResult, TVars, TCombi> (
         SuiteProvider suiteProvider,
         TestProvider provider,
-        ActionContainer<TSubject, TResult> actionContainer);
+        ActionContainer<TSubject, TResult> actionContainer,
+        TVars vars,
+        TCombi combi);
 
     ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
         CreateDelegateTestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi> (
@@ -76,13 +79,21 @@ namespace TestFx.Specifications.Implementation.Controllers
       return controller;
     }
 
-    public ITestController<TSubject, TResult, object, object> CreateMainTestController<TSubject, TResult> (
+    public ITestController<TSubject, TResult, TVars, TCombi> CreateMainTestController<TSubject, TResult, TVars, TCombi> (
         SuiteProvider suiteProvider,
         TestProvider provider,
-        ActionContainer<TSubject, TResult> actionContainer)
+        ActionContainer<TSubject, TResult> actionContainer,
+        TVars vars,
+        TCombi combi)
     {
-      var context = new MainTestContext<TSubject, TResult>();
-      var controller = new MainTestController<TSubject, TResult>(suiteProvider, provider, context, actionContainer, _operationSorter, this);
+      var context = new MainTestContext<TSubject, TResult, TVars, TCombi>();
+      var controller = new MainTestController<TSubject, TResult, TVars, TCombi>(
+          suiteProvider,
+          provider,
+          context,
+          actionContainer,
+          _operationSorter,
+          this);
       return controller;
     }
 
