@@ -25,7 +25,7 @@ namespace TestFx.Specifications.Implementation.Controllers
   {
     void IgnoreNext ();
 
-    ITestController<TSubject, TResult, object, object> CreateTestController (string description);
+    ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string description);
   }
 
   public class SpecializedSuiteController<TSubject, TResult> : SuiteController, ISpecializedSuiteController<TSubject, TResult>
@@ -56,7 +56,7 @@ namespace TestFx.Specifications.Implementation.Controllers
       _ignoreNext = true;
     }
 
-    public ITestController<TSubject, TResult, object, object> CreateTestController (string text)
+    public ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text)
     {
       var testProvider = CreateTestProvider(text, text, _ignoreNext);
       var controller = _controllerFactory.CreateMainTestController(_provider, testProvider, _actionContainer, new Dummy(), new Dummy());

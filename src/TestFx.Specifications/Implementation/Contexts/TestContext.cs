@@ -19,6 +19,12 @@ namespace TestFx.Specifications.Implementation.Contexts
 {
   public abstract class TestContext<TSubject, TResult, TVars, TCombi> : TestContext, ITestContext<TSubject, TResult, TVars, TCombi>
   {
+    public TestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi>
+        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi> ()
+    {
+      return new DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi, TSubject, TResult, TVars, TCombi>(this);
+    }
+
     public abstract TSubject Subject { get; set; }
     public abstract TResult Result { get; set; }
     public abstract object VarsObject { get; set; }

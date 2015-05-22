@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using TestFx.Extensibility.Controllers;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
@@ -30,6 +31,7 @@ namespace TestFx.Specifications.Implementation.Controllers
   public interface ITestController<TSubject, out TResult, out TVars, out TCombi> : ITestController<TSubject>
   {
     ITestController<TSubject, TResult, TNewVars, TCombi> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
+    ITestController<TSubject, TResult, TVars, TNewCombi> SetCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations);
 
     void AddArrangement (string text, Arrangement<TSubject, TResult, TVars, TCombi> arrangement);
     void AddAssertion (string text, Assertion<TSubject, TResult, TVars, TCombi> assertion, bool expectException = false);
@@ -66,7 +68,14 @@ namespace TestFx.Specifications.Implementation.Controllers
       AddAction<T>(text, x => _context.Subject = subjectFactory(null));
     }
 
-    public virtual ITestController<TSubject, TResult, TNewVars, TCombi> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
+    public ITestController<TSubject, TResult, TVars, TNewCombi> SetCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations)
+    {
+      // Create CompositeController
+      // 
+      throw new NotImplementedException();
+    }
+
+    public ITestController<TSubject, TResult, TNewVars, TCombi> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
     {
       AddAction<Arrange>("<Set_Variables>", x => _context.VarsObject = variablesProvider(null));
       return CreateDelegate<TSubject, TResult, TNewVars, TCombi>();
@@ -83,17 +92,14 @@ namespace TestFx.Specifications.Implementation.Controllers
       AddAssertion<Assert>(text, x => assertion(_context));
     }
 
-    public ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
-        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo> ()
+    public ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi>
+        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi> ()
     {
       CheckDelegateCompatibility(typeof (TDelegateSubject), typeof (TSubject));
       CheckDelegateCompatibility(typeof (TDelegateResult), typeof (TResult));
 
-      return _controllerFactory
-          .CreateDelegateTestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi>(
-              _suiteProvider,
-              _provider,
-              _context);
+      var delegateContext = _context.CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi>();
+      return _controllerFactory.CreateTestController(_suiteProvider, _provider, delegateContext);
     }
 
     private void CheckDelegateCompatibility (Type delegateType, Type originalType)

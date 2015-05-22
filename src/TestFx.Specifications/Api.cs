@@ -140,7 +140,7 @@ namespace TestFx.Specifications
       [DisplayFormat ("{0}")]
       IIgnoreOrCase<TSubject, TResult> Case (
           string description,
-          Func<ICombineOrArrangeOrAssert<TSubject, TResult, object, object>, IAssert> succession);
+          Func<ICombineOrArrangeOrAssert<TSubject, TResult, Dummy, Dummy>, IAssert> succession);
     }
 
     public interface IIgnore<TSubject, TResult>

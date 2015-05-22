@@ -20,6 +20,15 @@ using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Containers
 {
+  public static class TestContainer
+  {
+    public static TestContainer<TSubject, TResult, TVars, TCombi> Create<TSubject, TResult, TVars, TCombi> (
+        ITestController<TSubject, TResult, TVars, TCombi> testController)
+    {
+      return new TestContainer<TSubject, TResult, TVars, TCombi>(testController);
+    }
+  }
+
   public class TestContainer<TSubject, TResult, TVars, TCombi> : Container, ICombineOrArrangeOrAssert<TSubject, TResult, TVars, TCombi>
   {
     private readonly ITestController<TSubject, TResult, TVars, TCombi> _controller;
@@ -32,13 +41,14 @@ namespace TestFx.Specifications.Implementation.Containers
 
     public IArrangeOrAssert<TSubject, TResult, TVars, TNewCombi> WithCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations)
     {
-      throw new NotImplementedException();
+      var controller = _controller.SetCombinations(combinations);
+      return TestContainer.Create(controller);
     }
 
     public IArrangeOrAssert<TSubject, TResult, TNewVars, TCombi> GivenVars<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
     {
       var controller = _controller.SetVariables(variablesProvider);
-      return new TestContainer<TSubject, TResult, TNewVars, TCombi>(controller);
+      return TestContainer.Create(controller);
     }
 
     public IArrangeOrAssert<TSubject, TResult, TVars, TCombi> GivenSubject (string description, Func<Dummy, TSubject> subjectFactory)
@@ -55,13 +65,15 @@ namespace TestFx.Specifications.Implementation.Containers
 
     public IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given (Context context)
     {
-      context(new TestContainer<Dummy, Dummy, Dummy, Dummy>(_controller.CreateDelegate<Dummy, Dummy, Dummy, Dummy>()));
+      var controller = _controller.CreateDelegate<Dummy, Dummy, Dummy, Dummy>();
+      context(TestContainer.Create(controller));
       return this;
     }
 
     public IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given (Context<TSubject> context)
     {
-      context(new TestContainer<TSubject, Dummy, Dummy, Dummy>(_controller.CreateDelegate<TSubject, Dummy, Dummy, Dummy>()));
+      var controller = _controller.CreateDelegate<TSubject, Dummy, Dummy, Dummy>();
+      context(TestContainer.Create(controller));
       return this;
     }
 
@@ -73,19 +85,22 @@ namespace TestFx.Specifications.Implementation.Containers
 
     public IAssert<TSubject, TResult, TVars, TCombi> It (Behavior behavior)
     {
-      behavior(new TestContainer<Dummy, Dummy, Dummy, Dummy>(_controller.CreateDelegate<Dummy, Dummy, Dummy, Dummy>()));
+      var controller = _controller.CreateDelegate<Dummy, Dummy, Dummy, Dummy>();
+      behavior(TestContainer.Create(controller));
       return this;
     }
 
     public IAssert<TSubject, TResult, TVars, TCombi> It (Behavior<TResult> behavior)
     {
-      behavior(new TestContainer<Dummy, TResult, Dummy, Dummy>(_controller.CreateDelegate<Dummy, TResult, Dummy, Dummy>()));
+      var controller = _controller.CreateDelegate<Dummy, TResult, Dummy, Dummy>();
+      behavior(TestContainer.Create(controller));
       return this;
     }
 
     public IAssert<TSubject, TResult, TVars, TCombi> It (Behavior<TSubject, TResult> behavior)
     {
-      behavior(new TestContainer<TSubject, TResult, Dummy, Dummy>(_controller.CreateDelegate<TSubject, TResult, Dummy, Dummy>()));
+      var controller = _controller.CreateDelegate<TSubject, TResult, Dummy, Dummy>();
+      behavior(TestContainer.Create(controller));
       return this;
     }
   }

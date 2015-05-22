@@ -60,7 +60,7 @@ namespace TestFx.Specifications
   {
     public override sealed Dummy CreateSubject ()
     {
-      return new Dummy();
+      throw new NotSupportedException();
     }
   }
 }

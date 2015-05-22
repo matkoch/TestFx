@@ -13,12 +13,15 @@
 // limitations under the License.
 
 using System;
+using TestFx.Specifications.Implementation.Utilities;
 using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Contexts
 {
   public class MainTestContext<TSubject, TResult, TVars, TCombi> : TestContext<TSubject, TResult, TVars, TCombi>
   {
+    private readonly ActionContainer<TSubject, TResult> _actionContainer;
+
     private TSubject _subject;
     private TResult _result;
     private Exception _exception;
@@ -26,16 +29,24 @@ namespace TestFx.Specifications.Implementation.Contexts
     private object _varsObject;
     private object _comboObject;
 
+    public MainTestContext (ActionContainer<TSubject, TResult> actionContainer)
+    {
+      _actionContainer = actionContainer;
+    }
+
+    public ActionContainer<TSubject, TResult> ActionContainer
+    {
+      get { return _actionContainer; }
+    }
+
+    public bool ActionExecuted { get; set; }
+
     public override TSubject Subject
     {
       get
       {
-        // TODO: should report undetected ctor args
-        if (typeof (TSubject) != typeof (Dummy) && typeof (TSubject).IsClass && ReferenceEquals(_subject, default(TSubject)))
-          throw new Exception(
-              "Subject is null. This is most likely because it could not be created automatically. " +
-              "Check that all constructor arguments have the correct name and have non-default values. " +
-              "If required, either overload SpecSuite.CreateSubject or use GivenSubject as fluent call.");
+        if (typeof(TSubject) != typeof(Dummy) && typeof (TSubject).IsClass && ReferenceEquals(_subject, default(TSubject)))
+          throw new Exception("Subject instance is null.");
 
         return _subject;
       }
@@ -102,7 +113,6 @@ namespace TestFx.Specifications.Implementation.Contexts
       set { _duration = value; }
     }
 
-    public bool ActionExecuted { get; set; }
     public override bool ExpectsException { get; set; }
 
     private void EnsureActionExecuted (string propertyName)

@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
 using TestFx.Extensibility.Providers;
@@ -21,6 +22,7 @@ using TestFx.Extensibility.Utilities;
 using TestFx.Specifications.Implementation.Contexts;
 using TestFx.Specifications.Implementation.Utilities;
 using TestFx.Specifications.InferredApi;
+using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.Specifications.Implementation.Controllers
@@ -41,8 +43,7 @@ namespace TestFx.Specifications.Implementation.Controllers
         TVars vars,
         TCombi combi);
 
-    ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
-        CreateDelegateTestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi> (
+    ITestController<TSubject, TResult, TVars, TCombi> CreateTestController<TSubject, TResult, TVars, TCombi> (
         SuiteProvider suiteProvider,
         TestProvider provider,
         TestContext<TSubject, TResult, TVars, TCombi> context);
@@ -64,9 +65,7 @@ namespace TestFx.Specifications.Implementation.Controllers
     public IClassSuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider)
     {
       var suiteControllerType = typeof (ClassSuiteController<>).MakeGenericType(subjectType);
-      var controller = suiteControllerType.CreateInstance<IClassSuiteController>(provider, suite, _testExtensions, this, _operationSorter);
-      provider.Controller = controller;
-      return controller;
+      return suiteControllerType.CreateInstance<IClassSuiteController>(provider, suite, _testExtensions, this, _operationSorter);
     }
 
     public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
@@ -74,9 +73,7 @@ namespace TestFx.Specifications.Implementation.Controllers
         ActionContainer<TSubject, TResult> actionContainer,
         IClassSuiteController<TSubject> classSuiteController)
     {
-      var controller = new SpecializedSuiteController<TSubject, TResult>(provider, actionContainer, classSuiteController, this, _operationSorter);
-      provider.Controller = controller;
-      return controller;
+      return new SpecializedSuiteController<TSubject, TResult>(provider, actionContainer, classSuiteController, this, _operationSorter);
     }
 
     public ITestController<TSubject, TResult, TVars, TCombi> CreateMainTestController<TSubject, TResult, TVars, TCombi> (
@@ -86,31 +83,46 @@ namespace TestFx.Specifications.Implementation.Controllers
         TVars vars,
         TCombi combi)
     {
-      var context = new MainTestContext<TSubject, TResult, TVars, TCombi>();
-      var controller = new MainTestController<TSubject, TResult, TVars, TCombi>(
-          suiteProvider,
-          provider,
-          context,
-          actionContainer,
-          _operationSorter,
-          this);
+      var context = new MainTestContext<TSubject, TResult, TVars, TCombi>(actionContainer);
+      var controller = CreateTestController(suiteProvider, provider, context);
+
+      var wrappedAction = actionContainer.VoidAction != null
+          ? GuardAction(context, actionContainer.VoidAction)
+          : GuardAction(context, x => context.Result = actionContainer.ResultAction.AssertNotNull()(x));
+      controller.AddAction<Act>(actionContainer.Text, x => wrappedAction());
+
       return controller;
     }
 
-    public ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
-        CreateDelegateTestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi> (
+    public ITestController<TSubject, TResult, TVars, TCombi> CreateTestController<TSubject, TResult, TVars, TCombi> (
         SuiteProvider suiteProvider,
         TestProvider provider,
         TestContext<TSubject, TResult, TVars, TCombi> context)
     {
-      var delegateContext =
-          new DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi>(context);
-      return new TestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>(
-          suiteProvider,
-          provider,
-          delegateContext,
-          _operationSorter,
-          this);
+      return new TestController<TSubject, TResult, TVars, TCombi>(suiteProvider, provider, context, _operationSorter, this);
+    }
+
+    private Action GuardAction<TSubject, TResult, TVars, TCombi> (MainTestContext<TSubject, TResult, TVars, TCombi> context, Action<TSubject> action)
+    {
+      return () =>
+      {
+        try
+        {
+          var stopwatch = Stopwatch.StartNew();
+          action(context.Subject);
+          context.Duration = stopwatch.Elapsed;
+        }
+        catch (Exception exception)
+        {
+          if (!context.ExpectsException)
+            throw;
+          context.Exception = exception;
+        }
+        finally
+        {
+          context.ActionExecuted = true;
+        }
+      };
     }
   }
 }

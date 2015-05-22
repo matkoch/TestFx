@@ -15,15 +15,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TestFx.Extensibility.Controllers;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Providers
 {
   public interface ISuiteProvider : IProvider
   {
-    ISuiteController Controller { get; }
-
     IEnumerable<IOperationProvider> ContextProviders { get; }
     IEnumerable<ISuiteProvider> SuiteProviders { get; }
     IEnumerable<ITestProvider> TestProviders { get; }
@@ -47,8 +44,6 @@ namespace TestFx.Extensibility.Providers
       _suiteProviders = new ISuiteProvider[0];
       _testProviders = new ITestProvider[0];
     }
-
-    public ISuiteController Controller { get; set; }
 
     public IEnumerable<IOperationProvider> ContextProviders
     {
