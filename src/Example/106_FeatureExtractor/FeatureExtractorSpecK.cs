@@ -19,13 +19,13 @@ using TestFx.Specifications;
 namespace Example._106_FeatureExtractor
 {
   [Subject (typeof (IFeatureExtractor), "Calculate")]
-  public class CurrencyConverterSpecK : SpecK
+  public class FeatureExtractorSpecK : SpecK
   {
     IFeatureExtractor FeatureExtractor;
     int A;
     int B;
 
-    CurrencyConverterSpecK ()
+    FeatureExtractorSpecK ()
     {
       Specify (x => FeatureExtractor.Calculate (A, B))
           .DefaultCase (_ => _

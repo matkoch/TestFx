@@ -146,7 +146,7 @@
     <Compile Include="105_CurrencyConverter\CurrencyConverter.cs" />
     <Compile Include="105_CurrencyConverter\CurrencyConverterSpecK.cs" />
     <Compile Include="106_FeatureExtractor\AdvancedFeatureExtractor.cs" />
-    <Compile Include="106_FeatureExtractor\CurrencyConverterSpecK.cs" />
+    <Compile Include="106_FeatureExtractor\FeatureExtractorSpecK.cs" />
     <Compile Include="106_FeatureExtractor\SimpleFeatureExtractor.cs" />
     <Compile Include="106_FeatureExtractor\IFeatureExtractor.cs" />
   </ItemGroup>
