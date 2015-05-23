@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
@@ -107,14 +106,6 @@ namespace TestFx.Specifications
 
     #endregion
 
-    #region IAdvanced extension interface
-
-    public interface IAdvanced
-    {
-    }
-
-    #endregion
-
     #region Fluent API
 
     public interface IIgnoreOrCase<TSubject, TResult>
@@ -165,7 +156,7 @@ namespace TestFx.Specifications
       IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given (Context<TSubject> context);
     }
 
-    public interface IAssert<TSubject, out TResult, TVars, TCombi> : IAssert
+    public interface IAssert<TSubject, out TResult, out TVars, out TCombi> : IAssert
     {
       IAssert<TSubject, TResult, TVars, TCombi> It (string description, Assertion<TSubject, TResult, TVars, TCombi> assertion);
       IAssert<TSubject, TResult, TVars, TCombi> It (Behavior behavior);
