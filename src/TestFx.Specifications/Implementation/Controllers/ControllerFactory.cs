@@ -29,16 +29,17 @@ namespace TestFx.Specifications.Implementation.Controllers
 {
   public interface IControllerFactory
   {
-    IClassSuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider);
+    ISuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider);
 
     ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
         SuiteProvider provider,
         ActionContainer<TSubject, TResult> actionContainer,
-        IClassSuiteController<TSubject> classSuiteController);
+        Action<ITestController> testControllerConfigurator);
 
     ITestController<TSubject, TResult, TVars, TCombi> CreateMainTestController<TSubject, TResult, TVars, TCombi> (
         SuiteProvider suiteProvider,
         TestProvider provider,
+        Action<ITestController> configurator,
         ActionContainer<TSubject, TResult> actionContainer,
         TCombi combi);
 
@@ -64,33 +65,35 @@ namespace TestFx.Specifications.Implementation.Controllers
       _testExtensions = testExtensions;
     }
 
-    public IClassSuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider)
+    public ISuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider)
     {
       var suiteControllerType = typeof (ClassSuiteController<>).MakeGenericType(subjectType);
-      return suiteControllerType.CreateInstance<IClassSuiteController>(provider, suite, _testExtensions, this, _operationSorter);
+      return suiteControllerType.CreateInstance<ISuiteController>(provider, suite, _testExtensions, this, _operationSorter);
     }
 
     public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
         SuiteProvider provider,
         ActionContainer<TSubject, TResult> actionContainer,
-        IClassSuiteController<TSubject> classSuiteController)
+        Action<ITestController> testControllerConfigurator)
     {
-      return new SpecializedSuiteController<TSubject, TResult>(provider, actionContainer, classSuiteController, this, _operationSorter);
+      return new SpecializedSuiteController<TSubject, TResult>(provider, actionContainer, testControllerConfigurator, this, _operationSorter);
     }
 
     public ITestController<TSubject, TResult, TVars, TCombi> CreateMainTestController<TSubject, TResult, TVars, TCombi> (
         SuiteProvider suiteProvider,
         TestProvider provider,
+        Action<ITestController> configurator,
         ActionContainer<TSubject, TResult> actionContainer,
         TCombi combi)
     {
-      var context = new MainTestContext<TSubject, TResult, TVars, TCombi>(actionContainer) { Combi = combi };
+      var context = new MainTestContext<TSubject, TResult, TVars, TCombi>(actionContainer, configurator) { Combi = combi };
       var controller = CreateTestController(suiteProvider, provider, context);
 
       var wrappedAction = actionContainer.VoidAction != null
           ? GuardAction(context, actionContainer.VoidAction)
           : GuardAction(context, x => context.Result = actionContainer.ResultAction.AssertNotNull()(x));
       controller.AddAction<Act>(actionContainer.Text, x => wrappedAction());
+      configurator(controller);
 
       return controller;
     }

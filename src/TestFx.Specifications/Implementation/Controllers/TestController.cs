@@ -74,6 +74,7 @@ namespace TestFx.Specifications.Implementation.Controllers
     public ITestController<TSubject, TResult, Dummy, TNewCombi> SetCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations)
     {
       var mainContext = (MainTestContext<TSubject, TResult, Dummy, TCombi>) (object) _context;
+      var configurator = mainContext.Configurator;
       var actionContainer = mainContext.ActionContainer;
 
       var combinationSuiteProvider = SuiteProvider.Create(_provider.Identity, _provider.Text, _provider.Ignored);
@@ -82,13 +83,14 @@ namespace TestFx.Specifications.Implementation.Controllers
       _suiteProvider.TestProviders = _suiteProvider.TestProviders.Except(new[] { _provider });
 
       var testControllers = combinations.Select(
-          x => CreateCombinationTestController(combinationSuiteProvider, actionContainer, x.Key, x.Value));
+          x => CreateCombinationTestController(combinationSuiteProvider, configurator, actionContainer, x.Key, x.Value));
 
       return _controllerFactory.CreateCompositeTestController(testControllers);
     }
 
     private ITestController<TSubject, TResult, Dummy, TNewCombi> CreateCombinationTestController<TNewCombi> (
         SuiteProvider suiteProvider,
+        Action<ITestController> configurator,
         ActionContainer<TSubject, TResult> actionContainer,
         string text,
         TNewCombi combi)
@@ -96,7 +98,12 @@ namespace TestFx.Specifications.Implementation.Controllers
       var identity = _provider.Identity.CreateChildIdentity(text);
       var testProvider = TestProvider.Create(identity, text, ignored: false);
       suiteProvider.TestProviders = suiteProvider.TestProviders.Concat(new[] { testProvider });
-      return _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, TNewCombi>(suiteProvider, testProvider, actionContainer, combi);
+      return _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, TNewCombi>(
+          suiteProvider,
+          testProvider,
+          configurator,
+          actionContainer,
+          combi);
     }
 
     public ITestController<TSubject, TResult, TNewVars, TCombi> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)

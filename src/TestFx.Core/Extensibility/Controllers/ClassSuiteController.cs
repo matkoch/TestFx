@@ -20,12 +20,7 @@ using TestFx.Utilities.Collections;
 
 namespace TestFx.Extensibility.Controllers
 {
-  public interface IClassSuiteController : ISuiteController
-  {
-    void ConfigureTestController (ITestController testController);
-  }
-
-  public class ClassSuiteController : SuiteController, IClassSuiteController
+  public class ClassSuiteController : SuiteController
   {
     private readonly ISuite _suite;
     private readonly IEnumerable<ITestExtension> _testExtensions;

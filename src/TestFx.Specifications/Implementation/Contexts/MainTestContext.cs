@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using TestFx.Extensibility.Controllers;
 using TestFx.Specifications.Implementation.Utilities;
 using TestFx.Specifications.InferredApi;
 
@@ -21,6 +22,7 @@ namespace TestFx.Specifications.Implementation.Contexts
   public class MainTestContext<TSubject, TResult, TVars, TCombi> : TestContext<TSubject, TResult, TVars, TCombi>
   {
     private readonly ActionContainer<TSubject, TResult> _actionContainer;
+    private readonly Action<ITestController> _configurator;
 
     private TSubject _subject;
     private TResult _result;
@@ -29,14 +31,20 @@ namespace TestFx.Specifications.Implementation.Contexts
     private object _varsObject;
     private object _comboObject;
 
-    public MainTestContext (ActionContainer<TSubject, TResult> actionContainer)
+    public MainTestContext (ActionContainer<TSubject, TResult> actionContainer, Action<ITestController> configurator)
     {
       _actionContainer = actionContainer;
+      _configurator = configurator;
     }
 
     public ActionContainer<TSubject, TResult> ActionContainer
     {
       get { return _actionContainer; }
+    }
+
+    public Action<ITestController> Configurator
+    {
+      get { return _configurator; }
     }
 
     public bool ActionExecuted { get; set; }

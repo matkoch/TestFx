@@ -25,7 +25,7 @@ using TestFx.Specifications.InferredApi;
 
 namespace TestFx.Specifications.Implementation.Controllers
 {
-  public interface IClassSuiteController<TSubject> : IClassSuiteController
+  public interface IClassSuiteController<TSubject> : ISuiteController
   {
     void AddTestSetupCleanup (Action<ITestContext<TSubject>> setup, [CanBeNull] Action<ITestContext<TSubject>> cleanup);
 
@@ -94,7 +94,7 @@ namespace TestFx.Specifications.Implementation.Controllers
     {
       //var actionText = _introspectionPresenter.Present("{0}", new[] { expression.ToCommon(typeof (ISuite), typeof (ITestContext)) });
       var actionContainer = new ActionContainer<TSubject, TResult>("<Action>", voidAction, resultAction);
-      return _controllerFactory.CreateSpecializedSuiteController(_provider, actionContainer, this);
+      return _controllerFactory.CreateSpecializedSuiteController(_provider, actionContainer, ConfigureTestController);
     }
 
     private Action<Extensibility.Contexts.ITestContext> ConvertToNonGeneric (Action<ITestContext<TSubject>> action)

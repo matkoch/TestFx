@@ -32,7 +32,7 @@ namespace TestFx.Specifications.Implementation.Controllers
   {
     private readonly SuiteProvider _provider;
     private readonly ActionContainer<TSubject, TResult> _actionContainer;
-    private readonly IClassSuiteController<TSubject> _classSuiteController;
+    private readonly Action<ITestController> _testControllerConfigurator;
     private readonly IControllerFactory _controllerFactory;
 
     private bool _ignoreNext;
@@ -40,14 +40,14 @@ namespace TestFx.Specifications.Implementation.Controllers
     public SpecializedSuiteController (
         SuiteProvider provider,
         ActionContainer<TSubject, TResult> actionContainer,
-        IClassSuiteController<TSubject> classSuiteController,
+        Action<ITestController> testControllerConfigurator,
         IControllerFactory controllerFactory,
         IOperationSorter operationSorter)
         : base(provider, operationSorter)
     {
       _provider = provider;
       _actionContainer = actionContainer;
-      _classSuiteController = classSuiteController;
+      _testControllerConfigurator = testControllerConfigurator;
       _controllerFactory = controllerFactory;
     }
 
@@ -59,8 +59,12 @@ namespace TestFx.Specifications.Implementation.Controllers
     public ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text)
     {
       var testProvider = CreateTestProvider(text, text, _ignoreNext);
-      var controller = _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, Dummy>(_provider, testProvider, _actionContainer, new Dummy());
-      _classSuiteController.ConfigureTestController(controller);
+      var controller = _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, Dummy>(
+          _provider,
+          testProvider,
+          _testControllerConfigurator,
+          _actionContainer,
+          new Dummy());
 
       _ignoreNext = false;
       return controller;
