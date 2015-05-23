@@ -91,7 +91,7 @@ namespace TestFx.ReSharper.UnitTesting
       var project = parentElement.GetProject().AssertNotNull();
       var elementFactory = project.GetComponent<IUnitTestElementFactoryEx>();
 
-      var elementTypeFullName = typeof(TestTask).FullName;
+      var elementTypeFullName = typeof(TestElement).FullName;
       var element = elementFactory.GetOrCreateSingleElement(elementTypeFullName, dynamicTask.Identity, project, dynamicTask.Text, parentElement);
       // TODO: parameter for elementFactory instead?
       element.State = UnitTestElementState.Dynamic;
