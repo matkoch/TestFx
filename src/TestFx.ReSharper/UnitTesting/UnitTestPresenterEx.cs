@@ -44,13 +44,13 @@ namespace TestFx.ReSharper.UnitTesting
           return 0;
 
         // TODO: Performance critical. should cache test file
-        var firstDisposition = first.GetDisposition();
-        var secondDisposition = second.GetDisposition();
-        if (firstDisposition == UnitTestElementDisposition.InvalidDisposition || secondDisposition == UnitTestElementDisposition.InvalidDisposition)
+        var firstLocation = first.GetDisposition().Locations.SingleOrDefault();
+        var secondLocation = second.GetDisposition().Locations.SingleOrDefault();
+        if (firstLocation == null || secondLocation == null)
           return 0;
 
-        return firstDisposition.Locations.First().NavigationRange.StartOffset
-            .CompareTo(secondDisposition.Locations.First().NavigationRange.StartOffset);
+        return firstLocation.NavigationRange.StartOffset
+            .CompareTo(secondLocation.NavigationRange.StartOffset);
       }
     }
   }

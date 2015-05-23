@@ -179,7 +179,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       var locations = GetDeclarations(testFiles).ToList().Select(x => x.GetUnitTestElementLocation()).ToList();
       return locations.Count != 0
           ? new UnitTestElementDisposition(locations, this)
-          : UnitTestElementDisposition.InvalidDisposition;
+          : UnitTestElementDisposition.NotYetClear(this);
     }
 
     public UnitTestElementDisposition GetDisposition ()
