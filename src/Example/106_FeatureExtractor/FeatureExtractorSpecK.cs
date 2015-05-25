@@ -30,36 +30,10 @@ namespace Example._106_FeatureExtractor
       Specify (x => FeatureExtractor.Calculate (A, B))
           .DefaultCase (_ => _
               .WithPermutations (
-                  new
-                  {
-                      FeatureExtractor = default(IFeatureExtractor),
-                      A = default(int),
-                      B = default(int)
-                  },
-                  x => x.FeatureExtractor,
-                  new IFeatureExtractor[]
-                  {
-                      new SimpleFeatureExtractor (),
-                      new AdvancedFeatureExtractor ()
-                  },
-                  x => x.A,
-                  new[]
-                  {
-                      int.MinValue,
-                      int.MinValue / 2,
-                      0,
-                      int.MaxValue / 2,
-                      int.MaxValue
-                  },
-                  x => x.B,
-                  new[]
-                  {
-                      0,
-                      1,
-                      2,
-                      3,
-                      4
-                  })
+                  new { FeatureExtractor = default(IFeatureExtractor), A = default(int), B = default(int) },
+                  x => x.FeatureExtractor, new IFeatureExtractor[] { new SimpleFeatureExtractor (), new AdvancedFeatureExtractor () },
+                  x => x.A, new[] { 24, 42 },
+                  x => x.B, new[] { 0, 1 })
               .Given (x => FeatureExtractor = x.Combi.FeatureExtractor)
               .Given (x => A = x.Combi.A)
               .Given (x => B = x.Combi.B)

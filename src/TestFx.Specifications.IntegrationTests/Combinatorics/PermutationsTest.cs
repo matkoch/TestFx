@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
@@ -32,9 +33,10 @@ namespace TestFx.Specifications.IntegrationTests.Combinatorics
         Specify (x => A + B)
             .DefaultCase (_ => _
                 .WithPermutations (
-                    new { A = default(int), B = default(int) },
+                    new { Object = default(IDisposable), A = default(int), B = default(int) },
+                    x => x.Object, new object[0],
                     x => x.A, new[] { 1, 2 },
-                    x => x.B, new[] { 3, 4, 5 })
+                    x => x.B, new[] { 3, 4 })
                 .Given (x => A = x.Combi.A)
                 .Given (x => B = x.Combi.B)
                 .It ("returns result", x => x.Result.Should ().Be (5)));
@@ -44,12 +46,10 @@ namespace TestFx.Specifications.IntegrationTests.Combinatorics
     [Test]
     public override void Test ()
     {
-      AssertTest ("A = 1, B = 4", State.Passed);
-      AssertTest ("A = 1, B = 5", State.Failed);
-      AssertTest ("A = 2, B = 3", State.Passed);
-      AssertTest ("A = 2, B = 4", State.Failed);
-      AssertTest ("A = 2, B = 5", State.Failed);
-      AssertTest ("A = 1, B = 3", State.Failed);
+      AssertTest ("Object = Object, A = 1, B = 4", State.Passed);
+      AssertTest ("Object = Object, A = 2, B = 3", State.Passed);
+      AssertTest ("Object = Object, A = 2, B = 4", State.Failed);
+      AssertTest ("Object = Object, A = 1, B = 3", State.Failed);
     }
   }
 }

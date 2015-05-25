@@ -95,13 +95,19 @@ namespace TestFx.Specifications
         Expression<Func<TNewCombi, T1>> propertySelector1,
         IEnumerable<T1> propertyValues1,
         Expression<Func<TNewCombi, T2>> propertySelector2,
-        IEnumerable<T2> propertyValues2)
+        IEnumerable<T2> propertyValues2,
+        Expression<Func<TNewCombi, T3>> propertySelector3,
+        IEnumerable<T3> propertyValues3,
+        Expression<Func<TNewCombi, T4>> propertySelector4,
+        IEnumerable<T4> propertyValues4)
     {
-      var factory = CreateFactory<TNewCombi>(propertySelector1, propertySelector2);
+      var factory = CreateFactory<TNewCombi>(propertySelector1, propertySelector2, propertySelector3, propertySelector4);
       var values =
           from propertyValue1 in propertyValues1.ToList()
           from propertyValue2 in propertyValues2.ToList()
-          select factory(new object[] { propertyValue1, propertyValue2 });
+          from propertyValue3 in propertyValues3.ToList()
+          from propertyValue4 in propertyValues4.ToList()
+          select factory(new object[] { propertyValue1, propertyValue2, propertyValue3, propertyValue4 });
 
       return combine.WithCombinations(values.ToDictionary(GetText, x => x));
     }
@@ -125,7 +131,7 @@ namespace TestFx.Specifications
       return string.Join(
           ", ",
           properties.Select(
-              x => x.Name + " = " + (x.PropertyType == typeof (Type)
+              x => x.Name + " = " + (x.PropertyType == typeof (Type) || x.PropertyType.IsClass
                   ? x.PropertyType.Name
                   : x.GetValue(combi))));
     }
