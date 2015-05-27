@@ -20,7 +20,7 @@ namespace TestFx.ReSharper.Utilities.Psi
 {
   public static class TypeExtensions
   {
-    public static IEnumerable<ITypeElement> GetImplementedTypes (this IDeclaredType type)
+    public static IEnumerable<ITypeElement> GetImplementedTypes (this IType type)
     {
       return TypeUtility.Instance.GetImplementedTypes(type);
     }

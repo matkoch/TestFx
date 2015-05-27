@@ -16,13 +16,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.Util;
 using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Utilities.Psi
 {
   public interface ITypeUtility
   {
-    IEnumerable<ITypeElement> GetImplementedTypes (IDeclaredType type);
+    IEnumerable<ITypeElement> GetImplementedTypes (IType type);
     IEnumerable<ITypeElement> GetImplementedTypes (ITypeElement type);
 
     bool IsImplementingType (IDeclaredType type, Type implementedType);
@@ -32,7 +33,7 @@ namespace TestFx.ReSharper.Utilities.Psi
   {
     public static ITypeUtility Instance = new TypeUtility();
 
-    public IEnumerable<ITypeElement> GetImplementedTypes (IDeclaredType type)
+    public IEnumerable<ITypeElement> GetImplementedTypes (IType type)
     {
       return type.IsResolved ? GetImplementedTypes(type.GetTypeElement()) : new ITypeElement[0];
     }
