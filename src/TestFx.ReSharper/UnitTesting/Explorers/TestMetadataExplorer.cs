@@ -31,7 +31,7 @@ using JetBrains.ReSharper.Resources.Shell;
 
 namespace TestFx.ReSharper.UnitTesting.Explorers
 {
-  public partial interface IUnitTestMetadataExplorerEx
+  public partial interface ITestMetadataExplorer
   {
     void Explore (
         IProject project,
@@ -40,9 +40,9 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
         Func<bool> notInterrupted);
   }
 
-  public partial class UnitTestMetadataExplorerEx : IUnitTestMetadataExplorerEx
+  public partial class TestMetadataExplorer : ITestMetadataExplorer
   {
-    private readonly IUnitTestElementFactoryEx _unitTestElementFactory;
+    private readonly ITestElementFactory _testElementFactory;
 
     public void Explore (IProject project, IMetadataAssembly assembly, Action<IUnitTestElement> consumer, Func<bool> notInterrupted)
     {
@@ -55,8 +55,8 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
 
       using (ReadLockCookie.Create())
       {
-        var assemblyTest = assembly.ToAssemblyTest(project, notInterrupted);
-        var testElements = assemblyTest.TestEntities.Select(_unitTestElementFactory.GetOrCreateClassTestRecursively);
+        var assemblyTest = assembly.ToTestAssembly(project, notInterrupted);
+        var testElements = assemblyTest.TestMetadatas.Select(_testElementFactory.GetOrCreateClassTestElementRecursively);
         var allTestElements = testElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).ToList();
 
         Debug.Assert(allTestElements.Count > 0, "Found no tests.");

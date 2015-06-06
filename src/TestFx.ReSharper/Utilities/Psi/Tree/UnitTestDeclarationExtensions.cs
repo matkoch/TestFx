@@ -20,9 +20,9 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
 {
   public static class UnitTestDeclarationExtensions
   {
-    public static UnitTestElementLocation GetUnitTestElementLocation (this IUnitTestDeclaration declaration)
+    public static UnitTestElementLocation GetTestElementLocation (this ITestDeclaration declaration)
     {
-      return UnitTestDeclarationUtility.Instance.GetUnitTestElementLocation(declaration);
+      return UnitTestDeclarationUtility.Instance.GetTestElementLocation(declaration);
     }
   }
 }

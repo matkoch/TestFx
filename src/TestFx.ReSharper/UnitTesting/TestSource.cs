@@ -23,24 +23,28 @@ using TestFx.ReSharper.UnitTesting.Explorers;
 
 namespace TestFx.ReSharper.UnitTesting
 {
-  [SolutionComponent]
-  public class UnitTestSource : IUnitTestElementsSource
+  public interface ITestSource : IUnitTestElementsSource
   {
-    private readonly IUnitTestMetadataExplorerEx _unitTestMetadataExplorer;
-    private readonly IUnitTestFileExplorerEx _unitTestFileExplorer;
-    private readonly IMetadataElementsSourceEx _metadataElementsSource;
-    private readonly IUnitTestProviderEx _unitTestProvider;
+  }
 
-    public UnitTestSource (
-        IUnitTestMetadataExplorerEx unitTestMetadataExplorer,
-        IUnitTestFileExplorerEx unitTestFileExplorer,
-        IMetadataElementsSourceEx metadataElementsSource,
-        IUnitTestProviderEx unitTestProvider)
+  [SolutionComponent]
+  public class TestSource : ITestSource
+  {
+    private readonly ITestMetadataExplorer _testMetadataExplorer;
+    private readonly ITestFileExplorer _testFileExplorer;
+    private readonly IMetadataElementsSource _metadataElementsSource;
+    private readonly ITestProvider _testProvider;
+
+    public TestSource (
+        ITestMetadataExplorer testMetadataExplorer,
+        ITestFileExplorer testFileExplorer,
+        IMetadataElementsSource metadataElementsSource,
+        ITestProvider testProvider)
     {
-      _unitTestMetadataExplorer = unitTestMetadataExplorer;
-      _unitTestFileExplorer = unitTestFileExplorer;
+      _testMetadataExplorer = testMetadataExplorer;
+      _testFileExplorer = testFileExplorer;
       _metadataElementsSource = metadataElementsSource;
-      _unitTestProvider = unitTestProvider;
+      _testProvider = testProvider;
     }
 
     public void ExploreSolution (IUnitTestElementsObserver observer)
@@ -49,19 +53,19 @@ namespace TestFx.ReSharper.UnitTesting
 
     public void ExploreProjects (IDictionary<IProject, FileSystemPath> projects, MetadataLoader loader, IUnitTestElementsObserver observer)
     {
-      _metadataElementsSource.ExploreProjects(projects, loader, observer, _unitTestMetadataExplorer.Explore);
+      _metadataElementsSource.ExploreProjects(projects, loader, observer, _testMetadataExplorer.Explore);
       observer.OnCompleted();
     }
 
     public void ExploreFile (IFile psiFile, IUnitTestElementsObserver observer, Func<bool> interrupted)
     {
-      _unitTestFileExplorer.Explore(psiFile, observer.OnUnitTestElementDisposition, () => !interrupted());
+      _testFileExplorer.Explore(psiFile, observer.OnUnitTestElementDisposition, () => !interrupted());
       observer.OnCompleted();
     }
 
     public IUnitTestProvider Provider
     {
-      get { return _unitTestProvider; }
+      get { return _testProvider; }
     }
   }
 }

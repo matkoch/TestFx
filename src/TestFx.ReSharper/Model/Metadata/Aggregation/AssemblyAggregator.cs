@@ -22,7 +22,7 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
 {
   public interface IAssemblyAggregator
   {
-    ITestEntity GetAssemblyTest (IMetadataAssembly assembly);
+    ITestAssembly GetTestAssembly (IMetadataAssembly assembly);
   }
 
   public class AssemblyAggregator : IAssemblyAggregator
@@ -38,12 +38,12 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
       _notInterrupted = notInterrupted;
     }
 
-    public ITestEntity GetAssemblyTest (IMetadataAssembly assembly)
+    public ITestAssembly GetTestAssembly (IMetadataAssembly assembly)
     {
       var identity = new Identity(_project.GetOutputFilePath().FullPath);
       var tests = MetadataEntityCollection.Create(assembly.GetTypes(), x => VisitType(x, identity), _notInterrupted);
 
-      return new AssemblyTestMetadata(identity, _project, _project.Name, tests, assembly);
+      return new TestAssembly(tests, assembly);
     }
 
     private ITestMetadata VisitType (IMetadataTypeInfo type, IIdentity parentIdentity)

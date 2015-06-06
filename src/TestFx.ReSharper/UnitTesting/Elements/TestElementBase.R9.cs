@@ -13,27 +13,26 @@
 // limitations under the License.
 
 using System;
-using System.Xml;
-using TestFx.Utilities;
+using System.Collections.Generic;
+using JetBrains.ReSharper.UnitTestFramework;
 
-namespace TestFx.ReSharper.Runner.Tasks
+namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  [Serializable]
-  public class AssemblyTestTask : TestTask
+  public abstract partial class TestElementBase
   {
-    public AssemblyTestTask (XmlElement element)
-        : base(element)
+    public UnitTestElementId Id
     {
+      get { return _identity.ElementId; }
     }
 
-    public AssemblyTestTask (IIdentity identity)
-        : base(identity)
+    public string GetPresentation (IUnitTestElement parent = null, bool full = false)
     {
+      return _text;
     }
 
-    public override bool IsMeaningfulTask
+    public IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements, IUnitTestRun run)
     {
-      get { return false; }
+      return GetTaskSequence(explicitElements);
     }
   }
 }

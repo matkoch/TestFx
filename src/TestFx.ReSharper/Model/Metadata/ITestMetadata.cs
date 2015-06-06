@@ -13,12 +13,11 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
+using JetBrains.Metadata.Reader.API;
 
 namespace TestFx.ReSharper.Model.Metadata
 {
-  public interface ITestMetadata : ITestEntity, IUnitTestMetadata
+  public interface ITestMetadata : ITestEntity, IMetadataEntity, ITestMetadataHolder
   {
-    IEnumerable<ITestMetadata> TestMetadatas { get; }
   }
 }

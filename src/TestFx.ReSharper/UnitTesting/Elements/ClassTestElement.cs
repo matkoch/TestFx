@@ -34,19 +34,14 @@ using JetBrains.Metadata.Reader.Impl;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public class ClassTestElement : ElementBase
+  public class ClassTestElement : TestElementBase
   {
     private readonly ClrTypeName _testTypeName;
 
-    public ClassTestElement (IUnitTestIdentity identity, IList<Task> tasks)
+    public ClassTestElement (ITestIdentity identity, IList<Task> tasks)
         : base(identity, tasks)
     {
       _testTypeName = new ClrTypeName(identity.Relative);
-    }
-
-    public override string Kind
-    {
-      get { return "ClassTest"; }
     }
 
     public override string ShortName

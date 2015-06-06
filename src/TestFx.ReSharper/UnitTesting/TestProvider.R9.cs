@@ -14,30 +14,23 @@
 
 using System;
 using System.Collections.Generic;
-using JetBrains.Application;
-using JetBrains.Metadata.Reader.API;
-using JetBrains.ProjectModel;
+using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
-using JetBrains.Util;
-using JetBrains.Util.Logging;
+using TestFx.ReSharper.UnitTesting.Elements;
 
 namespace TestFx.ReSharper.UnitTesting
 {
-  public interface IMetadataElementsSourceEx
+  public partial class TestProvider
   {
-    void ExploreProjects (
-        IDictionary<IProject, FileSystemPath> projects,
-        MetadataLoader loader,
-        IUnitTestElementsObserver observer,
-        Action<IProject, IMetadataAssembly, IUnitTestElementsObserver> exploreAssembly);
-  }
-
-  [SolutionComponent]
-  public class MetadataElementsSourceEx : MetadataElementsSource, IMetadataElementsSourceEx
-  {
-    public MetadataElementsSourceEx (IShellLocks shellLocks)
-        : base(Logger.GetLogger(typeof (MetadataElementsSourceEx)), shellLocks)
+    public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Dictionary<string, IUnitTestElement> elements)
     {
+      return GetDynamicElement(
+          remoteTask,
+          absoluteId =>
+          {
+            IUnitTestElement element;
+            return elements.TryGetValue(absoluteId, out element) ? (ITestElement) element : null;
+          });
     }
   }
 }

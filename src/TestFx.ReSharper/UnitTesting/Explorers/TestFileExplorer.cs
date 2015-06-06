@@ -22,14 +22,14 @@ using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.UnitTesting.Explorers
 {
-  public interface IUnitTestFileExplorerEx
+  public interface ITestFileExplorer
   {
     void Explore (IFile psiFile, Action<UnitTestElementDisposition> consumer, Func<bool> notInterrupted);
   }
 
-  public partial class UnitTestFileExplorerEx : IUnitTestFileExplorerEx
+  public partial class TestFileExplorer : ITestFileExplorer
   {
-    private readonly IUnitTestElementFactoryEx _unitTestElementFactory;
+    private readonly ITestElementFactory _testElementFactory;
 
     public void Explore (IFile psiFile, Action<UnitTestElementDisposition> consumer, Func<bool> notInterrupted)
     {
@@ -37,8 +37,8 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
       if (file == null)
         return;
 
-      var testElements = file.TestDeclarations.Select(_unitTestElementFactory.GetOrCreateClassTestRecursively);
-      var allElements = testElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).Cast<IUnitTestElementEx>();
+      var testElements = file.TestDeclarations.Select(_testElementFactory.GetOrCreateClassTestElementRecursively);
+      var allElements = testElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).Cast<ITestElement>();
       var dispositions = allElements.Select(x => x.GetDispositionFromFiles(file)).ToList();
 
       dispositions.ForEach(consumer);

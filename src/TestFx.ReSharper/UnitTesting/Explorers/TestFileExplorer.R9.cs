@@ -13,24 +13,17 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
-using JetBrains.ReSharper.TaskRunnerFramework;
-using JetBrains.ReSharper.UnitTestFramework;
+using JetBrains.ProjectModel;
 using TestFx.ReSharper.UnitTesting.Elements;
 
-namespace TestFx.ReSharper.UnitTesting
+namespace TestFx.ReSharper.UnitTesting.Explorers
 {
-  public partial class UnitTestProviderEx
+  [SolutionComponent]
+  public partial class TestFileExplorer
   {
-    public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Dictionary<string, IUnitTestElement> elements)
+    public TestFileExplorer (ITestElementFactory testElementFactory)
     {
-      return GetDynamicElement(
-          remoteTask,
-          absoluteId =>
-          {
-            IUnitTestElement element;
-            return elements.TryGetValue(absoluteId, out element) ? (IUnitTestElementEx) element : null;
-          });
+      _testElementFactory = testElementFactory;
     }
   }
 }

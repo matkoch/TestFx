@@ -20,52 +20,45 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.ReSharper.UnitTestFramework.Elements;
 using TestFx.ReSharper.Model;
-using TestFx.ReSharper.Model.Surrogates;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Utilities;
-using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public interface IUnitTestElementFactoryEx
+  public interface ITestElementFactory
   {
-    IUnitTestElement GetOrCreateClassTestRecursively (ITestEntity testEntity);
+    IUnitTestElement GetOrCreateClassTestElementRecursively (ITestEntity testEntity);
 
-    IUnitTestElement GetOrCreateSingleElement (
-        string elementTypeFullName,
-        IIdentity identity,
-        IProject project,
-        string text,
-        [CanBeNull] IUnitTestElement parentElement);
+    IUnitTestElement GetOrCreateTestElement (string elementTypeFullName, ITestEntity entity, [CanBeNull] IUnitTestElement parentElement);
   }
 
   [SolutionComponent]
-  public class UnitTestElementFactoryEx : IUnitTestElementFactoryEx
+  public class TestElementFactory : ITestElementFactory
   {
-    private readonly IUnitTestProviderEx _unitTestProvider;
+    private readonly ITestProvider _testProvider;
     private readonly IUnitTestElementManager _unitTestElementManager;
-    private readonly Dictionary<string, Func<IIdentity, IProject, string, IUnitTestElement>> _factoryMethods;
+    private readonly Dictionary<string, Func<ITestEntity, IUnitTestElement>> _factoryMethods;
 
-    public UnitTestElementFactoryEx (IUnitTestProviderEx unitTestProvider, IUnitTestElementManager unitTestElementManager)
+    public TestElementFactory (ITestProvider testProvider, IUnitTestElementManager unitTestElementManager)
     {
-      _unitTestProvider = unitTestProvider;
+      _testProvider = testProvider;
       _unitTestElementManager = unitTestElementManager;
-      _factoryMethods = new Dictionary<string, Func<IIdentity, IProject, string, IUnitTestElement>>
+      _factoryMethods = new Dictionary<string, Func<ITestEntity, IUnitTestElement>>
                         {
-                            { typeof (ClassTestElement).FullName, GetOrCreateClassTest },
-                            { typeof (TestElement).FullName, GetOrCreateChildTest }
+                            { typeof (ClassTestElement).FullName, GetOrCreateClassTestElementRecursively },
+                            { typeof (ChildTestElement).FullName, GetOrCreateChildTest }
                         };
     }
 
-    public IUnitTestElement GetOrCreateClassTestRecursively (ITestEntity testEntity)
+    public IUnitTestElement GetOrCreateClassTestElementRecursively (ITestEntity testEntity)
     {
       var element = GetOrCreateAndUpdateElement(
           testEntity,
           identity =>
               new ClassTestElement(
                   identity,
-                  new Task[] { new RunTask(), new AssemblyTestTask(identity.Parent), new TestTask(identity) }));
+                  new Task[] { new RunTask(), new AssemblyTask(identity.Parent), new TestTask(identity) }));
 
       CreateAndAppendChildren(element, testEntity);
       return element;
@@ -75,15 +68,15 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
       return GetOrCreateAndUpdateElement(
           testEntity,
-          identity => new TestElement(identity, new Task[] { new TestTask(identity) }));
+          identity => new ChildTestElement(identity, new Task[] { new TestTask(identity) }));
     }
 
     [CanBeNull]
     private IUnitTestElement GetOrCreateAndUpdateElement (
         ITestEntity testEntity,
-        Func<IUnitTestIdentity, IUnitTestElementEx> factory)
+        Func<ITestIdentity, ITestElement> factory)
     {
-      var identity = new UnitTestIdentity(_unitTestProvider, testEntity.Project, testEntity.Identity);
+      var identity = new TestIdentity(_testProvider, testEntity.Project, testEntity.Identity);
       var element = _unitTestElementManager.GetElementByIdentity(identity) ?? factory(identity);
 
       element.Update(testEntity.Text, null, Enumerable.Empty<UnitTestElementCategory>());
@@ -96,30 +89,15 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       testEntity.TestEntities.Select(GetOrCreateChildTest).ForEach(x => x.Parent = testElement);
     }
 
-    public IUnitTestElement GetOrCreateSingleElement (
+    public IUnitTestElement GetOrCreateTestElement (
         string elementTypeFullName,
-        IIdentity identity,
-        IProject project,
-        string text,
+        ITestEntity entity,
         [CanBeNull] IUnitTestElement parentElement)
     {
       var factory = _factoryMethods[elementTypeFullName];
-      var element = factory(identity, project, text);
+      var element = factory(entity);
       element.Parent = parentElement;
       return element;
-    }
-
-    // TODO: repetition
-    private IUnitTestElement GetOrCreateClassTest (IIdentity identity, IProject project, string text)
-    {
-      var testEntity = new TestEntitySurrogate(identity, project, text);
-      return GetOrCreateClassTestRecursively(testEntity);
-    }
-
-    private IUnitTestElement GetOrCreateChildTest (IIdentity identity, IProject project, string text)
-    {
-      var testEntity = new TestEntitySurrogate(identity, project, text);
-      return GetOrCreateChildTest(testEntity);
     }
   }
 }

@@ -13,11 +13,11 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
+using JetBrains.ReSharper.Psi.CSharp.Tree;
 
 namespace TestFx.ReSharper.Model.Tree
 {
-  public interface ITestDeclaration : ITestEntity, IUnitTestDeclaration, ITestDeclarationHolder
+  public interface ITestDeclaration : ITestEntity, ICSharpTreeNode, ITestDeclarationHolder
   {
   }
 }

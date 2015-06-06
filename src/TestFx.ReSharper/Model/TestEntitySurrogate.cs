@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,34 +14,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
-using TestFx.ReSharper.Model.Metadata.Wrapper;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Model.Metadata
+namespace TestFx.ReSharper.Model
 {
-  [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public class AssemblyTestMetadata : MetadataAssemblyBase, ITestMetadata
+  public class TestEntitySurrogate : ITestEntity
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;
     private readonly string _text;
-    private readonly IEnumerable<ITestMetadata> _testMetadatas;
 
-    public AssemblyTestMetadata (
-        IIdentity identity,
-        IProject project,
-        string text,
-        IEnumerable<ITestMetadata> testMetadatas,
-        IMetadataAssembly metadataAssembly)
-        : base(metadataAssembly)
+    public TestEntitySurrogate (IIdentity identity, IProject project, string text)
     {
       _identity = identity;
       _project = project;
       _text = text;
-      _testMetadatas = testMetadatas;
     }
 
     public IIdentity Identity
@@ -59,14 +47,9 @@ namespace TestFx.ReSharper.Model.Metadata
       get { return _text; }
     }
 
-    public IEnumerable<ITestMetadata> TestMetadatas
-    {
-      get { return _testMetadatas; }
-    }
-
     public IEnumerable<ITestEntity> TestEntities
     {
-      get { return _testMetadatas; }
+      get { yield break; }
     }
   }
 }

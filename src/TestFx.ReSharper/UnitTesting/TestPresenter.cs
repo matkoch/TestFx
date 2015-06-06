@@ -23,14 +23,18 @@ using TestFx.ReSharper.UnitTesting.Elements;
 
 namespace TestFx.ReSharper.UnitTesting
 {
+  public interface ITestPresenter : IUnitTestPresenter
+  {
+  }
+
   [UnitTestPresenter]
-  public class UnitTestPresenterEx : IUnitTestPresenter
+  public class TestPresenter : ITestPresenter
   {
     private readonly IComparer<TreeModelNode> _comparer = new NodeComparer();
 
     public void Present (IUnitTestElement element, IPresentableItem item, TreeModelNode node, PresentationState state)
     {
-      if (element is TestElement)
+      if (element is ChildTestElement)
         node.Model.Comparer = _comparer;
     }
 
@@ -38,8 +42,8 @@ namespace TestFx.ReSharper.UnitTesting
     {
       public int Compare (TreeModelNode x, TreeModelNode y)
       {
-        var first = x.DataValue as IUnitTestElementEx;
-        var second = y.DataValue as IUnitTestElementEx;
+        var first = x.DataValue as ITestElement;
+        var second = y.DataValue as ITestElement;
         if (first == null || second == null)
           return 0;
 

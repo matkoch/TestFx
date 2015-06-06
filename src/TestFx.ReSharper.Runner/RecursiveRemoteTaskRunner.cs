@@ -68,19 +68,19 @@ namespace TestFx.ReSharper.Runner
       var runIntent = RunIntent.Create(configuration.SeparateAppDomain, configuration.ShadowCopy, runTask.VisualStudioProcessId);
       _cancellationTokenSource = runIntent.CancellationTokenSource;
 
-      node.Children.Where(x => x.RemoteTask is TestTask).Select(CreateTestIntent).ForEach(runIntent.AddIntent);
+      node.Children.Select(CreateIntent).ForEach(runIntent.AddIntent);
 
       return runIntent;
     }
 
-    private IIntent CreateTestIntent (TaskExecutionNode node)
+    private IIntent CreateIntent (TaskExecutionNode node)
     {
-      var testTask = (TestTask) node.RemoteTask;
-      var testIntent = Intent.Create(testTask.Identity);
+      var task = (Task) node.RemoteTask;
+      var intent = Intent.Create(task.Identity);
 
-      node.Children.Where(x => x.RemoteTask is TestTask).Select(CreateTestIntent).ForEach(testIntent.AddIntent);
+      node.Children.Select(CreateIntent).ForEach(intent.AddIntent);
 
-      return testIntent;
+      return intent;
     }
   }
 }

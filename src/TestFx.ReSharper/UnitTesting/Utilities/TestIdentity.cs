@@ -18,24 +18,24 @@ using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Utilities
 {
-  public partial interface IUnitTestIdentity : IIdentity
+  public partial interface ITestIdentity : IIdentity
   {
-    IUnitTestProviderEx Provider { get; }
+    ITestProvider Provider { get; }
     IProject GetProject ();
   }
 
-  public partial class UnitTestIdentity : IUnitTestIdentity
+  public partial class TestIdentity : ITestIdentity
   {
-    private readonly IUnitTestProviderEx _provider;
+    private readonly ITestProvider _provider;
     private readonly IIdentity _wrappedIdentity;
 
-    private UnitTestIdentity (IUnitTestProviderEx provider, IIdentity wrappedIdentity)
+    private TestIdentity (ITestProvider provider, IIdentity wrappedIdentity)
     {
       _provider = provider;
       _wrappedIdentity = wrappedIdentity;
     }
 
-    public IUnitTestProviderEx Provider
+    public ITestProvider Provider
     {
       get { return _provider; }
     }

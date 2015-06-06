@@ -17,31 +17,32 @@ using System.Xml;
 using JetBrains.Annotations;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
+using TestFx.ReSharper.Model;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting
 {
-  public interface IUnitTestElementSerializerEx : IUnitTestElementSerializer
+  public interface ITestElementSerializer : IUnitTestElementSerializer
   {
   }
 
   [SolutionComponent]
-  public class UnitTestElementSerializerEx : IUnitTestElementSerializerEx
+  public class TestElementSerializer : ITestElementSerializer
   {
     private const string c_projectId = "projectId";
     private const string c_elementType = "elementType";
     private const string c_text = "text";
     private const string c_absoluteId = "absoluteId";
 
-    private readonly IUnitTestElementFactoryEx _unitTestElementFactory;
-    private readonly IUnitTestProviderEx _unitTestProvider;
+    private readonly ITestElementFactory _testElementFactory;
+    private readonly ITestProvider _testProvider;
     private readonly ISolution _solution;
 
-    public UnitTestElementSerializerEx (IUnitTestElementFactoryEx unitTestElementFactory, IUnitTestProviderEx unitTestProvider, ISolution solution)
+    public TestElementSerializer (ITestElementFactory testElementFactory, ITestProvider testProvider, ISolution solution)
     {
-      _unitTestElementFactory = unitTestElementFactory;
-      _unitTestProvider = unitTestProvider;
+      _testElementFactory = testElementFactory;
+      _testProvider = testProvider;
       _solution = solution;
     }
 
@@ -49,7 +50,7 @@ namespace TestFx.ReSharper.UnitTesting
     {
       xmlElement.SetAttribute(c_elementType, element.GetType().FullName);
       xmlElement.SetAttribute(c_absoluteId, element.Id);
-      xmlElement.SetAttribute(c_projectId, ((IUnitTestElementEx) element).GetProject().AssertNotNull().GetPersistentID());
+      xmlElement.SetAttribute(c_projectId, ((ITestElement) element).GetProject().AssertNotNull().GetPersistentID());
       xmlElement.SetAttribute(c_text, element.GetPresentation());
     }
 
@@ -74,13 +75,14 @@ namespace TestFx.ReSharper.UnitTesting
 
       var identity = Identity.Parse(absoluteId);
       var project = ProjectUtil.FindProjectElementByPersistentID(_solution, projectId).GetProject();
+      var entity = new TestEntitySurrogate(identity, project, text);
 
-      return _unitTestElementFactory.GetOrCreateSingleElement(elementTypeFullName, identity, project, text, parentElement);
+      return _testElementFactory.GetOrCreateTestElement(elementTypeFullName, entity, parentElement);
     }
 
     public IUnitTestProvider Provider
     {
-      get { return _unitTestProvider; }
+      get { return _testProvider; }
     }
   }
 }

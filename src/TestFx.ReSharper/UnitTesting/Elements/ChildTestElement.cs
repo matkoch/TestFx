@@ -25,16 +25,11 @@ using TestFx.ReSharper.UnitTesting.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public class TestElement : ElementBase
+  public class ChildTestElement : TestElementBase
   {
-    public TestElement (IUnitTestIdentity identity, IList<Task> tasks)
+    public ChildTestElement (ITestIdentity identity, IList<Task> tasks)
         : base(identity, tasks)
     {
-    }
-
-    public override string Kind
-    {
-      get { return "Test"; }
     }
 
     [CanBeNull]
@@ -58,7 +53,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     internal override IEnumerable<ITestFile> GetTestFiles ()
     {
-      return Parent != null ? ((ElementBase) Parent).GetTestFiles() : Enumerable.Empty<ITestFile>();
+      return Parent != null ? ((TestElementBase) Parent).GetTestFiles() : Enumerable.Empty<ITestFile>();
     }
   }
 }

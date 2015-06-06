@@ -145,8 +145,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ReSharperRunListener.cs" />
-    <Compile Include="Tasks\AssemblyTestTask.cs" />
-    <Compile Include="Tasks\ComparableTask.cs" />
+    <Compile Include="Tasks\AssemblyTask.cs" />
     <Compile Include="Tasks\DynamicTask.cs" />
     <Compile Include="Tasks\RunTask.cs" />
     <Compile Include="Tasks\Task.cs">

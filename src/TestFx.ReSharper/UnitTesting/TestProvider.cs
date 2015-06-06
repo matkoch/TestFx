@@ -18,6 +18,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.Extensibility;
+using TestFx.ReSharper.Model;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.ReSharper.Utilities.Psi;
@@ -26,19 +27,19 @@ using RecursiveRemoteTaskRunner = TestFx.ReSharper.Runner.RecursiveRemoteTaskRun
 
 namespace TestFx.ReSharper.UnitTesting
 {
-  public interface IUnitTestProviderEx : IUnitTestProvider, IDynamicUnitTestProvider
+  public interface ITestProvider : IUnitTestProvider, IDynamicUnitTestProvider
   {
-    IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, IUnitTestElementEx> elementProvider);
+    IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, ITestElement> elementProvider);
   }
 
   [UnitTestProvider]
-  public partial class UnitTestProviderEx : IUnitTestProviderEx
+  public partial class TestProvider : ITestProvider
   {
     private readonly UnitTestElementComparer _unitTestElementComparer;
 
-    public UnitTestProviderEx ()
+    public TestProvider ()
     {
-      _unitTestElementComparer = new UnitTestElementComparer(typeof (ClassTestElement), typeof (TestElement));
+      _unitTestElementComparer = new UnitTestElementComparer(typeof (ClassTestElement), typeof (ChildTestElement));
     }
 
     public string ID
@@ -68,7 +69,7 @@ namespace TestFx.ReSharper.UnitTesting
 
     public bool IsElementOfKind (IUnitTestElement element, UnitTestElementKind elementKind)
     {
-      var testElement = element as IUnitTestElementEx;
+      var testElement = element as ITestElement;
       return testElement != null && testElement.ElementKind == elementKind;
     }
 
@@ -82,17 +83,19 @@ namespace TestFx.ReSharper.UnitTesting
       return _unitTestElementComparer.Compare(x, y);
     }
 
-    public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, IUnitTestElementEx> elementProvider)
+    public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, ITestElement> elementProvider)
     {
       var dynamicTask = (DynamicTask) remoteTask;
       var parentElement = elementProvider(dynamicTask.ParentGuid);
       Trace.Assert(parentElement != null, "parentElement != null");
 
+      var elementTypeFullName = typeof(ChildTestElement).FullName;
       var project = parentElement.GetProject().AssertNotNull();
-      var elementFactory = project.GetComponent<IUnitTestElementFactoryEx>();
+      var entity = new TestEntitySurrogate(dynamicTask.Identity, project, dynamicTask.Text);
 
-      var elementTypeFullName = typeof(TestElement).FullName;
-      var element = elementFactory.GetOrCreateSingleElement(elementTypeFullName, dynamicTask.Identity, project, dynamicTask.Text, parentElement);
+      var elementFactory = project.GetComponent<ITestElementFactory>();
+      var element = elementFactory.GetOrCreateTestElement(elementTypeFullName, entity, parentElement);
+
       // TODO: parameter for elementFactory instead?
       element.State = UnitTestElementState.Dynamic;
 

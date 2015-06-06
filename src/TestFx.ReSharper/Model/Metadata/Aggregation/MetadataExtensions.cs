@@ -20,9 +20,9 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
 {
   public static class MetadataExtensions
   {
-    public static ITestEntity ToAssemblyTest (this IMetadataAssembly assembly, IProject project, Func<bool> notInterrupted = null)
+    public static ITestAssembly ToTestAssembly (this IMetadataAssembly assembly, IProject project, Func<bool> notInterrupted = null)
     {
-      return AssemblyAggregatorFactory.Instance.Create(project, notInterrupted).GetAssemblyTest(assembly);
+      return AssemblyAggregatorFactory.Instance.Create(project, notInterrupted).GetTestAssembly(assembly);
     }
   }
 }

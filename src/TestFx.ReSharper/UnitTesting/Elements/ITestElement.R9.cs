@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,20 +13,14 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
+using JetBrains.ProjectModel;
 
-namespace TestFx.ReSharper.Runner.Tasks
+namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public class ComparableTask : Task
+  public partial interface ITestElement
   {
-    // TODO: use identity too?
-    public ComparableTask (string absoluteId)
-        : base(absoluteId)
-    {
-    }
-
-    public override bool IsMeaningfulTask
-    {
-      get { throw new NotSupportedException(); }
-    }
+    [CanBeNull]
+    IProject GetProject ();
   }
 }

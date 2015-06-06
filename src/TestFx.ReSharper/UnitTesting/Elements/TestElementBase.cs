@@ -33,31 +33,29 @@ using RecursiveRemoteTaskRunner = TestFx.ReSharper.Runner.RecursiveRemoteTaskRun
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public abstract partial class ElementBase : IUnitTestElementEx
+  public abstract partial class TestElementBase : ITestElement
   {
     private static readonly IUnitTestRunStrategy RunStrategy =
         new OutOfProcessUnitTestRunStrategy(new RemoteTaskRunnerInfo(RecursiveRemoteTaskRunner.ID, typeof (RecursiveRemoteTaskRunner)));
 
-    private readonly IUnitTestIdentity _identity;
+    private readonly ITestIdentity _identity;
     private readonly IList<Task> _tasks;
     private readonly IUnitTestProvider _unitTestProvider;
     private readonly HashSet<IUnitTestElement> _children;
 
     private UnitTestElementState _state;
-    private ElementBase _parent;
+    private TestElementBase _parent;
     private string _text;
     private string _explicitReason;
     private IEnumerable<UnitTestElementCategory> _categories;
 
-    protected ElementBase (IUnitTestIdentity identity, IList<Task> tasks)
+    protected TestElementBase (ITestIdentity identity, IList<Task> tasks)
     {
       _identity = identity;
       _tasks = tasks;
       _unitTestProvider = identity.Provider;
       _children = new HashSet<IUnitTestElement>();
     }
-
-    public abstract string Kind { get; }
 
     [CanBeNull]
     public abstract IEnumerable<IProjectFile> GetProjectFiles ();
@@ -80,14 +78,19 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return _identity.GetProject();
     }
 
-    public virtual string ShortName
+    public string Kind
     {
-      get { return Identity.Relative; }
+      get { return "Test"; }
     }
 
     public UnitTestElementKind ElementKind
     {
       get { return _children.Any() ? UnitTestElementKind.TestContainer : UnitTestElementKind.Test; }
+    }
+
+    public virtual string ShortName
+    {
+      get { return Identity.Relative; }
     }
 
     public void Update (string text, [CanBeNull] string explicitReason, IEnumerable<UnitTestElementCategory> categories)
@@ -132,7 +135,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
         if (_parent != null)
           _parent._children.Remove(this);
 
-        _parent = value as ElementBase;
+        _parent = value as TestElementBase;
 
         if (_parent != null)
           _parent._children.Add(this);
@@ -160,18 +163,18 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return parentTasks.Concat(_tasks.Select(x => new UnitTestTask(this, x))).ToList();
     }
 
-    public IEnumerable<IUnitTestDeclaration> GetDeclarations (IEnumerable<ITestFile> testFiles)
+    // TODO: WTF?
+    public IEnumerable<ITestDeclaration> GetDeclarations (IEnumerable<ITestFile> testFiles)
     {
-      return testFiles.Select(x => x.TestDeclarations.Cast<IUnitTestDeclaration>().Search(Identity, GetChildren)).WhereNotNull();
+      return testFiles.Select(x => x.TestDeclarations.Search(Identity, GetChildren)).WhereNotNull();
     }
 
     // TODO: move to IUnitTestDeclaration.Children?
-    private IEnumerable<IUnitTestDeclaration> GetChildren (IUnitTestDeclaration declaration)
+    private IEnumerable<ITestDeclaration> GetChildren (ITestDeclaration declaration)
     {
-      var testDeclaration = declaration as ITestDeclaration;
-      return testDeclaration != null
-          ? testDeclaration.TestDeclarations
-          : Enumerable.Empty<IUnitTestDeclaration>();
+      return declaration != null
+          ? declaration.TestDeclarations
+          : Enumerable.Empty<ITestDeclaration>();
     }
 
     public UnitTestElementDisposition GetDispositionFromFiles (params ITestFile[] testFiles)

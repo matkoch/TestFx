@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,14 +13,27 @@
 // limitations under the License.
 
 using System;
-using JetBrains.ReSharper.Psi.CSharp.Tree;
+using System.Xml;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Model.Tree
+namespace TestFx.ReSharper.Runner.Tasks
 {
-  // TODO: why not inherit from ITestEntity ? (also in IUnitTestMetadata)
-  // TODO: rename to ITestDeclaration ?
-  public interface IUnitTestDeclaration : ICSharpTreeNode, IIdentifiable
+  [Serializable]
+  public class AssemblyTask : Task
   {
+    public AssemblyTask (XmlElement element)
+        : base(element)
+    {
+    }
+
+    public AssemblyTask (IIdentity identity)
+        : base(identity)
+    {
+    }
+
+    public override bool IsMeaningfulTask
+    {
+      get { return false; }
+    }
   }
 }

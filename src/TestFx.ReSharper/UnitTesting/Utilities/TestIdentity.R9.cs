@@ -19,16 +19,16 @@ using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Utilities
 {
-  public partial interface IUnitTestIdentity
+  public partial interface ITestIdentity
   {
     UnitTestElementId ElementId { get; }
   }
 
-  public partial class UnitTestIdentity
+  public partial class TestIdentity
   {
     private readonly UnitTestElementId _elementId;
 
-    public UnitTestIdentity (IUnitTestProviderEx provider, IProject project, IIdentity wrappedIdentity)
+    public TestIdentity (ITestProvider provider, IProject project, IIdentity wrappedIdentity)
         : this(provider, wrappedIdentity)
     {
       _elementId = new UnitTestElementId(_provider, new PersistentProjectId(project), Absolute);

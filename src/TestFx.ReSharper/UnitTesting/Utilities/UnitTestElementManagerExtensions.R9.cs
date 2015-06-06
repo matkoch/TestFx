@@ -22,9 +22,9 @@ namespace TestFx.ReSharper.UnitTesting.Utilities
   public static class UnitTestElementManagerExtensions
   {
     [CanBeNull]
-    public static IUnitTestElementEx GetElementByIdentity (this IUnitTestElementManager unitTestElementManager, IUnitTestIdentity unitTestIdentity)
+    public static ITestElement GetElementByIdentity (this IUnitTestElementManager unitTestElementManager, ITestIdentity testIdentity)
     {
-      return unitTestElementManager.GetElementById(unitTestIdentity.ElementId) as IUnitTestElementEx;
+      return unitTestElementManager.GetElementById(testIdentity.ElementId) as ITestElement;
     }
   }
 }

@@ -24,14 +24,14 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
 {
   public interface IUnitTestDeclarationUtility
   {
-    UnitTestElementLocation GetUnitTestElementLocation (IUnitTestDeclaration declaration);
+    UnitTestElementLocation GetTestElementLocation (ITestDeclaration declaration);
   }
 
   public class UnitTestDeclarationUtility : IUnitTestDeclarationUtility
   {
     public static IUnitTestDeclarationUtility Instance = new UnitTestDeclarationUtility();
 
-    public UnitTestElementLocation GetUnitTestElementLocation (IUnitTestDeclaration declaration)
+    public UnitTestElementLocation GetTestElementLocation (ITestDeclaration declaration)
     {
       if (declaration is IClassDeclaration)
         return GetUnitTestElementLocation((IClassDeclaration) declaration);

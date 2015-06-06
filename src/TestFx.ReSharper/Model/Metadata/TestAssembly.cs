@@ -14,42 +14,33 @@
 
 using System;
 using System.Collections.Generic;
-using JetBrains.ProjectModel;
+using System.Diagnostics;
+using JetBrains.Metadata.Reader.API;
+using TestFx.ReSharper.Model.Metadata.Wrapper;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Model.Surrogates
+namespace TestFx.ReSharper.Model.Metadata
 {
-  public class TestEntitySurrogate : ITestEntity
+  public interface ITestAssembly : ITestMetadataHolder, IMetadataAssembly
   {
-    private readonly IIdentity _identity;
-    private readonly IProject _project;
-    private readonly string _text;
+  }
 
-    public TestEntitySurrogate (IIdentity identity, IProject project, string text)
+  [DebuggerDisplay (Identifiable.DebuggerDisplay)]
+  public class TestAssembly : MetadataAssemblyBase, ITestAssembly
+  {
+    private readonly IEnumerable<ITestMetadata> _testMetadatas;
+
+    public TestAssembly (
+        IEnumerable<ITestMetadata> testMetadatas,
+        IMetadataAssembly metadataAssembly)
+        : base(metadataAssembly)
     {
-      _identity = identity;
-      _project = project;
-      _text = text;
+      _testMetadatas = testMetadatas;
     }
 
-    public IIdentity Identity
+    public IEnumerable<ITestMetadata> TestMetadatas
     {
-      get { return _identity; }
-    }
-
-    public IProject Project
-    {
-      get { return _project; }
-    }
-
-    public string Text
-    {
-      get { return _text; }
-    }
-
-    public IEnumerable<ITestEntity> TestEntities
-    {
-      get { yield break; }
+      get { return _testMetadatas; }
     }
   }
 }

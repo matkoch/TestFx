@@ -20,7 +20,7 @@ using TestFx.ReSharper.UnitTesting.Elements;
 
 namespace TestFx.ReSharper.UnitTesting.Explorers
 {
-  public partial interface IUnitTestMetadataExplorerEx
+  public partial interface ITestMetadataExplorer
   {
     void Explore (
         IProject project,
@@ -29,11 +29,11 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
   }
 
   [SolutionComponent]
-  public partial class UnitTestMetadataExplorerEx
+  public partial class TestMetadataExplorer
   {
-    public UnitTestMetadataExplorerEx (IUnitTestElementFactoryEx unitTestElementFactory)
+    public TestMetadataExplorer (ITestElementFactory testElementFactory)
     {
-      _unitTestElementFactory = unitTestElementFactory;
+      _testElementFactory = testElementFactory;
     }
 
     public void Explore (IProject project, IMetadataAssembly assembly, IUnitTestElementsObserver observer)

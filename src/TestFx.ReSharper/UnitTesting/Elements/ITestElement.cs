@@ -21,13 +21,13 @@ using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public partial interface IUnitTestElementEx : IUnitTestElement, IIdentifiable
+  public partial interface ITestElement : IUnitTestElement, IIdentifiable
   {
     UnitTestElementKind ElementKind { get; }
 
     void Update (string text, [CanBeNull] string explicitReason, IEnumerable<UnitTestElementCategory> categories);
 
-    IEnumerable<IUnitTestDeclaration> GetDeclarations (IEnumerable<ITestFile> testFiles);
+    IEnumerable<ITestDeclaration> GetDeclarations (IEnumerable<ITestFile> testFiles);
     UnitTestElementDisposition GetDispositionFromFiles (params ITestFile[] testFiles);
     IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements);
   }
