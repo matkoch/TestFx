@@ -53,8 +53,8 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
 
     private ITestDeclaration GetClassTest (IClassDeclaration classDeclaration, IIdentity parentIdentity)
     {
-      var constructorDeclarations = classDeclaration.ConstructorDeclarations.Where(x => !x.IsStatic && x.ParameterDeclarations.Count == 0).ToList();
-      if (constructorDeclarations.Count == 0)
+      var constructorDeclaration = classDeclaration.ConstructorDeclarations.SingleOrDefault(x => !x.IsStatic && x.ParameterDeclarations.Count == 0);
+      if (constructorDeclaration == null)
         return null;
 
       var text = _treePresenter.Present(classDeclaration);
@@ -62,7 +62,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
         return null;
 
       var identity = parentIdentity.CreateChildIdentity(classDeclaration.CLRName);
-      var invocationExpressions = GetInvocationExpressions(constructorDeclarations);
+      var invocationExpressions = GetInvocationExpressions(constructorDeclaration);
       var expressionTests = TreeNodeCollection.Create(invocationExpressions, x => GetInvocationTest(x, identity), _notInterrupted);
 
       return new ClassTestDeclaration(identity, _project, text, expressionTests, classDeclaration);
@@ -86,9 +86,9 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       return classDeclarations;
     }
 
-    private IEnumerable<IInvocationExpression> GetInvocationExpressions (IEnumerable<IConstructorDeclaration> constructorDeclarations)
+    private IEnumerable<IInvocationExpression> GetInvocationExpressions (IConstructorDeclaration constructorDeclaration)
     {
-      var statementExpressions = constructorDeclarations.SelectMany(x => x.Body.Children<IExpressionStatement>()).Select(x => x.Expression);
+      var statementExpressions = constructorDeclaration.Body.Children<IExpressionStatement>().Select(x => x.Expression);
       var invocationExpressions = statementExpressions.OfType<IInvocationExpression>()
           .SelectMany(z => z.DescendantsAndSelf(x => x.InvokedExpression.FirstChild as IInvocationExpression).Reverse());
       return invocationExpressions;

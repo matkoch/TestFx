@@ -50,7 +50,7 @@ namespace TestFx.Evaluation.Runners
     private void AddThrowingTraceListener ()
     {
       // TODO: needed per appdomain?
-      // TODO: revert when elevating programatically?
+      // TODO: revert when elevating programmatically?
       Trace.Listeners.OfType<DefaultTraceListener>().ForEach(x => x.AssertUiEnabled = false);
       Trace.Listeners.Add(new ThrowingTraceListener());
     }
