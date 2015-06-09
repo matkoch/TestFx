@@ -122,11 +122,25 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       get { return _state; }
       set
       {
-        _state = value;
+        _state = GetState(_state, value);
 
         if (value == UnitTestElementState.Invalid)
           _children.ForEach(x => x.State = UnitTestElementState.Invalid);
       }
+    }
+
+    private UnitTestElementState GetState (UnitTestElementState currentState, UnitTestElementState newState)
+    {
+      if (newState == UnitTestElementState.Valid && currentState == UnitTestElementState.PendingDynamic)
+        return UnitTestElementState.Dynamic;
+
+      if ((currentState == UnitTestElementState.Dynamic || currentState == UnitTestElementState.PendingDynamic) &&
+          (newState == UnitTestElementState.Valid || newState == UnitTestElementState.Pending))
+      {
+        throw new Exception(string.Format("Current state {0} unable to turn into {1}", currentState, newState));
+      }
+
+      return newState;
     }
 
     [CanBeNull]
