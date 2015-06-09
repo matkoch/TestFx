@@ -178,9 +178,10 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       if (locations.Count != 0)
         return new UnitTestElementDisposition(locations, this);
 
-      if (_state == UnitTestElementState.Dynamic)
+      if (_state == UnitTestElementState.Dynamic && _parent.State != UnitTestElementState.Invalid)
         return UnitTestElementDisposition.NotYetClear(this);
 
+      _state = UnitTestElementState.Invalid;
       return UnitTestElementDisposition.InvalidDisposition;
     }
 
