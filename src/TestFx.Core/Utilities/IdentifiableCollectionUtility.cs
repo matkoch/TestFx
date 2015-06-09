@@ -24,10 +24,12 @@ namespace TestFx.Utilities
   public interface IIdentifiableCollectionUtility
   {
     [CanBeNull]
-    T SearchNode<T> (IEnumerable<T> identifiables, IIdentity identity, Func<T, IEnumerable<T>> childrenSelector) where T : class, IIdentifiable;
+    T SearchNode<T> (IEnumerable<T> nodes, IIdentity identity, Func<T, IEnumerable<T>> childrenSelector)
+        where T : class, IIdentifiable;
 
     [CanBeNull]
-    T SearchNode<T> (IEnumerable<T> identifiables, IIdentity identity) where T : class, IIdentifiable;
+    T SearchNode<T> (IEnumerable<T> nodes, IIdentity identity)
+        where T : class, IIdentifiable;
   }
 
   public class IdentifiableCollectionUtility : IIdentifiableCollectionUtility
@@ -35,32 +37,33 @@ namespace TestFx.Utilities
     public static IIdentifiableCollectionUtility Instance = new IdentifiableCollectionUtility();
 
     [CanBeNull]
-    public T SearchNode<T> (IEnumerable<T> identifiables, IIdentity identity, Func<T, IEnumerable<T>> childrenSelector) where T : class, IIdentifiable
+    public T SearchNode<T> (IEnumerable<T> nodes, IIdentity identity, Func<T, IEnumerable<T>> childrenSelector)
+        where T : class, IIdentifiable
     {
-      var itemList = identifiables.ToList();
+      var nodesList = nodes.ToList();
 
-      var commonParentIdentity = itemList.Select(x => x.Identity.Parent).Distinct().Single();
+      var commonParentIdentity = nodesList.Select(x => x.Identity.Parent).Distinct().Single();
       var identityChain = identity.DescendantsAndSelf(x => x.Parent).TakeWhile(x => !x.Equals(commonParentIdentity));
       var identityStack = new Stack<IIdentity>(identityChain);
 
-      T identifiable;
-      IEnumerable<T> children = itemList;
+      T node = null;
       do
       {
-        identifiable = children.Search(identityStack.Pop());
-        children = childrenSelector(identifiable);
-      } while (identifiable != null && identityStack.Count > 0);
+        var children = node == null ? nodesList : childrenSelector(node);
+        node = children.Search(identityStack.Pop());
+      } while (node != null && identityStack.Count > 0);
 
-      return identifiable;
+      return node;
     }
 
     [CanBeNull]
-    public T SearchNode<T> (IEnumerable<T> identifiables, IIdentity identity) where T : class, IIdentifiable
+    public T SearchNode<T> (IEnumerable<T> nodes, IIdentity identity)
+        where T : class, IIdentifiable
     {
       Trace.Assert(identity.Parent != null, "Parent != null");
 
       // TODO: overwrite == operator?
-      return identifiables.SingleOrDefault(x => x.Identity.Equals(identity));
+      return nodes.SingleOrDefault(x => x.Identity.Equals(identity));
     }
   }
 }

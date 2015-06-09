@@ -163,36 +163,30 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return parentTasks.Concat(_tasks.Select(x => new UnitTestTask(this, x))).ToList();
     }
 
-    // TODO: WTF?
-    public IEnumerable<ITestDeclaration> GetDeclarations (IEnumerable<ITestFile> testFiles)
-    {
-      return testFiles.Select(x => x.TestDeclarations.Search(Identity, GetChildren)).WhereNotNull();
-    }
-
-    // TODO: move to IUnitTestDeclaration.Children?
-    private IEnumerable<ITestDeclaration> GetChildren (ITestDeclaration declaration)
-    {
-      return declaration != null
-          ? declaration.TestDeclarations
-          : Enumerable.Empty<ITestDeclaration>();
-    }
-
-    public UnitTestElementDisposition GetDispositionFromFiles (params ITestFile[] testFiles)
-    {
-      var locations = GetDeclarations(testFiles).ToList().Select(x => x.GetUnitTestElementLocation()).ToList();
-      return locations.Count != 0
-          ? new UnitTestElementDisposition(locations, this)
-          : UnitTestElementDisposition.NotYetClear(this);
-    }
-
     public UnitTestElementDisposition GetDisposition ()
     {
       return GetDispositionFromFiles(GetTestFiles().ToArray());
     }
 
+    public UnitTestElementDisposition GetDispositionFromFiles (params ITestFile[] testFiles)
+    {
+      var declarations = testFiles
+          .Select(x => x.TestDeclarations.Search(Identity, y => y.TestDeclarations))
+          .WhereNotNull().ToList();
+
+      var locations = declarations.Select(x => x.GetTestElementLocation()).ToList();
+      if (locations.Count != 0)
+        return new UnitTestElementDisposition(locations, this);
+
+      if (_state == UnitTestElementState.Dynamic)
+        return UnitTestElementDisposition.NotYetClear(this);
+
+      return UnitTestElementDisposition.InvalidDisposition;
+    }
+
     public bool Equals (IUnitTestElement other)
     {
-      return ReferenceEquals(this, other) || Id == other.Id;
+      return ReferenceEquals(this, other) || Id.Equals(other.Id);
     }
   }
 }

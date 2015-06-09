@@ -169,6 +169,7 @@
     <Compile Include="Model\Tree\Aggregation\FileAggregator.cs" />
     <Compile Include="Model\Tree\Aggregation\FileAggregatorFactory.cs" />
     <Compile Include="Model\Tree\Aggregation\FileExtensions.cs" />
+    <Compile Include="Model\Tree\Aggregation\TreeNodeEnumerable.cs" />
     <Compile Include="Model\Tree\Aggregation\TreePresenter.cs" />
     <Compile Include="Model\Tree\ClassTestDeclaration.cs" />
     <Compile Include="Model\Tree\InvocationTestDeclaration.cs" />
@@ -187,9 +188,6 @@
     <Compile Include="Model\Tree\Wrapper\InvocationExpressionBase.R9.cs" />
     <Compile Include="Model\Tree\Wrapper\InvocationExpressionBase.cs" />
     <Compile Include="Model\Tree\Wrapper\TreeNodeBase.cs" />
-    <Compile Include="Model\Utilities\BufferingNodeCollection.cs" />
-    <Compile Include="Model\Utilities\MetadataEntityCollection.cs" />
-    <Compile Include="Model\Utilities\TreeNodeCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTesting\Elements\ChildTestElement.cs" />
     <Compile Include="UnitTesting\Elements\ClassTestElement.cs" />

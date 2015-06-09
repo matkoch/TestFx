@@ -13,10 +13,11 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
-using TestFx.ReSharper.Model.Utilities;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Model.Metadata.Aggregation
 {
@@ -41,9 +42,12 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
     public ITestAssembly GetTestAssembly (IMetadataAssembly assembly)
     {
       var identity = new Identity(_project.GetOutputFilePath().FullPath);
-      var tests = MetadataEntityCollection.Create(assembly.GetTypes(), x => VisitType(x, identity), _notInterrupted);
+      var testTypes = assembly.GetTypes()
+          .TakeWhile(_notInterrupted)
+          .Select(x => VisitType(x, identity))
+          .WhereNotNull();
 
-      return new TestAssembly(tests, assembly);
+      return new TestAssembly(testTypes.ToList(), assembly);
     }
 
     private ITestMetadata VisitType (IMetadataTypeInfo type, IIdentity parentIdentity)

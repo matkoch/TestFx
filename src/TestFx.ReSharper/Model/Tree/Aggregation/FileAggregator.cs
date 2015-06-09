@@ -18,7 +18,6 @@ using System.Linq;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
-using TestFx.ReSharper.Model.Utilities;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
@@ -45,8 +44,15 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     public ITestFile GetTestFile (ICSharpFile csharpFile)
     {
       var assemblyIdentity = new Identity(_project.GetOutputFilePath().FullPath);
-      var classDeclarations = GetClassDeclarations(csharpFile);
-      var classTests = TreeNodeCollection.Create(classDeclarations, x => GetClassTest(x, assemblyIdentity), _notInterrupted);
+      var classTests = TreeNodeEnumerable.Create(
+          () =>
+          {
+            csharpFile.AssertIsValid();
+            return GetClassDeclarations(csharpFile)
+                .TakeWhile(_notInterrupted)
+                .Select(x => GetClassTest(x, assemblyIdentity))
+                .WhereNotNull();
+          });
 
       return new TestFile(classTests, csharpFile);
     }
@@ -62,8 +68,15 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
         return null;
 
       var identity = parentIdentity.CreateChildIdentity(classDeclaration.CLRName);
-      var invocationExpressions = GetInvocationExpressions(constructorDeclaration);
-      var expressionTests = TreeNodeCollection.Create(invocationExpressions, x => GetInvocationTest(x, identity), _notInterrupted);
+      var expressionTests = TreeNodeEnumerable.Create(
+          () =>
+          {
+            constructorDeclaration.AssertIsValid();
+            return GetInvocationExpressions(constructorDeclaration)
+                .TakeWhile(_notInterrupted)
+                .Select(x => GetInvocationTest(x, identity))
+                .WhereNotNull();
+          });
 
       return new ClassTestDeclaration(identity, _project, text, expressionTests, classDeclaration);
     }
