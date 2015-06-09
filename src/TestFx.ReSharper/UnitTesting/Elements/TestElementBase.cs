@@ -120,7 +120,13 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     public UnitTestElementState State
     {
       get { return _state; }
-      set { _state = value; }
+      set
+      {
+        _state = value;
+
+        if (value == UnitTestElementState.Invalid)
+          _children.ForEach(x => x.State = UnitTestElementState.Invalid);
+      }
     }
 
     [CanBeNull]
@@ -178,7 +184,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       if (locations.Count != 0)
         return new UnitTestElementDisposition(locations, this);
 
-      if (_state == UnitTestElementState.Dynamic && _parent.State != UnitTestElementState.Invalid)
+      if (_state == UnitTestElementState.Dynamic || _state == UnitTestElementState.PendingDynamic)
         return UnitTestElementDisposition.NotYetClear(this);
 
       _state = UnitTestElementState.Invalid;
