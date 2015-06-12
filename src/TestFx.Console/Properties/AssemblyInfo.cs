@@ -18,8 +18,3 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle ("TestFx.Console")]
 [assembly: Guid ("8d4a4343-9167-43b2-8870-652de44a1d54")]
-
-[assembly: AssemblyConfiguration ("DEBUG")]
-[assembly: AssemblyVersion ("1.3.3.7")]
-[assembly: AssemblyFileVersion ("1.3.3.7")]
-[assembly: AssemblyInformationalVersion ("DEV")]

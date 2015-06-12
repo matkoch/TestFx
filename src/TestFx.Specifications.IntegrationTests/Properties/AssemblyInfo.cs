@@ -18,7 +18,3 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle ("TestFx.Specifications.IntegrationTests")]
 [assembly: Guid ("6e62e43f-59b2-4dcc-829d-4d11c92c8af6")]
-[assembly: AssemblyConfiguration ("DEBUG")]
-[assembly: AssemblyVersion ("1.3.3.7")]
-[assembly: AssemblyFileVersion ("1.3.3.7")]
-[assembly: AssemblyInformationalVersion ("DEV")]

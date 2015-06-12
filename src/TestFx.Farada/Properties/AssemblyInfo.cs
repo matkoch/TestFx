@@ -18,8 +18,3 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle ("TestFx.Farada")]
 [assembly: Guid ("013804b8-ebd5-4a82-afd4-b08688c1a42f")]
-
-[assembly: AssemblyConfiguration ("DEBUG")]
-[assembly: AssemblyVersion ("1.3.3.7")]
-[assembly: AssemblyFileVersion ("1.3.3.7")]
-[assembly: AssemblyInformationalVersion ("DEV")]

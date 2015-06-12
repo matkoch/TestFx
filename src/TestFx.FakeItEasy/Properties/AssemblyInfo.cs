@@ -18,8 +18,3 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle ("TestFx.FakeItEasy")]
 [assembly: Guid ("75861bd0-872e-452c-a973-1ca2f8cdd2be")]
-
-[assembly: AssemblyConfiguration ("DEBUG")]
-[assembly: AssemblyVersion ("1.3.3.7")]
-[assembly: AssemblyFileVersion ("1.3.3.7")]
-[assembly: AssemblyInformationalVersion ("DEV")]

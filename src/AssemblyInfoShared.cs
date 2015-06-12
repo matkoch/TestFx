@@ -15,10 +15,13 @@
 using System;
 using System.Reflection;
 
-//[assembly: AssemblyConfiguration (".NET Framework: net-3.5, build type: Debug")]
-
 [assembly: AssemblyCompany ("Matthias Koch")]
 [assembly: AssemblyProduct ("TestFx")]
-[assembly: AssemblyDescription ("Test framework for .NET")]
-[assembly: AssemblyCopyright ("Copyright © Matthias Koch, 2014 - Licensed under APACHE 2.0")]
+[assembly: AssemblyDescription ("Next Level Testing")]
+[assembly: AssemblyCopyright ("Copyright © Matthias Koch, 2015 - Licensed under APACHE 2.0")]
 [assembly: AssemblyTrademark ("")]
+
+[assembly: AssemblyConfiguration ("DEBUG")]
+[assembly: AssemblyVersion ("1.3.3.7")]
+[assembly: AssemblyFileVersion ("1.3.3.7")]
+[assembly: AssemblyInformationalVersion ("DEV")]
