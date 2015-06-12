@@ -13,13 +13,13 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 
 namespace TestFx.Specifications.IntegrationTests.Combinatorics
 {
+  [Ignore]
   public class PermutationsTest : TestBase<PermutationsTest.DomainSpecK>
   {
     [Subject (typeof (PermutationsTest), "Test")]

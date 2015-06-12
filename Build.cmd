@@ -1,9 +1,28 @@
-rem RMDIR /S /Q "output"
+@ECHO off
 
-FOR /D %%P IN (.\packages\*) DO RMDIR /S /Q "%%P"
+PUSHD "%~dp0"
 
-FOR /F "tokens=*" %%G IN ('DIR /B /AD /S bin') DO RMDIR /S /Q "%%G"
-FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"
+ECHO.
+ECHO Cleaning output
+REM RMDIR /S /Q "output"
 
-powershell .\Build.ps1
-pause
+ECHO.
+ECHO Cleaning packages
+REM FOR /D %%P IN (.\packages\*) DO RMDIR /S /Q "%%P"
+
+ECHO.
+ECHO Cleaning intermediate and build files
+REM FOR /F "tokens=*" %%G IN ('DIR /B /AD /S bin') DO RMDIR /S /Q "%%G"
+REM FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"
+
+ECHO.
+ECHO Executing Build.ps1
+powershell .\Build.ps1 ^
+  -BuildRunner  "Local" ^
+  -MsBuildDir   "C:\Windows\Microsoft.NET\Framework\v4.0.30319" ^
+  -NuGetDir     ".\.." ^
+  -DotCoverDir  "C:\Users\%USERNAME%\AppData\Local\JetBrains\Installations\dotCover02"
+
+POPD
+
+PAUSE

@@ -1,0 +1,20 @@
+<CoverageParams>
+  <AttributeFilters>
+    <AttributeFilterEntry>TestFx.CodeAnalysis.ExcludeFromCodeCoverageAttribute</AttributeFilterEntry>
+    <AttributeFilterEntry>NUnit.Framework.IgnoreAttribute</AttributeFilterEntry>
+  </AttributeFilters>
+  <Filters>
+    <ExcludeFilters>
+      <FilterEntry>
+        <ModuleMask>FluentAssertions*</ModuleMask>
+        <ClassMask>*</ClassMask>
+        <FunctionMask>*</FunctionMask>
+      </FilterEntry>
+      <FilterEntry>
+        <ModuleMask>*</ModuleMask>
+        <ClassMask>JetBrains.Annotations.*</ClassMask>
+        <FunctionMask>*</FunctionMask>
+      </FilterEntry>
+    </ExcludeFilters>
+  </Filters>
+</CoverageParams>
