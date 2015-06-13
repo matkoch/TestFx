@@ -6,7 +6,7 @@
     <authors>Matthias Koch</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>TestFx + ReSharper = &lt;3</description>
-    <iconUrl>https://raw.github.com/matkoch/TestFx/master/TestFx.ico</iconUrl>
+    <iconUrl>http://matkoch.github.io/TestFx/TestFx.ico</iconUrl>
     <projectUrl>https://github.com/matkoch/TestFx</projectUrl>
     <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
     <tags>testfx resharper</tags>
