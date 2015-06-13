@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>TestFx by matkoch</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <p><img src="http://matkoch.github.io/TestFx/gangsterscriptkiddie.gif" height="150px" alt="Scriptkiddie"></p>
+        
+        <h1 class="header">TestFx</h1>
+        <p class="header">Next Level Testing.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/matkoch/TestFx/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/matkoch/TestFx/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/matkoch/TestFx">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/matkoch">matkoch</a></p>
+
+
+      </header>
+      <section>
+
+<h1>
+<a id="testfx" class="anchor" href="#testfx" aria-hidden="true"><span class="octicon octicon-link"></span></a>TestFx</h1>
+
+<p><a href="http://teamcity.codebetter.com/project.html?projectId=Testfx"><img src="https://img.shields.io/teamcity/codebetter/Testfx_Ci.svg?label=master" alt="Build"></a>
+<a href="http://teamcity.codebetter.com/viewLog.html?buildTypeId=Testfx_Ci&amp;buildId=lastSuccessful&amp;tab=coverage_dotnet"><img src="https://img.shields.io/teamcity/coverage/Testfx_Ci.svg" alt="Coverage"></a>
+<a href="http://nuget.org/packages/TestFx"><img src="https://img.shields.io/nuget/v/TestFx.svg" alt="NuGet"></a>
+<a href="http://nuget.org/packages/TestFx"><img src="https://img.shields.io/nuget/dt/TestFx.svg?label=downloads" alt="Downloads"></a></p>
+
+<p>Writing <strong>high-quality</strong>, <strong>readable</strong>, and <strong>reliable</strong> tests is everything this framework wants you to do. TestFx already includes the core requirements for a pleasent testing experience, like a <strong>console runner</strong> and <strong>ReSharper integration</strong>. It provides easy-to-use facilities to create <strong>new test languages</strong> as well as <strong>adapters to existing frameworks</strong>. Currently, it is most known for <a href="#testfxspecifications">TestFx.Specifications</a>.</p>
+
+<p>If you have questions or comments, please don't hesitate to visit us on
+<a href="https://gitter.im/matkoch/TestFx"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Chat"></a>.</p>
+
+<h2>
+<a id="testfxspecifications" class="anchor" href="#testfxspecifications" aria-hidden="true"><span class="octicon octicon-link"></span></a>TestFx.Specifications</h2>
+
+<p>TestFx.Specifications is a fluent syntax extension to TestFx, that defines <code>SpecK</code> as a base class for all test classes. When testing a method, the method is only stated once, followed by various test cases for this method. A typical test suite for the <code>Math.Pow</code> method could look like this:</p>
+
+<p><img src="http://matkoch.github.io/TestFx/math_pow.png" alt="Math.Pow Sample"></p>
+
+<p>ReSharper recognizes test cases and also supports the <code>UnitTestRunContext</code> action (default on shortcut <kbd>CTRL</kbd>+<kbd>U</kbd>,<kbd>R</kbd>) to execute tests by cursor position. After the execution of tests, ReSharper displays the results in the UnitTestSession view accordingly:</p>
+
+<p><img src="http://matkoch.github.io/TestFx/unit_test_session.png" alt="UnitTestSession Window"></p>
+
+<p>The output window offers a comprehensive summary for a particular test. It displays a list of all operations executed, along with an indicator whether it was successful or not. Thrown exceptions are displayed by name.</p>
+
+<p>For a more details on the test language, read on with <a href="#examples">examples</a> or <a href="#features">features</a>.</p>
+
+<h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h3>
+
+<p>The following examples demonstrate how real-world problems can be solved using TestFx.Specifications.</p>
+
+<ol>
+<li>
+<a href="https://github.com/matkoch/TestFx/tree/master/src/Example/101_FizzBuzz">FizzBuzz</a>
+
+<ul>
+<li>Concept of Act-Arrange-Assert</li>
+<li>Default and named cases</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/tree/master/src/Example/102_BankAccount">BankAccount</a>
+
+<ul>
+<li>Organization of test classes</li>
+<li>Default and custom subject creation</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/tree/master/src/Example/103_Calculator">Calculator</a>
+
+<ul>
+<li>Extension of test DSL</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/tree/master/src/Example/104_PaymentController">PaymentController</a>
+
+<ul>
+<li>Faked dependencies (<a href="https://github.com/FakeItEasy/FakeItEasy">FakeItEasy</a>)</li>
+<li>Random data generation (<a href="https://github.com/Inspyro/Farada">Farada</a>)</li>
+</ul>
+</li>
+</ol>
+
+<h3>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h3>
+
+<p>The following feature-list is very focused on every individual feature and thus illustrates them using integration tests.</p>
+
+<ul>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/Simple/PassingSpecK.cs">Fluent syntax:</a> Tests are written with an extensible fluent interface</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/Exceptions/UnexpectedExceptionTest.cs">Auto-catch exceptions:</a> Exceptions from Act part are automatically catched</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/Exceptions/ExceptionAssertionTest.cs">Exception assertions:</a> Various pre-defined assertions for exceptions, their message and inner exception</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/Subject/DefaultCreationTest.cs">Default subject creation:</a> Automatically via marked fields and reflection</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/Subject/CustomCreationTest.cs">Custom subject creation:</a> Individual per test class</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/Subject/AdHocCreationTest.cs">AdHoc subject creation:</a> Individual per test case</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/Using/NestingTest.cs">Context scoping:</a> Scopes are automatically created/disposed after test execution</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/FakeItEasy/FakeCreationTest.cs">Fake creation:</a> Automatically create FakeItEasy fakes based on marker attributes</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/FakeItEasy/FakeSetupTest.cs">Fake setup:</a> Automatically return values for FakeItEasy fakes based on marker attributes</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/FakeItEasy/OrderedAssertionsTest.cs">Ordered fake assertions:</a> Contextless assertion of ordered calls on FakeItEasy fakes</li>
+<li>
+<a href="https://github.com/matkoch/TestFx/blob/master/src/TestFx.Specifications.IntegrationTests/Farada/AutoCreationTest.cs">Test data creation:</a> Automatically create test data using Farada</li>
+</ul>
+
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
