@@ -13,7 +13,7 @@
     <dependencies>
       <dependency id="TestFx.Core" version="$version$" />
       <dependency id="TestFx.Specifications" version="$version$" />
-      <dependency id="FakeItEasy" version="[1.21.0,2.0)" />
+      <dependency id="FakeItEasy" version="1.25.0" />
     </dependencies>
   </metadata>
   <files>
