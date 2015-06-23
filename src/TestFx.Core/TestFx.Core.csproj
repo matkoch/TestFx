@@ -164,8 +164,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir merged
-$(SolutionDir)\tools\ILMerge\ILMerge.exe /targetplatform:v4 /lib:$(TargetDir) /out:merged\TestFx.Core.dll TestFx.Core.dll Autofac.dll /Internalize</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

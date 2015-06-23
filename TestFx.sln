@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{82F18DFD-4164-4D68-8C1B-7E79CFC46B63}"
-	ProjectSection(SolutionItems) = preProject
-		src\Annotations.cs = src\Annotations.cs
-		src\AssemblyInfoShared.cs = src\AssemblyInfoShared.cs
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.FakeItEasy", "src\TestFx.FakeItEasy\TestFx.FakeItEasy.csproj", "{C7F266E7-F9D5-4882-9F0F-D0C142535BCA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.Specifications.IntegrationTests", "src\TestFx.Specifications.IntegrationTests\TestFx.Specifications.IntegrationTests.csproj", "{87BF5389-C810-4A37-A0C4-B7F6EFA6D1E7}"
@@ -21,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E1B03E
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspec", "nuspec", "{38E0FF06-BB58-4322-97AE-ABAC49317E3B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{38E0FF06-BB58-4322-97AE-ABAC49317E3B}"
 	ProjectSection(SolutionItems) = preProject
 		nuspec\TestFx.Core.nuspec = nuspec\TestFx.Core.nuspec
 		nuspec\TestFx.FakeItEasy.nuspec = nuspec\TestFx.FakeItEasy.nuspec
@@ -32,18 +26,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspec", "nuspec", "{38E0FF
 		nuspec\TestFx.Specifications.nuspec = nuspec\TestFx.Specifications.nuspec
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{1439387A-18D3-4058-88B6-C58AD853C80D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{1439387A-18D3-4058-88B6-C58AD853C80D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		Build.cmd = Build.cmd
-		Build.Functions.ps1 = Build.Functions.ps1
-		Build.ps1 = Build.ps1
-		Build.Variables.ps1 = Build.Variables.ps1
+		src\Annotations.cs = src\Annotations.cs
+		src\AssemblyInfoShared.cs = src\AssemblyInfoShared.cs
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
-		TestFx.ico = TestFx.ico
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReSharper", "ReSharper", "{79DDE74A-B790-4CB2-8F4D-A8A6D546B55C}"
@@ -61,6 +52,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.ReSharper.9.1", "src\TestFx.ReSharper\TestFx.ReSharper.9.1.csproj", "{340CA0B3-563A-47DA-858D-2CF4FEAF12B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.Farada", "src\TestFx.Farada\TestFx.Farada.csproj", "{D829BE92-9835-4B84-B6BA-6FE6AD8A3CCF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{6B28D570-67CE-4E55-840F-979DCC5B553E}"
+	ProjectSection(SolutionItems) = preProject
+		Build.Shared.ps1 = Build.Shared.ps1
+		Build.User.ps1 = Build.User.ps1
+		shared\build\CleanOutput.ps1 = shared\build\CleanOutput.ps1
+		shared\build\Compile.ps1 = shared\build\Compile.ps1
+		shared\build\FullBuild.ps1 = shared\build\FullBuild.ps1
+		shared\build\Inspect.ps1 = shared\build\Inspect.ps1
+		shared\build\Package.ps1 = shared\build\Package.ps1
+		shared\build\TestAndCover.ps1 = shared\build\TestAndCover.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,9 +111,6 @@ Global
 		{C7F266E7-F9D5-4882-9F0F-D0C142535BCA} = {CAA446D8-5B3A-40B1-AC06-E0AB0FFCD409}
 		{87BF5389-C810-4A37-A0C4-B7F6EFA6D1E7} = {CAA446D8-5B3A-40B1-AC06-E0AB0FFCD409}
 		{805BDCC2-3399-49AA-8443-D189AC477899} = {CAA446D8-5B3A-40B1-AC06-E0AB0FFCD409}
-		{79DDE74A-B790-4CB2-8F4D-A8A6D546B55C} = {82F18DFD-4164-4D68-8C1B-7E79CFC46B63}
-		{01FD6DA1-370A-4940-BB19-58E4D9462864} = {82F18DFD-4164-4D68-8C1B-7E79CFC46B63}
-		{CAA446D8-5B3A-40B1-AC06-E0AB0FFCD409} = {82F18DFD-4164-4D68-8C1B-7E79CFC46B63}
 		{925E00FE-A346-4B5F-A249-E7B4A469DED6} = {01FD6DA1-370A-4940-BB19-58E4D9462864}
 		{68456E60-C7A1-4B54-BB14-00063A03B7A3} = {01FD6DA1-370A-4940-BB19-58E4D9462864}
 		{B33814B8-345A-4C20-8B23-8F34AFD04FF0} = {79DDE74A-B790-4CB2-8F4D-A8A6D546B55C}

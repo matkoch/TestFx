@@ -16,8 +16,8 @@ REM FOR /F "tokens=*" %%G IN ('DIR /B /AD /S bin') DO RMDIR /S /Q "%%G"
 REM FOR /F "tokens=*" %%G IN ('DIR /B /AD /S obj') DO RMDIR /S /Q "%%G"
 
 ECHO.
-ECHO Executing Build.ps1
-powershell .\Build.ps1 ^
+ECHO Executing FullBuid.ps1
+powershell .\shared\build\FullBuild.ps1 ^
   -BuildRunner  "Local" ^
   -MsBuildDir   "C:\Windows\Microsoft.NET\Framework\v4.0.30319" ^
   -NuGetDir     ".\.." ^

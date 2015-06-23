@@ -21,6 +21,7 @@ namespace TestFx.Specifications.IntegrationTests
 {
   public class ContextBehaviorTest : TestBase<ContextBehaviorTest.DomainSpecK>
   {
+    // TODO :bla 
     [Subject (typeof (ContextBehaviorTest), "Test")]
     public class DomainSpecK : SpecK<DomainType>
     {
