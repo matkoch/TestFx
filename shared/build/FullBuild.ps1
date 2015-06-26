@@ -16,5 +16,5 @@ Import-Module $PSScriptRoot\_Import.ps1
 & $PSScriptRoot\CleanOutput.ps1
 & $PSScriptRoot\Compile.ps1 -NuGetDir $NuGetDir -MsBuildDir $MsBuildDir -Configuration $Configuration -Targets $Targets
 & $PSScriptRoot\TestAndCover.ps1 -DotCoverDir $DotCoverDir -Configuration $Configuration -SkipTests $SkipTests
-& $PSScriptRoot\Package.ps1 -NuGetDir $NuGetDir -Configuration $Configuration
 & $PSScriptRoot\Inspect.ps1 -Configuration $Configuration
+& $PSScriptRoot\Package.ps1 -NuGetDir $NuGetDir -Configuration $Configuration
