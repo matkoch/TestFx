@@ -24,11 +24,12 @@ $InspectionCache      = Join-Path $SolutionDir "_ReSharper.InspectionCache"
 
 $CodeAnalysisFiles    = gci $SourceDir -force -recurse -filter *.CodeAnalysisLog.xml
 
-# ReSharper Inspections
-Write-TeamCityImport "ReSharperInspectCode" $InspectionResultFile
-#Exec { & $InspectCode @($SolutionFile, "/x=$InspectionExtensions", "/caches-home=$InspectionCache", "/o=$ResultFile") }
-
 # FxCop
 $CodeAnalysisFiles | %{
-  Write-TeamCityImport "FxCop" $_
+  cp $_.FullName $OutputDir
+  Write-TeamCityImport "FxCop" (Join-Path $OutputDir $_)
   }
+
+# ReSharper Inspections
+Exec { & $InspectCode @($SolutionFile, "/x=$InspectionExtensions", "/caches-home=$InspectionCache", "/o=$InspectionResultFile") }
+Write-TeamCityImport "ReSharperInspectCode" $InspectionResultFile
