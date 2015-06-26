@@ -25,14 +25,14 @@ namespace TestFx.FakeItEasy
   {
     private const string Key = "FakeItEasy.OrderedAssertions";
 
-    public static IAssert ItCallsInOrder<TSubject, TResult, TVars, TCombi> (
+    public static IAssert<TSubject, TResult, TVars, TCombi> ItCallsInOrder<TSubject, TResult, TVars, TCombi> (
         this IAssert<TSubject, TResult, TVars, TCombi> assert,
         Assertion<TSubject, TResult, TVars, TCombi> orderedAssertion)
     {
       return assert.ItCallsInOrder(string.Empty, orderedAssertion);
     }
 
-    public static IAssert ItCallsInOrder<TSubject, TResult, TVars, TCombi> (
+    public static IAssert<TSubject, TResult, TVars, TCombi> ItCallsInOrder<TSubject, TResult, TVars, TCombi> (
         this IAssert<TSubject, TResult, TVars, TCombi> assert,
         string text,
         Assertion<TSubject, TResult, TVars, TCombi> orderedAssertion)
