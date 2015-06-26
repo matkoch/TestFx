@@ -37,7 +37,7 @@ try {
   Exec { & $NuGet @("restore", $SolutionFile, "-NonInteractive") }
   
   # Compile project
-  Exec { & $MsBuild @($SolutionFile, "/t:$Targets", "/p:Configuration=$Configuration;Platform=Any CPU", "/m", "/nr:false", `
+  Exec { & $MsBuild @($SolutionFile, "/t:$Targets", "/p:Configuration=$Configuration;Platform=Any CPU;RunCodeAnalysis=True", "/m", "/nr:false", `
                "/fl", "/flp:LogFile=$OutputDir\MsBuild.log;Verbosity=diag") }
 }
 finally {

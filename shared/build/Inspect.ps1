@@ -16,12 +16,19 @@ Import-Module $PSScriptRoot\_Import.ps1
 Write-Step "Inspect Code"
 
 # Variables
-$ResultFile  = Join-Path $OutputDir "InspectionResults.xml"
-$ToolsDir    = Join-Path (Get-SolutionPackagePath "ReSharperCommandLineTools") "tools"
-$InspectCode = Join-Path $ToolsDir "inspectcode.exe"
-
+$InspectionResultFile = Join-Path $OutputDir "InspectionResults.xml"
+$ToolsDir             = Join-Path (Get-SolutionPackagePath "ReSharperCommandLineTools") "tools"
+$InspectCode          = Join-Path $ToolsDir "inspectcode.exe"
 $InspectionExtensions = "ReSharper.ImplicitNullability;ReSharper.SerializationInspections;ReSharper.XmlDocInspections"
 $InspectionCache      = Join-Path $SolutionDir "_ReSharper.InspectionCache"
 
-Write-TeamCityImport "ReSharperInspectCode" $ResultFile
-Exec { & $InspectCode @($SolutionFile, "/x=$InspectionExtensions", "/caches-home=$InspectionCache", "/o=$ResultFile") }
+$CodeAnalysisFiles    = gci $SourceDir -force -recurse -filter *.CodeAnalysisLog.xml
+
+# ReSharper Inspections
+Write-TeamCityImport "ReSharperInspectCode" $InspectionResultFile
+#Exec { & $InspectCode @($SolutionFile, "/x=$InspectionExtensions", "/caches-home=$InspectionCache", "/o=$ResultFile") }
+
+# FxCop
+$CodeAnalysisFiles | %{
+  Write-TeamCityImport "FxCop" $_
+  }
