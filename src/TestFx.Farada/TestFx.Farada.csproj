@@ -37,8 +37,9 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\prereq\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Farada.TestDataGeneration">
-      <HintPath>..\..\packages\Farada.TestDataGeneration.0.0.1-Pre00191\lib\net45\Farada.TestDataGeneration.dll</HintPath>
+    <Reference Include="Farada.TestDataGeneration, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Farada.TestDataGeneration.0.1.0\lib\net45\Farada.TestDataGeneration.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\prereq\log4net.dll</HintPath>
@@ -64,8 +65,6 @@
     <Compile Include="FaradaTestExtension.cs" />
     <None Include="NuGet\content\_TestExtensions\FaradaTestExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
