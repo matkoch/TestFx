@@ -25,6 +25,7 @@ $InspectionCache      = Join-Path $SolutionDir "_ReSharper.InspectionCache"
 $CodeAnalysisFiles    = gci $SourceDir -force -recurse -filter *.CodeAnalysisLog.xml
 
 # FxCop
+Exec { & $MsBuild @($SolutionFile, "/t:Build", "/p:Configuration=$Configuration;Platform=Any CPU;RunCodeAnalysis=True", "/m", "/nr:false") }
 $CodeAnalysisFiles | %{
   cp $_.FullName $OutputDir
   Write-TeamCityImport "FxCop" (Join-Path $OutputDir $_)
