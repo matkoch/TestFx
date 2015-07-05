@@ -46,17 +46,17 @@ namespace Example._101_FizzBuzz
 
     FizzBuzzerSpecK ()
     {
-      Specify (x => FizzBuzzer.Calculcate (Number))
+      Specify (x => FizzBuzzer.Calculate (Number))
           .DefaultCase (_ => _
               .Given (x => Number = 1)
               .ItReturns (x => Number.ToString ()))
-          .Case ("Divisible by 3", _ => _
+          .Case ("Dividable by 3", _ => _
               .Given (x => Number = 3)
               .ItReturns (x => "Fizz"))
-          .Case ("Divisible by 5", _ => _
+          .Case ("Dividable by 5", _ => _
               .Given (x => Number = 5)
               .ItReturns (x => "Buzz"))
-          .Case ("Divisible by 3 and 5", _ => _
+          .Case ("Dividable by 3 and 5", _ => _
               .Given (x => Number = 15)
               .ItReturns (x => "FizzBuzz"));
     }

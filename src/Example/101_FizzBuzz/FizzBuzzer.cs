@@ -18,16 +18,16 @@ namespace Example._101_FizzBuzz
 {
   public static class FizzBuzzer
   {
-    public static string Calculcate (int number)
+    public static string Calculate (int number)
     {
-      var divisibleByThree = number % 3 == 0;
-      var divisibleByFive = number % 5 == 0;
+      var dividableByThree = number % 3 == 0;
+      var dividableByFive = number % 5 == 0;
 
-      if (divisibleByThree && divisibleByFive)
+      if (dividableByThree && dividableByFive)
         return "FizzBuzz";
-      if (divisibleByThree)
+      if (dividableByThree)
         return "Fizz";
-      if (divisibleByFive)
+      if (dividableByFive)
         return "Buzz";
 
       return number.ToString ();
