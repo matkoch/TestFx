@@ -189,6 +189,9 @@
     <Compile Include="Model\Tree\Wrapper\InvocationExpressionBase.cs" />
     <Compile Include="Model\Tree\Wrapper\TreeNodeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="References\MemberReference.cs" />
+    <Compile Include="References\MemberReferenceFactory.cs" />
+    <Compile Include="References\MemberReferencesProviderFactory.cs" />
     <Compile Include="UnitTesting\Elements\ChildTestElement.cs" />
     <Compile Include="UnitTesting\Elements\ClassTestElement.cs" />
     <Compile Include="UnitTesting\Elements\TestElementBase.R9.cs" />
