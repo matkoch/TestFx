@@ -62,8 +62,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     [CanBeNull]
     public string Present (IInvocationExpression invocationExpression)
     {
-      var resolution = invocationExpression.Reference.AssertNotNull().GetResolveResult();
-      var method = resolution.DeclaredElement as IMethod;
+      var method = invocationExpression.Reference.GetResolved<IMethod>();
       if (method == null)
         return null;
 

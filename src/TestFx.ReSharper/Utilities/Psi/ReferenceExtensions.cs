@@ -13,6 +13,8 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
+using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.ExtensionsAPI.Resolve;
 using JetBrains.ReSharper.Psi.Resolve;
 
@@ -23,6 +25,14 @@ namespace TestFx.ReSharper.Utilities.Psi
     public static ResolveResultWithInfo GetResolveResult (this IReference reference)
     {
       return reference.CurrentResolveResult ?? reference.Resolve();
+    }
+
+    [CanBeNull]
+    public static T GetResolved<T> (this IReference reference)
+        where T : IDeclaredElement
+    {
+      var resolveResult = reference.GetResolveResult();
+      return resolveResult.DeclaredElement is T ? (T) resolveResult.DeclaredElement : default(T);
     }
   }
 }
