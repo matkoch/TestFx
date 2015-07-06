@@ -213,6 +213,7 @@
     <Compile Include="UnitTesting\Utilities\UnitTestElementManagerExtensions.R9.cs" />
     <Compile Include="UnitTesting\Utilities\TestIdentity.cs" />
     <Compile Include="UnitTesting\Utilities\TestIdentity.R9.cs" />
+    <Compile Include="Utilities\Psi\Caches\SimpleCacheBase.cs" />
     <Compile Include="Utilities\Metadata\AttributeDataExtensions.cs" />
     <Compile Include="Utilities\Metadata\AttributeDataUtility.cs" />
     <Compile Include="Utilities\Metadata\IntrospectionExtensions.cs" />
