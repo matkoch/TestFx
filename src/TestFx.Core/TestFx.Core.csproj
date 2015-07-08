@@ -126,9 +126,11 @@
     <Compile Include="Evaluation\Utilities\AppDomain.cs" />
     <Compile Include="Extensibility\TypeLoaderAttribute.cs" />
     <Compile Include="Utilities\Collections\CircularDependencyException.cs" />
+    <Compile Include="Utilities\Collections\LookupFromDictionary.cs" />
     <Compile Include="Utilities\Collections\Enumerable.Concat.cs" />
     <Compile Include="Utilities\Collections\Enumerable.ForEach.cs" />
     <Compile Include="Utilities\Collections\Enumerable.TakeWhile.cs" />
+    <Compile Include="Utilities\Collections\MultiValueDictionary.cs" />
     <Compile Include="Utilities\Collections\Object.DescendantsAndSelf.cs" />
     <Compile Include="Utilities\Collections\Enumerable.SortTopologically.cs" />
     <Compile Include="Utilities\Collections\UndefinedOrderException.cs" />
