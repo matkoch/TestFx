@@ -12,7 +12,7 @@
 
 TestFx is indeed another test framework, but it is also a **platform**. Its novelty lies in the **generalization of execution**, allowing a test to be represented in every possible fashion. Developers can now **invent new test languages** more rapidly, without worrying about the foundation for a pleasent testing experience, like a **console runner** or **ReSharper integration**.
 
-Built on top of the platform, [TestFx.Specifications](#testfxspecifications) enables you to write reliable tests using an **extensible fluent interface**. It also utilizes the `SpecK` base class, that **eliminates boiler-plate code** from your test suites, like creating subject and fake instances. The actual assertions can be written with any third-party library you're familar with.
+Built on top of the platform, [TestFx.SpecK](https://github.com/matkoch/TestFx/wiki/Getting-Started) enables you to write reliable tests using an **extensible fluent interface**. It also utilizes the `Spec` base class, that **eliminates boiler-plate code** from your test suites, like creating subject and fake instances. The actual assertions can be written with any third-party library you're familar with.
 
 A typical test suite for the `Math.Pow` method could look like this:
 
