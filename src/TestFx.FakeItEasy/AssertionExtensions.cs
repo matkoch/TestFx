@@ -15,9 +15,9 @@
 using System;
 using FakeItEasy;
 using FakeItEasy.Core;
-using TestFx.Specifications.Implementation;
-using TestFx.Specifications.Implementation.Controllers;
-using TestFx.Specifications.InferredApi;
+using TestFx.SpecK.Implementation;
+using TestFx.SpecK.Implementation.Controllers;
+using TestFx.SpecK.InferredApi;
 
 namespace TestFx.FakeItEasy
 {

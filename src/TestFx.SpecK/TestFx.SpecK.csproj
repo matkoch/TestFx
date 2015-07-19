@@ -4,15 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C7F266E7-F9D5-4882-9F0F-D0C142535BCA}</ProjectGuid>
+    <ProjectGuid>{805BDCC2-3399-49AA-8443-D189AC477899}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestFx.FakeItEasy</RootNamespace>
-    <AssemblyName>TestFx.FakeItEasy</AssemblyName>
+    <RootNamespace>TestFx.SpecK</RootNamespace>
+    <AssemblyName>TestFx.SpecK</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <NuGetPackageImportStamp>2666947b</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>35e0ab37</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,10 +35,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FakeItEasy, Version=1.25.2.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\FakeItEasy.1.25.2\lib\net40\FakeItEasy.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -49,21 +45,40 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
-    <Compile Include="AssertionExtensions.cs" />
-    <Compile Include="Attributes.cs" />
-    <None Include="NuGet\content\_TestExtensions\FakeItEasyTestExtensions.cs" />
-    <Compile Include="FakeItEasyTestExtension.cs" />
+    <Compile Include="Api.cs" />
+    <Compile Include="Extensions\CombinatoricExtensions.cs" />
+    <Compile Include="Extensions\UsingExtensions.cs" />
+    <Compile Include="Extensions\UnnamedExtensions.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Implementation\Contexts\DelegateTestContext.cs" />
+    <Compile Include="Implementation\Contexts\TestContext.cs" />
+    <Compile Include="Implementation\Controllers\CompositeTestController.cs" />
+    <Compile Include="Implementation\Utilities\ActionContainer.cs" />
+    <Compile Include="Implementation\Controllers\ClassSuiteController.cs" />
+    <Compile Include="Implementation\Containers\SpecializedSuiteContainer.cs" />
+    <Compile Include="Implementation\Containers\TestContainer.cs" />
+    <Compile Include="Implementation\Controllers\ControllerFactory.cs" />
+    <Compile Include="Implementation\Controllers\SpecializedClassSuiteController.cs" />
+    <Compile Include="Implementation\ISuite.cs" />
+    <Compile Include="Implementation\OperationDescriptors.cs" />
+    <Compile Include="Implementation\Utilities\AssertionHelper.cs" />
+    <Compile Include="Implementation\Utilities\SubjectFactory.cs" />
+    <Compile Include="Implementation\Contexts\MainTestContext.cs" />
+    <Compile Include="Implementation\Controllers\TestController.cs" />
+    <Compile Include="Implementation\SpecKTypeLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="packages.config" />
+    <Compile Include="Extensions\ResultExtensions.cs" />
+    <Compile Include="Spec.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NuGet\tools\Formatting.DotSettings" />
+    <None Include="NuGet\tools\Uninstall.ps1" />
+    <None Include="NuGet\tools\Install.ps1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestFx.Core\TestFx.Core.csproj">
       <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
       <Name>TestFx.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestFx.SpecK\TestFx.SpecK.csproj">
-      <Project>{805bdcc2-3399-49aa-8443-d189ac477899}</Project>
-      <Name>TestFx.SpecK</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

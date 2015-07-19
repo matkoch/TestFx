@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>TestFx.SpecK</id>
+    <version>$version$</version>
+    <authors>Matthias Koch</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Test through Specs.</description>
+    <iconUrl>http://matkoch.github.io/TestFx/TestFx.ico</iconUrl>
+    <projectUrl>https://github.com/matkoch/TestFx</projectUrl>
+    <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
+    <tags>testfx specifications tdd bdd unit-testing</tags>
+    <dependencies>
+      <dependency id="TestFx.Core" version="$version$" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="TestFx.SpecK\bin\$configuration$\TestFx.SpecK.*" target="lib\net45" />
+    <file src="TestFx.SpecK\**\*.cs" exclude="obj\**\*" target="src\TestFx.SpecK" />
+    <file src="TestFx.SpecK\NuGet\tools\**\*" target="tools" />
+  </files>
+</package>
