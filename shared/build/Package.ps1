@@ -15,8 +15,6 @@ Import-Module $PSScriptRoot\_Import.ps1
 
 Write-Step "Package"
 
-$NuSpecFiles = gci $NuSpecDir -force -recurse -filter *.nuspec
-
 $NuSpecFiles | %{
-  Exec { & $NuGet pack $_.FullName -Version $SemVer -Properties "Id=$($_.BaseName);Configuration=$Configuration" -BasePath $SourceDir -OutputDirectory $OutputDir -Symbols -NoPackageAnalysis }
+  Exec { & $NuGet pack $_ -Version $SemVer -Properties Configuration=$Configuration -BasePath $SourceDir -OutputDirectory $OutputDir -Symbols -NoPackageAnalysis }
 }

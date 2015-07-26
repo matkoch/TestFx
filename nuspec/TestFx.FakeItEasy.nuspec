@@ -12,8 +12,8 @@
     <tags>testfx fakeiteasy</tags>
     <dependencies>
       <dependency id="TestFx.Core" version="$version$" />
-      <dependency id="TestFx.Specifications" version="$version$" />
-      <dependency id="FakeItEasy" version="1.25.0" />
+      <dependency id="TestFx.SpecK" version="$version$" />
+      <dependency id="FakeItEasy" version="[1.25.0,2.0)" />
     </dependencies>
   </metadata>
   <files>

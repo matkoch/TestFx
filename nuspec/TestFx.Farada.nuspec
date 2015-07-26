@@ -12,8 +12,8 @@
     <tags>testfx farada</tags>
     <dependencies>
       <dependency id="TestFx.Core" version="$version$" />
-      <dependency id="TestFx.Specifications" version="$version$" />
-      <dependency id="Farada.TestDataGeneration" version="0.1.6" />
+      <dependency id="TestFx.SpecK" version="$version$" />
+      <dependency id="Farada.TestDataGeneration" version="[0.1.6,0.2.0)" />
     </dependencies>
   </metadata>
   <files>

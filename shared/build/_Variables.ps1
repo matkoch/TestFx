@@ -5,6 +5,7 @@ $SourceDir        = Join-Path $SolutionDir $SourceDir
 $PackagesDir      = Join-Path $SolutionDir "packages"
 $SolutionFile     = Join-Path $SolutionDir $SolutionFile
 $TestAssemblies   = $TestAssemblies | %{ Join-Path $SolutionDir $_ }
+$NuSpecFiles      = $NuSpecFiles | %{ Join-Path $SolutionDir $_ }
 $CoverageConfig   = Resolve-Path "$PSScriptRoot\..\coverage.xml"
 
 $GitInfo          = Get-GitSemVer
