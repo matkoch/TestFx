@@ -13,7 +13,7 @@
     <dependencies>
       <dependency id="TestFx.Core" version="$version$" />
       <dependency id="TestFx.Specifications" version="$version$" />
-      <dependency id="Farada.TestDataGeneration" version="0.0.1" />
+      <dependency id="Farada.TestDataGeneration" version="0.1.6" />
     </dependencies>
   </metadata>
   <files>

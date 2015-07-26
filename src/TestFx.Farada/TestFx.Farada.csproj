@@ -34,24 +34,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\..\prereq\Castle.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Farada.TestDataGeneration, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Farada.TestDataGeneration.0.1.0\lib\net45\Farada.TestDataGeneration.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\prereq\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\prereq\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Remotion">
-      <HintPath>..\..\prereq\Remotion.dll</HintPath>
+      <HintPath>..\..\packages\Farada.TestDataGeneration.0.1.6\lib\net45\Farada.TestDataGeneration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
