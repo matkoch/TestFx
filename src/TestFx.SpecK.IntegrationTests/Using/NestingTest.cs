@@ -29,6 +29,9 @@ namespace TestFx.SpecK.IntegrationTests.Using
             .DefaultCase (_ => _
                 .GivenUsing (typeof (FirstDisposable))
                 .GivenUsing ("SecondDisposable (named)", x => new SecondDisposable ())
+                .GivenUsing ("DelegateDisposable",
+                    setup: x => { },
+                    cleanup: x => { })
                 .Given ("Arrangement", x => { })
                 .GivenUsing (x => new ThirdDisposable ())
                 .It ("Failing Assertion", x => { throw new Exception (); }));
@@ -42,11 +45,13 @@ namespace TestFx.SpecK.IntegrationTests.Using
           .WithOperations (
               "Create FirstDisposable",
               "Create SecondDisposable (named)",
+              "Create DelegateDisposable",
               "Arrangement",
               "Create ThirdDisposable",
               Action,
               "Failing Assertion",
               "Dispose ThirdDisposable",
+              "Dispose DelegateDisposable",
               "Dispose SecondDisposable (named)",
               "Dispose FirstDisposable");
     }

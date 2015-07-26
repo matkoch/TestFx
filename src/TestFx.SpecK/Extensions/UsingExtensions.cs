@@ -25,6 +25,15 @@ namespace TestFx.SpecK
   {
     public static IArrangeOrAssert<TSubject, TResult, TVars, TCombi> GivenUsing<TSubject, TResult, TVars, TCombi> (
         this IArrange<TSubject, TResult, TVars, TCombi> arrange,
+        string text,
+        Action<ITestContext<TSubject, TResult, TVars, TCombi>> setup,
+        Action<ITestContext<TSubject, TResult, TVars, TCombi>> cleanup)
+    {
+      return arrange.GivenUsing(text, x => new DelegateScope(() => setup(x), () => cleanup(x)));
+    }
+
+    public static IArrangeOrAssert<TSubject, TResult, TVars, TCombi> GivenUsing<TSubject, TResult, TVars, TCombi> (
+        this IArrange<TSubject, TResult, TVars, TCombi> arrange,
         Type disposableType)
     {
       return arrange.GivenUsing(disposableType.Name, x => disposableType.CreateInstance<IDisposable>());
@@ -53,6 +62,22 @@ namespace TestFx.SpecK
           "Dispose " + text,
           x => scope.Dispose());
       return (IArrangeOrAssert<TSubject, TResult, TVars, TCombi>) arrange;
+    }
+
+    private class DelegateScope : IDisposable
+    {
+      private readonly Action _dispose;
+
+      public DelegateScope (Action create, Action dispose)
+      {
+        create();
+        _dispose = dispose;
+      }
+
+      public void Dispose ()
+      {
+        _dispose();
+      }
     }
   }
 }
