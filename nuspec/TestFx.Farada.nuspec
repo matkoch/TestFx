@@ -18,10 +18,6 @@
   </metadata>
   <files>
     <file src="TestFx.Farada\bin\$configuration$\TestFx.Farada.*" target="lib\net45" />
-    <file src="TestFx.Farada\bin\$configuration$\Castle.Core.dll" target="lib\net45" />
-    <file src="TestFx.Farada\bin\$configuration$\log4net.dll" target="lib\net45" />
-    <file src="TestFx.Farada\bin\$configuration$\Remotion.dll" target="lib\net45" />
-    <file src="TestFx.Farada\bin\$configuration$\Microsoft.Practices.ServiceLocation.dll" target="lib\net45" />
     <file src="TestFx.Farada\**\*.cs" exclude="obj\**\*" target="src\TestFx.Farada" />
     <file src="TestFx.Farada\NuGet\content\**\*" target="content" />
   </files>
