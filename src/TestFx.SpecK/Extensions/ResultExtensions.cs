@@ -25,12 +25,12 @@ namespace TestFx.SpecK
     /// <summary>
     /// .ItReturns((DerivedType x) => x);
     /// </summary>
-    public static IAssert<TSubject, TResult, TVars, TCombi> ItReturns<TSubject, TResult, TVars, TCombi, TDerivedResult> (
-        this IAssert<TSubject, TResult, TVars, TCombi> assert,
+    public static IAssert<TSubject, TResult, TVars, TSequence> ItReturns<TSubject, TResult, TVars, TSequence, TDerivedResult> (
+        this IAssert<TSubject, TResult, TVars, TSequence> assert,
         Action<TDerivedResult> resultAssertion)
         where TDerivedResult : class, TResult
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TCombi>>();
+      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
       controller.AddAssertion(
           "Returns " + typeof (TDerivedResult).Name,
           x => resultAssertion(x.Result as TDerivedResult));
@@ -40,11 +40,11 @@ namespace TestFx.SpecK
     /// <summary>
     /// .ItReturns(x => x.Exception);
     /// </summary>
-    public static IAssert<TSubject, TResult, TVars, TCombi> ItReturns<TSubject, TResult, TVars, TCombi> (
-        this IAssert<TSubject, TResult, TVars, TCombi> assert,
+    public static IAssert<TSubject, TResult, TVars, TSequence> ItReturns<TSubject, TResult, TVars, TSequence> (
+        this IAssert<TSubject, TResult, TVars, TSequence> assert,
         Expression<Func<TVars, TResult>> resultProvider)
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TCombi>>();
+      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
       controller.AddAssertion(
           "Returns " + resultProvider,
           x => AssertionHelper.AssertObjectEquals("Result", resultProvider.Compile()(x.Vars), x.Result));

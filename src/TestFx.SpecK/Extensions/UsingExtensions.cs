@@ -23,45 +23,45 @@ namespace TestFx.SpecK
 {
   public static class UsingExtensions
   {
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TCombi> GivenUsing<TSubject, TResult, TVars, TCombi> (
-        this IArrange<TSubject, TResult, TVars, TCombi> arrange,
+    public static IArrangeOrAssert<TSubject, TResult, TVars, TSequence> GivenUsing<TSubject, TResult, TVars, TSequence> (
+        this IArrange<TSubject, TResult, TVars, TSequence> arrange,
         string text,
-        Action<ITestContext<TSubject, TResult, TVars, TCombi>> setup,
-        Action<ITestContext<TSubject, TResult, TVars, TCombi>> cleanup)
+        Action<ITestContext<TSubject, TResult, TVars, TSequence>> setup,
+        Action<ITestContext<TSubject, TResult, TVars, TSequence>> cleanup)
     {
       return arrange.GivenUsing(text, x => new DelegateScope(() => setup(x), () => cleanup(x)));
     }
 
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TCombi> GivenUsing<TSubject, TResult, TVars, TCombi> (
-        this IArrange<TSubject, TResult, TVars, TCombi> arrange,
+    public static IArrangeOrAssert<TSubject, TResult, TVars, TSequence> GivenUsing<TSubject, TResult, TVars, TSequence> (
+        this IArrange<TSubject, TResult, TVars, TSequence> arrange,
         Type disposableType)
     {
       return arrange.GivenUsing(disposableType.Name, x => disposableType.CreateInstance<IDisposable>());
     }
 
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TCombi> GivenUsing<TSubject, TResult, TVars, TCombi, TDisposable> (
-        this IArrange<TSubject, TResult, TVars, TCombi> arrange,
-        Func<ITestContext<TSubject, TResult, TVars, TCombi>, TDisposable> scopeProvider)
+    public static IArrangeOrAssert<TSubject, TResult, TVars, TSequence> GivenUsing<TSubject, TResult, TVars, TSequence, TDisposable> (
+        this IArrange<TSubject, TResult, TVars, TSequence> arrange,
+        Func<ITestContext<TSubject, TResult, TVars, TSequence>, TDisposable> scopeProvider)
         where TDisposable : IDisposable
     {
       return arrange.GivenUsing(typeof (TDisposable).Name, scopeProvider);
     }
 
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TCombi> GivenUsing<TSubject, TResult, TVars, TCombi, TDisposable> (
-        this IArrange<TSubject, TResult, TVars, TCombi> arrange,
+    public static IArrangeOrAssert<TSubject, TResult, TVars, TSequence> GivenUsing<TSubject, TResult, TVars, TSequence, TDisposable> (
+        this IArrange<TSubject, TResult, TVars, TSequence> arrange,
         string text,
-        Func<ITestContext<TSubject, TResult, TVars, TCombi>, TDisposable> scopeProvider)
+        Func<ITestContext<TSubject, TResult, TVars, TSequence>, TDisposable> scopeProvider)
         where TDisposable : IDisposable
     {
-      var controller = arrange.Get<ITestController<TSubject, TResult, TVars, TCombi>>();
+      var controller = arrange.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
 
       IDisposable scope = null;
       controller.AddSetupCleanup<Arrange, CleanupCommon>(
           "Create " + text,
-          x => scope = scopeProvider((ITestContext<TSubject, TResult, TVars, TCombi>) x),
+          x => scope = scopeProvider((ITestContext<TSubject, TResult, TVars, TSequence>) x),
           "Dispose " + text,
           x => scope.Dispose());
-      return (IArrangeOrAssert<TSubject, TResult, TVars, TCombi>) arrange;
+      return (IArrangeOrAssert<TSubject, TResult, TVars, TSequence>) arrange;
     }
 
     private class DelegateScope : IDisposable

@@ -21,12 +21,12 @@ using TestFx.Utilities.Collections;
 
 namespace TestFx.SpecK.Implementation.Controllers
 {
-  public class CompositeTestController<TSubject, TResult, TVars, TCombi> : CompositeTestController, ITestController<TSubject, TResult, TVars, TCombi>
+  public class CompositeTestController<TSubject, TResult, TVars, TSequence> : CompositeTestController, ITestController<TSubject, TResult, TVars, TSequence>
   {
     private readonly IControllerFactory _controllerFactory;
-    private readonly ICollection<ITestController<TSubject, TResult, TVars, TCombi>> _controllers;
+    private readonly ICollection<ITestController<TSubject, TResult, TVars, TSequence>> _controllers;
 
-    public CompositeTestController (ICollection<ITestController<TSubject, TResult, TVars, TCombi>> controllers, IControllerFactory controllerFactory)
+    public CompositeTestController (ICollection<ITestController<TSubject, TResult, TVars, TSequence>> controllers, IControllerFactory controllerFactory)
         : base(controllers.Cast<ITestController>().ToList())
     {
       _controllerFactory = controllerFactory;
@@ -38,31 +38,31 @@ namespace TestFx.SpecK.Implementation.Controllers
       _controllers.ForEach(x => x.SetSubjectFactory<T>(text, subjectFactory));
     }
 
-    public ITestController<TSubject, TResult, TNewVars, TCombi> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
+    public ITestController<TSubject, TResult, TNewVars, TSequence> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
     {
       var delegateControllers = _controllers.Select(x => x.SetVariables(variablesProvider));
       return _controllerFactory.CreateCompositeTestController(delegateControllers);
     }
 
-    public ITestController<TSubject, TResult, Dummy, TNewCombi> SetCombinations<TNewCombi> (IDictionary<string, TNewCombi> combinations)
+    public ITestController<TSubject, TResult, Dummy, TNewSequence> SetSequences<TNewSequence> (IDictionary<string, TNewSequence> sequences)
     {
       throw new NotSupportedException();
     }
 
-    public void AddArrangement (string text, Arrangement<TSubject, TResult, TVars, TCombi> arrangement)
+    public void AddArrangement (string text, Arrangement<TSubject, TResult, TVars, TSequence> arrangement)
     {
       _controllers.ForEach(x => x.AddArrangement(text, arrangement));
     }
 
-    public void AddAssertion (string text, Assertion<TSubject, TResult, TVars, TCombi> assertion, bool expectException = false)
+    public void AddAssertion (string text, Assertion<TSubject, TResult, TVars, TSequence> assertion, bool expectException = false)
     {
       _controllers.ForEach(x => x.AddAssertion(text, assertion, expectException));
     }
 
-    public ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi>
-        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi> ()
+    public ITestController<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence>
+        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence> ()
     {
-      var delegateControllers = _controllers.Select(x => x.CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi>());
+      var delegateControllers = _controllers.Select(x => x.CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence>());
       return _controllerFactory.CreateCompositeTestController(delegateControllers);
     }
   }

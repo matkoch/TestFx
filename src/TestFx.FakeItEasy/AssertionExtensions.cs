@@ -25,19 +25,19 @@ namespace TestFx.FakeItEasy
   {
     private const string Key = "FakeItEasy.OrderedAssertions";
 
-    public static IAssert<TSubject, TResult, TVars, TCombi> ItCallsInOrder<TSubject, TResult, TVars, TCombi> (
-        this IAssert<TSubject, TResult, TVars, TCombi> assert,
-        Assertion<TSubject, TResult, TVars, TCombi> orderedAssertion)
+    public static IAssert<TSubject, TResult, TVars, TSequence> ItCallsInOrder<TSubject, TResult, TVars, TSequence> (
+        this IAssert<TSubject, TResult, TVars, TSequence> assert,
+        Assertion<TSubject, TResult, TVars, TSequence> orderedAssertion)
     {
       return assert.ItCallsInOrder(string.Empty, orderedAssertion);
     }
 
-    public static IAssert<TSubject, TResult, TVars, TCombi> ItCallsInOrder<TSubject, TResult, TVars, TCombi> (
-        this IAssert<TSubject, TResult, TVars, TCombi> assert,
+    public static IAssert<TSubject, TResult, TVars, TSequence> ItCallsInOrder<TSubject, TResult, TVars, TSequence> (
+        this IAssert<TSubject, TResult, TVars, TSequence> assert,
         string text,
-        Assertion<TSubject, TResult, TVars, TCombi> orderedAssertion)
+        Assertion<TSubject, TResult, TVars, TSequence> orderedAssertion)
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TCombi>>();
+      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
       controller.Wrap<Act>(
           (x, inner) =>
           {

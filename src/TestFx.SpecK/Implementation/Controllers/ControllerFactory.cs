@@ -36,20 +36,20 @@ namespace TestFx.SpecK.Implementation.Controllers
         ActionContainer<TSubject, TResult> actionContainer,
         Action<ITestController> testControllerConfigurator);
 
-    ITestController<TSubject, TResult, TVars, TCombi> CreateMainTestController<TSubject, TResult, TVars, TCombi> (
+    ITestController<TSubject, TResult, TVars, TSequence> CreateMainTestController<TSubject, TResult, TVars, TSequence> (
         SuiteProvider suiteProvider,
         TestProvider provider,
         Action<ITestController> configurator,
         ActionContainer<TSubject, TResult> actionContainer,
-        TCombi combi);
+        TSequence sequence);
 
-    ITestController<TSubject, TResult, TVars, TCombi> CreateCompositeTestController<TSubject, TResult, TVars, TCombi> (
-        IEnumerable<ITestController<TSubject, TResult, TVars, TCombi>> controllers);
+    ITestController<TSubject, TResult, TVars, TSequence> CreateCompositeTestController<TSubject, TResult, TVars, TSequence> (
+        IEnumerable<ITestController<TSubject, TResult, TVars, TSequence>> controllers);
 
-    ITestController<TSubject, TResult, TVars, TCombi> CreateTestController<TSubject, TResult, TVars, TCombi> (
+    ITestController<TSubject, TResult, TVars, TSequence> CreateTestController<TSubject, TResult, TVars, TSequence> (
         SuiteProvider suiteProvider,
         TestProvider provider,
-        TestContext<TSubject, TResult, TVars, TCombi> context);
+        TestContext<TSubject, TResult, TVars, TSequence> context);
   }
 
   public class ControllerFactory : IControllerFactory
@@ -79,14 +79,14 @@ namespace TestFx.SpecK.Implementation.Controllers
       return new SpecializedSuiteController<TSubject, TResult>(provider, actionContainer, testControllerConfigurator, this, _operationSorter);
     }
 
-    public ITestController<TSubject, TResult, TVars, TCombi> CreateMainTestController<TSubject, TResult, TVars, TCombi> (
+    public ITestController<TSubject, TResult, TVars, TSequence> CreateMainTestController<TSubject, TResult, TVars, TSequence> (
         SuiteProvider suiteProvider,
         TestProvider provider,
         Action<ITestController> configurator,
         ActionContainer<TSubject, TResult> actionContainer,
-        TCombi combi)
+        TSequence sequence)
     {
-      var context = new MainTestContext<TSubject, TResult, TVars, TCombi>(actionContainer, configurator) { Combi = combi };
+      var context = new MainTestContext<TSubject, TResult, TVars, TSequence>(actionContainer, configurator) { Sequence = sequence };
       var controller = CreateTestController(suiteProvider, provider, context);
 
       var wrappedAction = actionContainer.VoidAction != null
@@ -98,21 +98,21 @@ namespace TestFx.SpecK.Implementation.Controllers
       return controller;
     }
 
-    public ITestController<TSubject, TResult, TVars, TCombi> CreateCompositeTestController<TSubject, TResult, TVars, TCombi> (
-        IEnumerable<ITestController<TSubject, TResult, TVars, TCombi>> controllers)
+    public ITestController<TSubject, TResult, TVars, TSequence> CreateCompositeTestController<TSubject, TResult, TVars, TSequence> (
+        IEnumerable<ITestController<TSubject, TResult, TVars, TSequence>> controllers)
     {
-      return new CompositeTestController<TSubject, TResult, TVars, TCombi>(controllers.ToList(), this);
+      return new CompositeTestController<TSubject, TResult, TVars, TSequence>(controllers.ToList(), this);
     }
 
-    public ITestController<TSubject, TResult, TVars, TCombi> CreateTestController<TSubject, TResult, TVars, TCombi> (
+    public ITestController<TSubject, TResult, TVars, TSequence> CreateTestController<TSubject, TResult, TVars, TSequence> (
         SuiteProvider suiteProvider,
         TestProvider provider,
-        TestContext<TSubject, TResult, TVars, TCombi> context)
+        TestContext<TSubject, TResult, TVars, TSequence> context)
     {
-      return new TestController<TSubject, TResult, TVars, TCombi>(suiteProvider, provider, context, _operationSorter, this);
+      return new TestController<TSubject, TResult, TVars, TSequence>(suiteProvider, provider, context, _operationSorter, this);
     }
 
-    private Action GuardAction<TSubject, TResult, TVars, TCombi> (MainTestContext<TSubject, TResult, TVars, TCombi> context, Action<TSubject> action)
+    private Action GuardAction<TSubject, TResult, TVars, TSequence> (MainTestContext<TSubject, TResult, TVars, TSequence> context, Action<TSubject> action)
     {
       return () =>
       {

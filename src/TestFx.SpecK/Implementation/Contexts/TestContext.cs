@@ -17,20 +17,20 @@ using TestFx.Extensibility.Contexts;
 
 namespace TestFx.SpecK.Implementation.Contexts
 {
-  public abstract class TestContext<TSubject, TResult, TVars, TCombi> : TestContext, ITestContext<TSubject, TResult, TVars, TCombi>
+  public abstract class TestContext<TSubject, TResult, TVars, TSequence> : TestContext, ITestContext<TSubject, TResult, TVars, TSequence>
   {
-    public TestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi>
-        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi> ()
+    public TestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence>
+        CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence> ()
     {
-      return new DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombi, TSubject, TResult, TVars, TCombi>(this);
+      return new DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence, TSubject, TResult, TVars, TSequence>(this);
     }
 
     public abstract TSubject Subject { get; set; }
     public abstract TResult Result { get; set; }
     public abstract object VarsObject { get; set; }
     public abstract TVars Vars { get; set; }
-    public abstract object ComboObject { get; set; }
-    public abstract TCombi Combi { get; set; }
+    public abstract object SeqObject { get; set; }
+    public abstract TSequence Sequence { get; set; }
     public abstract Exception Exception { get; set; }
     public abstract TimeSpan Duration { get; set; }
     public abstract bool ExpectsException { get; set; }

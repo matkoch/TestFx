@@ -37,8 +37,8 @@ namespace TestFx.SpecK.IntegrationTests.Combinatorics
                     x => x.Object, new object[0],
                     x => x.A, new[] { 1, 2 },
                     x => x.B, new[] { 3, 4 })
-                .Given (x => A = x.Combi.A)
-                .Given (x => B = x.Combi.B)
+                .Given (x => A = x.Sequence.A)
+                .Given (x => B = x.Sequence.B)
                 .It ("returns result", x => x.Result.Should ().Be (5)));
       }
     }

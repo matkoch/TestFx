@@ -16,13 +16,12 @@ using System;
 
 namespace TestFx.SpecK.Implementation.Contexts
 {
-  public class DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo, TSubject, TResult, TVars, TCombi>
-      : TestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateCombo>
+  public class DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence, TSubject, TResult, TVars, TSequence>
+      : TestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence>
   {
-    private readonly TestContext<TSubject, TResult, TVars, TCombi> _context;
-    private object _varsObject;
+    private readonly TestContext<TSubject, TResult, TVars, TSequence> _context;
 
-    public DelegateTestContext (TestContext<TSubject, TResult, TVars, TCombi> context)
+    public DelegateTestContext (TestContext<TSubject, TResult, TVars, TSequence> context)
     {
       _context = context;
     }
@@ -51,16 +50,16 @@ namespace TestFx.SpecK.Implementation.Contexts
       set { _context.VarsObject = (TVars) (object) value; }
     }
 
-    public override object ComboObject
+    public override object SeqObject
     {
-      get { return _context.ComboObject; }
-      set { _context.ComboObject = value; }
+      get { return _context.SeqObject; }
+      set { _context.SeqObject = value; }
     }
 
-    public override TDelegateCombo Combi
+    public override TDelegateSequence Sequence
     {
-      get { return (TDelegateCombo) _context.ComboObject; }
-      set { _context.ComboObject = (TVars) (object) value; }
+      get { return (TDelegateSequence) _context.SeqObject; }
+      set { _context.SeqObject = (TSequence) (object) value; }
     }
 
     public override Exception Exception

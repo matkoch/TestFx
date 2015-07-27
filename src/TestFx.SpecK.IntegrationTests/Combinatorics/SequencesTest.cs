@@ -34,9 +34,9 @@ namespace TestFx.SpecK.IntegrationTests.Combinatorics
                 .WithSequences (
                     "First sequence", new { A = 1, B = 2, Result = 3 },
                     "Second sequence", new { A = 2, B = 3, Result = 6 })
-                .Given (x => A = x.Combi.A)
-                .Given (x => B = x.Combi.B)
-                .It ("returns result", x => x.Result.Should ().Be (x.Combi.Result)));
+                .Given (x => A = x.Sequence.A)
+                .Given (x => B = x.Sequence.B)
+                .It ("returns result", x => x.Result.Should ().Be (x.Sequence.Result)));
       }
     }
 

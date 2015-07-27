@@ -19,7 +19,7 @@ using TestFx.SpecK.InferredApi;
 
 namespace TestFx.SpecK.Implementation.Contexts
 {
-  public class MainTestContext<TSubject, TResult, TVars, TCombi> : TestContext<TSubject, TResult, TVars, TCombi>
+  public class MainTestContext<TSubject, TResult, TVars, TSequence> : TestContext<TSubject, TResult, TVars, TSequence>
   {
     private readonly ActionContainer<TSubject, TResult> _actionContainer;
     private readonly Action<ITestController> _configurator;
@@ -29,7 +29,7 @@ namespace TestFx.SpecK.Implementation.Contexts
     private Exception _exception;
     private TimeSpan _duration;
     private object _varsObject;
-    private object _comboObject;
+    private object _sequenceObject;
 
     public MainTestContext (ActionContainer<TSubject, TResult> actionContainer, Action<ITestController> configurator)
     {
@@ -87,16 +87,16 @@ namespace TestFx.SpecK.Implementation.Contexts
       set { _varsObject = value; }
     }
 
-    public override TCombi Combi
+    public override TSequence Sequence
     {
-      get { return (TCombi) _comboObject; }
-      set { _comboObject = value; }
+      get { return (TSequence) _sequenceObject; }
+      set { _sequenceObject = value; }
     }
 
-    public override object ComboObject
+    public override object SeqObject
     {
-      get { return _comboObject; }
-      set { _comboObject = value; }
+      get { return _sequenceObject; }
+      set { _sequenceObject = value; }
     }
 
     public override Exception Exception

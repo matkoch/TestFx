@@ -28,9 +28,9 @@ namespace TestFx.SpecK
       return @case.Case("<Default>", succession);
     }
 
-    public static IArrangeOrAssert<TSubject, TResult, TVars, TCombi> Given<TSubject, TResult, TVars, TCombi> (
-        this IArrange<TSubject, TResult, TVars, TCombi> arrange,
-        Arrangement<TSubject, TResult, TVars, TCombi> arrangement)
+    public static IArrangeOrAssert<TSubject, TResult, TVars, TSequence> Given<TSubject, TResult, TVars, TSequence> (
+        this IArrange<TSubject, TResult, TVars, TSequence> arrange,
+        Arrangement<TSubject, TResult, TVars, TSequence> arrangement)
     {
       return arrange.Given("<Arrangement>", arrangement);
     }
