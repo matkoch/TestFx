@@ -50,7 +50,7 @@ namespace TestFx.SpecK.IntegrationTests
     public static readonly object Subject1 = new object ();
     public static readonly object Subject2 = new object ();
 
-    public static MyAssemblySetup MyAssemblySetup;
+    [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;
 
     public SetupSpec ()
     {

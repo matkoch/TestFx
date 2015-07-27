@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,14 +13,23 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
-using TestFx.Extensibility.Providers;
-using TestFx.Utilities;
+using TestFx.Utilities.Reflection;
 
-namespace TestFx.Evaluation.Loading
+namespace TestFx.Utilities
 {
-  public interface ITypeLoader
+  public class TypedLazy<T> : Lazy<T>
   {
-    ISuiteProvider Load (Type suiteType, ICollection<TypedLazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity);
+    private readonly Type _type;
+
+    public TypedLazy (Type type)
+        : base(() => type.CreateInstance<T>())
+    {
+      _type = type;
+    }
+
+    public Type Type
+    {
+      get { return _type; }
+    }
   }
 }

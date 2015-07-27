@@ -49,6 +49,7 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="AssemblySetupAttribute.cs" />
     <Compile Include="Evaluation\EvaluationModule.cs" />
     <Compile Include="Evaluation\Reporting\FillingOperationResult.cs" />
     <Compile Include="Evaluation\Reporting\ResultExtensions.cs" />
@@ -145,7 +146,6 @@
     <Compile Include="Utilities\Introspection\CommonType.cs" />
     <Compile Include="Utilities\NamespaceModule.cs" />
     <Compile Include="Utilities\Object.AssertNotNull.cs" />
-    <Compile Include="Utilities\Reflection\Assembly.GetInstancesOf.cs" />
     <Compile Include="Utilities\Reflection\AttributeDataExtensions.cs" />
     <Compile Include="Utilities\Reflection\AttributeDataUtility.cs" />
     <Compile Include="Utilities\Reflection\AttributeExtensions.cs" />
@@ -159,6 +159,7 @@
     <Compile Include="Utilities\Reflection\PrivateInvokeUtility.cs" />
     <Compile Include="Utilities\Reflection\TypeExtensions.cs" />
     <Compile Include="Utilities\Reflection\TypeUtility.cs" />
+    <Compile Include="Utilities\TypedLazy.cs" />
     <Compile Include="Utilities\UtilitiesModule.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -179,8 +180,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Fody.1.26.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.26.1\build\Fody.targets'))" />
   </Target>
-  <Target AfterTargets="AfterBuild;NonWinFodyTarget"
-          Name="CleanReferenceCopyLocalPaths">
+  <Target AfterTargets="AfterBuild;NonWinFodyTarget" Name="CleanReferenceCopyLocalPaths">
     <Delete Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -20,6 +20,8 @@ using TestFx.Evaluation.Intents;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
+using TestFx.Utilities.Reflection;
 
 namespace TestFx.Evaluation.Loading
 {
@@ -47,12 +49,20 @@ namespace TestFx.Evaluation.Loading
 
       var explorationData = _assemblyExplorer.Explore(assembly);
 
-      var assemblySetups = explorationData.AssemblySetups.ToList();
+      var assemblySetups = explorationData.AssemblySetupTypes.Select(x => new TypedLazy<IAssemblySetup>(x)).ToList();
       var suiteTypes = explorationData.SuiteTypes.Where(x => assemblyIntent.Intents.Any(y => y.Identity.Relative == x.FullName));
 
       provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaders, assemblySetups, provider.Identity));
-      assemblySetups.ForEach(
-          x => controller.AddSetupCleanup<SetupCommon, CleanupCommon>(x.GetType().Name + ".Setup", x.Setup, x.GetType().Name + ".Cleanup", x.Cleanup));
+      assemblySetups
+          .Where(x => x.IsValueCreated)
+          .Select(x => x.Value)
+          .ForEach(
+              x =>
+                  controller.AddSetupCleanup<SetupCommon, CleanupCommon>(
+                      x.GetType().Name + ".Setup",
+                      x.Setup,
+                      x.GetType().Name + ".Cleanup",
+                      x.Cleanup));
 
       return provider;
     }
@@ -60,7 +70,7 @@ namespace TestFx.Evaluation.Loading
     private ISuiteProvider Load (
         Type suiteType,
         IDictionary<Type, ITypeLoader> loaderDictionary,
-        IEnumerable<IAssemblySetup> assemblySetups,
+        ICollection<TypedLazy<IAssemblySetup>> assemblySetups,
         IIdentity assemblyIdentity)
     {
       var suiteTypeLoader = loaderDictionary.Single(x => x.Key.IsAssignableFrom(suiteType)).Value;

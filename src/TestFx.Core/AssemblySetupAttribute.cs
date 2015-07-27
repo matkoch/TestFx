@@ -13,17 +13,13 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+using JetBrains.Annotations;
 
-namespace TestFx.Utilities.Reflection
+namespace TestFx
 {
-  public static class AssemblyExtensions
+  [AttributeUsage (AttributeTargets.Field)]
+  [MeansImplicitUse]
+  public sealed class AssemblySetupAttribute : Attribute
   {
-    public static IEnumerable<T> CreateInstancesOf<T> (this Assembly assembly)
-    {
-      return assembly.GetTypes().Where(x => x.IsInstantiatable<T>()).Select(x => x.CreateInstance<T>());
-    }
   }
 }

@@ -17,27 +17,20 @@ using System.Collections.Generic;
 
 namespace TestFx.Evaluation.Loading
 {
-  public interface IAssemblyExplorationData
-  {
-    IDictionary<Type, ITypeLoader> TypeLoaders { get; }
-    IEnumerable<Type> SuiteTypes { get; }
-    IEnumerable<IAssemblySetup> AssemblySetups { get; }
-  }
-
-  public class AssemblyExplorationData : IAssemblyExplorationData
+  public class AssemblyExplorationData
   {
     private readonly IDictionary<Type, ITypeLoader> _typeLoaders;
     private readonly IEnumerable<Type> _suiteTypes;
-    private readonly IEnumerable<IAssemblySetup> _assemblySetups;
+    private readonly IEnumerable<Type> _assemblySetupTypes;
 
     public AssemblyExplorationData (
         IDictionary<Type, ITypeLoader> typeLoaders,
         IEnumerable<Type> suiteTypes,
-        IEnumerable<IAssemblySetup> assemblySetups)
+        IEnumerable<Type> assemblySetupTypes)
     {
       _typeLoaders = typeLoaders;
       _suiteTypes = suiteTypes;
-      _assemblySetups = assemblySetups;
+      _assemblySetupTypes = assemblySetupTypes;
     }
 
     public IDictionary<Type, ITypeLoader> TypeLoaders
@@ -50,9 +43,9 @@ namespace TestFx.Evaluation.Loading
       get { return _suiteTypes; }
     }
 
-    public IEnumerable<IAssemblySetup> AssemblySetups
+    public IEnumerable<Type> AssemblySetupTypes
     {
-      get { return _assemblySetups; }
+      get { return _assemblySetupTypes; }
     }
   }
 }

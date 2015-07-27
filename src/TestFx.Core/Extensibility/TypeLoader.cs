@@ -21,7 +21,6 @@ using TestFx.Evaluation;
 using TestFx.Evaluation.Loading;
 using TestFx.Extensibility.Providers;
 using TestFx.Utilities;
-using TestFx.Utilities.Introspection;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.Extensibility
@@ -39,7 +38,7 @@ namespace TestFx.Extensibility
       _introspectionPresenter = introspectionPresenter;
     }
 
-    public ISuiteProvider Load (Type suiteType, IEnumerable<IAssemblySetup> assemblySetups, IIdentity assemblyIdentity)
+    public ISuiteProvider Load (Type suiteType, ICollection<TypedLazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity)
     {
       var uninitializedSuite = (TSuiteType) FormatterServices.GetUninitializedObject(suiteType);
 
@@ -60,16 +59,16 @@ namespace TestFx.Extensibility
 
     protected abstract void InitializeTypeSpecificFields (TSuiteType suite, SuiteProvider provider);
 
-    private void InitializeAssemblySetupFields (TSuiteType suite, ICollection<IAssemblySetup> assemblySetups)
+    private void InitializeAssemblySetupFields (TSuiteType suite, ICollection<TypedLazy<IAssemblySetup>> assemblySetups)
     {
       var suiteType = suite.GetType();
-      var fields = suiteType.GetFields(MemberBindings.Static);
-      // TODO: only static fields with special attribute
+      var fields = suiteType.GetFieldsWithAttribute<AssemblySetupAttribute>(MemberBindings.Static).Select(x => x.Item1);
+
       foreach (var field in fields)
       {
-        var assemblySetup = assemblySetups.FirstOrDefault(x => field.FieldType == x.GetType());
+        var assemblySetup = assemblySetups.FirstOrDefault(x => field.FieldType == x.Type);
         if (assemblySetup != null)
-          field.SetValue(suite, assemblySetup);
+          field.SetValue(suite, assemblySetup.Value);
       }
     }
 
