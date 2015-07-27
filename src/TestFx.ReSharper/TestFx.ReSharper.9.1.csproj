@@ -192,6 +192,7 @@
     <Compile Include="References\MemberReference.cs" />
     <Compile Include="References\MemberReferenceFactory.cs" />
     <Compile Include="References\MemberReferencesProviderFactory.cs" />
+    <Compile Include="Utilities\Psi\Resolve\SymbolTableExtensions.cs" />
     <Compile Include="UnitTesting\Elements\ChildTestElement.cs" />
     <Compile Include="UnitTesting\Elements\ClassTestElement.cs" />
     <Compile Include="UnitTesting\Elements\TestElementBase.R9.cs" />

@@ -13,8 +13,6 @@
 // limitations under the License.
 
 using System;
-using JetBrains.Reflection;
-using JetBrains.ReSharper.Feature.Services.ExternalSources.Utils;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.CSharp.Util;
@@ -22,7 +20,7 @@ using JetBrains.ReSharper.Psi.ExtensionsAPI.Resolve;
 using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Psi.Util;
-using TestFx.Utilities;
+using TestFx.ReSharper.Utilities.Psi.Resolve;
 
 namespace TestFx.ReSharper.References
 {
@@ -51,16 +49,17 @@ namespace TestFx.ReSharper.References
     public override ISymbolTable GetReferenceSymbolTable (bool useReferenceName)
     {
       var symbolTable = ResolveUtil.GetSymbolTableByTypeElement(_typeElement, SymbolTableMode.FULL, _typeElement.Module)
-          .Distinct().Filter(IsDeclaredTypeMember);
+          .Distinct(SymbolInfoComparer.Ordinal)
+          .Filter(IsDeclaredTypeMember);
 
       return useReferenceName
           ? symbolTable.Filter(x => x.ShortName == GetName())
           : symbolTable;
     }
 
-    private bool IsDeclaredTypeMember (ISymbolInfo x)
+    private bool IsDeclaredTypeMember (ISymbolInfo symbol)
     {
-      var typeMember = x.GetDeclaredElement() as ITypeMember;
+      var typeMember = symbol.GetDeclaredElement() as ITypeMember;
       return typeMember != null && !typeMember.GetContainingType().IsObjectClass()
              && !typeMember.HasAttributeInstance(PredefinedType.COMPILER_GENERATED_ATTRIBUTE_CLASS, false);
     }
@@ -95,14 +94,6 @@ namespace TestFx.ReSharper.References
     public ISymbolTable GetCompletionSymbolTable ()
     {
       return GetReferenceSymbolTable(false);
-    }
-  }
-
-  public static class SymbolTableExtensions
-  {
-    public static ISymbolTable Filter (this ISymbolTable symbolTable, Func<ISymbolInfo, bool> predicate)
-    {
-      return symbolTable.Filter(new PredicateFilter(predicate));
     }
   }
 }
