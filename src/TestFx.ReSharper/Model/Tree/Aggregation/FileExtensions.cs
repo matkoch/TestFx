@@ -17,6 +17,7 @@ using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
+using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Model.Tree.Aggregation
 {
@@ -27,10 +28,6 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     [CanBeNull]
     public static ITestFile ToTestFile (this IFile file, Func<bool> notInterrupted = null)
     {
-      var project = file.GetProject();
-      if (project == null)
-        return null;
-
       var csharpFile = file as ICSharpFile;
       if (csharpFile == null)
         return null;
@@ -38,7 +35,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       var testFile = csharpFile.UserData.GetData(s_testFileKey);
       if (testFile == null)
       {
-        testFile = FileAggregatorFactory.Instance.Aggregate(project, notInterrupted).GetTestFile(csharpFile);
+        testFile = FileAggregatorFactory.Instance.Aggregate(file.GetProject().AssertNotNull(), notInterrupted).GetTestFile(csharpFile);
         csharpFile.UserData.PutData(s_testFileKey, testFile);
       }
 
