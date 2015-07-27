@@ -65,7 +65,7 @@
     <Compile Include="Implementation\Utilities\SubjectFactory.cs" />
     <Compile Include="Implementation\Contexts\MainTestContext.cs" />
     <Compile Include="Implementation\Controllers\TestController.cs" />
-    <Compile Include="Implementation\SpecKTypeLoader.cs" />
+    <Compile Include="Implementation\TypeLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\ResultExtensions.cs" />
     <Compile Include="Spec.cs" />

@@ -23,12 +23,12 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx.SpecK.Implementation
 {
-  public class SpecKTypeLoader : TypeLoader<ISuite>
+  public class TypeLoader : TypeLoader<ISuite>
   {
     private readonly IControllerFactory _controllerFactory;
     private readonly ISubjectFactory _subjectFactory;
 
-    public SpecKTypeLoader (
+    public TypeLoader (
         IControllerFactory controllerFactory,
         ISubjectFactory subjectFactory,
         IIntrospectionPresenter introspectionPresenter)

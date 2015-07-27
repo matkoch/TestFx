@@ -17,7 +17,7 @@ using TestFx.Extensibility;
 
 namespace TestFx.SpecK.Implementation
 {
-  [TypeLoader (typeof (SpecKTypeLoader))]
+  [TypeLoader (typeof (TypeLoader))]
   [OperationOrdering (
       typeof (SetupExtension),
       typeof (SetupCommon),
