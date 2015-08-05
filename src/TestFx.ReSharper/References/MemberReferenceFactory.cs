@@ -57,7 +57,7 @@ namespace TestFx.ReSharper.References
     }
 
     [ContractAnnotation ("oldReferences: null => false")]
-    private bool IsValid (ICSharpLiteralExpression literalExpression, IReference[] oldReferences)
+    private bool IsValid (ICSharpLiteralExpression literalExpression, [CanBeNull] IReference[] oldReferences)
     {
       if (oldReferences == null)
         return false;
