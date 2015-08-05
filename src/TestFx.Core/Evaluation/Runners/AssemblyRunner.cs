@@ -20,7 +20,6 @@ using TestFx.Evaluation.Loading;
 using TestFx.Evaluation.Results;
 using TestFx.Evaluation.Utilities;
 using TestFx.Utilities;
-using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation.Runners
 {
