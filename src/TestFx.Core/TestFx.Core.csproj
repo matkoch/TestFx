@@ -135,6 +135,7 @@
     <Compile Include="Utilities\Collections\Object.DescendantsAndSelf.cs" />
     <Compile Include="Utilities\Collections\Enumerable.SortTopologically.cs" />
     <Compile Include="Utilities\Collections\UndefinedOrderException.cs" />
+    <Compile Include="Utilities\DelegateDisposable.cs" />
     <Compile Include="Utilities\IdentifiableCollectionExtensions.cs" />
     <Compile Include="Utilities\IdentifiableCollectionUtility.cs" />
     <Compile Include="Utilities\Identity.cs" />

@@ -19,6 +19,7 @@ using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Loading;
 using TestFx.Evaluation.Results;
 using TestFx.Evaluation.Utilities;
+using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation.Runners
@@ -41,18 +42,28 @@ namespace TestFx.Evaluation.Runners
 
     public ISuiteResult Run (IIntent assemblyIntent)
     {
-      AddThrowingTraceListener();
-
-      var suiteProvider = _assemblyLoader.Load(assemblyIntent);
-      return _suiteRunner.Run(assemblyIntent, suiteProvider);
+      using (SetupTraceListeners())
+      {
+        var suiteProvider = _assemblyLoader.Load(assemblyIntent);
+        return _suiteRunner.Run(assemblyIntent, suiteProvider);
+      }
     }
 
-    private void AddThrowingTraceListener ()
+    private IDisposable SetupTraceListeners ()
     {
-      // TODO: needed per appdomain?
-      // TODO: revert when elevating programmatically?
-      Trace.Listeners.OfType<DefaultTraceListener>().ForEach(x => x.AssertUiEnabled = false);
-      Trace.Listeners.Add(new ThrowingTraceListener());
+      var defaultTraceListener = Trace.Listeners.OfType<DefaultTraceListener>().Single();
+      var previousAssertUiEnabled = defaultTraceListener.AssertUiEnabled;
+
+      defaultTraceListener.AssertUiEnabled = false;
+      var throwingTraceListener = new ThrowingTraceListener();
+      Trace.Listeners.Add(throwingTraceListener);
+
+      return new DelegateDisposable(
+          () =>
+          {
+            defaultTraceListener.AssertUiEnabled = previousAssertUiEnabled;
+            Trace.Listeners.Remove(throwingTraceListener);
+          });
     }
   }
 }
