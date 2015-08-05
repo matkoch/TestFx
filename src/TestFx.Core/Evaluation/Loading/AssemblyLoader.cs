@@ -50,7 +50,7 @@ namespace TestFx.Evaluation.Loading
       var explorationData = _assemblyExplorer.Explore(assembly);
 
       var assemblySetups = explorationData.AssemblySetupTypes.Select(x => new TypedLazy<IAssemblySetup>(x)).ToList();
-      var suiteTypes = explorationData.SuiteTypes.Where(x => assemblyIntent.Intents.Any(y => y.Identity.Relative == x.FullName));
+      var suiteTypes = Filter(assemblyIntent, explorationData.SuiteTypes);
 
       provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaders, assemblySetups, provider.Identity));
       assemblySetups
@@ -65,6 +65,14 @@ namespace TestFx.Evaluation.Loading
                       x.Cleanup));
 
       return provider;
+    }
+
+    private IEnumerable<Type> Filter (IIntent assemblyIntent, IEnumerable<Type> suiteTypes)
+    {
+      if (!assemblyIntent.Intents.Any())
+        return suiteTypes;
+      else
+        return suiteTypes.Where(x => assemblyIntent.Intents.Any(y => y.Identity.Relative == x.FullName));
     }
 
     private ISuiteProvider Load (
