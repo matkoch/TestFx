@@ -32,7 +32,7 @@ namespace TestFx.Console
           HelpText = "Enables debugging by calling Debugger.Launch().")]
       public bool Debug { get; set; }
 
-      [Option ("teamCity", HelpText = "Enables output for JetBrains TeamCity server (auto-detected). Disables standard output.")]
+      [Option ("teamCity", HelpText = "Forces output for JetBrains TeamCity server. Disables standard output.")]
       public bool TeamCity { get; set; }
     }
 
