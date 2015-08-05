@@ -33,8 +33,8 @@ namespace TestFx.SpecK.IntegrationTests.Combinatorics
         Specify (x => A + B)
             .DefaultCase (_ => _
                 .WithPermutations (
-                    new { Object = default(IDisposable), A = default(int), B = default(int) },
-                    x => x.Object, new object[0],
+                    new { Object = default(object), A = default(int), B = default(int) },
+                    x => x.Object, new[] { new object () },
                     x => x.A, new[] { 1, 2 },
                     x => x.B, new[] { 3, 4 })
                 .Given (x => A = x.Sequence.A)
