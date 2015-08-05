@@ -20,7 +20,7 @@
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
     <StartArguments>/rootSuffix $(Hive) /ReSharper.Internal $(SolutionDir)\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</StartArguments>
-    <NuGetPackageImportStamp>5e2851b0</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>a4f79788</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -115,6 +115,9 @@
     <Reference Include="NuGet.Core, Version=2.8.50926.602, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NuGet.Core.2.8.3\lib\net40-Client\NuGet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NullGuard">
+      <HintPath>..\..\packages\NullGuard.Fody.1.4.3\Lib\portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40\NullGuard.dll</HintPath>
     </Reference>
     <Reference Include="nunit.core">
       <HintPath>..\..\packages\NUnit.Core.2.6.4\lib\nunit.core.dll</HintPath>
@@ -251,7 +254,9 @@
     <None Include="LiveTemplates.DotSettings" />
     <None Include="packages.TestFx.ReSharper.9.1.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(TargetDir)TestFx.*" "C:\Users\matthias.koch\AppData\Local\JetBrains\Installations\ReSharperPlatformVs12ReSharper91_000\"</PostBuildEvent>
@@ -276,6 +281,7 @@
     <Error Condition="!Exists('..\..\packages\JetBrains.Platform.Tests.Framework.102.0.20150408.145317\build\JetBrains.Platform.Tests.Framework.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Platform.Tests.Framework.102.0.20150408.145317\build\JetBrains.Platform.Tests.Framework.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.Psi.Features.test.Framework.102.0.20150408.150524\build\JetBrains.Psi.Features.test.Framework.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Psi.Features.test.Framework.102.0.20150408.150524\build\JetBrains.Psi.Features.test.Framework.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.ReSharper.SDK.9.1.20150408.155143\build\JetBrains.ReSharper.SDK.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.ReSharper.SDK.9.1.20150408.155143\build\JetBrains.ReSharper.SDK.Targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
   </Target>
   <Import Project="..\..\packages\Antlr2.Tools.2.7.6.3\build\Antlr2.Tools.targets" Condition="Exists('..\..\packages\Antlr2.Tools.2.7.6.3\build\Antlr2.Tools.targets')" />
   <Import Project="..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20141124.0\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets" Condition="Exists('..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20141124.0\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets')" />
@@ -289,4 +295,5 @@
   <Import Project="..\..\packages\JetBrains.Platform.Tests.Framework.102.0.20150408.145317\build\JetBrains.Platform.Tests.Framework.Targets" Condition="Exists('..\..\packages\JetBrains.Platform.Tests.Framework.102.0.20150408.145317\build\JetBrains.Platform.Tests.Framework.Targets')" />
   <Import Project="..\..\packages\JetBrains.Psi.Features.test.Framework.102.0.20150408.150524\build\JetBrains.Psi.Features.test.Framework.Targets" Condition="Exists('..\..\packages\JetBrains.Psi.Features.test.Framework.102.0.20150408.150524\build\JetBrains.Psi.Features.test.Framework.Targets')" />
   <Import Project="..\..\packages\JetBrains.ReSharper.SDK.9.1.20150408.155143\build\JetBrains.ReSharper.SDK.Targets" Condition="Exists('..\..\packages\JetBrains.ReSharper.SDK.9.1.20150408.155143\build\JetBrains.ReSharper.SDK.Targets')" />
+  <Import Project="..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
 </Project>
