@@ -38,7 +38,7 @@ namespace TestFx.Extensibility
       _introspectionPresenter = introspectionPresenter;
     }
 
-    public ISuiteProvider Load (Type suiteType, ICollection<TypedLazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity)
+    public ISuiteProvider Load (Type suiteType, ICollection<TypedLazy<ILazyBootstrap>> assemblySetups, IIdentity assemblyIdentity)
     {
       var uninitializedSuite = (TSuiteType) FormatterServices.GetUninitializedObject(suiteType);
 
@@ -59,10 +59,10 @@ namespace TestFx.Extensibility
 
     protected abstract void InitializeTypeSpecificFields (TSuiteType suite, SuiteProvider provider);
 
-    private void InitializeAssemblySetupFields (TSuiteType suite, ICollection<TypedLazy<IAssemblySetup>> assemblySetups)
+    private void InitializeAssemblySetupFields (TSuiteType suite, ICollection<TypedLazy<ILazyBootstrap>> assemblySetups)
     {
       var suiteType = suite.GetType();
-      var fields = suiteType.GetFieldsWithAttribute<AssemblySetupAttribute>(MemberBindings.Static).Select(x => x.Item1);
+      var fields = suiteType.GetFieldsWithAttribute<BootstrapAttribute>(MemberBindings.Static).Select(x => x.Item1);
 
       foreach (var field in fields)
       {

@@ -49,11 +49,11 @@ namespace TestFx.Evaluation.Loading
 
       var explorationData = _assemblyExplorer.Explore(assembly);
 
-      var assemblySetups = explorationData.AssemblySetupTypes.Select(x => new TypedLazy<IAssemblySetup>(x)).ToList();
+      var lazyBootstraps = explorationData.BootstrapTypes.Select(x => new TypedLazy<ILazyBootstrap>(x)).ToList();
       var suiteTypes = Filter(assemblyIntent, explorationData.SuiteTypes);
 
-      provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaders, assemblySetups, provider.Identity));
-      assemblySetups
+      provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaders, lazyBootstraps, provider.Identity));
+      lazyBootstraps
           .Where(x => x.IsValueCreated)
           .Select(x => x.Value)
           .ForEach(
@@ -78,7 +78,7 @@ namespace TestFx.Evaluation.Loading
     private ISuiteProvider Load (
         Type suiteType,
         IDictionary<Type, ITypeLoader> loaderDictionary,
-        ICollection<TypedLazy<IAssemblySetup>> assemblySetups,
+        ICollection<TypedLazy<ILazyBootstrap>> assemblySetups,
         IIdentity assemblyIdentity)
     {
       var suiteTypeLoader = loaderDictionary.Single(x => x.Key.IsAssignableFrom(suiteType)).Value;

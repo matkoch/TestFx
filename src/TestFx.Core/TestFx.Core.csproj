@@ -52,7 +52,7 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
-    <Compile Include="AssemblySetupAttribute.cs" />
+    <Compile Include="BootstrapAttribute.cs" />
     <Compile Include="Evaluation\EvaluationModule.cs" />
     <Compile Include="Evaluation\Reporting\FillingOperationResult.cs" />
     <Compile Include="Evaluation\Reporting\ResultExtensions.cs" />
@@ -72,7 +72,7 @@
     <Compile Include="UseTestExtension.cs" />
     <Compile Include="Extensibility\Containers\Container.cs" />
     <Compile Include="Extensibility\DisplayFormatAttribute.cs" />
-    <Compile Include="IAssemblySetup.cs" />
+    <Compile Include="ILazyBootstrap.cs" />
     <Compile Include="Evaluation\EvaluationException.cs" />
     <Compile Include="Evaluation\Reporting\CompositeRunListener.cs" />
     <Compile Include="Evaluation\Reporting\CrossAppDomainRunListener.cs" />

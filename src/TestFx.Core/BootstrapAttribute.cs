@@ -13,12 +13,13 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 
 namespace TestFx
 {
-  public interface IAssemblySetup
+  [AttributeUsage (AttributeTargets.Field)]
+  [MeansImplicitUse]
+  public sealed class BootstrapAttribute : Attribute
   {
-    void Setup ();
-    void Cleanup ();
   }
 }

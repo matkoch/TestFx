@@ -32,7 +32,7 @@ namespace TestFx.Evaluation.Loading
   {
     public AssemblyExplorationData Explore (Assembly assembly)
     {
-      var assemblySetupTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<IAssemblySetup>());
+      var bootstrapTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<ILazyBootstrap>());
 
       var suiteTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<ISuite>() && x.GetAttribute<SubjectAttributeBase>() != null).ToList();
       var suiteBaseTypes = suiteTypes.Select(x => x.GetImmediateDerivedTypesOf<ISuite>().Single()).Distinct();
@@ -41,7 +41,7 @@ namespace TestFx.Evaluation.Loading
           .OrderByDescending(x => x.Priority);
       var typeLoaders = suiteBaseTypes.ToDictionary(x => x, x => CreateTypeLoader(x, testExtensions));
 
-      return new AssemblyExplorationData(typeLoaders, suiteTypes, assemblySetupTypes);
+      return new AssemblyExplorationData(typeLoaders, suiteTypes, bootstrapTypes);
     }
 
     private ITypeLoader CreateTypeLoader (Type suiteBaseType, IEnumerable<ITestExtension> testExtensions)
