@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
@@ -23,6 +24,7 @@ namespace TestFx.ReSharper.References
   [ReferenceProviderFactory]
   public class MemberReferencesProviderFactory : IReferenceProviderFactory
   {
+    [CanBeNull]
     public IReferenceFactory CreateFactory (IPsiSourceFile sourceFile, IFile file)
     {
       return file.ToTestFile() != null ? new MemberReferenceFactory() : null;
