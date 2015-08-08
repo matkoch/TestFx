@@ -15,7 +15,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="TestFx.SpecK\bin\$configuration$\TestFx.SpecK.*" target="lib\net45" />
+    <file src="TestFx.SpecK\bin\$configuration$\TestFx.SpecK.*" target="lib\net40" />
     <file src="TestFx.SpecK\**\*.cs" exclude="obj\**\*" target="src\TestFx.SpecK" />
     <file src="TestFx.SpecK\NuGet\tools\**\*" target="tools" />
   </files>

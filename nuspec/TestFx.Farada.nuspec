@@ -17,7 +17,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="TestFx.Farada\bin\$configuration$\TestFx.Farada.*" target="lib\net45" />
+    <file src="TestFx.Farada\bin\$configuration$\TestFx.Farada.*" target="lib\net40" />
     <file src="TestFx.Farada\**\*.cs" exclude="obj\**\*" target="src\TestFx.Farada" />
     <file src="TestFx.Farada\NuGet\content\**\*" target="content" />
   </files>

@@ -12,7 +12,7 @@
     <tags>testfx</tags>
   </metadata>
   <files>
-    <file src="TestFx.Core\bin\$configuration$\*" target="lib\net45" />
+    <file src="TestFx.Core\bin\$configuration$\*" target="lib\net40" />
     <file src="TestFx.Core\**\*.cs" exclude="obj\**\*" target="src\TestFx.Core" />
     <file src="TestFx.Core\NuGet\content\**\*" target="content" />
     <file src="TestFx.Console\bin\$configuration$\TestFx.exe" target="tools" />

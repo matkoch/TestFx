@@ -17,7 +17,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="TestFx.FakeItEasy\bin\$configuration$\TestFx.FakeItEasy.*" target="lib\net45" />
+    <file src="TestFx.FakeItEasy\bin\$configuration$\TestFx.FakeItEasy.*" target="lib\net40" />
     <file src="TestFx.FakeItEasy\**\*.cs" exclude="obj\**\*" target="src\TestFx.FakeItEasy" />
     <file src="TestFx.FakeItEasy\NuGet\content\**\*" target="content" />
   </files>
