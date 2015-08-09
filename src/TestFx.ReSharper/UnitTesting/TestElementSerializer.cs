@@ -54,7 +54,7 @@ namespace TestFx.ReSharper.UnitTesting
       xmlElement.SetAttribute(c_text, element.GetPresentation());
     }
 
-#if R9
+#if R91
     public IUnitTestElement DeserializeElement (
         XmlElement parent,
         string id,

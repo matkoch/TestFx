@@ -27,7 +27,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\9.1\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;JET_MODE_ASSERT;JETBRAINS_ANNOTATIONS;R9</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;JET_MODE_ASSERT;JETBRAINS_ANNOTATIONS;R91</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0436</NoWarn>
@@ -37,7 +37,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\9.1\</OutputPath>
-    <DefineConstants>TRACE;JETBRAINS_ANNOTATIONS;R9</DefineConstants>
+    <DefineConstants>TRACE;JETBRAINS_ANNOTATIONS;R91</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0436</NoWarn>

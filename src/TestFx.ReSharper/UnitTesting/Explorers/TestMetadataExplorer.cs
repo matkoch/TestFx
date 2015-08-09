@@ -25,7 +25,7 @@ using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities.Collections;
 #if R8
 using JetBrains.Application;
-#elif R9
+#elif R91
 using JetBrains.ReSharper.Resources.Shell;
 #endif
 

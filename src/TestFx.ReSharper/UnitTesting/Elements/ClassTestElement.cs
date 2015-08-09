@@ -28,7 +28,7 @@ using TestFx.ReSharper.UnitTesting.Utilities;
 using TestFx.ReSharper.Utilities.ProjectModel;
 using TestFx.ReSharper.Utilities.Psi.Modules;
 using TestFx.Utilities;
-#if R9
+#if R91
 using JetBrains.Metadata.Reader.Impl;
 #endif
 
@@ -63,7 +63,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
 #if R8
       return new UnitTestNamespace(_testTypeName.GetNamespaceName());
-#elif R9
+#elif R91
       return new UnitTestNamespace(_testTypeName.NamespaceNames);
 #endif
     }

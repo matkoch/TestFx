@@ -16,7 +16,7 @@ using System;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Modules;
-#if R9
+#if R91
 using JetBrains.Metadata.Reader.API;
 #endif
 
