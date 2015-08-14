@@ -16,6 +16,7 @@ using System;
 using FakeItEasy;
 using FakeItEasy.Core;
 using TestFx.SpecK.Implementation;
+using TestFx.SpecK.Implementation.Containers;
 using TestFx.SpecK.Implementation.Controllers;
 using TestFx.SpecK.InferredApi;
 
@@ -37,7 +38,7 @@ namespace TestFx.FakeItEasy
         string text,
         Assertion<TSubject, TResult, TVars, TSequence> orderedAssertion)
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
+      var controller = assert.GetTestController();
       controller.Wrap<Act>(
           (x, inner) =>
           {

@@ -53,6 +53,7 @@
     <Compile Include="Extensions\UsingExtensions.cs" />
     <Compile Include="Extensions\UnnamedExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Implementation\Containers\ContainerExtensions.cs" />
     <Compile Include="Implementation\Contexts\DelegateTestContext.cs" />
     <Compile Include="Implementation\Contexts\TestContext.cs" />
     <Compile Include="Implementation\Controllers\CompositeTestController.cs" />

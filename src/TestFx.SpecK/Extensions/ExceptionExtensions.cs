@@ -15,6 +15,7 @@
 using System;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
+using TestFx.SpecK.Implementation.Containers;
 using TestFx.SpecK.Implementation.Controllers;
 using TestFx.SpecK.Implementation.Utilities;
 using TestFx.SpecK.InferredApi;
@@ -40,7 +41,7 @@ namespace TestFx.SpecK
         [CanBeNull] Func<TVars, string> messageProvider = null,
         [CanBeNull] Func<TVars, Exception> innerExceptionProvider = null)
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
+      var controller = assert.GetTestController();
       controller.AddAssertion(
           "Throws " + exceptionType.Name,
           x =>
@@ -60,7 +61,7 @@ namespace TestFx.SpecK
         Action<TException> exceptionAssertion)
         where TException : Exception
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
+      var controller = assert.GetTestController();
       controller.AddAssertion(
           "Throws " + typeof (TException).Name,
           x => exceptionAssertion(x.Exception as TException),
@@ -73,7 +74,7 @@ namespace TestFx.SpecK
         Expression<Func<TVars, TException>> exceptionProvider)
         where TException : Exception
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
+      var controller = assert.GetTestController();
       controller.AddAssertion(
           "Throws " + exceptionProvider,
           x => AssertionHelper.AssertObjectEquals("Exception", exceptionProvider.Compile()(x.Vars), x.Exception),
@@ -86,7 +87,7 @@ namespace TestFx.SpecK
         string text,
         Assertion<TSubject, TResult, TVars, TSequence> assertion)
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
+      var controller = assert.GetTestController();
       controller.AddAssertion("Throws " + text, assertion, c_expectException);
       return assert;
     }

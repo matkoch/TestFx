@@ -15,6 +15,7 @@
 using System;
 using TestFx.Extensibility;
 using TestFx.SpecK.Implementation;
+using TestFx.SpecK.Implementation.Containers;
 using TestFx.SpecK.Implementation.Controllers;
 using TestFx.SpecK.InferredApi;
 using TestFx.Utilities.Reflection;
@@ -53,7 +54,7 @@ namespace TestFx.SpecK
         Func<ITestContext<TSubject, TResult, TVars, TSequence>, TDisposable> scopeProvider)
         where TDisposable : IDisposable
     {
-      var controller = arrange.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
+      var controller = arrange.GetTestController();
 
       IDisposable scope = null;
       controller.AddSetupCleanup<Arrange, CleanupCommon>(

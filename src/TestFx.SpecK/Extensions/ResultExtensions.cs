@@ -14,6 +14,7 @@
 
 using System;
 using System.Linq.Expressions;
+using TestFx.SpecK.Implementation.Containers;
 using TestFx.SpecK.Implementation.Controllers;
 using TestFx.SpecK.Implementation.Utilities;
 using TestFx.SpecK.InferredApi;
@@ -30,7 +31,7 @@ namespace TestFx.SpecK
         Action<TDerivedResult> resultAssertion)
         where TDerivedResult : class, TResult
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
+      var controller = assert.GetTestController();
       controller.AddAssertion(
           "Returns " + typeof (TDerivedResult).Name,
           x => resultAssertion(x.Result as TDerivedResult));
@@ -44,7 +45,7 @@ namespace TestFx.SpecK
         this IAssert<TSubject, TResult, TVars, TSequence> assert,
         Expression<Func<TVars, TResult>> resultProvider)
     {
-      var controller = assert.Get<ITestController<TSubject, TResult, TVars, TSequence>>();
+      var controller = assert.GetTestController();
       controller.AddAssertion(
           "Returns " + resultProvider,
           x => AssertionHelper.AssertObjectEquals("Result", resultProvider.Compile()(x.Vars), x.Result));
