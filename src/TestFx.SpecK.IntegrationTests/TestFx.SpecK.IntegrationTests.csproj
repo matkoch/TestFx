@@ -69,6 +69,7 @@
     <Compile Include="Exceptions\UnexpectedExceptionTest.cs" />
     <Compile Include="Exceptions\ExceptionAssertionTest.cs" />
     <Compile Include="Farada\AutoCreationTest.cs" />
+    <Compile Include="Simple\IsolationTest.cs" />
     <Compile Include="Simple\VariableTest.cs" />
     <Compile Include="Exceptions\UserClass.cs" />
     <Compile Include="FakeItEasy\OrderedAssertionsTest.cs" />
