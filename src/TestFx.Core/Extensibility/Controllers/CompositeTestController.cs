@@ -48,10 +48,10 @@ namespace TestFx.Extensibility.Controllers
       _controllers.ForEach(x => x.AddAssertion<T>(text, action));
     }
 
-    public void Wrap<T> (Action<ITestContext, Action> enclosingAction)
+    public void Replace<T> (Action<ITestContext, Action> replacingAction)
         where T : IOperationDescriptor
     {
-      _controllers.ForEach(x => x.Wrap<T>(enclosingAction));
+      _controllers.ForEach(x => x.Replace<T>(replacingAction));
     }
 
     public void RemoveAll<T> ()

@@ -39,14 +39,14 @@ namespace TestFx.FakeItEasy
         Assertion<TSubject, TResult, TVars, TSequence> orderedAssertion)
     {
       var controller = assert.GetTestController();
-      controller.Wrap<Act>(
-          (x, inner) =>
+      controller.Replace<Act>(
+          (x, originalAction) =>
           {
             var scope = Fake.CreateScope();
             x[Key] = scope;
             using (scope)
             {
-              inner();
+              originalAction();
             }
           });
       controller.AddAssertion(

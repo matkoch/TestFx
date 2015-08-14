@@ -39,7 +39,7 @@ namespace TestFx.Extensibility.Controllers
     void AddAssertion<T> (string text, Action<ITestContext> action)
         where T : IAssertionDescriptor;
 
-    void Wrap<T> (Action<ITestContext, Action> enclosingAction)
+    void Replace<T> (Action<ITestContext, Action> replacingAction)
         where T : IOperationDescriptor;
 
     void RemoveAll<T> ()
@@ -96,13 +96,13 @@ namespace TestFx.Extensibility.Controllers
       _provider.OperationProviders = _operationSorter.Sort(unsortedOperationProviders);
     }
 
-    public void Wrap<T> (Action<ITestContext, Action> enclosingAction)
+    public void Replace<T> (Action<ITestContext, Action> replacingAction)
         where T : IOperationDescriptor
     {
-      var wrappedOperationProviders = _provider.OperationProviders.Where(x => typeof (T).IsAssignableFrom(x.Descriptor))
-          .Select(x => OperationProvider.Create<T>(x.Type, x.Text, () => enclosingAction(_context, x.Action), x.CleanupProvider));
+      var newOperationProviders = _provider.OperationProviders.Where(x => typeof (T).IsAssignableFrom(x.Descriptor))
+          .Select(x => OperationProvider.Create<T>(x.Type, x.Text, () => replacingAction(_context, x.Action), x.CleanupProvider));
       RemoveAll<T>();
-      var unsortedOperationProviders = _provider.OperationProviders.Concat(wrappedOperationProviders.Cast<IOperationProvider>());
+      var unsortedOperationProviders = _provider.OperationProviders.Concat(newOperationProviders.Cast<IOperationProvider>());
       _provider.OperationProviders = _operationSorter.Sort(unsortedOperationProviders);
     }
 
