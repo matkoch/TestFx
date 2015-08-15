@@ -118,6 +118,7 @@
     </Reference>
     <Reference Include="NullGuard">
       <HintPath>..\..\packages\NullGuard.Fody.1.4.3\Lib\portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40\NullGuard.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="nunit.core">
       <HintPath>..\..\packages\NUnit.Core.2.6.4\lib\nunit.core.dll</HintPath>
