@@ -13,6 +13,8 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TestFx.Extensibility;
 using TestFx.SpecK.Implementation.Containers;
 using TestFx.SpecK.Implementation.Controllers;
@@ -48,6 +50,11 @@ namespace TestFx.SpecK
     {
       var expressionSuiteController = _classSuiteController.CreateSpecializedSuiteController(action);
       return new SpecializedSuiteContainer<TSubject, TResult>(expressionSuiteController);
+    }
+
+    public IIgnoreOrCase<TSubject, IList<TItem>> Specify<TItem> (Func<TSubject, IEnumerable<TItem>> action)
+    {
+      return Specify(x => (IList<TItem>) action(x).ToList());
     }
 
     public virtual TSubject CreateSubject ()
