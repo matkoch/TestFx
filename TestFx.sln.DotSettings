@@ -1,4 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">NewVersion</s:String>
+	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/SolutionBuilderNext/MsbuildVersion/@EntryValue">4294967295</s:Int64>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=09E3CD5696E3464A81862CDC014636E6/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=09E3CD5696E3464A81862CDC014636E6/AbsolutePath/@EntryValue">C:\Development\TestFx\shared\dotsettings\CodeInspections.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=09E3CD5696E3464A81862CDC014636E6/RelativePath/@EntryValue">..\shared\dotsettings\CodeInspections.DotSettings</s:String>
