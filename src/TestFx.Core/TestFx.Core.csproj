@@ -82,14 +82,13 @@
     <Compile Include="Evaluation\Loading\AssemblyExplorationData.cs" />
     <Compile Include="Evaluation\Loading\AssemblyLoader.cs" />
     <Compile Include="Evaluation\Loading\ITypeLoader.cs" />
-    <Compile Include="Extensibility\SubjectAttributeBase.cs" />
+    <Compile Include="Extensibility\SuiteAttributeBase.cs" />
     <Compile Include="Extensibility\TypeLoader.cs" />
     <Compile Include="Evaluation\Runners\AssemblyRunnerFactory.cs" />
     <Compile Include="Extensibility\ITestExtension.cs" />
     <Compile Include="Extensibility\Controllers\SuiteController.cs" />
     <Compile Include="Extensibility\SetupControllerExtensions.cs" />
     <Compile Include="Extensibility\Controllers\TestController.cs" />
-    <Compile Include="Extensibility\ISuite.cs" />
     <Compile Include="Evaluation\Runners\OperationRunner.cs" />
     <Compile Include="Evaluation\Utilities\CrossAppDomainDisposable.cs" />
     <Compile Include="Evaluation\Utilities\DelegateStringWriter.cs" />

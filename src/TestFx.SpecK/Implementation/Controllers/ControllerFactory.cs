@@ -29,7 +29,7 @@ namespace TestFx.SpecK.Implementation.Controllers
 {
   public interface IControllerFactory
   {
-    ISuiteController CreateClassSuiteController (Extensibility.ISuite suite, Type subjectType, SuiteProvider provider);
+    ISuiteController CreateClassSuiteController(ISuite suite, Type subjectType, SuiteProvider provider);
 
     ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
         SuiteProvider provider,
@@ -65,7 +65,7 @@ namespace TestFx.SpecK.Implementation.Controllers
       _testExtensions = testExtensions;
     }
 
-    public ISuiteController CreateClassSuiteController (Extensibility.ISuite suite, Type subjectType, SuiteProvider provider)
+    public ISuiteController CreateClassSuiteController (ISuite suite, Type subjectType, SuiteProvider provider)
     {
       var suiteControllerType = typeof (ClassSuiteController<>).MakeGenericType(subjectType);
       return suiteControllerType.CreateInstance<ISuiteController>(provider, suite, _testExtensions, this, _operationSorter);

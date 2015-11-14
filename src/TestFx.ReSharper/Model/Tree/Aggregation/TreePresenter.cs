@@ -48,7 +48,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     {
       var clazz = (IClass) classDeclaration.DeclaredElement;
 
-      var subjectAttributeData = clazz.GetAttributeData<SubjectAttributeBase>();
+      var subjectAttributeData = clazz.GetAttributeData<SuiteAttributeBase>();
       if (subjectAttributeData == null)
         return null;
 

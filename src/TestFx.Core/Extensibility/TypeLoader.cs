@@ -42,7 +42,7 @@ namespace TestFx.Extensibility
     {
       var uninitializedSuite = (TSuiteType) FormatterServices.GetUninitializedObject(suiteType);
 
-      var subjectAttribute = suiteType.GetAttributeData<SubjectAttributeBase>();
+      var subjectAttribute = suiteType.GetAttributeData<SuiteAttributeBase>();
       var displayFormatAttribute = subjectAttribute.Constructor.GetAttributeData<DisplayFormatAttribute>();
 
       var text = _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), subjectAttribute.ToCommon());

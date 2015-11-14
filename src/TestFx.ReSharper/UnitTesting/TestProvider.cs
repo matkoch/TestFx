@@ -64,7 +64,7 @@ namespace TestFx.ReSharper.UnitTesting
         clazz = member.GetContainingType();
       }
 
-      return clazz.GetAttributeData<SubjectAttributeBase>() != null;
+      return clazz.GetAttributeData<SuiteAttributeBase>() != null;
     }
 
     public bool IsElementOfKind (IUnitTestElement element, UnitTestElementKind elementKind)

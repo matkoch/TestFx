@@ -17,19 +17,7 @@ using TestFx.Extensibility;
 
 namespace TestFx.SpecK.Implementation
 {
-  [TypeLoader (typeof (TypeLoader))]
-  [OperationOrdering (
-      typeof (SetupExtension),
-      typeof (SetupCommon),
-      typeof (SetupSubject),
-      typeof (Arrange),
-      typeof (BeforeAct),
-      typeof (Act),
-      typeof (AfterAct),
-      typeof (Assert),
-      typeof (CleanupCommon),
-      typeof (CleanupExtension))]
-  public interface ISuite : Extensibility.ISuite
+  public interface ISuite
   {
   }
 }

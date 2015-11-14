@@ -43,7 +43,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
     {
       // TODO: ILMerge / embedded reference
       //if (!referencedAssemblies.Any(x => x.StartsWith("TestFx")))
-      var frameworkPrefix = typeof (ISuite).Assembly.GetName().Name;
+      var frameworkPrefix = typeof (SuiteAttributeBase).Assembly.GetName().Name;
       var referencedAssemblies = assembly.ReferencedAssembliesNames.Select(x => x.Name);
       if (!referencedAssemblies.Any(x => x.StartsWith(frameworkPrefix)))
         return;

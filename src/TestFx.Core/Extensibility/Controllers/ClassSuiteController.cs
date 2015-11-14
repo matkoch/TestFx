@@ -22,10 +22,10 @@ namespace TestFx.Extensibility.Controllers
 {
   public class ClassSuiteController : SuiteController
   {
-    private readonly ISuite _suite;
+    private readonly object _suite;
     private readonly IEnumerable<ITestExtension> _testExtensions;
 
-    public ClassSuiteController (SuiteProvider provider, ISuite suite, IEnumerable<ITestExtension> testExtensions, IOperationSorter operationSorter)
+    public ClassSuiteController (SuiteProvider provider, object suite, IEnumerable<ITestExtension> testExtensions, IOperationSorter operationSorter)
         : base(provider, operationSorter)
     {
       _suite = suite;

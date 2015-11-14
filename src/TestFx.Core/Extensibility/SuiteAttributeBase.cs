@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@ using System;
 
 namespace TestFx.Extensibility
 {
-  public interface ISuite
+  [AttributeUsage (AttributeTargets.Class)]
+  public class SuiteAttributeBase : Attribute
   {
   }
 }

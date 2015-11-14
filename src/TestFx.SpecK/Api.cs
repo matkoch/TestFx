@@ -18,6 +18,7 @@ using System.IO;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Containers;
+using TestFx.SpecK.Implementation;
 using TestFx.SpecK.InferredApi;
 
 namespace TestFx.SpecK
@@ -63,7 +64,19 @@ namespace TestFx.SpecK
 
   [MeansImplicitUse]
   [BaseTypeRequired (typeof (ISuite<>))]
-  public class SubjectAttribute : SubjectAttributeBase
+  [TypeLoader(typeof(TypeLoader))]
+  [OperationOrdering(
+      typeof(SetupExtension),
+      typeof(SetupCommon),
+      typeof(SetupSubject),
+      typeof(Arrange),
+      typeof(BeforeAct),
+      typeof(Act),
+      typeof(AfterAct),
+      typeof(Assert),
+      typeof(CleanupCommon),
+      typeof(CleanupExtension))]
+  public class SubjectAttribute : SuiteAttributeBase
   {
     [UsedImplicitly]
     [DisplayFormat ("{0}.{1}")]

@@ -30,14 +30,14 @@ namespace TestFx.FakeItEasy
       get { return 0; }
     }
 
-    public void Extend (ITestController testController, ISuite suite)
+    public void Extend (ITestController testController, object suite)
     {
       CreateFakes(testController, suite);
 
       SetupFakes(testController, suite);
     }
 
-    private void CreateFakes (ITestController testController, ISuite suite)
+    private void CreateFakes (ITestController testController, object suite)
     {
       var fieldsWithAttribute = suite.GetType().GetFieldsWithAttribute<FakeBaseAttribute>().ToList();
       if (fieldsWithAttribute.Count == 0)
@@ -46,7 +46,7 @@ namespace TestFx.FakeItEasy
       testController.AddAction<SetupExtension>("<Create_Fakes>", x => fieldsWithAttribute.ForEach(t => CreateAndAssignFake(suite, t.Item2, t.Item1)));
     }
 
-    private void SetupFakes (ITestController testController, ISuite suite)
+    private void SetupFakes (ITestController testController, object suite)
     {
       var fieldsWithAttribute = suite.GetType().GetFieldsWithAttribute<ReturnedFromAttribute>().ToList();
       if (fieldsWithAttribute.Count == 0)
@@ -55,13 +55,13 @@ namespace TestFx.FakeItEasy
       testController.AddAction<SetupExtension>("<Setup_Fakes>", x => fieldsWithAttribute.ForEach(t => SetupFakeReturnValue(suite, t.Item2, t.Item1)));
     }
 
-    private void CreateAndAssignFake (ISuite suite, FakeBaseAttribute attribute, FieldInfo field)
+    private void CreateAndAssignFake(object suite, FakeBaseAttribute attribute, FieldInfo field)
     {
       var fake = this.InvokeGenericMethod("CreateFake", new object[] { attribute }, new[] { field.FieldType });
       field.SetValue(suite, fake);
     }
 
-    private void SetupFakeReturnValue (ISuite suite, ReturnedFromAttribute attribute, FieldInfo field)
+    private void SetupFakeReturnValue(object suite, ReturnedFromAttribute attribute, FieldInfo field)
     {
       var fake = suite.GetMemberValue<object>(attribute.FakeField);
       var returnValue = field.GetValue(suite);

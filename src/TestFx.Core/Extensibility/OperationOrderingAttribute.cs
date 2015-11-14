@@ -16,7 +16,7 @@ using System;
 
 namespace TestFx.Extensibility
 {
-  [AttributeUsage (AttributeTargets.Interface)]
+  [AttributeUsage (AttributeTargets.Class)]
   public class OperationOrderingAttribute : Attribute
   {
     private readonly Type[] _operationDescriptors;

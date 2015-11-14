@@ -27,7 +27,7 @@ namespace TestFx
       get { return int.MaxValue; }
     }
 
-    public void Extend (ITestController testController, ISuite suite)
+    public void Extend (ITestController testController, object suite)
     {
       var fields = suite.GetType().GetFields(MemberBindings.Instance).ToList();
       if (fields.Count == 0)

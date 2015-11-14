@@ -36,7 +36,7 @@ namespace TestFx.Farada
       get { return 0; }
     }
 
-    public void Extend (ITestController testController, ISuite suite)
+    public void Extend(ITestController testController, object suite)
     {
       var suiteType = suite.GetType();
       var fieldsWithAttribute = suiteType.GetFieldsWithAttribute<AutoDataAttribute>()
@@ -80,7 +80,7 @@ namespace TestFx.Farada
           : (x => x);
     }
 
-    private void CreateAndAssignAuto (ISuite suite, ITestDataGenerator generator, AutoDataAttribute attribute, FieldInfo field)
+    private void CreateAndAssignAuto(object suite, ITestDataGenerator generator, AutoDataAttribute attribute, FieldInfo field)
     {
       var autoData = this.InvokeGenericMethod("CreateAutoData", new object[] { generator, attribute.MaxRecursionDepth }, new[] { field.FieldType });
 

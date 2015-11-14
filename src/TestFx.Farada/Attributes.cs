@@ -35,7 +35,7 @@ namespace TestFx.Farada
   [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
   public class AutoDataAttribute : Attribute
   {
-    private ISuite _currentSuite;
+    private object _currentSuite;
 
     public AutoDataAttribute ()
     {
@@ -44,7 +44,7 @@ namespace TestFx.Farada
 
     public int MaxRecursionDepth { get; set; }
 
-    public ISuite CurrentSuite
+    public object CurrentSuite
     {
       get { return _currentSuite; }
       internal set { _currentSuite = value; }

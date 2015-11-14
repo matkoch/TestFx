@@ -38,7 +38,7 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
     [CanBeNull]
     public string Present (IMetadataTypeInfo type)
     {
-      var subjectAttributeData = type.GetAttributeData<SubjectAttributeBase>();
+      var subjectAttributeData = type.GetAttributeData<SuiteAttributeBase>();
       if (subjectAttributeData == null)
         return null;
 

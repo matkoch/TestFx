@@ -21,6 +21,6 @@ namespace TestFx.Extensibility
   {
     int Priority { get; }
 
-    void Extend (ITestController testController, ISuite suite);
+    void Extend (ITestController testController, object suite);
   }
 }
