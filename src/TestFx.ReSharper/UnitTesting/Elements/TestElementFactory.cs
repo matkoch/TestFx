@@ -22,6 +22,7 @@ using JetBrains.ReSharper.UnitTestFramework.Elements;
 using TestFx.ReSharper.Model;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Utilities;
+using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
@@ -38,12 +39,14 @@ namespace TestFx.ReSharper.UnitTesting.Elements
   {
     private readonly ITestProvider _testProvider;
     private readonly IUnitTestElementManager _unitTestElementManager;
+    private readonly IUnitTestElementIdFactory _unitTestElementIdFactory;
     private readonly Dictionary<string, Func<ITestEntity, IUnitTestElement>> _factoryMethods;
 
-    public TestElementFactory (ITestProvider testProvider, IUnitTestElementManager unitTestElementManager)
+    public TestElementFactory (ITestProvider testProvider, IUnitTestElementManager unitTestElementManager, IUnitTestElementIdFactory unitTestElementIdFactory)
     {
       _testProvider = testProvider;
       _unitTestElementManager = unitTestElementManager;
+      _unitTestElementIdFactory = unitTestElementIdFactory;
       _factoryMethods = new Dictionary<string, Func<ITestEntity, IUnitTestElement>>
                         {
                             { typeof (ClassTestElement).FullName, GetOrCreateClassTestElementRecursively },
@@ -76,7 +79,8 @@ namespace TestFx.ReSharper.UnitTesting.Elements
         ITestEntity testEntity,
         Func<ITestIdentity, ITestElement> factory)
     {
-      var identity = new TestIdentity(_testProvider, testEntity.Project, testEntity.Identity);
+      var elementId = _unitTestElementIdFactory.Create(_testProvider, testEntity.Project, testEntity.Identity.Absolute);
+      var identity = new TestIdentity(elementId, testEntity.Identity);
       var element = _unitTestElementManager.GetElementByIdentity(identity) ?? factory(identity);
 
       element.Update(testEntity.Text, null, Enumerable.Empty<UnitTestElementCategory>());

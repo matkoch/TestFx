@@ -53,14 +53,14 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
       _identity = identity;
       _tasks = tasks;
-      _unitTestProvider = identity.Provider;
+      _unitTestProvider = identity.ElementId.Provider;
       _children = new HashSet<IUnitTestElement>();
     }
 
     [CanBeNull]
     public abstract IEnumerable<IProjectFile> GetProjectFiles ();
 
-    public abstract UnitTestNamespace GetNamespace ();
+    public abstract UnitTestElementNamespace GetNamespace();
 
     [CanBeNull]
     public abstract IDeclaredElement GetDeclaredElement ();
@@ -75,7 +75,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     [CanBeNull]
     public IProject GetProject ()
     {
-      return _identity.GetProject();
+      return Id.Project;
     }
 
     public string Kind

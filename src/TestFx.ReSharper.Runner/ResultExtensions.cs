@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.ReSharper.TaskRunnerFramework;
+using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.Evaluation.Results;
 
 namespace TestFx.ReSharper.Runner

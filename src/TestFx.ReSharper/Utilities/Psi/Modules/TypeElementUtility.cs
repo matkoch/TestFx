@@ -38,7 +38,7 @@ namespace TestFx.ReSharper.Utilities.Psi.Modules
     public ITypeElement GetTypeElement (IPsiServices psiServices, IClrTypeName clrTypeName)
     {
       var symbolCache = psiServices.Symbols;
-      var symbolScope = symbolCache.GetSymbolScope(LibrarySymbolScope.FULL, caseSensitive: false, context: UniversalModuleReferenceContext.Instance);
+      var symbolScope = symbolCache.GetSymbolScope(LibrarySymbolScope.FULL, caseSensitive: false);
       return symbolScope.GetTypeElementByCLRName(clrTypeName);
     }
 
@@ -46,7 +46,7 @@ namespace TestFx.ReSharper.Utilities.Psi.Modules
     public ITypeElement GetTypeElement (IPsiModule psiModule, IClrTypeName clrTypeName)
     {
       var symbolCache = psiModule.GetPsiServices().Symbols;
-      var symbolScope = symbolCache.GetSymbolScope(psiModule, UniversalModuleReferenceContext.Instance, withReferences: true, caseSensitive: true);
+      var symbolScope = symbolCache.GetSymbolScope(psiModule, withReferences: true, caseSensitive: true);
       return symbolScope.GetTypeElementByCLRName(clrTypeName);
     }
   }

@@ -379,6 +379,11 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
       _classDeclaration.RemoveTypeParameterConstraintsClause(param);
     }
 
+    public bool CanBindTo (ITypeElement typeElement)
+    {
+      return _classDeclaration.CanBindTo(typeElement);
+    }
+
     IModifiersList IClassLikeDeclaration.SetModifiersList (IModifiersList param)
     {
       return _classDeclaration.SetModifiersList(param);

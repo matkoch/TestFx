@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi.Tree;
@@ -51,9 +52,9 @@ namespace TestFx.ReSharper.UnitTesting
     {
     }
 
-    public void ExploreProjects (IDictionary<IProject, FileSystemPath> projects, MetadataLoader loader, IUnitTestElementsObserver observer)
+    public void ExploreProjects (IDictionary<IProject, FileSystemPath> projects, MetadataLoader loader, IUnitTestElementsObserver observer, CancellationToken cancellationToken)
     {
-      _metadataElementsSource.ExploreProjects(projects, loader, observer, _testMetadataExplorer.Explore);
+      _metadataElementsSource.ExploreProjects(projects, loader, observer, _testMetadataExplorer.Explore, cancellationToken);
       observer.OnCompleted();
     }
 

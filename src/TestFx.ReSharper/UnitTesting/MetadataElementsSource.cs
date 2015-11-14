@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using JetBrains.Application;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
@@ -29,7 +30,8 @@ namespace TestFx.ReSharper.UnitTesting
         IDictionary<IProject, FileSystemPath> projects,
         MetadataLoader loader,
         IUnitTestElementsObserver observer,
-        Action<IProject, IMetadataAssembly, IUnitTestElementsObserver> exploreAssembly);
+        Action<IProject, IMetadataAssembly, IUnitTestElementsObserver, CancellationToken> exploreAssembly,
+        CancellationToken cancellationToken);
   }
 
   [SolutionComponent]

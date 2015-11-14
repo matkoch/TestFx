@@ -13,31 +13,21 @@
 // limitations under the License.
 
 using System;
-using JetBrains.ProjectModel;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Utilities
 {
   public partial interface ITestIdentity : IIdentity
   {
-    ITestProvider Provider { get; }
-    IProject GetProject ();
   }
 
   public partial class TestIdentity : ITestIdentity
   {
-    private readonly ITestProvider _provider;
     private readonly IIdentity _wrappedIdentity;
 
-    private TestIdentity (ITestProvider provider, IIdentity wrappedIdentity)
+    private TestIdentity (IIdentity wrappedIdentity)
     {
-      _provider = provider;
       _wrappedIdentity = wrappedIdentity;
-    }
-
-    public ITestProvider Provider
-    {
-      get { return _provider; }
     }
 
     public IIdentity Parent

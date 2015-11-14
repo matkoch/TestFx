@@ -59,13 +59,9 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return declaredElement.GetSourceFiles().Select(x => x.ToProjectFile());
     }
 
-    public override UnitTestNamespace GetNamespace ()
+    public override UnitTestElementNamespace GetNamespace()
     {
-#if R8
-      return new UnitTestNamespace(_testTypeName.GetNamespaceName());
-#elif R91
-      return new UnitTestNamespace(_testTypeName.NamespaceNames);
-#endif
+      return UnitTestElementNamespaceFactory.Create(_testTypeName.NamespaceNames);
     }
 
     [CanBeNull]

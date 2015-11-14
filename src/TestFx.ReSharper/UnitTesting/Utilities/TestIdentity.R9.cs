@@ -28,10 +28,10 @@ namespace TestFx.ReSharper.UnitTesting.Utilities
   {
     private readonly UnitTestElementId _elementId;
 
-    public TestIdentity (ITestProvider provider, IProject project, IIdentity wrappedIdentity)
-        : this(provider, wrappedIdentity)
+    public TestIdentity (UnitTestElementId elementId, IIdentity wrappedIdentity)
+        : this(wrappedIdentity)
     {
-      _elementId = new UnitTestElementId(_provider, new PersistentProjectId(project), Absolute);
+      _elementId = elementId;
     }
 
     public UnitTestElementId ElementId

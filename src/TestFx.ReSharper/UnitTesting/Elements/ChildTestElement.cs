@@ -46,7 +46,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     // TODO: introduced invariance!
     [CanBeNull]
-    public override UnitTestNamespace GetNamespace ()
+    public override UnitTestElementNamespace GetNamespace()
     {
       return Parent != null ? Parent.GetNamespace() : null;
     }

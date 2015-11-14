@@ -59,6 +59,11 @@ namespace TestFx.ReSharper.Model.Metadata.Wrapper
       get { return _metadataTypeInfo.IsSpecialName; }
     }
 
+    public bool IsRuntimeSpecialName
+    {
+      get { return _metadataTypeInfo.IsRuntimeSpecialName; }
+    }
+
     public IEnumerable<MemberInfo> GetMemberInfos ()
     {
       return _metadataTypeInfo.GetMemberInfos();
@@ -157,6 +162,11 @@ namespace TestFx.ReSharper.Model.Metadata.Wrapper
     public PInvokeInfo.CharSetSpec InteropStringFormat
     {
       get { return _metadataTypeInfo.InteropStringFormat; }
+    }
+
+    public bool IsBeforeFieldInit
+    {
+      get { return _metadataTypeInfo.IsBeforeFieldInit; }
     }
 
     public bool IsClass

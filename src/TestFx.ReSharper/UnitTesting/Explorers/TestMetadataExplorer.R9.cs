@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Threading;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
@@ -25,7 +26,8 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
     void Explore (
         IProject project,
         IMetadataAssembly assembly,
-        IUnitTestElementsObserver observer);
+        IUnitTestElementsObserver observer,
+        CancellationToken cancellationToken);
   }
 
   [SolutionComponent]
@@ -36,7 +38,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
       _testElementFactory = testElementFactory;
     }
 
-    public void Explore (IProject project, IMetadataAssembly assembly, IUnitTestElementsObserver observer)
+    public void Explore (IProject project, IMetadataAssembly assembly, IUnitTestElementsObserver observer, CancellationToken cancellationToken)
     {
       Explore(
           project,
@@ -46,7 +48,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
             observer.OnUnitTestElement(x);
             observer.OnUnitTestElementChanged(x);
           },
-          () => true);
+          () => cancellationToken.IsCancellationRequested);
     }
   }
 }

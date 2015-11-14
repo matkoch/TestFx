@@ -59,8 +59,7 @@ namespace TestFx.ReSharper.UnitTesting
         XmlElement parent,
         string id,
         [CanBeNull] IUnitTestElement parentElement,
-        IProject project,
-        PersistentProjectId projectId)
+        IProject project)
     {
       return DeserializeElement(parent, parentElement);
     }
