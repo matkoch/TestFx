@@ -28,9 +28,7 @@ using TestFx.ReSharper.UnitTesting.Utilities;
 using TestFx.ReSharper.Utilities.ProjectModel;
 using TestFx.ReSharper.Utilities.Psi.Modules;
 using TestFx.Utilities;
-#if R91
 using JetBrains.Metadata.Reader.Impl;
-#endif
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {

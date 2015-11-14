@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using JetBrains.Metadata.Reader.API;
@@ -23,11 +22,7 @@ using TestFx.Extensibility;
 using TestFx.ReSharper.Model.Metadata.Aggregation;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities.Collections;
-#if R8
-using JetBrains.Application;
-#elif R91
 using JetBrains.ReSharper.Resources.Shell;
-#endif
 
 namespace TestFx.ReSharper.UnitTesting.Explorers
 {

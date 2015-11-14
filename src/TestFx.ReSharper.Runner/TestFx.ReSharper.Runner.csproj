@@ -5,46 +5,40 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{340CA0B3-563A-47DA-858D-2CF4FEAF12B3}</ProjectGuid>
+    <ProjectGuid>{B33814B8-345A-4C20-8B23-8F34AFD04FF0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestFx.ReSharper</RootNamespace>
-    <AssemblyName>TestFx.ReSharper</AssemblyName>
+    <RootNamespace>TestFx.ReSharper.Runner</RootNamespace>
+    <AssemblyName>TestFx.ReSharper.Runner</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <IntermediateOutputPath>obj\$(Configuration)\9.1</IntermediateOutputPath>
-    <Hive>ReSharper91</Hive>
-    <StartAction>Program</StartAction>
-    <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
-    <StartArguments>/rootSuffix $(Hive) /ReSharper.Internal $(SolutionDir)\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</StartArguments>
-    <NuGetPackageImportStamp>91c5d12e</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>354b4980</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\9.1\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;JET_MODE_ASSERT;JETBRAINS_ANNOTATIONS;R91</DefineConstants>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;JET_MODE_ASSERT;JETBRAINS_ANNOTATIONS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0436</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\9.1\</OutputPath>
-    <DefineConstants>TRACE;JETBRAINS_ANNOTATIONS;R91</DefineConstants>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;JETBRAINS_ANNOTATIONS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0436</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="antlr.runtime, Version=2.7.7.1, Culture=neutral, PublicKeyToken=0f493c87b190d7e9, processorArchitecture=MSIL">
@@ -115,6 +109,9 @@
       <HintPath>..\..\packages\JetBrains.Mono.Posix.0.1\lib\net40\Mono.Posix.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="mscorlib">
+      <Aliases>global, mscorlib</Aliases>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft35.Json.7.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -159,108 +156,39 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
-    <Compile Include="Model\ITestEntity.cs" />
-    <Compile Include="Model\Metadata\Aggregation\AssemblyAggregator.cs" />
-    <Compile Include="Model\Metadata\Aggregation\AssemblyAggregatorFactory.cs" />
-    <Compile Include="Model\Metadata\Aggregation\MetadataExtensions.cs" />
-    <Compile Include="Model\Metadata\Aggregation\MetadataPresenter.cs" />
-    <Compile Include="Model\Metadata\TestAssembly.cs" />
-    <Compile Include="Model\Metadata\ITestMetadata.cs" />
-    <Compile Include="Model\Metadata\ITestMetadataHolder.cs" />
-    <Compile Include="Model\Metadata\TypeTestMetadata.cs" />
-    <Compile Include="Model\Metadata\Wrapper\MetadataAssemblyBase.cs" />
-    <Compile Include="Model\Metadata\Wrapper\MetadataTypeInfoBase.cs" />
-    <Compile Include="Model\Metadata\Wrapper\MetadataEntityBase.cs" />
-    <Compile Include="Model\Tree\Aggregation\FileAggregator.cs" />
-    <Compile Include="Model\Tree\Aggregation\FileAggregatorFactory.cs" />
-    <Compile Include="Model\Tree\Aggregation\FileExtensions.cs" />
-    <Compile Include="Model\Tree\Aggregation\TreeNodeEnumerable.cs" />
-    <Compile Include="Model\Tree\Aggregation\TreePresenter.cs" />
-    <Compile Include="Model\Tree\ClassTestDeclaration.cs" />
-    <Compile Include="Model\Tree\InvocationTestDeclaration.cs" />
-    <Compile Include="Model\Tree\ITestDeclaration.cs" />
-    <Compile Include="Model\Tree\ITestDeclarationHolder.cs" />
-    <Compile Include="Model\Tree\StatementTestDeclaration.cs" />
-    <Compile Include="Model\Tree\TestFile.cs" />
-    <Compile Include="Model\Tree\Wrapper\ClassDeclarationBase.R9.cs" />
-    <Compile Include="Model\Tree\Wrapper\ClassDeclarationBase.cs" />
-    <Compile Include="Model\Tree\Wrapper\DeclarationBase.cs" />
-    <Compile Include="Model\Tree\Wrapper\ExpressionStatementBase.cs" />
-    <Compile Include="Model\Tree\Wrapper\FileBase.R9.cs" />
-    <Compile Include="Model\Tree\Wrapper\FileBase.cs" />
-    <Compile Include="Model\Tree\Wrapper\FunctionDeclarationBase.cs" />
-    <Compile Include="Model\Tree\Wrapper\InvocationExpressionBase.R91.cs" />
-    <Compile Include="Model\Tree\Wrapper\InvocationExpressionBase.R9.cs" />
-    <Compile Include="Model\Tree\Wrapper\InvocationExpressionBase.cs" />
-    <Compile Include="Model\Tree\Wrapper\TreeNodeBase.cs" />
+    <Compile Include="ExceptionDescriptorExtensions.cs" />
+    <Compile Include="ResultExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="References\MemberReference.cs" />
-    <Compile Include="References\MemberReferenceFactory.cs" />
-    <Compile Include="References\MemberReferencesProviderFactory.cs" />
-    <Compile Include="Utilities\Psi\Resolve\SymbolTableExtensions.cs" />
-    <Compile Include="UnitTesting\Elements\ChildTestElement.cs" />
-    <Compile Include="UnitTesting\Elements\ClassTestElement.cs" />
-    <Compile Include="UnitTesting\Elements\TestElementBase.R9.cs" />
-    <Compile Include="UnitTesting\Elements\TestElementBase.cs" />
-    <Compile Include="UnitTesting\Elements\ITestElement.cs" />
-    <Compile Include="UnitTesting\Elements\ITestElement.R9.cs" />
-    <Compile Include="UnitTesting\Elements\TestElementFactory.cs" />
-    <Compile Include="UnitTesting\Explorers\TestFileExplorer.cs" />
-    <Compile Include="UnitTesting\Explorers\TestFileExplorer.R9.cs" />
-    <Compile Include="UnitTesting\Explorers\TestMetadataExplorer.cs" />
-    <Compile Include="UnitTesting\Explorers\TestMetadataExplorer.R9.cs" />
-    <Compile Include="UnitTesting\MetadataElementsSource.cs" />
-    <Compile Include="UnitTesting\TestElementSerializer.cs" />
-    <Compile Include="Model\TestEntitySurrogate.cs" />
-    <Compile Include="UnitTesting\TestPresenter.cs" />
-    <Compile Include="UnitTesting\TestProvider.cs" />
-    <Compile Include="UnitTesting\TestProvider.R9.cs" />
-    <Compile Include="UnitTesting\TestSource.cs" />
-    <Compile Include="UnitTesting\Utilities\UnitTestElementManagerExtensions.R9.cs" />
-    <Compile Include="UnitTesting\Utilities\TestIdentity.cs" />
-    <Compile Include="UnitTesting\Utilities\TestIdentity.R9.cs" />
-    <Compile Include="Utilities\Metadata\AttributeDataExtensions.cs" />
-    <Compile Include="Utilities\Metadata\AttributeDataUtility.cs" />
-    <Compile Include="Utilities\Metadata\IntrospectionExtensions.cs" />
-    <Compile Include="Utilities\Metadata\IntrospectionUtility.cs" />
-    <Compile Include="Utilities\Metadata\TypeExtensions.cs" />
-    <Compile Include="Utilities\Metadata\TypeUtility.cs" />
-    <Compile Include="Utilities\ProjectModel\ProjectExtensions.cs" />
-    <Compile Include="Utilities\ProjectModel\ProjectUtility.R91.cs" />
-    <Compile Include="Utilities\Psi\AttributeDataExtensions.cs" />
-    <Compile Include="Utilities\Psi\AttributeDataUtility.cs" />
-    <Compile Include="Utilities\Psi\IntrospectionExtensions.cs" />
-    <Compile Include="Utilities\Psi\IntrospectionUtility.cs" />
-    <Compile Include="Utilities\Psi\Modules\TypeElementExtensions.cs" />
-    <Compile Include="Utilities\Psi\Modules\TypeElementUtility.cs" />
-    <Compile Include="Utilities\Psi\ReferenceExtensions.cs" />
-    <Compile Include="Utilities\Psi\Tree\UnitTestDeclarationExtensions.cs" />
-    <Compile Include="Utilities\Psi\Tree\UnitTestDeclarationUtility.cs" />
-    <Compile Include="Utilities\Psi\TypeExtensions.cs" />
-    <Compile Include="Utilities\Psi\TypeUtility.cs" />
+    <Compile Include="RecursiveRemoteTaskRunner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ReSharperRunListener.cs" />
+    <Compile Include="Tasks\AssemblyTask.cs" />
+    <Compile Include="Tasks\DynamicTask.cs" />
+    <Compile Include="Tasks\RunTask.cs" />
+    <Compile Include="Tasks\Task.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\TestTask.cs" />
     <Compile Include="ZoneMarker.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestFx.Core\TestFx.Core.csproj">
       <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
       <Name>TestFx.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestFx.ReSharper.Runner\TestFx.ReSharper.Runner.9.1.csproj">
-      <Project>{b33814b8-345a-4c20-8b23-8f34afd04ff0}</Project>
-      <Name>TestFx.ReSharper.Runner.9.1</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="LiveTemplates.DotSettings" />
-    <None Include="packages.TestFx.ReSharper.9.1.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(TargetDir)TestFx.*" "C:\Users\matthias.koch\AppData\Local\JetBrains\Installations\ReSharperPlatformVs12ReSharper91_000\"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

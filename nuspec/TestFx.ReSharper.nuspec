@@ -6,16 +6,17 @@
     <authors>Matthias Koch</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>TestFx + ReSharper = &lt;3</description>
-    <iconUrl>https://raw.github.com/matkoch/TestFx/master/TestFx.ico</iconUrl>
+    <iconUrl>http://matkoch.github.io/TestFx/TestFx.ico</iconUrl>
     <projectUrl>https://github.com/matkoch/TestFx</projectUrl>
     <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
     <tags>testfx resharper</tags>
     <dependencies>
-      <dependency id="ReSharper" version="[8.2,8.3)" />
+      <dependency id="Wave" version="[4.0]" />
     </dependencies>
   </metadata>
   <files>
-    <file src="TestFx.ReSharper\bin\$configuration$\8.2\*" target="ReSharper\v8.2\plugins" />
-    <file src="TestFx.ReSharper\*.DotSettings" target="ReSharper\vAny\settings" />
+    <file src="TestFx.ReSharper\bin\$configuration$\Autofac.*" target="DotFiles" />
+    <file src="TestFx.ReSharper\bin\$configuration$\TestFx.*" target="DotFiles" />
+    <file src="TestFx.ReSharper\*.DotSettings" target="DotFiles\Extensions\TestFx.ReSharper\settings" />
   </files>
 </package>

@@ -16,9 +16,7 @@ using System;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Modules;
-#if R91
 using JetBrains.Metadata.Reader.API;
-#endif
 
 namespace TestFx.ReSharper.Utilities.Psi.Modules
 {
