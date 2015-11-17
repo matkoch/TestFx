@@ -25,7 +25,7 @@ namespace TestFx.SpecK
 {
   #region ISuite<TSubject>
 
-  public interface ISuite<TSubject> : Implementation.ISuite
+  public interface ISuite<TSubject>
   {
     void SetupOnce (Action setup, Action cleanup = null);
     void Setup (Action<ITestContext<TSubject>> setup, Action<ITestContext<TSubject>> cleanup = null);
@@ -64,7 +64,7 @@ namespace TestFx.SpecK
 
   [MeansImplicitUse]
   [BaseTypeRequired (typeof (ISuite<>))]
-  [TypeLoader(typeof(TypeLoader))]
+  [TypeLoaderType(typeof(TypeLoader))]
   [OperationOrdering(
       typeof(SetupExtension),
       typeof(SetupCommon),

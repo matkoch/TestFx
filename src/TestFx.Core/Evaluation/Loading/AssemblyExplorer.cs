@@ -40,14 +40,14 @@ namespace TestFx.Evaluation.Loading
       var testExtensions = assembly.GetAttributes<UseTestExtension>()
           .Select(x => x.TestExtensionType.CreateInstance<ITestExtension>())
           .OrderByDescending(x => x.Priority);
-      var typeLoaders = suiteAttributes.Select(x => CreateTypeLoader(x, testExtensions)).ToDictionary(x => x.Item1, x => x.Item2);
+      var typeLoaders = suiteAttributes.ToDictionary(x => x, x => CreateTypeLoader(x, testExtensions));
 
       return new AssemblyExplorationData(typeLoaders, suiteTypes, bootstrapTypes);
     }
 
-    private Tuple<Type, ITypeLoader> CreateTypeLoader (Type suiteAttribute, IEnumerable<ITestExtension> testExtensions)
+    private ITypeLoader CreateTypeLoader (Type suiteAttribute, IEnumerable<ITestExtension> testExtensions)
     {
-      var typeLoaderType = suiteAttribute.GetAttribute<TypeLoaderAttribute>().AssertNotNull().TypeLoaderType;
+      var typeLoaderType = suiteAttribute.GetAttribute<TypeLoaderTypeAttribute>().AssertNotNull().TypeLoaderType;
       var operationOrdering = suiteAttribute.GetAttribute<OperationOrderingAttribute>().AssertNotNull().OperationDescriptors;
 
       var builder = new ContainerBuilder();
@@ -56,10 +56,7 @@ namespace TestFx.Evaluation.Loading
       builder.RegisterInstance(testExtensions).As<IEnumerable<ITestExtension>>();
       var container = builder.Build();
 
-      var suiteBaseType = typeLoaderType.GetClosedTypeOf(typeof(TypeLoader<>)).AssertNotNull().GetGenericArguments().Single();
-      var typeLoader = (ITypeLoader) container.Resolve(typeLoaderType);
-
-      return Tuple.Create(suiteBaseType, typeLoader);
+      return (ITypeLoader) container.Resolve(typeLoaderType);
     }
   }
 }

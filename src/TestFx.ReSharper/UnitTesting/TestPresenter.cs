@@ -42,6 +42,7 @@ namespace TestFx.ReSharper.UnitTesting
     {
       public int Compare (TreeModelNode x, TreeModelNode y)
       {
+        System.Diagnostics.Debugger.Launch();
         var first = x.DataValue as ITestElement;
         var second = y.DataValue as ITestElement;
         if (first == null || second == null)

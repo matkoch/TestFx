@@ -17,11 +17,11 @@ using System;
 namespace TestFx.Extensibility
 {
   [AttributeUsage (AttributeTargets.Class)]
-  public class TypeLoaderAttribute : Attribute
+  public class TypeLoaderTypeAttribute : Attribute
   {
     private readonly Type _typeLoaderType;
 
-    public TypeLoaderAttribute (Type typeLoaderType)
+    public TypeLoaderTypeAttribute (Type typeLoaderType)
     {
       _typeLoaderType = typeLoaderType;
     }

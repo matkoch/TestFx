@@ -81,7 +81,8 @@ namespace TestFx.Evaluation.Loading
         ICollection<TypedLazy<ILazyBootstrap>> assemblySetups,
         IIdentity assemblyIdentity)
     {
-      var suiteTypeLoader = loaderDictionary.Single(x => x.Key.IsAssignableFrom(suiteType)).Value;
+      // TODO: Move selection to AssemblyExplorer
+      var suiteTypeLoader = loaderDictionary.Single(x => x.Key == suiteType.GetAttribute<SuiteAttributeBase>().AssertNotNull().GetType()).Value;
       return suiteTypeLoader.Load(suiteType, assemblySetups, assemblyIdentity);
     }
   }

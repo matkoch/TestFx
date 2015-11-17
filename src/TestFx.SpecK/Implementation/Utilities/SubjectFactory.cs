@@ -63,7 +63,7 @@ namespace TestFx.SpecK.Implementation.Utilities
       return (T) constructor.Invoke(arguments);
     }
 
-    private object GetArgumentValue (ParameterInfo parameter, ISuite suiteInstance, IList<FieldInfo> suiteFields)
+    private object GetArgumentValue (ParameterInfo parameter, object suiteInstance, IList<FieldInfo> suiteFields)
     {
       var argumentField = suiteFields.SingleOrDefault(x => x.Name.Equals(parameter.Name, StringComparison.OrdinalIgnoreCase));
       if (argumentField == null)

@@ -23,7 +23,6 @@ using TestFx.Evaluation;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Results;
 using TestFx.Extensibility.Providers;
-using TestFx.SpecK.Implementation;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 using Assert = NUnit.Framework.Assert;
@@ -31,7 +30,6 @@ using Assert = NUnit.Framework.Assert;
 namespace TestFx.SpecK.IntegrationTests
 {
   public abstract class TestBase<T>
-      where T : ISuite
   {
     protected const string Default = "<Default>";
     protected const string Action = "<Action>";

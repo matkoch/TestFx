@@ -106,7 +106,7 @@
     </ProjectReference>
     <ProjectReference Include="..\TestFx.SpecK\TestFx.SpecK.csproj">
       <Project>{805bdcc2-3399-49aa-8443-d189ac477899}</Project>
-      <Name>TestFx.Specifications</Name>
+      <Name>TestFx.SpecK</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

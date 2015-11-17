@@ -25,22 +25,18 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx.Extensibility
 {
-  public interface ITypeLoader<T> : ITypeLoader
-  {
-  }
-
-  public abstract class TypeLoader<TSuiteType> : ITypeLoader<TSuiteType>
+  public abstract class TypeLoaderBase : ITypeLoader
   {
     private readonly IIntrospectionPresenter _introspectionPresenter;
 
-    protected TypeLoader (IIntrospectionPresenter introspectionPresenter)
+    protected TypeLoaderBase (IIntrospectionPresenter introspectionPresenter)
     {
       _introspectionPresenter = introspectionPresenter;
     }
 
     public ISuiteProvider Load (Type suiteType, ICollection<TypedLazy<ILazyBootstrap>> assemblySetups, IIdentity assemblyIdentity)
     {
-      var uninitializedSuite = (TSuiteType) FormatterServices.GetUninitializedObject(suiteType);
+      var uninitializedSuite = FormatterServices.GetUninitializedObject(suiteType);
 
       var subjectAttribute = suiteType.GetAttributeData<SuiteAttributeBase>();
       var displayFormatAttribute = subjectAttribute.Constructor.GetAttributeData<DisplayFormatAttribute>();
@@ -57,9 +53,9 @@ namespace TestFx.Extensibility
       return provider;
     }
 
-    protected abstract void InitializeTypeSpecificFields (TSuiteType suite, SuiteProvider provider);
+    protected abstract void InitializeTypeSpecificFields (object suite, SuiteProvider provider);
 
-    private void InitializeAssemblySetupFields (TSuiteType suite, ICollection<TypedLazy<ILazyBootstrap>> assemblySetups)
+    private void InitializeAssemblySetupFields (object suite, ICollection<TypedLazy<ILazyBootstrap>> assemblySetups)
     {
       var suiteType = suite.GetType();
       var fields = suiteType.GetFieldsWithAttribute<BootstrapAttribute>(MemberBindings.Static).Select(x => x.Item1);

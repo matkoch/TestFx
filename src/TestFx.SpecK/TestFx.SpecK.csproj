@@ -64,7 +64,6 @@
     <Compile Include="Implementation\Containers\TestContainer.cs" />
     <Compile Include="Implementation\Controllers\ControllerFactory.cs" />
     <Compile Include="Implementation\Controllers\SpecializedClassSuiteController.cs" />
-    <Compile Include="Implementation\ISuite.cs" />
     <Compile Include="Implementation\OperationDescriptors.cs" />
     <Compile Include="Implementation\Utilities\AssertionHelper.cs" />
     <Compile Include="Implementation\Utilities\SubjectFactory.cs" />

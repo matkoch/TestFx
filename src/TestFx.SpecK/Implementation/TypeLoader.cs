@@ -23,7 +23,7 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx.SpecK.Implementation
 {
-  public class TypeLoader : TypeLoader<ISuite>
+  public class TypeLoader : TypeLoaderBase
   {
     private readonly IControllerFactory _controllerFactory;
     private readonly ISubjectFactory _subjectFactory;
@@ -38,7 +38,7 @@ namespace TestFx.SpecK.Implementation
       _subjectFactory = subjectFactory;
     }
 
-    protected override void InitializeTypeSpecificFields (ISuite suite, SuiteProvider provider)
+    protected override void InitializeTypeSpecificFields (object suite, SuiteProvider provider)
     {
       var suiteType = suite.GetType();
       var closedSpeckType = suiteType.GetClosedTypeOf(typeof (ISuite<>)).AssertNotNull();

@@ -153,18 +153,18 @@ namespace TestFx.ReSharper.UnitTesting.Elements
           return;
 
         if (_parent != null)
-          _parent._children.Remove(this);
+          _parent.Children.Remove(this);
 
         _parent = value as TestElementBase;
 
         if (_parent != null)
-          _parent._children.Add(this);
+          _parent.Children.Add(this);
       }
     }
 
     public ICollection<IUnitTestElement> Children
     {
-      get { return _children.ToList().AsReadOnly(); }
+      get { return _children; }
     }
 
     public IUnitTestProvider Provider

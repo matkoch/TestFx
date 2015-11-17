@@ -13,14 +13,17 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using FluentAssertions;
+using NUnit.Framework;
 using TestFx.Evaluation.Results;
 
 namespace TestFx.MSpec.IntegrationTests
 {
+  [TestFixture]
   public class SimpleTest : TestBase<SimpleTest.when_adding>
   {
-    [Subject(typeof(int))]
+    [Subject (typeof (int))]
     public class when_adding
     {
       static int A;
@@ -38,14 +41,20 @@ namespace TestFx.MSpec.IntegrationTests
       It returns_three_again = () => Result.Should ().Be (3);
     }
 
+    [Test]
     public override void Test ()
     {
-      AssertTest ("Int32, when adding", State.Passed)
-          .WithOperations (
-              "<Establish>",
-              "<Because of>",
-              "It returns three",
-              "It returns three again");
+      var assemblyResult = RunResult.SuiteResults.Single ();
+      var suiteResult = assemblyResult.SuiteResults.Single ();
+      AssertResult(suiteResult, "TestFx.MSpec.IntegrationTests.SimpleTest+when_adding", "Int32", State.Passed);
+
+      var setupResult = suiteResult.SetupResults.Single ();
+      var cleanupResult = suiteResult.CleanupResults.Single ();
+      AssertResult (setupResult, "Establish", State.Passed);
+      AssertResult (cleanupResult, "Cleanup", State.Passed);
+
+      AssertResult(TestResults[0], "returns three", "returns three", State.Passed);
+      AssertResult(TestResults[1], "returns three again", "returns three again", State.Passed);
     }
   }
 }

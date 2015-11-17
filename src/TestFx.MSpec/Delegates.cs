@@ -21,4 +21,6 @@ namespace TestFx.MSpec
   public delegate void Because ();
 
   public delegate void It ();
+
+  public delegate void Cleanup ();
 }
