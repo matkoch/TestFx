@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Reflection
@@ -60,6 +61,11 @@ namespace TestFx.Utilities.Reflection
         where TAttribute : Attribute
     {
       return AttributeUtility.Instance.GetMembersWithAttribute<FieldInfo, TAttribute>(type, bindingFlags);
+    }
+
+    public static bool IsCompilerGenerated(this MemberInfo memberInfo)
+    {
+      return AttributeUtility.Instance.GetAttribute<CompilerGeneratedAttribute>(memberInfo) != null;
     }
   }
 }
