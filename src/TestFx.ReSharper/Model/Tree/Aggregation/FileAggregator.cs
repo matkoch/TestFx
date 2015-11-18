@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
@@ -47,7 +48,6 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       var classTests = TreeNodeEnumerable.Create(
           () =>
           {
-            csharpFile.AssertIsValid();
             return GetClassDeclarations(csharpFile)
                 .TakeWhile(_notInterrupted)
                 .Select(x => GetClassTest(x, assemblyIdentity))
@@ -59,19 +59,15 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
 
     private ITestDeclaration GetClassTest (IClassDeclaration classDeclaration, IIdentity parentIdentity)
     {
-      var constructorDeclaration = classDeclaration.ConstructorDeclarations.SingleOrDefault(x => !x.IsStatic && x.ParameterDeclarations.Count == 0);
-      if (constructorDeclaration == null)
-        return null;
-
       var text = _treePresenter.Present(classDeclaration);
       if (text == null)
         return null;
 
       var identity = parentIdentity.CreateChildIdentity(classDeclaration.CLRName);
+      var constructorDeclaration = classDeclaration.ConstructorDeclarations.SingleOrDefault(x => !x.IsStatic && x.ParameterDeclarations.Count == 0);
       var expressionTests = TreeNodeEnumerable.Create(
           () =>
           {
-            constructorDeclaration.AssertIsValid();
             return GetInvocationExpressions(constructorDeclaration)
                 .TakeWhile(_notInterrupted)
                 .Select(x => GetInvocationTest(x, identity))
@@ -99,8 +95,11 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       return classDeclarations;
     }
 
-    private IEnumerable<IInvocationExpression> GetInvocationExpressions (IConstructorDeclaration constructorDeclaration)
+    private IEnumerable<IInvocationExpression> GetInvocationExpressions ([CanBeNull] IConstructorDeclaration constructorDeclaration)
     {
+      if (constructorDeclaration == null)
+        return new IInvocationExpression[0];
+
       var statementExpressions = constructorDeclaration.Body.Children<IExpressionStatement>().Select(x => x.Expression);
       var invocationExpressions = statementExpressions.OfType<IInvocationExpression>()
           .SelectMany(z => z.DescendantsAndSelf(x => x.InvokedExpression.FirstChild as IInvocationExpression).Reverse());

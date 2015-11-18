@@ -32,7 +32,7 @@ namespace TestFx.MSpec
   public class SubjectAttribute : SuiteAttributeBase
   {
     [UsedImplicitly]
-    [DisplayFormat ("{0}")]
+    [DisplayFormat ("{0}, {type}")]
     public SubjectAttribute (Type type)
     {
     }

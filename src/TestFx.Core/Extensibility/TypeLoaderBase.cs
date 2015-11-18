@@ -41,7 +41,7 @@ namespace TestFx.Extensibility
       var subjectAttribute = suiteType.GetAttributeData<SuiteAttributeBase>();
       var displayFormatAttribute = subjectAttribute.Constructor.GetAttributeData<DisplayFormatAttribute>();
 
-      var text = _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), subjectAttribute.ToCommon());
+      var text = _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), suiteType.ToCommon(), subjectAttribute.ToCommon());
       var identity = assemblyIdentity.CreateChildIdentity(suiteType.FullName);
       var provider = SuiteProvider.Create(identity, text, ignored: false);
 

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
@@ -53,10 +54,11 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
         return null;
 
       var subjectAttribute = subjectAttributeData.ToCommon();
-      var subjectAttributeClass = subjectAttributeData.GetAttributeType().GetTypeElement<IClass>().AssertNotNull();
-      var subjectAttributeConstructor = subjectAttributeClass.Constructors.Single();
+
+      var subjectAttributeConstructor = subjectAttributeData.Constructor;
       var displayFormatAttribute = subjectAttributeConstructor.GetAttributeData<DisplayFormatAttribute>().ToCommon();
-      return _introspectionPresenter.Present(displayFormatAttribute, subjectAttribute);
+      
+      return _introspectionPresenter.Present(displayFormatAttribute, clazz.ToCommon(), subjectAttribute);
     }
 
     [CanBeNull]
@@ -71,8 +73,8 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
         return null;
 
       var displayFormatAttribute = displayFormatAttributeData.ToCommon();
-      var commonExpressions = invocationExpression.Arguments.Select(GetConstantValue);
-      return _introspectionPresenter.Present(displayFormatAttribute, commonExpressions);
+      //var commonExpressions = invocationExpression.Arguments.Select(GetConstantValue);
+      return _introspectionPresenter.Present(displayFormatAttribute, new Dictionary<string, object>());
     }
 
     private object GetConstantValue (ICSharpArgument argument)

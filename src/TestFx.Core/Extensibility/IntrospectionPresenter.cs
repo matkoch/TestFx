@@ -15,41 +15,39 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestFx.Utilities.Collections;
 using TestFx.Utilities.Introspection;
 
 namespace TestFx.Extensibility
 {
   public interface IIntrospectionPresenter
   {
-    string Present (CommonAttribute displayAttribute, CommonAttribute subjectAttribute);
-    string Present (string displayFormat, CommonAttribute subjectAttribute);
-
-    string Present (CommonAttribute displayAttribute, IEnumerable<object> arguments);
-    string Present (string displayFormat, IEnumerable<object> arguments);
+    string Present (CommonAttribute displayAttribute, CommonType declaringType, CommonAttribute subjectAttribute);
+    string Present (CommonAttribute displayAttribute, IDictionary<string, object> arguments);
+    string Present(string displayFormat, IDictionary<string, object> arguments);
   }
 
   public class IntrospectionPresenter : IIntrospectionPresenter
   {
     public const string UnknownValue = "???";
 
-    public string Present (CommonAttribute displayAttribute, CommonAttribute subjectAttribute)
+    public string Present(CommonAttribute displayAttribute, CommonType declaringType, CommonAttribute subjectAttribute)
     {
-      return Present(GetDisplayFormat(displayAttribute), subjectAttribute);
+      var dictionary = Tuple.Create("type", (object) declaringType)
+          .Concat(subjectAttribute.PositionalArguments.Select(x => Tuple.Create(x.Position.ToString(), x.Value)))
+          .Concat(subjectAttribute.NamedArguments.Select(x => Tuple.Create(x.Name, x.Value)))
+          .ToDictionary(x => x.Item1, x => x.Item2);
+      return Present(GetDisplayFormat(displayAttribute), dictionary);
     }
 
-    public string Present (string displayFormat, CommonAttribute subjectAttribute)
-    {
-      return Present(displayFormat, subjectAttribute.PositionalArguments.Select(x => x.Value));
-    }
-
-    public string Present (CommonAttribute displayAttribute, IEnumerable<object> arguments)
+    public string Present(CommonAttribute displayAttribute, IDictionary<string, object> arguments)
     {
       return Present(GetDisplayFormat(displayAttribute), arguments);
     }
 
-    public string Present (string displayFormat, IEnumerable<object> arguments)
+    public string Present(string displayFormat, IDictionary<string, object> arguments)
     {
-      return String.Format(displayFormat, arguments.Concat(Enumerable.Repeat(UnknownValue, 10)).ToArray());
+      return arguments.Aggregate(displayFormat, (current, pair) => current.Replace("{" + pair.Key + "}", pair.Value.ToString()));
     }
 
     private string GetDisplayFormat (CommonAttribute displayAttribute)

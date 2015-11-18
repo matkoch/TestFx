@@ -44,7 +44,7 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
 
       var subjectAttribute = subjectAttributeData.ToCommon();
       var displayFormatAttribute = subjectAttributeData.UsedConstructor.GetAttributeData<DisplayFormatAttribute>().ToCommon();
-      return _introspectionPresenter.Present(displayFormatAttribute, subjectAttribute);
+      return _introspectionPresenter.Present(displayFormatAttribute, type.ToCommon(), subjectAttribute);
     }
   }
 }
