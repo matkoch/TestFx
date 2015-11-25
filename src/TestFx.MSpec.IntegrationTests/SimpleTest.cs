@@ -46,15 +46,15 @@ namespace TestFx.MSpec.IntegrationTests
     {
       var assemblyResult = RunResult.SuiteResults.Single ();
       var suiteResult = assemblyResult.SuiteResults.Single ();
-      AssertResult(suiteResult, "TestFx.MSpec.IntegrationTests.SimpleTest+when_adding", "Int32", State.Passed);
+      AssertResult(suiteResult, "TestFx.MSpec.IntegrationTests.SimpleTest+when_adding", "Int32, when_adding", State.Passed);
 
       var setupResult = suiteResult.SetupResults.Single ();
-      var cleanupResult = suiteResult.CleanupResults.Single ();
+      //var cleanupResult = suiteResult.CleanupResults.Single ();
       AssertResult (setupResult, "Establish", State.Passed);
-      AssertResult (cleanupResult, "Cleanup", State.Passed);
+      //AssertResult (cleanupResult, "Cleanup", State.Passed);
 
-      AssertResult(TestResults[0], "returns three", "returns three", State.Passed);
-      AssertResult(TestResults[1], "returns three again", "returns three again", State.Passed);
+      AssertResult(TestResults[0], "returns_three", "returns three", State.Passed);
+      AssertResult(TestResults[1], "returns_three_again", "returns three again", State.Passed);
     }
   }
 }

@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy, Version=1.25.3.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FakeItEasy.1.25.3\lib\net40\FakeItEasy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
@@ -56,6 +60,14 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="BaseContext\BaseContextTestBase.cs" />
+    <Compile Include="BaseContext\SimpleExecutionTest.cs" />
+    <Compile Include="BaseContext\ThrowingBaseOrOuterSetupTest.cs" />
+    <Compile Include="BaseContext\ThrowingSetupTest.cs" />
+    <Compile Include="NestedContext\NestedContextTestBase.cs" />
+    <Compile Include="NestedContext\SimpleExecutionTest.cs" />
+    <Compile Include="NestedContext\ThrowingBaseOrOuterSetupTest.cs" />
+    <Compile Include="NestedContext\ThrowingSetupTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleTest.cs" />
     <Compile Include="TestBase.cs" />

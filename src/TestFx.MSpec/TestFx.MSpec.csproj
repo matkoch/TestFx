@@ -45,9 +45,10 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
-    <Compile Include="SubjectAttribute.cs" />
-    <Compile Include="Delegates.cs" />
+    <Compile Include="Implementation\Operation.cs" />
+    <Compile Include="Api.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Implementation\TypeLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestFx.Core\TestFx.Core.csproj">

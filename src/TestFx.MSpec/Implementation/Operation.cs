@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+// Copyright 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,14 +13,11 @@
 // limitations under the License.
 
 using System;
+using TestFx.Extensibility;
 
-namespace TestFx.MSpec
+namespace TestFx.MSpec.Implementation
 {
-  public delegate void Establish ();
-
-  public delegate void Because ();
-
-  public delegate void It ();
-
-  public delegate void Cleanup ();
+  public interface Operation : IActionDescriptor
+  {
+  }
 }
