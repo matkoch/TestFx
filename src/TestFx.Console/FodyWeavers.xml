@@ -2,5 +2,5 @@
 
 <Weavers>
 	<Costura/>
-	<NullGuard/>
+  <NullGuard IncludeDebugAssert="False" />
 </Weavers>
