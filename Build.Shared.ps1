@@ -11,7 +11,10 @@ $TestAssemblies   = @("TestFx.SpecK.IntegrationTests") | %{ Join-Path $SourceDir
 
 [array] `
 $NuSpecFiles      = @("TestFx.Core.nuspec",
-                      "TestFx.FakeItEasy.nuspec",
-					  "TestFx.Farada.nuspec",
 					  "TestFx.ReSharper.nuspec",
-					  "TestFx.SpecK.nuspec") | %{ Join-Path $NuSpecDir $_ }
+
+					  "TestFx.SpecK.nuspec",
+					  "TestFx.MSpec.nuspec",
+
+                      "TestFx.FakeItEasy.nuspec",
+					  "TestFx.Farada.nuspec") | %{ Join-Path $NuSpecDir $_ }
