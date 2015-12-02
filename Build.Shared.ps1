@@ -7,7 +7,8 @@ $CoverageFile     = Join-Path $SourceDir "coverage.xml"
 $AssemblyInfoFile = Join-Path $SourceDir "AssemblyInfoShared.cs"
 
 [array] `
-$TestAssemblies   = @("TestFx.SpecK.IntegrationTests") | %{ Join-Path $SourceDir "$_\bin\$Configuration\$_.dll" }
+$TestAssemblies   = @("TestFx.SpecK.IntegrationTests",
+					  "TestFx.MSpec.IntegrationTests") | %{ Join-Path $SourceDir "$_\bin\$Configuration\$_.dll" }
 
 [array] `
 $NuSpecFiles      = @("TestFx.Core.nuspec",
