@@ -21,7 +21,6 @@ namespace TestFx.MSpec
 {
   #region Attribute
 
-  [MeansImplicitUse]
   [TypeLoaderType(typeof(TypeLoader))]
   [OperationOrdering(typeof(Operation))]
   public class SubjectAttribute : SuiteAttributeBase

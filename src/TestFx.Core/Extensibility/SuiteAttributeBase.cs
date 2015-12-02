@@ -13,10 +13,12 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 
 namespace TestFx.Extensibility
 {
   [AttributeUsage (AttributeTargets.Class)]
+  [MeansImplicitUse(ImplicitUseKindFlags.Access, ImplicitUseTargetFlags.WithMembers)]
   public class SuiteAttributeBase : Attribute
   {
   }

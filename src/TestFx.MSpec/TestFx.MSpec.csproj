@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="NullGuard">
       <HintPath>..\..\packages\NullGuard.Fody.1.4.3\Lib\portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40\NullGuard.dll</HintPath>
@@ -60,6 +63,9 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NuGet\tools\Formatting.DotSettings" />
+    <None Include="NuGet\tools\Install.ps1" />
+    <None Include="NuGet\tools\Uninstall.ps1" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -70,6 +76,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y "$(ProjectDir)..\TestFx.MSpec.IntegrationTests\TestFx.MSpec.IntegrationTests.csproj.DotSettings" "$(ProjectDir)NuGet\tools\Formatting.DotSettings"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
