@@ -15,6 +15,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FakeItEasy;
+using FakeItEasy.Core;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation;
@@ -29,9 +31,10 @@ namespace TestFx.MSpec.IntegrationTests
   [TestFixture]
   public abstract class TestBase<T>
   {
+    protected IFakeScope Scope;
     protected IRunResult RunResult;
-    protected IList<ISuiteResult> SuiteResults; 
-    protected IList<ITestResult> TestResults; 
+    protected IList<ISuiteResult> SuiteResults;
+    protected IList<ITestResult> TestResults;
 
     [SetUp]
     public virtual void SetUp ()
@@ -39,7 +42,10 @@ namespace TestFx.MSpec.IntegrationTests
       var runIntent = RunIntent.Create (useSeparateAppDomains: false);
       runIntent.AddType (typeof (T));
 
-      RunResult = Evaluator.Run (runIntent);
+      using (Scope = Fake.CreateScope())
+      {
+        RunResult = Evaluator.Run (runIntent);
+      }
 
       SuiteResults = RunResult.SuiteResults.SelectMany (x => x.DescendantsAndSelf (y => y.SuiteResults)).ToList ();
       TestResults = SuiteResults.SelectMany (x => x.TestResults).ToList ();
