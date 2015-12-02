@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="NullGuard">
       <HintPath>..\..\packages\NullGuard.Fody.1.4.3\Lib\portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40\NullGuard.dll</HintPath>
@@ -91,8 +94,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(ProjectDir)..\TestFx.SpecK.IntegrationTests\TestFx.SpecK.IntegrationTests.csproj.DotSettings" "$(ProjectDir)NuGet\tools\Formatting.DotSettings"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
