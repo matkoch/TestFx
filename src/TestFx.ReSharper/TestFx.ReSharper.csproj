@@ -15,11 +15,12 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <IntermediateOutputPath>obj\$(Configuration)\9.1</IntermediateOutputPath>
-    <Hive>ReSharper91</Hive>
+    <IntermediateOutputPath>obj\$(Configuration)\10.0</IntermediateOutputPath>
+    <Hive>ReSharper10.0</Hive>
+    <BaseInstallationPath>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs12$(Hive)</BaseInstallationPath>
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
-    <StartArguments>/rootSuffix $(Hive) /ReSharper.Internal $(SolutionDir)\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</StartArguments>
+    <StartArguments>/rootSuffix $(Hive) /ReSharper.Internal .\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</StartArguments>
     <NuGetPackageImportStamp>91c5d12e</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -260,7 +261,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(TargetDir)TestFx.*" "C:\Users\matthias.koch\AppData\Local\JetBrains\Installations\ReSharperPlatformVs12ReSharper10.0_001"</PostBuildEvent>
+    <PostBuildEvent>
+      if exist "$(BaseInstallationPath)"     xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)"
+      if exist "$(BaseInstallationPath)_000" xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)_000"
+      if exist "$(BaseInstallationPath)_001" xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)_001"
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

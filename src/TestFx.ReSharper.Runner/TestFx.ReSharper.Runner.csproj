@@ -15,7 +15,7 @@
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <IntermediateOutputPath>obj\$(Configuration)\9.1</IntermediateOutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\10.0</IntermediateOutputPath>
     <NuGetPackageImportStamp>354b4980</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
