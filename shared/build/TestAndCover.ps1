@@ -4,7 +4,7 @@ Param(
   [Parameter()] [string] $MsBuildDir = $null,
   [Parameter()] [string] $DotCoverDir = $null,
   
-  [Parameter()] [string] $Configuration = "Debug",
+  [Parameter()] [string] $Configuration = "Release",
   [Parameter()] [string] $Targets = "Rebuild",
  
   [Parameter()] [bool] $SkipTests = $false
