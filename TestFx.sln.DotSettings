@@ -25,4 +25,10 @@
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileC33D5DE07DF33B43B244C01CED1351EC/@KeyIndexDefined">True</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileC33D5DE07DF33B43B244C01CED1351EC/RelativePriority/@EntryValue">5</s:Double>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE2CAB526A167D447BB84C309E757EEE6/@KeyIndexDefined">True</s:Boolean>
-	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE2CAB526A167D447BB84C309E757EEE6/RelativePriority/@EntryValue">4</s:Double></wpf:ResourceDictionary>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE2CAB526A167D447BB84C309E757EEE6/RelativePriority/@EntryValue">4</s:Double>
+	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">E1D62D10D8E2E24085EF1F6A4CFB691A</s:String>
+	<s:Boolean x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Arguments/@EntryValue">/rootSuffix ReSharper10.0 /ReSharper.Internal .\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Executable/@EntryValue">C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Name/@EntryValue">Vs12ReSharper10.0</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Type/@EntryValue">exe</s:String></wpf:ResourceDictionary>
