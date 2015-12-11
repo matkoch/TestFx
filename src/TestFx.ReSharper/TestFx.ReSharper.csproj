@@ -160,6 +160,11 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="Daemon\ITestFileAnalyzer.cs" />
+    <Compile Include="Daemon\NoDefaultTestCaseHighlightning.cs" />
+    <Compile Include="Daemon\SimpleTreeNodeHighlightingBase.cs" />
+    <Compile Include="Daemon\TestFileDaemonStageProcess.cs" />
+    <Compile Include="Daemon\TestFileDaemonStage.cs" />
     <Compile Include="Model\ITestEntity.cs" />
     <Compile Include="Model\Metadata\Aggregation\AssemblyAggregator.cs" />
     <Compile Include="Model\Metadata\Aggregation\AssemblyAggregatorFactory.cs" />
