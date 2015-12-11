@@ -73,8 +73,10 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
         return null;
 
       var displayFormatAttribute = displayFormatAttributeData.ToCommon();
-      //var commonExpressions = invocationExpression.Arguments.Select(GetConstantValue);
-      return _introspectionPresenter.Present(displayFormatAttribute, new Dictionary<string, object>());
+      var commonExpressions = invocationExpression.Arguments
+          .Select((x, i) => new { Index = i, Object = GetConstantValue(x) })
+          .ToDictionary(x => x.Index.ToString(), x => x.Object);
+      return _introspectionPresenter.Present(displayFormatAttribute, commonExpressions);
     }
 
     private object GetConstantValue (ICSharpArgument argument)
