@@ -13,16 +13,15 @@
 // limitations under the License.
 
 using System;
-using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.Model.Tree;
 
 namespace TestFx.ReSharper.Utilities.Psi.Tree
 {
-  public static class UnitTestDeclarationExtensions
+  public static class TestDeclarationExtensions
   {
-    public static UnitTestElementLocation GetTestElementLocation (this ITestDeclaration declaration)
+    public static Ranges GetRanges (this ITestDeclaration declaration)
     {
-      return UnitTestDeclarationUtility.Instance.GetTestElementLocation(declaration);
+      return TestDeclarationUtility.Instance.GetRanges(declaration);
     }
   }
 }

@@ -194,7 +194,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
           .Select(x => x.TestDeclarations.Search(Identity, y => y.TestDeclarations))
           .WhereNotNull().ToList();
 
-      var locations = declarations.Select(x => x.GetTestElementLocation()).ToList();
+      var locations = declarations.Select(GetUnitTestElementLocation).ToList();
       if (locations.Count != 0)
         return new UnitTestElementDisposition(locations, this);
 
@@ -208,6 +208,15 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     public bool Equals (IUnitTestElement other)
     {
       return ReferenceEquals(this, other) || Id.Equals(other.Id);
+    }
+
+    private UnitTestElementLocation GetUnitTestElementLocation (ITestDeclaration declaration)
+    {
+      var ranges = declaration.GetRanges();
+      return new UnitTestElementLocation(
+          declaration.GetSourceFile().ToProjectFile(),
+          ranges.NavigationRange.TextRange,
+          ranges.ContainingRange.TextRange);
     }
   }
 }

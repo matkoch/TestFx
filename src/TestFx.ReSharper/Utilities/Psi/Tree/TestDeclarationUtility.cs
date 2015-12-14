@@ -13,25 +13,25 @@
 // limitations under the License.
 
 using System;
+using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
-using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.Model.Tree;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Utilities.Psi.Tree
 {
-  public interface IUnitTestDeclarationUtility
+  public interface ITestDeclarationUtility
   {
-    UnitTestElementLocation GetTestElementLocation (ITestDeclaration declaration);
+    Ranges GetRanges (ITestDeclaration declaration);
   }
 
-  public class UnitTestDeclarationUtility : IUnitTestDeclarationUtility
+  public class TestDeclarationUtility : ITestDeclarationUtility
   {
-    public static IUnitTestDeclarationUtility Instance = new UnitTestDeclarationUtility();
+    public static ITestDeclarationUtility Instance = new TestDeclarationUtility();
 
-    public UnitTestElementLocation GetTestElementLocation (ITestDeclaration declaration)
+    public Ranges GetRanges(ITestDeclaration declaration)
     {
       if (declaration is IClassDeclaration)
         return GetUnitTestElementLocation((IClassDeclaration) declaration);
@@ -43,32 +43,29 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
       throw new Exception();
     }
 
-    private UnitTestElementLocation GetUnitTestElementLocation (IClassDeclaration declaration)
+    private Ranges GetUnitTestElementLocation(IClassDeclaration declaration)
     {
-      var navigationRange = declaration.GetNameDocumentRange().TextRange;
-      var containingRange = declaration.GetDocumentRange().TextRange;
-      var projectFile = declaration.GetContainingFile().AssertNotNull().GetSourceFile().ToProjectFile();
-      return new UnitTestElementLocation(projectFile, navigationRange, containingRange);
+      var navigationRange = declaration.GetNameDocumentRange();
+      var containingRange = declaration.GetDocumentRange();
+      return new Ranges(navigationRange, containingRange);
     }
 
-    private UnitTestElementLocation GetUnitTestElementLocation (IExpressionStatement statement)
+    private Ranges GetUnitTestElementLocation(IExpressionStatement statement)
     {
-      var projectFile = statement.GetSourceFile().AssertNotNull().ToProjectFile();
-      var textRange = statement.GetDocumentRange().TextRange;
-      return new UnitTestElementLocation(projectFile, textRange, textRange);
+      var textRange = statement.GetDocumentRange();
+      return new Ranges(textRange, textRange);
     }
 
-    private UnitTestElementLocation GetUnitTestElementLocation (IInvocationExpression invocation)
+    private Ranges GetUnitTestElementLocation(IInvocationExpression invocation)
     {
-      var projectFile = invocation.GetSourceFile().ToProjectFile();
       var reference = (invocation.InvokedExpression as IReferenceExpression)
           .AssertNotNull("invocationExpression.InvokedExpression is not a IReferenceExpression");
 
       var startOffset = reference.NameIdentifier.GetDocumentStartOffset();
       var endOffset = invocation.GetDocumentRange().EndOffsetRange();
-      var textRange = startOffset.JoinRight(endOffset).TextRange;
+      var textRange = startOffset.JoinRight(endOffset);
 
-      return new UnitTestElementLocation(projectFile, textRange, textRange);
+      return new Ranges(textRange, textRange);
     }
   }
 }

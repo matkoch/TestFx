@@ -240,8 +240,9 @@
     <Compile Include="Utilities\Psi\Modules\TypeElementExtensions.cs" />
     <Compile Include="Utilities\Psi\Modules\TypeElementUtility.cs" />
     <Compile Include="Utilities\Psi\ReferenceExtensions.cs" />
-    <Compile Include="Utilities\Psi\Tree\UnitTestDeclarationExtensions.cs" />
-    <Compile Include="Utilities\Psi\Tree\UnitTestDeclarationUtility.cs" />
+    <Compile Include="Utilities\Psi\Tree\Ranges.cs" />
+    <Compile Include="Utilities\Psi\Tree\TestDeclarationExtensions.cs" />
+    <Compile Include="Utilities\Psi\Tree\TestDeclarationUtility.cs" />
     <Compile Include="Utilities\Psi\TypeExtensions.cs" />
     <Compile Include="Utilities\Psi\TypeUtility.cs" />
     <Compile Include="ZoneMarker.cs" />
