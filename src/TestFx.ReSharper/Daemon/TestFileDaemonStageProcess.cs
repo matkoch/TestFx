@@ -22,7 +22,7 @@ namespace TestFx.ReSharper.Daemon
     public void Execute (Action<DaemonStageResult> committer)
     {
       var highlightings = _testFileAnalyzers.SelectMany(x => x.GetHighlightings(_file));
-      var result = highlightings.Select(x => new HighlightingInfo(x.NavigationRange, x)).ToList();
+      var result = highlightings.Select(x => new HighlightingInfo(x.CalculateRange(), x)).ToList();
       committer(new DaemonStageResult(result));
     }
 

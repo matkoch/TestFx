@@ -13,22 +13,18 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using JetBrains.ReSharper.Feature.Services.Daemon;
-using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Tree;
 using TestFx.ReSharper.Daemon;
 using TestFx.ReSharper.Model.Tree;
-using TestFx.Utilities.Collections;
 
 [assembly: RegisterConfigurableSeverity (
-    NoDefaultTestCaseHighlightning.SeverityId,
+    NoDefaultTestHighlighting.SeverityId,
     null,
     HighlightingGroupIds.CodeSmell,
-    NoDefaultTestCaseHighlightning.Message,
-    NoDefaultTestCaseHighlightning.Description,
-    Severity.WARNING,
+    NoDefaultTestHighlighting.Message,
+    NoDefaultTestHighlighting.Description,
+    Severity.ERROR,
     /*SolutionAnalysisRequired:*/ false)]
 
 namespace TestFx.ReSharper.Daemon
@@ -36,36 +32,19 @@ namespace TestFx.ReSharper.Daemon
   [ConfigurableSeverityHighlighting (
       SeverityId,
       "CSHARP",
-      OverlapResolve = OverlapResolveKind.WARNING,
+      OverlapResolve = OverlapResolveKind.ERROR,
       ToolTipFormatString = Message)]
-  public class NoDefaultTestCaseHighlightning : SimpleTreeNodeHighlightingBase
+  public class NoDefaultTestHighlighting : SimpleTestDeclarationHighlightingBase
   {
     public const string SeverityId = "NoDefaultTest";
     public const string Message = "Test suite has no default test case.";
 
     public const string Description =
-        "Warns about a test suite not having a default test case, which is supposed to be best practise.";
+        "Warns about a test suite not having a default test case, which is supposed to be best practice.";
 
-    public NoDefaultTestCaseHighlightning (ITreeNode treeNode)
+    public NoDefaultTestHighlighting (ITestDeclaration treeNode)
         : base(treeNode, Message)
     {
-    }
-  }
-
-  [PsiComponent]
-  public class NoDefaultTestCaseTestFileAnalyzer : ITestFileAnalyzer
-  {
-    public IEnumerable<INavigatableHighlighting> GetHighlightings(ITestFile file)
-    {
-      foreach (var classDeclaration in file.TestDeclarations)
-      {
-        var hasDefault = classDeclaration.DescendantsAndSelf(x => x.TestDeclarations).Any(x => x.Text == "<Default>");
-        if (hasDefault)
-          continue;
-
-        classDeclaration.AssertIsValid();
-        yield return new NoDefaultTestCaseHighlightning(classDeclaration);
-      }
     }
   }
 }

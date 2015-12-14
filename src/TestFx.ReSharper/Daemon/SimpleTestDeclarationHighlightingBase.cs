@@ -16,21 +16,17 @@ using System;
 using JetBrains.Annotations;
 using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Feature.Services.Daemon;
-using JetBrains.ReSharper.Psi.Tree;
+using TestFx.ReSharper.Model.Tree;
+using TestFx.ReSharper.Utilities.Psi.Tree;
 
 namespace TestFx.ReSharper.Daemon
 {
-  public interface INavigatableHighlighting : IHighlighting
+  public abstract class SimpleTestDeclarationHighlightingBase : IHighlighting
   {
-    DocumentRange NavigationRange { get; } 
-  }
-
-  public abstract class SimpleTreeNodeHighlightingBase : INavigatableHighlighting
-  {
-    private readonly ITreeNode _treeNode;
+    private readonly ITestDeclaration _treeNode;
     private readonly string _toolTipText;
 
-    protected SimpleTreeNodeHighlightingBase (ITreeNode treeNode, [NotNull] string toolTipText)
+    protected SimpleTestDeclarationHighlightingBase(ITestDeclaration treeNode, [NotNull] string toolTipText)
     {
       _treeNode = treeNode;
       _toolTipText = toolTipText;
@@ -58,12 +54,7 @@ namespace TestFx.ReSharper.Daemon
 
     public virtual DocumentRange CalculateRange ()
     {
-      return _treeNode.GetDocumentRange();
-    }
-
-    public DocumentRange NavigationRange
-    {
-      get { return _treeNode.GetNavigationRange(); }
+      return _treeNode.GetRanges().NavigationRange;
     }
   }
 }

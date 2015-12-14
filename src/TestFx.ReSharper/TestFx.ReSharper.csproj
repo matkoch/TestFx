@@ -161,8 +161,11 @@
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
     <Compile Include="Daemon\ITestFileAnalyzer.cs" />
-    <Compile Include="Daemon\NoDefaultTestCaseHighlightning.cs" />
-    <Compile Include="Daemon\SimpleTreeNodeHighlightingBase.cs" />
+    <Compile Include="Daemon\DuplicatedTestHighlighting.cs" />
+    <Compile Include="Daemon\DuplicatedTestAnalyzer.cs" />
+    <Compile Include="Daemon\NoDefaultTestHighlighting.cs" />
+    <Compile Include="Daemon\NoDefaultTestAnalyzer.cs" />
+    <Compile Include="Daemon\SimpleTestDeclarationHighlightingBase.cs" />
     <Compile Include="Daemon\TestFileDaemonStageProcess.cs" />
     <Compile Include="Daemon\TestFileDaemonStage.cs" />
     <Compile Include="Model\ITestEntity.cs" />
