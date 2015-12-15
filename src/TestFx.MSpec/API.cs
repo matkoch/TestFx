@@ -19,10 +19,11 @@ using TestFx.MSpec.Implementation;
 
 namespace TestFx.MSpec
 {
-  #region Attribute
 
-  [TypeLoaderType(typeof(TypeLoader))]
-  [OperationOrdering(typeof(Operation))]
+  #region SuiteAttribute
+
+  [TypeLoaderType (typeof (TypeLoader))]
+  [OperationOrdering (typeof (Operation))]
   public class SubjectAttribute : SuiteAttributeBase
   {
     [UsedImplicitly]
@@ -42,13 +43,46 @@ namespace TestFx.MSpec
 
   #region Delegates
 
-  public delegate void Establish();
+  public delegate void Establish ();
 
-  public delegate void Because();
+  public delegate void Because ();
 
-  public delegate void It();
+  public delegate void It ();
 
-  public delegate void Cleanup();
+  public delegate void Cleanup ();
+
+  public delegate void Behaves_like<T> ();
+
+  #endregion
+
+  #region AssemblyContext
+
+  [UsedImplicitly]
+  // ReSharper disable once InconsistentNaming
+  public abstract class IAssemblyContext : IAssemblySetup
+  {
+    public void Setup ()
+    {
+      OnAssemblyStart();
+    }
+
+    public void Cleanup ()
+    {
+      OnAssemblyComplete();
+    }
+
+    public abstract void OnAssemblyStart ();
+    public abstract void OnAssemblyComplete ();
+  }
+
+  #endregion
+
+  #region BehaviorsAttribute
+
+  [AttributeUsage(AttributeTargets.Class)]
+  public class BehaviorsAttribute : Attribute
+  {
+  }
 
   #endregion
 }
