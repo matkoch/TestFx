@@ -35,60 +35,114 @@ namespace TestFx.MSpec.Implementation
     protected override void InitializeTypeSpecificFields (object suite, SuiteProvider provider)
     {
       var suiteType = suite.GetType();
+      var hierarchyTypes = HierarchyLoader.GetExecutionHierarchy(suiteType).ToList();
+      var behaviorTypes = suiteType.Descendants(x => GetBehaviorTypes(x)).ToList();
 
-      var actionFields = GetFieldsStartingFromBase<Because>(suiteType).ToList();
-      Trace.Assert(actionFields.Count == 1, "No 'Because' action provided.");
-      var setupFields = GetFieldsStartingFromBase<Establish>(suiteType).Concat(actionFields.Single());
-      var cleanupFields = GetFieldsStartingFromBase<Cleanup>(suiteType).Reverse();
-      var assertionFields = GetFieldsStartingFromBase<It>(suiteType);
+      var setupOperationProviders = GetSetupOperationProviders(hierarchyTypes, behaviorTypes, suite, suiteType);
 
-      var cleanupOperationProvider = CreateContextOperationProvider(suite, "Cleanup", cleanupFields);
-      var setupOperationProvider = CreateContextOperationProvider(suite, "Establish", setupFields, cleanupOperationProvider);
-      var testProviders = assertionFields.Select(x => CreateTestProvider(provider.Identity, suite, x));
+      var assertionFields = GetFields<It>(suiteType).Concat(behaviorTypes.SelectMany(GetFields<It>));
+      var testProviders = assertionFields.Select(x => CreateTestProvider(provider.Identity, GetInstance(x.DeclaringType, suite), x));
 
-      provider.ContextProviders = new[] { setupOperationProvider }.WhereNotNull();
+      provider.ContextProviders = setupOperationProviders;
       provider.TestProviders = testProviders;
     }
 
-    private OperationProvider CreateContextOperationProvider (
-        object suite,
-        string text,
-        IEnumerable<FieldInfo> actionFields,
-        OperationProvider cleanupProvider = null)
+    private IEnumerable<Type> GetBehaviorTypes (Type typeWithBehavior)
     {
-      var actionFieldList = actionFields.ToList();
-      if (!actionFieldList.Any())
+      return typeWithBehavior.GetFields(MemberBindings.All)
+          .Where(x => x.FieldType.IsGenericType && x.FieldType.GetGenericTypeDefinition() == typeof (Behaves_like<>))
+          .Where(x => !x.IsCompilerGenerated())
+          .Select(x => x.FieldType.GetGenericArguments().Single());
+    }
+
+    private IEnumerable<IOperationProvider> GetSetupOperationProviders (
+        IEnumerable<Type> hierarchyTypes,
+        IEnumerable<Type> behaviorTypes,
+        object suite,
+        Type suiteType)
+    {
+      var establishAndCleanupOperationProviders = hierarchyTypes.Select(x => GetEstablishOperationProviderOrNull(x, GetInstance(x, suite)));
+
+      var becauseFields = GetFields<Because>(suiteType).ToList();
+      Trace.Assert(becauseFields.Count == 1, "No single 'Because' field provided.");
+      var becauseOperationProvider = OperationProvider.Create<Operation>(OperationType.Action, "Because", CreateAction(becauseFields.Single(), suite));
+
+      IOperationProvider fieldsCopyingOperationProvider = null;
+      var behaviorTypeList = behaviorTypes.ToList();
+      if (behaviorTypeList.Count > 0)
+      {
+        fieldsCopyingOperationProvider = OperationProvider.Create<Operation>(
+            OperationType.Action,
+            "<CopyBehaviorFields>",
+            GetFieldsCopyingAction(suiteType, behaviorTypeList));
+      }
+
+      return establishAndCleanupOperationProviders
+          .Concat(becauseOperationProvider)
+          .Concat(fieldsCopyingOperationProvider)
+          .WhereNotNull();
+    }
+
+    private object GetInstance(Type declaringType, object suite)
+    {
+      return declaringType.IsInstanceOfType(suite) ? suite : declaringType.CreateInstance<object>();
+    }
+
+    private IOperationProvider GetEstablishOperationProviderOrNull (Type type, object instance)
+    {
+      var setupField = GetFields<Establish>(type).SingleOrDefault();
+      var cleanupField = GetFields<Cleanup>(type).SingleOrDefault();
+
+      if (setupField == null && cleanupField == null)
         return null;
 
-      return OperationProvider.Create<Operation>(
-          OperationType.Action,
-          text,
-          action: () => actionFieldList.Select(x => CreateAction(x, suite)).ForEach(x => x()),
-          cleanupProvider: cleanupProvider);
+      IOperationProvider cleanupProvider = null;
+      if (cleanupField != null)
+      {
+        var cleanupAction = CreateAction(cleanupField, instance);
+        cleanupProvider = OperationProvider.Create<Operation>(OperationType.Action, "Cleanup " + type.Name, cleanupAction);
+      }
+
+      var setupAction = setupField != null ? CreateAction(setupField, instance) : () => { };
+      return OperationProvider.Create<Operation>(OperationType.Action, "Establish " + type.Name, setupAction, cleanupProvider);
     }
 
-    private TestProvider CreateTestProvider (IIdentity parentIdentity, object suite, FieldInfo actionField)
+    private Action GetFieldsCopyingAction (Type suiteType, IEnumerable<Type> behaviorTypes)
     {
-      var text = actionField.Name.Replace("_", " ");
-      var testProvider = TestProvider.Create(parentIdentity.CreateChildIdentity(actionField.Name), text, ignored: false);
-      var assertion = OperationProvider.Create<Operation>(OperationType.Assertion, text, CreateAction(actionField, suite));
-      testProvider.OperationProviders = new[] { assertion };
-      return testProvider;
+      return () =>
+      {
+        var suiteFields = suiteType.GetFields(MemberBindings.Static);
+        var behaviorFields = behaviorTypes.ToList().SelectMany(x => GetFields<object>(x)).ToLookup(x => x.Name);
+
+        foreach (var suiteField in suiteFields)
+        {
+          foreach (var behaviorField in behaviorFields[suiteField.Name])
+            behaviorField.SetValue(null, suiteField.GetValue(null));
+        }
+      };
     }
 
-    private IEnumerable<FieldInfo> GetFieldsStartingFromBase<T> (Type suiteType)
+    private IEnumerable<FieldInfo> GetFields<T> (Type type)
     {
-      return suiteType
-          .DescendantsAndSelf(x => x.BaseType)
-          .Reverse()
-          .SelectMany(x => x.GetFields(MemberBindings.All | BindingFlags.DeclaredOnly))
+      return type
+          .GetFields(MemberBindings.All | BindingFlags.DeclaredOnly)
           .Where(x => typeof (T).IsAssignableFrom(x.FieldType))
           .Where(x => !x.IsCompilerGenerated());
     }
 
-    public Action CreateAction (FieldInfo field, object suite)
+    private TestProvider CreateTestProvider (IIdentity parentIdentity, object instance, FieldInfo actionField)
     {
-      return () => ((Delegate) field.GetValue(suite)).DynamicInvoke();
+      var text = actionField.Name.Replace("_", " ");
+      var testProvider = TestProvider.Create(parentIdentity.CreateChildIdentity(actionField.Name), text, ignored: false);
+      var action = CreateAction(actionField, instance);
+      var assertion = OperationProvider.Create<Operation>(OperationType.Assertion, text, action);
+      testProvider.OperationProviders = new[] { assertion };
+      return testProvider;
+    }
+
+    private Action CreateAction (FieldInfo fieldInfo, object instance)
+    {
+      return () => ((Delegate) fieldInfo.GetValue(instance)).DynamicInvoke();
     }
   }
 }

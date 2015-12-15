@@ -48,6 +48,7 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="Implementation\HierarchyLoader.cs" />
     <Compile Include="Implementation\Operation.cs" />
     <Compile Include="Api.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
