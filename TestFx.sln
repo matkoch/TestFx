@@ -69,6 +69,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.MSpec", "src\TestFx.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.MSpec.IntegrationTests", "src\TestFx.MSpec.IntegrationTests\TestFx.MSpec.IntegrationTests.csproj", "{417CF141-CBB5-42E3-B36D-D3D317DCA295}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.Console.Tests", "src\TestFx.Console.Tests\TestFx.Console.Tests.csproj", "{1C8254ED-3DB0-40AB-B23D-087E909FAA1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,10 @@ Global
 		{417CF141-CBB5-42E3-B36D-D3D317DCA295}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{417CF141-CBB5-42E3-B36D-D3D317DCA295}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{417CF141-CBB5-42E3-B36D-D3D317DCA295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C8254ED-3DB0-40AB-B23D-087E909FAA1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C8254ED-3DB0-40AB-B23D-087E909FAA1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C8254ED-3DB0-40AB-B23D-087E909FAA1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C8254ED-3DB0-40AB-B23D-087E909FAA1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,5 +136,6 @@ Global
 		{B33814B8-345A-4C20-8B23-8F34AFD04FF0} = {79DDE74A-B790-4CB2-8F4D-A8A6D546B55C}
 		{695BF7A4-9A29-4A7D-B3FA-917BA8779AAE} = {CAA446D8-5B3A-40B1-AC06-E0AB0FFCD409}
 		{417CF141-CBB5-42E3-B36D-D3D317DCA295} = {CAA446D8-5B3A-40B1-AC06-E0AB0FFCD409}
+		{1C8254ED-3DB0-40AB-B23D-087E909FAA1A} = {01FD6DA1-370A-4940-BB19-58E4D9462864}
 	EndGlobalSection
 EndGlobal
