@@ -19,17 +19,16 @@ using NUnit.Framework;
 namespace TestFx.MSpec.IntegrationTests.BaseContext
 {
   [TestFixture]
-  public abstract class ThrowingBaseSetupTestBase : BaseContextTestBase
+  public class ThrowingBaseSetupTestBase : BaseContextTestBase
   {
     public override void SetUp ()
     {
-      BaseSetup = ThrowingAction;
-
       base.SetUp ();
+
+      BaseSetup = ThrowingAction;
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults()
     {
       A.CallTo (() => Setup ()).MustNotHaveHappened ();
       A.CallTo (() => Action ()).MustNotHaveHappened ();

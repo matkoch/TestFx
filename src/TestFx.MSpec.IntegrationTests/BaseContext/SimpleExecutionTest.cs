@@ -19,10 +19,9 @@ using NUnit.Framework;
 namespace TestFx.MSpec.IntegrationTests.BaseContext
 {
   [TestFixture]
-  public abstract class SimpleExecutionTest : BaseContextTestBase
+  public class SimpleExecutionTest : BaseContextTestBase
   {
-    [Test]
-    public override void Test ()
+    protected override void AssertResults ()
     {
       using (Scope.OrderedAssertions ())
       {

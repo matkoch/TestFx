@@ -17,34 +17,46 @@ using FakeItEasy;
 
 namespace TestFx.MSpec.IntegrationTests.NestedContext
 {
-  public abstract class NestedContextTestBase : TestBase<NestedContextTestBase.given_context.when_calling>
+  public class given_context
   {
-    protected static Action NestedSetup = A.Fake<Action> ();
-    protected static Action Setup = A.Fake<Action> ();
-    protected static Action Action = A.Fake<Action> ();
-    protected static Action Assertion = A.Fake<Action> ();
-    protected static Action Cleanup = A.Fake<Action> ();
-    protected static Action NestedCleanup = A.Fake<Action> ();
+    Establish ctx = () => NestedContextTestBase.OuterSetup ();
 
-    protected static Action ThrowingAction = () => { throw new Exception (); };
+    Cleanup stuff = () => NestedContextTestBase.OuterCleanup ();
 
-    public class given_context
+    [Subject (typeof (int))]
+    public class when_calling
     {
-      Establish ctx = () => NestedSetup ();
+      Establish ctx = () => NestedContextTestBase.Setup ();
 
-      Cleanup stuff = () => NestedCleanup ();
+      Because of = () => NestedContextTestBase.Action ();
 
-      [Subject (typeof (int))]
-      public class when_calling
-      {
-        Establish ctx = () => Setup ();
+      It asserts = () => NestedContextTestBase.Assertion ();
 
-        Because of = () => Action ();
+      Cleanup stuff = () => NestedContextTestBase.Cleanup ();
+    }
+  }
 
-        It asserts = () => Assertion ();
+  public abstract class NestedContextTestBase : TestBase<given_context.when_calling>
+  {
+    public static Action OuterSetup;
+    public static Action Setup;
+    public static Action Action;
+    public static Action Assertion;
+    public static Action Cleanup;
+    public static Action OuterCleanup;
 
-        Cleanup stuff = () => Cleanup ();
-      }
+    public static Action ThrowingAction = () => { throw new Exception(); };
+
+    public override void SetUp()
+    {
+      base.SetUp();
+
+      OuterSetup = A.Fake<Action>();
+      Setup = A.Fake<Action>();
+      Action = A.Fake<Action>();
+      Assertion = A.Fake<Action>();
+      Cleanup = A.Fake<Action>();
+      OuterCleanup = A.Fake<Action>();
     }
   }
 }

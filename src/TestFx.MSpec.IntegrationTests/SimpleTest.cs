@@ -41,8 +41,7 @@ namespace TestFx.MSpec.IntegrationTests
       It returns_three_again = () => Result.Should ().Be (3);
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults ()
     {
       var assemblyResult = RunResult.SuiteResults.Single ();
       var suiteResult = assemblyResult.SuiteResults.Single ();

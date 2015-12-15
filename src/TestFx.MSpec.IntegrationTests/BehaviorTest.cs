@@ -32,13 +32,13 @@ namespace TestFx.MSpec.IntegrationTests
       Behaves_like<MyBehavior> _;
     }
 
+    [Behaviors]
     public class MyBehavior
     {
-      static object Result;
-
       Behaves_like<MyBehavior2> _;
     }
 
+    [Behaviors]
     public class MyBehavior2
     {
       static object Result;
@@ -46,8 +46,7 @@ namespace TestFx.MSpec.IntegrationTests
       It asserts = () => Result.Should().NotBeNull();
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults ()
     {
       AssertTest ("asserts", State.Passed);
     }

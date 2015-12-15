@@ -39,20 +39,26 @@ namespace TestFx.MSpec.IntegrationTests
     [SetUp]
     public virtual void SetUp ()
     {
-      var runIntent = RunIntent.Create (useSeparateAppDomains: false);
-      runIntent.AddType (typeof (T));
-
-      using (Scope = Fake.CreateScope())
-      {
-        RunResult = Evaluator.Run (runIntent);
-      }
-
-      SuiteResults = RunResult.SuiteResults.SelectMany (x => x.DescendantsAndSelf (y => y.SuiteResults)).ToList ();
-      TestResults = SuiteResults.SelectMany (x => x.TestResults).ToList ();
     }
 
     [Test]
-    public abstract void Test ();
+    public void Test ()
+    {
+      var runIntent = RunIntent.Create(useSeparateAppDomains: false);
+      runIntent.AddType(typeof(T));
+
+      using (Scope = Fake.CreateScope())
+      {
+        RunResult = Evaluator.Run(runIntent);
+      }
+
+      SuiteResults = RunResult.SuiteResults.SelectMany(x => x.DescendantsAndSelf(y => y.SuiteResults)).ToList();
+      TestResults = SuiteResults.SelectMany(x => x.TestResults).ToList();
+
+      AssertResults();
+    }
+
+    protected abstract void AssertResults ();
     
     protected void AssertResult (IOperationResult result, string text, State state)
     {
@@ -96,21 +102,21 @@ namespace TestFx.MSpec.IntegrationTests
 
       public TestAssertion HasState (State state)
       {
-        Assert.That (_testResult.State, Is.EqualTo (state));
+        Assert.That(_testResult.State, Is.EqualTo(state));
         return this;
       }
 
       public TestAssertion WithOperations (params string[] operationTexts)
       {
         var operations = _testResult.OperationResults;
-        Assert.That (operations.Select (x => x.Text).ToArray (), Is.EqualTo (operationTexts), "Operations");
+        Assert.That(operations.Select(x => x.Text).ToArray(), Is.EqualTo(operationTexts), "Operations");
         return this;
       }
 
       public TestAssertion WithFailures (params string[] failureTexts)
       {
         var failures = _testResult.OperationResults.Where (x => x.State == State.Failed);
-        Assert.That (failures.Select (x => x.Text).ToArray (), Is.EqualTo (failureTexts), "Failures");
+        Assert.That(failures.Select(x => x.Text).ToArray(), Is.EqualTo(failureTexts), "Failures");
         return this;
       }
 
@@ -120,7 +126,7 @@ namespace TestFx.MSpec.IntegrationTests
 
         var exception = failure.Exception.AssertNotNull ();
         if (message != null)
-          Assert.That (exception.Message, Is.EqualTo (message));
+          Assert.That(exception.Message, Is.EqualTo(message));
 
         return this;
       }
@@ -138,7 +144,7 @@ namespace TestFx.MSpec.IntegrationTests
       {
         var failure = _testResult.OperationResults.SingleOrDefault (x => x.State == State.Failed && x.Text == failureText);
         if (failure == null)
-          Assert.Fail ("Failure '{0}' is not present.", failureText);
+          Assert.Fail("Failure '{0}' is not present.", failureText);
         return failure;
       }
     }

@@ -19,19 +19,18 @@ using NUnit.Framework;
 namespace TestFx.MSpec.IntegrationTests.NestedContext
 {
   [TestFixture]
-  public abstract class SimpleExecutionTest : NestedContextTestBase
+  public class SimpleExecutionTest : NestedContextTestBase
   {
-    [Test]
-    public override void Test ()
+    protected override void AssertResults ()
     {
       using (Scope.OrderedAssertions ())
       {
-        A.CallTo (() => NestedSetup ()).MustHaveHappened ();
+        A.CallTo (() => OuterSetup ()).MustHaveHappened ();
         A.CallTo (() => Setup ()).MustHaveHappened ();
         A.CallTo (() => Action ()).MustHaveHappened ();
         A.CallTo (() => Assertion ()).MustHaveHappened ();
         A.CallTo (() => Cleanup ()).MustHaveHappened ();
-        A.CallTo (() => NestedCleanup ()).MustHaveHappened ();
+        A.CallTo (() => OuterCleanup ()).MustHaveHappened();
       }
     }
   }

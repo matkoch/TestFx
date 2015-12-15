@@ -17,34 +17,46 @@ using FakeItEasy;
 
 namespace TestFx.MSpec.IntegrationTests.BaseContext
 {
-  public abstract class BaseContextTestBase : TestBase<BaseContextTestBase.when_calling>
+  public class given_context
   {
-    protected static Action BaseSetup = A.Fake<Action> ();
-    protected static Action Setup = A.Fake<Action> ();
-    protected static Action Action = A.Fake<Action> ();
-    protected static Action Assertion = A.Fake<Action> ();
-    protected static Action Cleanup = A.Fake<Action> ();
-    protected static Action BaseCleanup = A.Fake<Action> ();
+    Establish ctx = () => BaseContextTestBase.BaseSetup();
 
-    protected static Action ThrowingAction = () => { throw new Exception (); };
+    Cleanup stuff = () => BaseContextTestBase.BaseCleanup();
+  }
 
-    [Subject (typeof (int))]
-    public class when_calling : given_context
+  [Subject(typeof(int))]
+  public class when_calling : given_context
+  {
+    Establish ctx = () => BaseContextTestBase.Setup();
+
+    Because of = () => BaseContextTestBase.Action();
+
+    It asserts = () => BaseContextTestBase.Assertion();
+
+    Cleanup stuff = () => BaseContextTestBase.Cleanup();
+  }
+
+  public abstract class BaseContextTestBase : TestBase<when_calling>
+  {
+    public static Action BaseSetup;
+    public static Action Setup;
+    public static Action Action;
+    public static Action Assertion;
+    public static Action Cleanup;
+    public static Action BaseCleanup;
+
+    public static Action ThrowingAction = () => { throw new Exception(); };
+
+    public override void SetUp ()
     {
-      Establish ctx = () => Setup ();
+      base.SetUp();
 
-      Because of = () => Action ();
-
-      It asserts = () => Assertion ();
-
-      Cleanup stuff = () => Cleanup ();
-    }
-
-    public class given_context
-    {
-      Establish ctx = () => BaseSetup ();
-
-      Cleanup stuff = () => BaseCleanup ();
+      BaseSetup = A.Fake<Action>();
+      Setup = A.Fake<Action>();
+      Action = A.Fake<Action>();
+      Assertion = A.Fake<Action>();
+      Cleanup = A.Fake<Action>();
+      BaseCleanup = A.Fake<Action>();
     }
   }
 }
