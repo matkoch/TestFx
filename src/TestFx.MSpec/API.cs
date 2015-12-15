@@ -14,10 +14,11 @@
 
 using System;
 using JetBrains.Annotations;
+using TestFx;
 using TestFx.Extensibility;
 using TestFx.MSpec.Implementation;
 
-namespace TestFx.MSpec
+namespace Machine.Specifications
 {
 
   #region SuiteAttribute
@@ -35,6 +36,12 @@ namespace TestFx.MSpec
     [UsedImplicitly]
     [DisplayFormat ("{0}")]
     public SubjectAttribute (string text)
+    {
+    }
+
+    [UsedImplicitly]
+    [DisplayFormat ("{0}, {1}")]
+    public SubjectAttribute (Type type, string text)
     {
     }
   }
@@ -82,6 +89,47 @@ namespace TestFx.MSpec
   [AttributeUsage(AttributeTargets.Class)]
   public class BehaviorsAttribute : Attribute
   {
+  }
+
+  #endregion
+
+  #region Catch
+
+  public static class Catch
+  {
+    public static Exception Exception (Action throwingAction)
+    {
+      return Only<Exception>(throwingAction);
+    }
+
+    public static Exception Exception<T> (Func<T> throwingFunc)
+    {
+      try
+      {
+        throwingFunc();
+      }
+      catch (Exception exception)
+      {
+        return exception;
+      }
+
+      return null;
+    }
+
+    public static TException Only<TException> (Action throwingAction)
+        where TException : Exception
+    {
+      try
+      {
+        throwingAction();
+      }
+      catch (TException exception)
+      {
+        return exception;
+      }
+
+      return null;
+    }
   }
 
   #endregion

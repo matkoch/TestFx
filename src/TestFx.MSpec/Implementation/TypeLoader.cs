@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Machine.Specifications;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
 using TestFx.Utilities;

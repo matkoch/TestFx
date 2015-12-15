@@ -14,6 +14,7 @@
 
 using System;
 using FluentAssertions;
+using Machine.Specifications;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 

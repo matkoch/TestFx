@@ -14,6 +14,7 @@
 
 using System;
 using FakeItEasy;
+using Machine.Specifications;
 
 namespace TestFx.MSpec.IntegrationTests
 {
