@@ -86,6 +86,10 @@ namespace TestFx.Evaluation.Runners
 
         var setupResult = _operationRunner.Run(contextProvider);
         setupResults.Add(setupResult);
+
+        if (setupResult.State == State.Failed)
+          break;
+
         if (setupResult.State == State.Passed && contextProvider.CleanupProvider != null)
           cleanupProviders.Push(contextProvider.CleanupProvider);
       }
