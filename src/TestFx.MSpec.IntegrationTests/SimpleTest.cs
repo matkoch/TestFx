@@ -20,38 +20,24 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.MSpec.IntegrationTests
 {
-  [TestFixture]
-  public class SimpleTest : TestBase<SimpleTest.when_adding>
+  [Subject (typeof (int))]
+  public class when_adding
   {
-    [Subject (typeof (int))]
-    public class when_adding
-    {
-      static int A;
-      static int B;
-      static int Result;
+    static int Result;
 
-      Establish ctx = () =>
-      {
-        A = 1;
-        B = 2;
-      };
+    Because of = () => Result = 1 + 2;
+    It returns_three = () => Result.Should().Be(3);
+    It returns_three_again = () => Result.Should().Be(3);
+  }
 
-      Because of = () => Result = A + B;
-      It returns_three = () => Result.Should ().Be (3);
-      It returns_three_again = () => Result.Should ().Be (3);
-    }
-
+  [TestFixture]
+  public class SimpleTest : TestBase<when_adding>
+  {
     protected override void AssertResults ()
     {
-      var assemblyResult = RunResult.SuiteResults.Single ();
-      var suiteResult = assemblyResult.SuiteResults.Single ();
-      AssertResult(suiteResult, "TestFx.MSpec.IntegrationTests.SimpleTest+when_adding", "Int32, when_adding", State.Passed);
-
-      var setupResult = suiteResult.SetupResults.Single ();
-      //var cleanupResult = suiteResult.CleanupResults.Single ();
-      AssertResult (setupResult, "Establish", State.Passed);
-      //AssertResult (cleanupResult, "Cleanup", State.Passed);
-
+      var assemblyResult = RunResult.SuiteResults.Single();
+      var suiteResult = assemblyResult.SuiteResults.Single();
+      AssertResult(suiteResult, "TestFx.MSpec.IntegrationTests.when_adding", "Int32, when_adding", State.Passed);
       AssertResult(TestResults[0], "returns_three", "returns three", State.Passed);
       AssertResult(TestResults[1], "returns_three_again", "returns three again", State.Passed);
     }

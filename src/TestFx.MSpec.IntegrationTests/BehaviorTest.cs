@@ -19,36 +19,36 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.MSpec.IntegrationTests
 {
-  [TestFixture]
-  public class BehaviorTest : TestBase<BehaviorTest.when_calling>
+  [Subject (typeof (int))]
+  public class when_calling
   {
-    [Subject (typeof (int))]
-    public class when_calling
-    {
-      static object Result;
+    static object Result;
 
-      Because of = () => Result = new object ();
+    Because of = () => Result = new object();
 
-      Behaves_like<MyBehavior> _;
-    }
+    Behaves_like<MyBehavior> _;
+  }
 
-    [Behaviors]
-    public class MyBehavior
-    {
-      Behaves_like<MyBehavior2> _;
-    }
+  [Behaviors]
+  public class MyBehavior
+  {
+    Behaves_like<MyBehavior2> _;
+  }
 
-    [Behaviors]
-    public class MyBehavior2
-    {
-      static object Result;
+  [Behaviors]
+  public class MyBehavior2
+  {
+    static object Result;
 
-      It asserts = () => Result.Should().NotBeNull();
-    }
+    It asserts = () => Result.Should().NotBeNull();
+  }
 
+  [TestFixture]
+  public class BehaviorTest : TestBase<when_calling>
+  {
     protected override void AssertResults ()
     {
-      AssertTest ("asserts", State.Passed);
+      AssertTest("asserts", State.Passed);
     }
   }
 }
