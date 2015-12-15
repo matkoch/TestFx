@@ -53,7 +53,7 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
-    <Compile Include="BootstrapAttribute.cs" />
+    <Compile Include="AssemblySetupAttribute.cs" />
     <Compile Include="Evaluation\EvaluationModule.cs" />
     <Compile Include="Evaluation\Reporting\FillingOperationResult.cs" />
     <Compile Include="Evaluation\Reporting\ResultExtensions.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="UseTestExtension.cs" />
     <Compile Include="Extensibility\Containers\Container.cs" />
     <Compile Include="Extensibility\DisplayFormatAttribute.cs" />
-    <Compile Include="ILazyBootstrap.cs" />
+    <Compile Include="IAssemblySetup.cs" />
     <Compile Include="Evaluation\EvaluationException.cs" />
     <Compile Include="Evaluation\Reporting\CompositeRunListener.cs" />
     <Compile Include="Evaluation\Reporting\CrossAppDomainRunListener.cs" />
@@ -163,7 +163,6 @@
     <Compile Include="Utilities\Reflection\PrivateInvokeUtility.cs" />
     <Compile Include="Utilities\Reflection\TypeExtensions.cs" />
     <Compile Include="Utilities\Reflection\TypeUtility.cs" />
-    <Compile Include="Utilities\TypedLazy.cs" />
     <Compile Include="Utilities\UtilitiesModule.cs" />
   </ItemGroup>
   <ItemGroup>

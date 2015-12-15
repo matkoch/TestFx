@@ -34,7 +34,7 @@ namespace TestFx.Extensibility
       _introspectionPresenter = introspectionPresenter;
     }
 
-    public ISuiteProvider Load (Type suiteType, ICollection<TypedLazy<ILazyBootstrap>> assemblySetups, IIdentity assemblyIdentity)
+    public ISuiteProvider Load (Type suiteType, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity)
     {
       var uninitializedSuite = FormatterServices.GetUninitializedObject(suiteType);
 
@@ -45,7 +45,7 @@ namespace TestFx.Extensibility
       var identity = assemblyIdentity.CreateChildIdentity(suiteType.FullName);
       var provider = SuiteProvider.Create(identity, text, ignored: false);
 
-      InitializeAssemblySetupFields(uninitializedSuite, assemblySetups.ToList());
+      InitializeAssemblySetupFields(uninitializedSuite, assemblySetups);
       InitializeTypeSpecificFields(uninitializedSuite, provider);
 
       InvokeConstructor(uninitializedSuite);
@@ -55,16 +55,17 @@ namespace TestFx.Extensibility
 
     protected abstract void InitializeTypeSpecificFields (object suite, SuiteProvider provider);
 
-    private void InitializeAssemblySetupFields (object suite, ICollection<TypedLazy<ILazyBootstrap>> assemblySetups)
+    private void InitializeAssemblySetupFields (object suite, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups)
     {
       var suiteType = suite.GetType();
-      var fields = suiteType.GetFieldsWithAttribute<BootstrapAttribute>(MemberBindings.Static).Select(x => x.Item1);
+      var fields = suiteType.GetFieldsWithAttribute<AssemblySetupAttribute>(MemberBindings.Static).Select(x => x.Item1);
 
       foreach (var field in fields)
       {
-        var assemblySetup = assemblySetups.FirstOrDefault(x => field.FieldType == x.Type);
-        if (assemblySetup != null)
-          field.SetValue(suite, assemblySetup.Value);
+        Lazy<IAssemblySetup> assemblySetup;
+        if (!assemblySetups.TryGetValue(field.FieldType, out assemblySetup))
+          throw new EvaluationException(string.Format("Type {0} is not associated with an instance of IAssemblySetup.", field.FieldType));
+        field.SetValue(suite, assemblySetup.Value);
       }
     }
 

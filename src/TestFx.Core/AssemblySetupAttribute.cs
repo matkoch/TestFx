@@ -13,12 +13,13 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 
 namespace TestFx
 {
-  public interface ILazyBootstrap
+  [AttributeUsage (AttributeTargets.Field)]
+  [MeansImplicitUse]
+  public sealed class AssemblySetupAttribute : Attribute
   {
-    void Setup ();
-    void Cleanup ();
   }
 }

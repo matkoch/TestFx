@@ -21,16 +21,16 @@ namespace TestFx.Evaluation.Loading
   {
     private readonly IDictionary<Type, ITypeLoader> _typeLoaders;
     private readonly IEnumerable<Type> _suiteTypes;
-    private readonly IEnumerable<Type> _bootstrapTypes;
+    private readonly IEnumerable<Type> _assemblySetupTypes;
 
     public AssemblyExplorationData (
         IDictionary<Type, ITypeLoader> typeLoaders,
         IEnumerable<Type> suiteTypes,
-        IEnumerable<Type> bootstrapTypes)
+        IEnumerable<Type> assemblySetupTypes)
     {
       _typeLoaders = typeLoaders;
       _suiteTypes = suiteTypes;
-      _bootstrapTypes = bootstrapTypes;
+      _assemblySetupTypes = assemblySetupTypes;
     }
 
     public IDictionary<Type, ITypeLoader> TypeLoaders
@@ -43,9 +43,9 @@ namespace TestFx.Evaluation.Loading
       get { return _suiteTypes; }
     }
 
-    public IEnumerable<Type> BootstrapTypes
+    public IEnumerable<Type> AssemblySetupTypes
     {
-      get { return _bootstrapTypes; }
+      get { return _assemblySetupTypes; }
     }
   }
 }

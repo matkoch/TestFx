@@ -20,7 +20,7 @@ using NUnit.Framework;
 
 namespace TestFx.SpecK.IntegrationTests
 {
-  public class MyLazyBootstrap : ILazyBootstrap
+  public class MyAssemblySetup : IAssemblySetup
   {
     public static Action AssemblySetupAction = A.Fake<Action> ();
     public static Action AssemblyCleanupAction = A.Fake<Action> ();
@@ -50,7 +50,7 @@ namespace TestFx.SpecK.IntegrationTests
     public static readonly object Subject1 = new object ();
     public static readonly object Subject2 = new object ();
 
-    [Bootstrap] public static MyLazyBootstrap MyLazyBootstrap;
+    [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;
 
     public SetupSpec ()
     {
@@ -83,8 +83,8 @@ namespace TestFx.SpecK.IntegrationTests
     [SetUp]
     public override void SetUp()
     {
-      MyLazyBootstrap.AssemblySetupAction = A.Fake<Action> ();
-      MyLazyBootstrap.AssemblyCleanupAction = A.Fake<Action> ();
+      MyAssemblySetup.AssemblySetupAction = A.Fake<Action> ();
+      MyAssemblySetup.AssemblyCleanupAction = A.Fake<Action> ();
 
       base.SetUp ();
     }
@@ -94,7 +94,7 @@ namespace TestFx.SpecK.IntegrationTests
     {
       using (Scope.OrderedAssertions ())
       {
-        A.CallTo (() => MyLazyBootstrap.AssemblySetupAction ()).MustHaveHappened (Repeated.Exactly.Once);
+        A.CallTo (() => MyAssemblySetup.AssemblySetupAction ()).MustHaveHappened (Repeated.Exactly.Once);
 
         A.CallTo (() => SetupSpec.SetupOnceAction1 ()).MustHaveHappened (Repeated.Exactly.Once);
         A.CallTo (() => SetupSpec.SetupOnceAction2 ()).MustHaveHappened (Repeated.Exactly.Once);
@@ -112,12 +112,12 @@ namespace TestFx.SpecK.IntegrationTests
         A.CallTo (() => SetupSpec.CleanupOnceAction2 ()).MustHaveHappened (Repeated.Exactly.Once);
         A.CallTo (() => SetupSpec.CleanupOnceAction1 ()).MustHaveHappened (Repeated.Exactly.Once);
 
-        A.CallTo (() => MyLazyBootstrap.AssemblyCleanupAction ()).MustHaveHappened (Repeated.Exactly.Once);
+        A.CallTo (() => MyAssemblySetup.AssemblyCleanupAction ()).MustHaveHappened (Repeated.Exactly.Once);
       }
 
       var assemblyResult = RunResult.SuiteResults.Single ();
-      assemblyResult.SetupResults.ElementAt (0).Text.Should ().Be ("MyLazyBootstrap.Setup");
-      assemblyResult.CleanupResults.ElementAt (0).Text.Should ().Be ("MyLazyBootstrap.Cleanup");
+      assemblyResult.SetupResults.ElementAt (0).Text.Should ().Be ("MyAssemblySetup.Setup");
+      assemblyResult.CleanupResults.ElementAt (0).Text.Should ().Be ("MyAssemblySetup.Cleanup");
 
       var typeResult = assemblyResult.SuiteResults.Single ();
       typeResult.SetupResults.ElementAt (0).Text.Should ().Be ("SetupOnceMethod");
