@@ -149,6 +149,7 @@
     <Compile Include="Utilities\Introspection\CommonPositionalArgument.cs" />
     <Compile Include="Utilities\Introspection\CommonType.cs" />
     <Compile Include="Utilities\NamespaceModule.cs" />
+    <Compile Include="Utilities\Object.GetValueOrDefault.cs" />
     <Compile Include="Utilities\Object.AssertNotNull.cs" />
     <Compile Include="Utilities\Reflection\AttributeDataExtensions.cs" />
     <Compile Include="Utilities\Reflection\AttributeDataUtility.cs" />

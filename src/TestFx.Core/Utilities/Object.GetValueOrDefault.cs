@@ -22,10 +22,14 @@ namespace TestFx.Utilities
   {
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
-    public static T AssertNotNull<T> ([CanBeNull] this T obj, string reason = null) where T : class
+    public static TValue GetValueOrDefault<T, TValue> ([CanBeNull] this T obj, Func<T, TValue> valueSelector, Func<TValue> defaultSelector = null)
+        where T : class
     {
-      Debug.Assert(obj != null, reason ?? "previous value is null");
-      return obj;
+      defaultSelector = defaultSelector ?? (() => default(TValue));
+
+      return obj != null
+          ? valueSelector(obj)
+          : defaultSelector();
     }
   }
 }
