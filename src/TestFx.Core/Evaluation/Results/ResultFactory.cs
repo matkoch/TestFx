@@ -18,6 +18,7 @@ using System.Linq;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Utilities;
 using TestFx.Extensibility.Providers;
+using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Results
 {
@@ -158,18 +159,7 @@ namespace TestFx.Evaluation.Results
 
     private State GetOverallState (IEnumerable<IResult> results)
     {
-      var state = State.Passed;
-
-      foreach (var s in results.Select(x => x.State))
-      {
-        if (s == State.Inconclusive)
-          state = State.Inconclusive;
-
-        if (s == State.Failed)
-          return State.Failed;
-      }
-
-      return state;
+      return results.FirstOrDefault(x => x.State != State.Passed).GetValueOrDefault(x => x.State, () => State.Passed);
     }
   }
 }
