@@ -18,7 +18,7 @@ using JetBrains.Annotations;
 namespace TestFx
 {
   [AttributeUsage (AttributeTargets.Field)]
-  [MeansImplicitUse]
+  [MeansImplicitUse(ImplicitUseKindFlags.Assign)]
   public sealed class AssemblySetupAttribute : Attribute
   {
   }
