@@ -37,8 +37,8 @@ namespace TestFx.Console
 
       if (Pause)
       {
-        System.Console.WriteLine("Press <enter> to terminate...");
-        System.Console.Read();
+        System.Console.WriteLine("Press any key to terminate...");
+        System.Console.ReadKey(true);
       }
 
       var exitCode = -1 * (int) result.State;
