@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.SpecK.IntegrationTests", "..\TestFx.SpecK.IntegrationTests\TestFx.SpecK.IntegrationTests.csproj", "{87BF5389-C810-4A37-A0C4-B7F6EFA6D1E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.SpecK.Tests", "..\TestFx.SpecK.Tests\TestFx.SpecK.Tests.csproj", "{87BF5389-C810-4A37-A0C4-B7F6EFA6D1E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.MSpec.IntegrationTests", "..\TestFx.MSpec.IntegrationTests\TestFx.MSpec.IntegrationTests.csproj", "{417CF141-CBB5-42E3-B36D-D3D317DCA295}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.MSpec.Tests", "..\TestFx.MSpec.Tests\TestFx.MSpec.Tests.csproj", "{417CF141-CBB5-42E3-B36D-D3D317DCA295}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

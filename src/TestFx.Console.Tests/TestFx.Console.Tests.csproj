@@ -60,13 +60,13 @@
       <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
       <Name>TestFx.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestFx.MSpec.IntegrationTests\TestFx.MSpec.IntegrationTests.csproj">
+    <ProjectReference Include="..\TestFx.MSpec.Tests\TestFx.MSpec.Tests.csproj">
       <Project>{417cf141-cbb5-42e3-b36d-d3d317dca295}</Project>
-      <Name>TestFx.MSpec.IntegrationTests</Name>
+      <Name>TestFx.MSpec.Tests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestFx.SpecK.IntegrationTests\TestFx.SpecK.IntegrationTests.csproj">
+    <ProjectReference Include="..\TestFx.SpecK.Tests\TestFx.SpecK.Tests.csproj">
       <Project>{87bf5389-c810-4a37-a0c4-b7f6efa6d1e7}</Project>
-      <Name>TestFx.SpecK.IntegrationTests</Name>
+      <Name>TestFx.SpecK.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

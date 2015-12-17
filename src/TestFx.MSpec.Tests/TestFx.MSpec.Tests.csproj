@@ -4,16 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{805BDCC2-3399-49AA-8443-D189AC477899}</ProjectGuid>
+    <ProjectGuid>{417CF141-CBB5-42E3-B36D-D3D317DCA295}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestFx.SpecK</RootNamespace>
-    <AssemblyName>TestFx.SpecK</AssemblyName>
+    <RootNamespace>TestFx.MSpec.Tests</RootNamespace>
+    <AssemblyName>TestFx.MSpec.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <NuGetPackageImportStamp>f4c58586</NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>640733a3</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,18 +29,29 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy, Version=1.25.3.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FakeItEasy.1.25.3\lib\net40\FakeItEasy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
     <Reference Include="NullGuard">
       <HintPath>..\..\packages\NullGuard.Fody.1.4.3\Lib\portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40\NullGuard.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Annotations.cs">
@@ -52,50 +60,35 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
-    <Compile Include="Api.cs" />
-    <Compile Include="Extensions\CombinatoricExtensions.cs" />
-    <Compile Include="Extensions\UsingExtensions.cs" />
-    <Compile Include="Extensions\UnnamedExtensions.cs" />
-    <Compile Include="Extensions\ExceptionExtensions.cs" />
-    <Compile Include="Implementation\Containers\ContainerExtensions.cs" />
-    <Compile Include="Implementation\Contexts\DelegateTestContext.cs" />
-    <Compile Include="Implementation\Contexts\TestContext.cs" />
-    <Compile Include="Implementation\Controllers\CompositeTestController.cs" />
-    <Compile Include="Implementation\Utilities\ActionContainer.cs" />
-    <Compile Include="Implementation\Controllers\ClassSuiteController.cs" />
-    <Compile Include="Implementation\Containers\SpecializedSuiteContainer.cs" />
-    <Compile Include="Implementation\Containers\TestContainer.cs" />
-    <Compile Include="Implementation\Controllers\ControllerFactory.cs" />
-    <Compile Include="Implementation\Controllers\SpecializedClassSuiteController.cs" />
-    <Compile Include="Implementation\OperationDescriptors.cs" />
-    <Compile Include="Implementation\Utilities\AssertionHelper.cs" />
-    <Compile Include="Implementation\Utilities\SubjectFactory.cs" />
-    <Compile Include="Implementation\Contexts\MainTestContext.cs" />
-    <Compile Include="Implementation\Controllers\TestController.cs" />
-    <Compile Include="Implementation\TypeLoader.cs" />
+    <Compile Include="BehaviorTest.cs" />
+    <Compile Include="ContextTestBase.cs" />
+    <Compile Include="HierarchyLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Extensions\ResultExtensions.cs" />
-    <Compile Include="Spec.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="NuGet\tools\Formatting.DotSettings" />
-    <None Include="NuGet\tools\Uninstall.ps1" />
-    <None Include="NuGet\tools\Install.ps1" />
-    <None Include="packages.config" />
+    <Compile Include="SimpleContextExecutionTest.cs" />
+    <Compile Include="SimpleTest.cs" />
+    <Compile Include="ThrowingContextExecutionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestFx.Core\TestFx.Core.csproj">
-      <Project>{68456e60-c7a1-4b54-bb14-00063a03b7a3}</Project>
+      <Project>{68456E60-C7A1-4B54-BB14-00063A03B7A3}</Project>
       <Name>TestFx.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestFx.MSpec\TestFx.MSpec.csproj">
+      <Project>{695bf7a4-9a29-4a7d-b3fa-917ba8779aae}</Project>
+      <Name>TestFx.MSpec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestFx.TestInfrastructure\TestFx.TestInfrastructure.csproj">
+      <Project>{5fc2c004-5d42-4d94-8478-b456ffed96b3}</Project>
+      <Name>TestFx.TestInfrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(ProjectDir)..\TestFx.SpecK.Tests\TestFx.SpecK.Tests.csproj.DotSettings" "$(ProjectDir)NuGet\tools\Formatting.DotSettings"</PostBuildEvent>
-  </PropertyGroup>
   <Import Project="..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

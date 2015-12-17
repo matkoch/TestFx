@@ -78,7 +78,7 @@
     <Error Condition="!Exists('..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(ProjectDir)..\TestFx.MSpec.IntegrationTests\TestFx.MSpec.IntegrationTests.csproj.DotSettings" "$(ProjectDir)NuGet\tools\Formatting.DotSettings"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Y "$(ProjectDir)..\TestFx.MSpec.Tests\TestFx.MSpec.Tests.csproj.DotSettings" "$(ProjectDir)NuGet\tools\Formatting.DotSettings"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
