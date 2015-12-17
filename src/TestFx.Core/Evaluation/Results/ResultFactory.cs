@@ -37,7 +37,7 @@ namespace TestFx.Evaluation.Results
 
     ISuiteResult CreateIgnoredSuiteResult (ISuiteProvider provider);
 
-    ITestResult CreateTestResult (ITestProvider provider, IEnumerable<OutputEntry> outputEntries, IEnumerable<IOperationResult> operationResults);
+    ITestResult CreateTestResult (ITestProvider provider, TimeSpan duration, IEnumerable<OutputEntry> outputEntries, IEnumerable<IOperationResult> operationResults);
 
     ITestResult CreateIgnoredTestResult (ITestProvider provider);
 
@@ -106,18 +106,19 @@ namespace TestFx.Evaluation.Results
 
     public ITestResult CreateTestResult (
         ITestProvider provider,
+        TimeSpan duration,
         IEnumerable<OutputEntry> outputEntries,
         IEnumerable<IOperationResult> operationResults)
     {
       var operationResultsList = operationResults.ToList();
       var state = GetOverallState(Convert(operationResultsList));
 
-      return new TestResult(provider.Identity, provider.Text, state, outputEntries.ToList(), operationResultsList);
+      return new TestResult(provider.Identity, provider.Text, state, duration, outputEntries.ToList(), operationResultsList);
     }
 
     public ITestResult CreateIgnoredTestResult (ITestProvider provider)
     {
-      return new TestResult(provider.Identity, provider.Text, State.Ignored, new OutputEntry[0], new IOperationResult[0]);
+      return new TestResult(provider.Identity, provider.Text, State.Ignored, TimeSpan.Zero, new OutputEntry[0], new IOperationResult[0]);
     }
 
     public IOperationResult CreatePassedOperationResult (IOperationProvider provider)

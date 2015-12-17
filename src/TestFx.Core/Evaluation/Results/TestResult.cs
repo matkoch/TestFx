@@ -20,23 +20,32 @@ namespace TestFx.Evaluation.Results
 {
   public interface ITestResult : IOutputResult
   {
+    TimeSpan Duration { get; }
     IEnumerable<IOperationResult> OperationResults { get; }
   }
 
   [Serializable]
   public class TestResult : OutputResult, ITestResult
   {
+    private readonly TimeSpan _duration;
     private readonly ICollection<IOperationResult> _operationResults;
 
     public TestResult (
         IIdentity identity,
         string text,
         State state,
+        TimeSpan duration,
         ICollection<OutputEntry> outputEntries,
         ICollection<IOperationResult> operationResults)
         : base(identity, text, state, outputEntries)
     {
+      _duration = duration;
       _operationResults = operationResults;
+    }
+
+    public TimeSpan Duration
+    {
+      get { return _duration; }
     }
 
     public IEnumerable<IOperationResult> OperationResults

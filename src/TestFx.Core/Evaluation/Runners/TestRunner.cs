@@ -52,6 +52,7 @@ namespace TestFx.Evaluation.Runners
       IOutputRecording outputRecording;
       var operationResults = new List<IOperationResult>();
       var cleanupProviderStack = new Stack<IOperationProvider>();
+      var stopWatch = Stopwatch.StartNew();
 
       using (outputRecording = _resultFactory.CreateOutputRecording())
       {
@@ -79,7 +80,7 @@ namespace TestFx.Evaluation.Runners
         operationResults.AddRange(cleanupProviderStack.Select(_operationRunner.Run));
       }
 
-      var result = _resultFactory.CreateTestResult(provider, outputRecording, operationResults);
+      var result = _resultFactory.CreateTestResult(provider, stopWatch.Elapsed, outputRecording, operationResults);
 
       _listener.OnTestFinished(result);
 

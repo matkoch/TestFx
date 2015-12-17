@@ -56,7 +56,7 @@ namespace TestFx.Console
       switch (result.State)
       {
         case State.Passed:
-          _writer.WriteTestFinished(testName, TimeSpan.Zero);
+          _writer.WriteTestFinished(testName, result.Duration);
           break;
         case State.Failed:
           var operations = result.OperationResults.ToList();
@@ -67,10 +67,9 @@ namespace TestFx.Console
 
           _writer.WriteTestFailed(testName, message, details);
           break;
-        case State.NotImplemented:
-          _writer.WriteTestIgnored(testName, string.Empty);
-          break;
         case State.Ignored:
+        case State.Inconclusive:
+        case State.NotImplemented:
           _writer.WriteTestIgnored(testName, string.Empty);
           break;
       }
