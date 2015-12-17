@@ -43,7 +43,7 @@ namespace TestFx.Evaluation.Results
 
     IOperationResult CreatePassedOperationResult (IOperationProvider provider);
     IOperationResult CreateFailedOperationResult (IOperationProvider provider, Exception exception);
-    IOperationResult CreateNotImplementedOperationResult (IOperationProvider provider);
+    IOperationResult CreateInconclusiveOperationResult (IOperationProvider provider);
   }
 
   public class ResultFactory : IResultFactory
@@ -141,13 +141,13 @@ namespace TestFx.Evaluation.Results
           ExceptionDescriptor.Create(exception));
     }
 
-    public IOperationResult CreateNotImplementedOperationResult (IOperationProvider provider)
+    public IOperationResult CreateInconclusiveOperationResult (IOperationProvider provider)
     {
       return new OperationResult(
           provider.Identity,
           provider.Text,
           provider.Type,
-          State.NotImplemented,
+          State.Inconclusive,
           ExceptionDescriptor.None);
     }
 
@@ -163,9 +163,6 @@ namespace TestFx.Evaluation.Results
       foreach (var s in results.Select(x => x.State))
       {
         if (s == State.Inconclusive)
-          state = State.Inconclusive;
-
-        if (s == State.NotImplemented)
           state = State.Inconclusive;
 
         if (s == State.Failed)

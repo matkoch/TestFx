@@ -35,7 +35,7 @@ namespace TestFx.Evaluation.Runners
     public IOperationResult Run (IOperationProvider provider)
     {
       if (provider.Action == OperationProvider.NotImplemented)
-        return _resultFactory.CreateNotImplementedOperationResult(provider);
+        return _resultFactory.CreateInconclusiveOperationResult(provider);
 
       try
       {

@@ -31,7 +31,6 @@ namespace TestFx.ReSharper.Runner
                           { State.Passed, TaskResult.Success },
                           { State.Ignored, TaskResult.Skipped },
                           { State.Inconclusive, TaskResult.Inconclusive },
-                          { State.NotImplemented, TaskResult.Inconclusive },
                           { State.Failed, TaskResult.Exception }
                       };
     }

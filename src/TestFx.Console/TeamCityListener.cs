@@ -69,7 +69,6 @@ namespace TestFx.Console
           break;
         case State.Ignored:
         case State.Inconclusive:
-        case State.NotImplemented:
           _writer.WriteTestIgnored(testName, string.Empty);
           break;
       }
