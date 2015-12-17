@@ -70,6 +70,8 @@
     <Compile Include="Exceptions\UnexpectedExceptionTest.cs" />
     <Compile Include="Exceptions\ExceptionAssertionTest.cs" />
     <Compile Include="Farada\AutoCreationTest.cs" />
+    <Compile Include="Setups\SimpleSetupExecutionTest.cs" />
+    <Compile Include="Setups\ThrowingSetupExecutionTest.cs" />
     <Compile Include="Simple\IsolationTest.cs" />
     <Compile Include="Simple\VariableTest.cs" />
     <Compile Include="Exceptions\UserClass.cs" />
@@ -82,13 +84,13 @@
     <Compile Include="Using\NestingTest.cs" />
     <Compile Include="Subject\NoDefaultConstructorTest.cs" />
     <Compile Include="Subject\MissingArgumentsTest.cs" />
-    <Compile Include="SetupSpec.cs" />
+    <Compile Include="Setups\SetupTestBase.cs" />
     <Compile Include="Subject\DefaultCreationTest.cs" />
     <Compile Include="Simple\FailingTest.cs" />
     <Compile Include="Simple\HaltingTest.cs" />
     <Compile Include="Simple\PassingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestBase.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="TestExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +109,10 @@
     <ProjectReference Include="..\TestFx.SpecK\TestFx.SpecK.csproj">
       <Project>{805bdcc2-3399-49aa-8443-d189ac477899}</Project>
       <Name>TestFx.SpecK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestFx.TestInfrastructure\TestFx.TestInfrastructure.csproj">
+      <Project>{5FC2C004-5D42-4D94-8478-B456FFED96B3}</Project>
+      <Name>TestFx.TestInfrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

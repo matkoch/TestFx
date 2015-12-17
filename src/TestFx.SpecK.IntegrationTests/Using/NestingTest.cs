@@ -13,8 +13,10 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.Using
 {
@@ -38,17 +40,17 @@ namespace TestFx.SpecK.IntegrationTests.Using
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Failed)
-          .WithOperations (
+      runResult.GetTestResult ()
+          .HasFailed ()
+          .HasOperations (
               "Create FirstDisposable",
               "Create SecondDisposable (named)",
               "Create DelegateDisposable",
               "Arrangement",
-              "Create ThirdDisposable",
-              Action,
+              "Create ThirdDisposable", 
+              Constants.Action,
               "Failing Assertion",
               "Dispose ThirdDisposable",
               "Dispose DelegateDisposable",

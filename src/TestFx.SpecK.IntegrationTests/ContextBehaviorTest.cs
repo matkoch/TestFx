@@ -13,9 +13,11 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests
 {
@@ -46,16 +48,16 @@ namespace TestFx.SpecK.IntegrationTests
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Failed)
-          .WithOperations (
+      runResult.GetTestResult ()
+          .HasFailed ()
+          .HasOperations (
               "subject with ctor arg",
-              Action,
+              Constants.Action,
               "has result set to ctor arg",
               "has property set to null")
-          .WithFailures ("has property set to null");
+          .HasFailingOperation ("has property set to null");
     }
 
     public class DomainType

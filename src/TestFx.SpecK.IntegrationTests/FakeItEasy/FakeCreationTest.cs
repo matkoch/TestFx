@@ -14,10 +14,12 @@
 
 using System;
 using FakeItEasy;
+using FakeItEasy.Core;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.FakeItEasy;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.FakeItEasy
 {
@@ -42,16 +44,16 @@ namespace TestFx.SpecK.IntegrationTests.FakeItEasy
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Passed)
-          .WithOperations (
-              Reset_Instance_Fields,
-              Create_Fakes,
-              Create_Subject,
+      runResult.GetTestResult ()
+          .HasPassed ()
+          .HasOperations (
+              Constants.Reset_Instance_Fields,
+              Constants.Create_Fakes,
+              Constants.Create_Subject,
               "FormatProvider returns",
-              Action,
+              Constants.Action,
               "returns FormatProvider");
     }
 

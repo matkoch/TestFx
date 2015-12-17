@@ -13,9 +13,10 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using FluentAssertions;
-using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 using UserNamespace;
 
 namespace TestFx.SpecK.IntegrationTests.Exceptions
@@ -52,25 +53,27 @@ namespace TestFx.SpecK.IntegrationTests.Exceptions
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Passed)
-          .WithOperations (
-              Reset_Instance_Fields,
+      var testResults = runResult.GetTestResults ();
+
+      testResults[0]
+          .HasPassed ()
+          .HasRelativeId ("<Default>")
+          .HasOperations (
+              Constants.Reset_Instance_Fields,
               "a message",
               "an inner exception",
-              Action,
+              Constants.Action,
               "Throws ArgumentException");
 
-      AssertTest ("Wrong exception type", State.Failed);
-      AssertTest ("Wrong message", State.Failed);
-      AssertTest ("Wrong message provider", State.Failed);
-      AssertTest ("Wrong inner exception provider", State.Failed);
-      AssertTest ("Custom failing assertion", State.Failed)
-          .WithFailures ("Throws exception with special properties");
+      testResults[1].HasFailed ().HasRelativeId ("Wrong exception type");
+      testResults[2].HasFailed ().HasRelativeId ("Wrong message");
+      testResults[3].HasFailed ().HasRelativeId ("Wrong message provider");
+      testResults[4].HasFailed ().HasRelativeId ("Wrong inner exception provider");
+      testResults[5].HasFailed ().HasRelativeId ("Custom failing assertion").HasFailingOperations ("Throws exception with special properties");
 
-      AssertTest ("Custom passing assertion", State.Passed);
+      testResults[6].HasPassed ().HasRelativeId ("Custom passing assertion");
     }
   }
 }

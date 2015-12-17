@@ -14,14 +14,16 @@
 
 using System;
 using FakeItEasy;
+using FakeItEasy.Core;
+using TestFx.Evaluation.Results;
 
 namespace TestFx.MSpec.IntegrationTests
 {
   public class SimpleContextExecutionTest : ContextTestBase
   {
-    protected override void AssertResults ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      using (Scope.OrderedAssertions())
+      using (scope.OrderedAssertions())
       {
         A.CallTo(() => OuterContextBaseEstablish()).MustHaveHappened();
         A.CallTo(() => OuterContextEstablish()).MustHaveHappened();

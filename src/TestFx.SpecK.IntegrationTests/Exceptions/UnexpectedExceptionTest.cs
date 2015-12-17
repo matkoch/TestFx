@@ -13,9 +13,11 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 using UserNamespace;
 
 namespace TestFx.SpecK.IntegrationTests.Exceptions
@@ -38,17 +40,17 @@ namespace TestFx.SpecK.IntegrationTests.Exceptions
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Failed)
-          .WithOperations (
-              Reset_Instance_Fields,
+      runResult.GetTestResult ()
+          .HasFailed ()
+          .HasOperations (
+              Constants.Reset_Instance_Fields,
               "a message",
               "an inner exception with message",
-              Action)
-          .WithFailureDetails (
-              Action,
+              Constants.Action)
+          .HasFailingOperation (
+              Constants.Action,
               x =>
               {
                 x.Name.Should ().Be ("ArgumentException");

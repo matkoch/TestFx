@@ -13,9 +13,11 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.Simple
 {
@@ -35,16 +37,16 @@ namespace TestFx.SpecK.IntegrationTests.Simple
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Failed)
-          .WithOperations ("Throwing arrangement")
-          .WithFailures ("Throwing arrangement");
+      runResult.HasFailed ();
 
-      AssertTest ("Passing", State.Passed);
-
-      RunResult.State.Should ().Be (State.Failed);
+      var testResults = runResult.GetTestResults ();
+      testResults[0]
+          .HasFailed ()
+          .HasOperations ("Throwing arrangement")
+          .HasFailingOperation ("Throwing arrangement");
+      testResults[1].HasPassed ();
     }
   }
 }

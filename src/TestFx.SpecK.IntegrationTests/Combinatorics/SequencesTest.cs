@@ -13,9 +13,10 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using FluentAssertions;
-using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.Combinatorics
 {
@@ -40,11 +41,11 @@ namespace TestFx.SpecK.IntegrationTests.Combinatorics
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest ("First sequence", State.Passed);
-      AssertTest ("Second sequence", State.Failed);
+      var testResult = runResult.GetTestResults ();
+      testResult[0].HasPassed ().HasRelativeId ("First sequence");
+      testResult[1].HasFailed ().HasRelativeId ("Second sequence");
     }
   }
 }

@@ -13,9 +13,11 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.Subject
 {
@@ -40,13 +42,13 @@ namespace TestFx.SpecK.IntegrationTests.Subject
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Passed)
-          .WithOperations (
-              Create_Subject,
-              Action,
+      runResult.GetTestResult ()
+          .HasPassed ()
+          .HasOperations (
+              Constants.Create_Subject,
+              Constants.Action,
               "passes OtherString",
               "creates subject only once");
     }

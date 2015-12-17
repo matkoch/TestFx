@@ -13,11 +13,12 @@
 // limitations under the License.
 
 using System;
-using System.Linq;
+using FakeItEasy.Core;
 using FluentAssertions;
 using Machine.Specifications;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.MSpec.IntegrationTests
 {
@@ -34,13 +35,21 @@ namespace TestFx.MSpec.IntegrationTests
   [TestFixture]
   public class SimpleTest : TestBase<when_adding>
   {
-    protected override void AssertResults ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      var assemblyResult = RunResult.SuiteResults.Single();
-      var suiteResult = assemblyResult.SuiteResults.Single();
-      AssertResult(suiteResult, "TestFx.MSpec.IntegrationTests.when_adding", "Int32, when_adding", State.Passed);
-      AssertResult(TestResults[0], "returns_three", "returns three", State.Passed);
-      AssertResult(TestResults[1], "returns_three_again", "returns three again", State.Passed);
+      runResult.HasPassed();
+
+      runResult.GetAssemblySuiteResult()
+          .HasRelativeId(@"C:\TestFx\src\TestFx.MSpec.IntegrationTests\bin\Debug\TestFx.MSpec.IntegrationTests.dll")
+          .HasText(@"TestFx.MSpec.IntegrationTests");
+
+      runResult.GetClassSuiteResult()
+          .HasRelativeId("TestFx.MSpec.IntegrationTests.when_adding")
+          .HasText("Int32, when_adding");
+
+      var testResults = runResult.GetTestResults();
+      testResults[0].HasRelativeId("returns_three").HasText("returns three");
+      testResults[1].HasRelativeId("returns_three_again").HasText("returns three again");
     }
   }
 }

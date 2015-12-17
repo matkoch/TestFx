@@ -15,6 +15,7 @@
 using System;
 using FakeItEasy;
 using Machine.Specifications;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.MSpec.IntegrationTests
 {
@@ -60,7 +61,24 @@ namespace TestFx.MSpec.IntegrationTests
 
   public abstract class ContextTestBase : TestBase<outer_context.when_actioning>
   {
-    public override void SetUp ()
+    public static Action OuterContextBaseEstablish;
+    public static Action OuterContextEstablish;
+    public static Action BaseContextBaseEstablish;
+    public static Action BaseContextEstablish;
+    public static Action Establish;
+
+    public static Action Action;
+    public static Action Assertion;
+
+    public static Action Cleanup;
+    public static Action BaseContextCleanup;
+    public static Action BaseContextBaseCleanup;
+    public static Action OuterContextCleanup;
+    public static Action OuterContextBaseCleanup;
+
+    public static Action ThrowingAction = () => { throw new Exception(); };
+
+    public override void SetUp()
     {
       base.SetUp();
 
@@ -79,22 +97,5 @@ namespace TestFx.MSpec.IntegrationTests
       OuterContextCleanup = A.Fake<Action>();
       OuterContextBaseCleanup = A.Fake<Action>();
     }
-
-    public static Action OuterContextBaseEstablish;
-    public static Action OuterContextEstablish;
-    public static Action BaseContextBaseEstablish;
-    public static Action BaseContextEstablish;
-    public static Action Establish;
-
-    public static Action Action;
-    public static Action Assertion;
-
-    public static Action Cleanup;
-    public static Action BaseContextCleanup;
-    public static Action BaseContextBaseCleanup;
-    public static Action OuterContextCleanup;
-    public static Action OuterContextBaseCleanup;
-
-    public static Action ThrowingAction = () => { throw new Exception(); };
   }
 }

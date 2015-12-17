@@ -13,10 +13,12 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using FluentAssertions;
 using Machine.Specifications;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.MSpec.IntegrationTests
 {
@@ -47,9 +49,11 @@ namespace TestFx.MSpec.IntegrationTests
   [TestFixture]
   public class BehaviorTest : TestBase<when_calling>
   {
-    protected override void AssertResults ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest("asserts", State.Passed);
+      runResult.GetTestResult()
+          .HasPassed()
+          .HasText("asserts");
     }
   }
 }

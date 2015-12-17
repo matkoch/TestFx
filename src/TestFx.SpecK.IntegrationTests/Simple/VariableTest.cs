@@ -13,9 +13,10 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using FluentAssertions;
-using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.Simple
 {
@@ -41,15 +42,15 @@ namespace TestFx.SpecK.IntegrationTests.Simple
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Passed)
-          .WithOperations (
-              Reset_Instance_Fields,
+      runResult.GetTestResult ()
+          .HasPassed ()
+          .HasOperations (
+              Constants.Reset_Instance_Fields,
               "set MyInteger",
               "<Set_Variables>",
-              Action,
+              Constants.Action,
               "holds variables");
     }
   }

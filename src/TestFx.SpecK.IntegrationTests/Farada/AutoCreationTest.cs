@@ -14,10 +14,12 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using FakeItEasy.Core;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.Farada;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.Farada
 {
@@ -41,14 +43,14 @@ namespace TestFx.SpecK.IntegrationTests.Farada
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Passed)
-          .WithOperations (
-              Reset_Instance_Fields,
-              Create_AutoData + "<1337>",
-              Action,
+      runResult.GetTestResult ()
+          .HasPassed ()
+          .HasOperations (
+              Constants.Reset_Instance_Fields,
+              Constants.Create_AutoData + "<1337>",
+              Constants.Action,
               "Fills properties");
     }
 

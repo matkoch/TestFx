@@ -13,11 +13,14 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using FakeItEasy.Core;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.Extensibility.Providers;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.Simple
 {
@@ -37,40 +40,28 @@ namespace TestFx.SpecK.IntegrationTests.Simple
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      RunResult.State.Should ().Be (State.Passed);
+      runResult.HasPassed ();
 
-      var assemblyResult = RunResult.SuiteResults.Single ();
-      AssertResult (assemblyResult,
-          relativeId: typeof (DomainSpec).Assembly.Location,
-          text: typeof (DomainSpec).Assembly.GetName ().Name,
-          state: State.Passed);
+      runResult.GetAssemblySuiteResult ()
+          .HasPassed ()
+          .HasRelativeId (typeof (DomainSpec).Assembly.Location)
+          .HasText ("TestFx.SpecK.IntegrationTests");
 
-      var typeResult = assemblyResult.SuiteResults.Single ();
-      AssertResult (typeResult,
-          relativeId: typeof (DomainSpec).FullName,
-          text: "PassingTest.Test",
-          state: State.Passed);
+      runResult.GetClassSuiteResult ()
+          .HasPassed ()
+          .HasRelativeId ("TestFx.SpecK.IntegrationTests.Simple.PassingTest+DomainSpec")
+          .HasText ("PassingTest.Test");
 
-      var testResult = typeResult.TestResults.Single ();
-      AssertResult (testResult,
-          relativeId: "<Default>",
-          text: "<Default>",
-          state: State.Passed);
-
-      var operationResults = testResult.OperationResults.ToList ();
-      AssertResult (operationResults[0], Reset_Instance_Fields, State.Passed, OperationType.Action);
-      AssertResult (operationResults[1], "<Arrangement>", State.Passed, OperationType.Action);
-      AssertResult (operationResults[2], Action, State.Passed, OperationType.Action);
-      AssertResult (operationResults[3], "Assertion", State.Passed, OperationType.Assertion);
-
-      testResult.Identity.Absolute.Should ()
-          .EndWith (
-              "TestFx.SpecK.IntegrationTests.dll » " +
-              "TestFx.SpecK.IntegrationTests.Simple.PassingTest+DomainSpec » " +
-              "<Default>");
+      runResult.GetTestResult ()
+          .HasPassed ()
+          .HasRelativeId ("<Default>")
+          .HasText ("<Default>")
+          .HasOperations (
+              Constants.Reset_Instance_Fields,
+              "<Arrangement>", Constants.Action,
+              "Assertion");
     }
   }
 }

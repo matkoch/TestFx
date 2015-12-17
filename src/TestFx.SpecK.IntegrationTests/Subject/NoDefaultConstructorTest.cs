@@ -13,8 +13,10 @@
 // limitations under the License.
 
 using System;
+using FakeItEasy.Core;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.Subject
 {
@@ -32,13 +34,12 @@ namespace TestFx.SpecK.IntegrationTests.Subject
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Failed)
-          .WithFailureDetails (
-              Create_Subject,
-              message: "Missing default constructor for subject type 'DomainType'.");
+      runResult.GetTestResult ()
+          .HasFailed ()
+          .HasFailingOperation (Constants.Create_Subject,
+              "Missing default constructor for subject type 'DomainType'.");
     }
 
     public class DomainType

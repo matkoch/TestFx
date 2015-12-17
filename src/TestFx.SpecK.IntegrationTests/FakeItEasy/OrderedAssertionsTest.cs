@@ -14,10 +14,12 @@
 
 using System;
 using FakeItEasy;
+using FakeItEasy.Core;
 using FluentAssertions;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.FakeItEasy;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.IntegrationTests.FakeItEasy
 {
@@ -46,13 +48,13 @@ namespace TestFx.SpecK.IntegrationTests.FakeItEasy
       }
     }
 
-    [Test]
-    public override void Test ()
+    protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      AssertTest (Default, State.Failed)
-          .WithFailureDetails (
+      runResult.GetTestResult ()
+          .HasFailed ()
+          .HasFailingOperation (
               "calls in order first and second disposable",
-              exceptionAssertion: x => x.Name.Should ().Be ("ExpectationException"));
+              x => x.Name.Should ().Be ("ExpectationException"));
     }
 
     public class DomainType
