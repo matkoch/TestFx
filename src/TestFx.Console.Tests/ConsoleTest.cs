@@ -34,10 +34,9 @@ namespace TestFx.Console.Tests
             { "duration='(?<duration>[0-9]+)'", "duration='xx'" }
         };
     
-    [Ignore]
     [Test]
     [TestCase("gold01", new[] { c_speckTestAssembly })]
-    [TestCase ("gold02", new[] { c_mspecTestAssembly })]
+    [TestCase("gold02", new[] { c_mspecTestAssembly })]
     [TestCase("gold03", new[] { c_speckTestAssembly, c_mspecTestAssembly })]
     public void Test (string goldFile, string[] assemblies)
     {
@@ -46,7 +45,7 @@ namespace TestFx.Console.Tests
 
     private void RunTest(string goldFile, string[] assemblies, string additionalArguments = null)
     {
-      var output = GetOutput("--assemblies " + string.Join(" ", assemblies) + " --teamCity" + additionalArguments);
+      var output = GetOutput("--assemblies " + string.Join(";", assemblies) + " --teamCity " + additionalArguments);
 
       Compare(goldFile + ".standard.gold", output.StandardFileName);
       Compare(goldFile + ".error.gold", output.ErrorFileName);
@@ -60,14 +59,14 @@ namespace TestFx.Console.Tests
       var copyGoldText = "\r\n\r\nCopy gold: " + new Uri(copyBatch, UriKind.Absolute) + "\r\n\r\n";
 
       if (!File.Exists(goldFileFullName))
-        throw new Exception("Gold file does not exist." + copyGoldText);
+        throw new Exception("Gold file '" + goldFileName + "' does not exist." + copyGoldText);
 
       var goldText = File.ReadAllText(goldFileFullName);
       var actualText = File.ReadAllText(actualFileName);
 
       var diff = DiffFormatter.GetFormattedDiff(goldText, actualText);
       if (!string.IsNullOrEmpty(diff))
-        throw new Exception("Gold file differs from actual text." + copyGoldText + diff);
+        throw new Exception("Gold file '" + goldFileName + "' differs from actual text." + copyGoldText + diff);
     }
 
     private OutputFiles GetOutput (string arguments)

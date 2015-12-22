@@ -80,6 +80,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="gold01.error.gold" />
+    <None Include="gold01.standard.gold" />
+    <None Include="gold02.error.gold" />
+    <None Include="gold02.standard.gold" />
+    <None Include="gold03.error.gold" />
+    <None Include="gold03.standard.gold" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
