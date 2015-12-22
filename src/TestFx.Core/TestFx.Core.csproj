@@ -71,6 +71,7 @@
     <Compile Include="Extensibility\Utilities\OperationSorter.cs" />
     <Compile Include="Extensibility\Providers\OperationCollectionProvider.cs" />
     <Compile Include="NuGet\content\_TestExtensions\ResetInstanceFieldsTestExtension.cs" />
+    <Compile Include="ResourcesAttribute.cs" />
     <Compile Include="UseTestExtension.cs" />
     <Compile Include="Extensibility\Containers\Container.cs" />
     <Compile Include="Extensibility\DisplayFormatAttribute.cs" />

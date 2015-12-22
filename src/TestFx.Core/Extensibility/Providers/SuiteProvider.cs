@@ -21,6 +21,8 @@ namespace TestFx.Extensibility.Providers
 {
   public interface ISuiteProvider : IProvider
   {
+    IReadOnlyCollection<string> Resources { get; }
+
     IEnumerable<IOperationProvider> ContextProviders { get; }
     IEnumerable<ISuiteProvider> SuiteProviders { get; }
     IEnumerable<ITestProvider> TestProviders { get; }
@@ -28,21 +30,37 @@ namespace TestFx.Extensibility.Providers
 
   public class SuiteProvider : Provider, ISuiteProvider
   {
-    public static SuiteProvider Create (IIdentity identity, string text, bool ignored)
+    public static SuiteProvider Create (
+        IIdentity identity,
+        string text,
+        bool ignored,
+        IEnumerable<string> resources = null)
     {
-      return new SuiteProvider(identity, text, ignored);
+      resources = resources ?? new string[0];
+      return new SuiteProvider(identity, text, ignored, resources.ToList());
     }
 
+    private readonly IReadOnlyCollection<string> _resources;
     private ICollection<IOperationProvider> _contextProviders;
     private ICollection<ISuiteProvider> _suiteProviders;
     private ICollection<ITestProvider> _testProviders;
 
-    private SuiteProvider (IIdentity identity, string text, bool ignored)
+    private SuiteProvider (
+        IIdentity identity,
+        string text,
+        bool ignored,
+        IReadOnlyCollection<string> resources)
         : base(identity, text, ignored)
     {
+      _resources = resources;
       _contextProviders = new IOperationProvider[0];
       _suiteProviders = new ISuiteProvider[0];
       _testProviders = new ITestProvider[0];
+    }
+
+    public IReadOnlyCollection<string> Resources
+    {
+      get { return _resources; }
     }
 
     public IEnumerable<IOperationProvider> ContextProviders

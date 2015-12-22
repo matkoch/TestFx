@@ -58,7 +58,7 @@ namespace TestFx.Evaluation.Runners
       if (provider.Ignored)
         return _resultFactory.CreateIgnoredSuiteResult(provider);
 
-      using (_resourceManager.Acquire(new string[0]))
+      using (_resourceManager.Acquire(provider.Resources))
       {
         var suitePairs = Pair(intent.Intents, provider.SuiteProviders);
         var testPairs = Pair(intent.Intents, provider.TestProviders);
