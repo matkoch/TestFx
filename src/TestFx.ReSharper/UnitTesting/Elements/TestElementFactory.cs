@@ -40,13 +40,19 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     private readonly ITestProvider _testProvider;
     private readonly IUnitTestElementManager _unitTestElementManager;
     private readonly IUnitTestElementIdFactory _unitTestElementIdFactory;
+    private readonly IUnitTestElementCategoryFactory _unitTestElementCategoryFactory;
     private readonly Dictionary<string, Func<ITestEntity, IUnitTestElement>> _factoryMethods;
 
-    public TestElementFactory (ITestProvider testProvider, IUnitTestElementManager unitTestElementManager, IUnitTestElementIdFactory unitTestElementIdFactory)
+    public TestElementFactory (
+        ITestProvider testProvider,
+        IUnitTestElementManager unitTestElementManager,
+        IUnitTestElementIdFactory unitTestElementIdFactory,
+        IUnitTestElementCategoryFactory unitTestElementCategoryFactory)
     {
       _testProvider = testProvider;
       _unitTestElementManager = unitTestElementManager;
       _unitTestElementIdFactory = unitTestElementIdFactory;
+      _unitTestElementCategoryFactory = unitTestElementCategoryFactory;
       _factoryMethods = new Dictionary<string, Func<ITestEntity, IUnitTestElement>>
                         {
                             { typeof (ClassTestElement).FullName, GetOrCreateClassTestElementRecursively },
@@ -83,7 +89,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       var identity = new TestIdentity(elementId, testEntity.Identity);
       var element = _unitTestElementManager.GetElementByIdentity(identity) ?? factory(identity);
 
-      element.Update(testEntity.Text, null, Enumerable.Empty<UnitTestElementCategory>());
+      element.Update(testEntity.Text, null, testEntity.Categories.Select(x => _unitTestElementCategoryFactory.Create(x)));
 
       return element;
     }

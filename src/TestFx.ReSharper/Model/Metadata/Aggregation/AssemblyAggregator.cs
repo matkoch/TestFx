@@ -16,6 +16,7 @@ using System;
 using System.Linq;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
+using TestFx.ReSharper.Utilities.Metadata;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
@@ -57,7 +58,10 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
         return null;
 
       var identity = parentIdentity.CreateChildIdentity(type.FullyQualifiedName);
-      return new TypeTestMetadata(identity, _project, text, type);
+      var categories = type.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
+          x => x.ConstructorArguments[0].ValuesArray.Select(y => (string) y.Value),
+          () => new string[0]);
+      return new TypeTestMetadata(identity, _project, categories, text, type);
     }
   }
 }

@@ -54,6 +54,7 @@
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
     <Compile Include="AssemblySetupAttribute.cs" />
+    <Compile Include="CategoriesAttribute.cs" />
     <Compile Include="Evaluation\EvaluationModule.cs" />
     <Compile Include="Evaluation\Reporting\FillingOperationResult.cs" />
     <Compile Include="Evaluation\Reporting\ResultExtensions.cs" />

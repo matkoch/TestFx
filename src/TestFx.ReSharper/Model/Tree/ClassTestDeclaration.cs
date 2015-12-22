@@ -27,12 +27,14 @@ namespace TestFx.ReSharper.Model.Tree
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;
+    private readonly IEnumerable<string> _categories;
     private readonly string _text;
     private readonly IEnumerable<ITestDeclaration> _testDeclarations;
 
     public ClassTestDeclaration (
         IIdentity identity,
         IProject project,
+        IEnumerable<string> categories,
         string text,
         IEnumerable<ITestDeclaration> testDeclarations,
         IClassDeclaration classDeclaration)
@@ -40,6 +42,7 @@ namespace TestFx.ReSharper.Model.Tree
     {
       _identity = identity;
       _project = project;
+      _categories = categories;
       _text = text;
       _testDeclarations = testDeclarations;
     }
@@ -52,6 +55,11 @@ namespace TestFx.ReSharper.Model.Tree
     public IProject Project
     {
       get { return _project; }
+    }
+
+    public IEnumerable<string> Categories
+    {
+      get { return _categories; }
     }
 
     public string Text

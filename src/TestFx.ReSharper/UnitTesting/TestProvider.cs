@@ -91,7 +91,7 @@ namespace TestFx.ReSharper.UnitTesting
 
       var elementTypeFullName = typeof(ChildTestElement).FullName;
       var project = parentElement.GetProject().AssertNotNull();
-      var entity = new TestEntitySurrogate(dynamicTask.Identity, project, dynamicTask.Text);
+      var entity = new TestEntitySurrogate(dynamicTask.Identity, project, new string[0], dynamicTask.Text);
 
       var elementFactory = project.GetComponent<ITestElementFactory>();
       var element = elementFactory.GetOrCreateTestElement(elementTypeFullName, entity, parentElement);

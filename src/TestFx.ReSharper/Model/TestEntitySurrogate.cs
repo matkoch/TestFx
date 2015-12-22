@@ -23,12 +23,14 @@ namespace TestFx.ReSharper.Model
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;
+    private readonly IEnumerable<string> _categories;
     private readonly string _text;
 
-    public TestEntitySurrogate (IIdentity identity, IProject project, string text)
+    public TestEntitySurrogate (IIdentity identity, IProject project, IEnumerable<string> categories, string text)
     {
       _identity = identity;
       _project = project;
+      _categories = categories;
       _text = text;
     }
 
@@ -40,6 +42,11 @@ namespace TestFx.ReSharper.Model
     public IProject Project
     {
       get { return _project; }
+    }
+
+    public IEnumerable<string> Categories
+    {
+      get { return _categories; }
     }
 
     public string Text

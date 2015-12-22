@@ -54,6 +54,11 @@ namespace TestFx.ReSharper.Model.Tree
       get { return _project; }
     }
 
+    public IEnumerable<string> Categories
+    {
+      get { yield break; }
+    }
+
     public string Text
     {
       get { return _text; }

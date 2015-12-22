@@ -28,17 +28,15 @@ namespace TestFx.ReSharper.Model.Metadata
     private readonly IIdentity _identity;
     private readonly IProject _project;
     private readonly string _text;
+    private readonly IEnumerable<string> _categories;
 
-    public TypeTestMetadata (
-        IIdentity identity,
-        IProject project,
-        string text,
-        IMetadataTypeInfo metadataTypeInfo)
+    public TypeTestMetadata (IIdentity identity, IProject project, IEnumerable<string> categories, string text, IMetadataTypeInfo metadataTypeInfo)
         : base(metadataTypeInfo)
     {
       _identity = identity;
       _project = project;
       _text = text;
+      _categories = categories;
     }
 
     public IIdentity Identity
@@ -54,6 +52,11 @@ namespace TestFx.ReSharper.Model.Metadata
     public string Text
     {
       get { return _text; }
+    }
+
+    public IEnumerable<string> Categories
+    {
+      get { return _categories; }
     }
 
     public IEnumerable<ITestMetadata> TestMetadatas

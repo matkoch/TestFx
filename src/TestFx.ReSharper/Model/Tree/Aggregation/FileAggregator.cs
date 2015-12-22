@@ -17,8 +17,10 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ProjectModel;
+using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
+using TestFx.ReSharper.Utilities.Psi;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
@@ -64,6 +66,10 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
         return null;
 
       var identity = parentIdentity.CreateChildIdentity(classDeclaration.CLRName);
+      var clazz = (IClass) classDeclaration.DeclaredElement;
+      var categories = clazz.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
+          x => x.PositionParameter(0).ArrayValue.AssertNotNull().Select(y => (string) y.ConstantValue.Value),
+          () => new string[0]);
       var constructorDeclaration = classDeclaration.ConstructorDeclarations.SingleOrDefault(x => !x.IsStatic && x.ParameterDeclarations.Count == 0);
       var expressionTests = TreeNodeEnumerable.Create(
           () =>
@@ -74,7 +80,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
                 .WhereNotNull();
           });
 
-      return new ClassTestDeclaration(identity, _project, text, expressionTests, classDeclaration);
+      return new ClassTestDeclaration(identity, _project, categories, text, expressionTests, classDeclaration);
     }
 
     private ITestDeclaration GetInvocationTest (IInvocationExpression invocationExpression, IIdentity parentIdentity)

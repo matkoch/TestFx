@@ -13,17 +13,22 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
-using JetBrains.ProjectModel;
-using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Model
+namespace TestFx
 {
-  public interface ITestEntity : IIdentifiable
+  [AttributeUsage (AttributeTargets.Class)]
+  public sealed class CategoriesAttribute : Attribute
   {
-    IProject Project { get; }
-    IEnumerable<string> Categories { get; }
-    string Text { get; }
-    IEnumerable<ITestEntity> TestEntities { get; }
+    private readonly string[] _categories;
+
+    public CategoriesAttribute (params string[] categories)
+    {
+      _categories = categories;
+    }
+
+    public string[] Categories
+    {
+      get { return _categories; }
+    }
   }
 }

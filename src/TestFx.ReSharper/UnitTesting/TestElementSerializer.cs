@@ -13,10 +13,12 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using System.Xml;
 using JetBrains.Annotations;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
+using JetBrains.Util;
 using TestFx.ReSharper.Model;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities;
@@ -32,6 +34,7 @@ namespace TestFx.ReSharper.UnitTesting
   {
     private const string c_projectId = "projectId";
     private const string c_elementType = "elementType";
+    private const string c_categories = "categories";
     private const string c_text = "text";
     private const string c_absoluteId = "absoluteId";
 
@@ -52,6 +55,7 @@ namespace TestFx.ReSharper.UnitTesting
       xmlElement.SetAttribute(c_absoluteId, element.Id);
       xmlElement.SetAttribute(c_projectId, ((ITestElement) element).GetProject().AssertNotNull().GetPersistentID());
       xmlElement.SetAttribute(c_text, element.GetPresentation());
+      xmlElement.SetAttribute(c_categories, element.Categories.Select(x => x.Name).Join("|"));
     }
 
     public IUnitTestElement DeserializeElement (
@@ -69,10 +73,11 @@ namespace TestFx.ReSharper.UnitTesting
       var absoluteId = xmlElement.GetAttribute(c_absoluteId);
       var projectId = xmlElement.GetAttribute(c_projectId);
       var text = xmlElement.GetAttribute(c_text);
+      var categories = xmlElement.GetAttribute(c_categories).Split('|');
 
       var identity = Identity.Parse(absoluteId);
       var project = ProjectUtil.FindProjectElementByPersistentID(_solution, projectId).GetProject();
-      var entity = new TestEntitySurrogate(identity, project, text);
+      var entity = new TestEntitySurrogate(identity, project, categories, text);
 
       return _testElementFactory.GetOrCreateTestElement(elementTypeFullName, entity, parentElement);
     }
