@@ -32,6 +32,7 @@ namespace TestFx.Evaluation.Runners
     public IAssemblyRunner Create (IRunListener listener, IResourceManager resourceManager, ICancellationTokenSource cancellationTokenSource)
     {
       var builder = new ContainerBuilder();
+      // TODO: module should be separated if "don't care"
       builder.RegisterModule(new EvaluationModule(listener, useSeparateAppDomains: false /* don't care */));
       // Re-registering
       builder.RegisterInstance(resourceManager).As<IResourceManager>();

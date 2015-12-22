@@ -31,6 +31,7 @@ namespace TestFx.Extensibility.Providers
   public class OperationProvider : Provider, IOperationProvider
   {
     public static readonly Action NotImplemented = () => { };
+    private static readonly IIdentity s_identity = new Identity("<OPERATION>");
 
     public static OperationProvider Create<T> (OperationType type, string text, Action action, IOperationProvider cleanupProvider = null)
         where T : IOperationDescriptor
@@ -49,7 +50,7 @@ namespace TestFx.Extensibility.Providers
         OperationType type,
         Action action,
         [CanBeNull] IOperationProvider cleanupProvider)
-        : base(new Identity("<OPERATION>"), text, ignored: false)
+        : base(s_identity, text, ignored: false)
     {
       _descriptor = descriptor;
       _type = type;
