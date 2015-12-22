@@ -21,8 +21,64 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Setups
 {
-  public class SimpleSetupExecutionTest : SetupTestBase
+  public class SimpleSetupExecutionTest : TestBase<SimpleSetupExecutionTest.DomainSpec>
   {
+    [Subject (typeof (DomainSpec), "Test")]
+    public class DomainSpec : Spec<object>
+    {
+      [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;
+
+      public DomainSpec ()
+      {
+        SetupOnce (SetupOnceMethod, CleanupOnceMethod);
+        SetupOnce (SetupOnceAction2, CleanupOnceAction2);
+        Setup (SetupAction, CleanupAction);
+
+        Specify (x => 1)
+            .DefaultCase (_ => _
+                .GivenSubject ("static subject1", x => Subject1))
+            .Case ("Case 2", _ => _
+                .GivenSubject ("static subject2", x => Subject2));
+      }
+
+      static void SetupOnceMethod ()
+      {
+        SetupOnceAction1 ();
+      }
+
+      static void CleanupOnceMethod ()
+      {
+        CleanupOnceAction1 ();
+      }
+    }
+
+    public class MyAssemblySetup : IAssemblySetup
+    {
+      public void Setup ()
+      {
+        AssemblySetupAction ();
+      }
+
+      public void Cleanup ()
+      {
+        AssemblyCleanupAction ();
+      }
+    }
+
+    static readonly Action AssemblySetupAction = A.Fake<Action> ();
+    static readonly Action AssemblyCleanupAction = A.Fake<Action> ();
+
+    static readonly Action SetupOnceAction1 = A.Fake<Action> ();
+    static readonly Action SetupOnceAction2 = A.Fake<Action> ();
+    static readonly Action CleanupOnceAction1 = A.Fake<Action> ();
+    static readonly Action CleanupOnceAction2 = A.Fake<Action> ();
+
+    static readonly Action<ITestContext<object>> SetupAction = A.Fake<Action<ITestContext<object>>> ();
+    static readonly Action<ITestContext<object>> CleanupAction = A.Fake<Action<ITestContext<object>>> ();
+
+    static readonly object Subject1 = new object ();
+    static readonly object Subject2 = new object ();
+
     protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
       using (scope.OrderedAssertions ())

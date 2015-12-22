@@ -87,7 +87,6 @@
     <Compile Include="Using\NestingTest.cs" />
     <Compile Include="Subject\NoDefaultConstructorTest.cs" />
     <Compile Include="Subject\MissingArgumentsTest.cs" />
-    <Compile Include="Setups\SetupTestBase.cs" />
     <Compile Include="Subject\DefaultCreationTest.cs" />
     <Compile Include="Simple\FailingTest.cs" />
     <Compile Include="Simple\HaltingTest.cs" />

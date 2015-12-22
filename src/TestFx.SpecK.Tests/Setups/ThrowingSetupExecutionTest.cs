@@ -16,17 +16,62 @@ using System;
 using FakeItEasy;
 using FakeItEasy.Core;
 using TestFx.Evaluation.Results;
+using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Setups
 {
-  public class ThrowingSetupExecutionTest : SetupTestBase
+  public class ThrowingSetupExecutionTest : TestBase<ThrowingSetupExecutionTest.DomainSpec>
   {
-    public override void SetUp ()
+    [Subject (typeof (DomainSpec), "Test")]
+    public class DomainSpec : Spec<object>
     {
-      base.SetUp ();
+      [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;
 
-      SetupOnceAction2 = ThrowingAction;
+      public DomainSpec ()
+      {
+        SetupOnce (SetupOnceMethod, CleanupOnceMethod);
+        SetupOnce (SetupOnceAction2, CleanupOnceAction2);
+        Setup (SetupAction, CleanupAction);
+
+        Specify (x => 1)
+            .DefaultCase (_ => _)
+            .Case ("Case 2", _ => _);
+      }
+
+      static void SetupOnceMethod ()
+      {
+        SetupOnceAction1 ();
+      }
+
+      static void CleanupOnceMethod ()
+      {
+        CleanupOnceAction1 ();
+      }
     }
+
+    public class MyAssemblySetup : IAssemblySetup
+    {
+      public void Setup ()
+      {
+        AssemblySetupAction ();
+      }
+
+      public void Cleanup ()
+      {
+        AssemblyCleanupAction ();
+      }
+    }
+
+    static readonly Action AssemblySetupAction = A.Fake<Action> ();
+    static readonly Action AssemblyCleanupAction = A.Fake<Action> ();
+
+    static readonly Action SetupOnceAction1 = A.Fake<Action> ();
+    static readonly Action SetupOnceAction2 = () => { throw new Exception (); };
+    static readonly Action CleanupOnceAction1 = A.Fake<Action> ();
+    static readonly Action CleanupOnceAction2 = A.Fake<Action> ();
+
+    static readonly Action<ITestContext<object>> SetupAction = A.Fake<Action<ITestContext<object>>> ();
+    static readonly Action<ITestContext<object>> CleanupAction = A.Fake<Action<ITestContext<object>>> ();
 
     protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
