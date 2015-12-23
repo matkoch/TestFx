@@ -21,7 +21,7 @@
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
     <StartArguments>/rootSuffix $(Hive) /ReSharper.Internal .\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</StartArguments>
-    <NuGetPackageImportStamp>91c5d12e</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>c35e5ee5</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -124,8 +124,8 @@
       <HintPath>..\..\packages\NuGet.Core.2.8.6\lib\net40-Client\NuGet.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NullGuard">
-      <HintPath>..\..\packages\NullGuard.Fody.1.4.3\Lib\portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40\NullGuard.dll</HintPath>
+    <Reference Include="NullGuard, Version=1.4.5.0, Culture=neutral, PublicKeyToken=1958ac8092168428, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NullGuard.Fody.1.4.5\Lib\portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40\NullGuard.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
@@ -284,7 +284,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.Platform.Core.Shell.104.0.20151101.164331\build\JetBrains.Platform.Core.Shell.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Platform.Core.Shell.104.0.20151101.164331\build\JetBrains.Platform.Core.Shell.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.Platform.Core.Text.104.0.20151101.164845\build\JetBrains.Platform.Core.Text.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Platform.Core.Text.104.0.20151101.164845\build\JetBrains.Platform.Core.Text.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.Platform.Core.Ide.104.0.20151101.164845\build\JetBrains.Platform.Core.Ide.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Platform.Core.Ide.104.0.20151101.164845\build\JetBrains.Platform.Core.Ide.Targets'))" />
@@ -304,8 +303,8 @@
     <Error Condition="!Exists('..\..\packages\JetBrains.Psi.Features.test.Framework.104.0.20151101.185700\build\JetBrains.Psi.Features.test.Framework.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Psi.Features.test.Framework.104.0.20151101.185700\build\JetBrains.Psi.Features.test.Framework.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20150812.0\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20150812.0\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.ReSharper.SDK.Internal.104.0.20151101.194233\build\JetBrains.ReSharper.SDK.Internal.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.ReSharper.SDK.Internal.104.0.20151101.194233\build\JetBrains.ReSharper.SDK.Internal.Targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
   </Target>
-  <Import Project="..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
   <Import Project="..\..\packages\JetBrains.Platform.Core.Shell.104.0.20151101.164331\build\JetBrains.Platform.Core.Shell.Targets" Condition="Exists('..\..\packages\JetBrains.Platform.Core.Shell.104.0.20151101.164331\build\JetBrains.Platform.Core.Shell.Targets')" />
   <Import Project="..\..\packages\JetBrains.Platform.Core.Text.104.0.20151101.164845\build\JetBrains.Platform.Core.Text.Targets" Condition="Exists('..\..\packages\JetBrains.Platform.Core.Text.104.0.20151101.164845\build\JetBrains.Platform.Core.Text.Targets')" />
   <Import Project="..\..\packages\JetBrains.Platform.Core.Ide.104.0.20151101.164845\build\JetBrains.Platform.Core.Ide.Targets" Condition="Exists('..\..\packages\JetBrains.Platform.Core.Ide.104.0.20151101.164845\build\JetBrains.Platform.Core.Ide.Targets')" />
@@ -325,4 +324,5 @@
   <Import Project="..\..\packages\JetBrains.Psi.Features.test.Framework.104.0.20151101.185700\build\JetBrains.Psi.Features.test.Framework.Targets" Condition="Exists('..\..\packages\JetBrains.Psi.Features.test.Framework.104.0.20151101.185700\build\JetBrains.Psi.Features.test.Framework.Targets')" />
   <Import Project="..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20150812.0\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets" Condition="Exists('..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20150812.0\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets')" />
   <Import Project="..\..\packages\JetBrains.ReSharper.SDK.Internal.104.0.20151101.194233\build\JetBrains.ReSharper.SDK.Internal.Targets" Condition="Exists('..\..\packages\JetBrains.ReSharper.SDK.Internal.104.0.20151101.194233\build\JetBrains.ReSharper.SDK.Internal.Targets')" />
+  <Import Project="..\..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
 </Project>
