@@ -64,7 +64,6 @@
     <Compile Include="Evaluation\RunIntentExtensions.cs" />
     <Compile Include="Evaluation\Utilities\FakeAppDomainFactory.cs" />
     <Compile Include="Extensibility\Controllers\ClassSuiteController.cs" />
-    <Compile Include="Extensibility\Contexts\DelegateTestContext.cs" />
     <Compile Include="Extensibility\ExtensibilityModule.cs" />
     <Compile Include="Extensibility\OperationOrderingAttribute.cs" />
     <Compile Include="Extensibility\IntrospectionPresenter.cs" />
