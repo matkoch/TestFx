@@ -46,7 +46,7 @@ namespace TestFx.Evaluation
 
     private static IIdentity GetIdentity (Assembly assembly)
     {
-      return Identity.Parse(assembly.Location);
+      return new Identity(assembly.Location);
     }
 
     private static IIdentity GetIdentity (Type type)
