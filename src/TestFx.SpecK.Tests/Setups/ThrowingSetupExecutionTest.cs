@@ -22,7 +22,7 @@ namespace TestFx.SpecK.Tests.Setups
 {
   public class ThrowingSetupExecutionTest : TestBase<ThrowingSetupExecutionTest.DomainSpec>
   {
-    [Subject (typeof (DomainSpec), "Test")]
+    [Subject (typeof (ThrowingSetupExecutionTest), "Test")]
     public class DomainSpec : Spec<object>
     {
       [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;

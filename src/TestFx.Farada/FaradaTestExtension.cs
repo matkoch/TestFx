@@ -19,6 +19,7 @@ using System.Reflection;
 using Farada.TestDataGeneration;
 using Farada.TestDataGeneration.CompoundValueProviders;
 using Farada.TestDataGeneration.Fluent;
+using Farada.TestDataGeneration.ValueProviders;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
@@ -47,7 +48,7 @@ namespace TestFx.Farada
         return;
 
       var seed = GetSeed(suiteType);
-      var random = new Random(seed);
+      var random = new DefaultRandom(seed);
       var configuration = GetAutoDataConfiguration(suiteType);
 
       var generator = TestDataGeneratorFactory.Create(x => configuration(x).UseRandom(random));
