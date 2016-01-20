@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/license-Apache License 2.0-blue.svg)](https://github.com/matkoch/TestFx/blob/master/LICENSE)
 [![Chat](https://img.shields.io/badge/gitter-join_chat-ff69b4.svg)](https://gitter.im/matkoch/TestFx)
 
-*Yet another test framework you ask? :scream: --- I say finally! :heart_eyes: ([read why](https://github.com/matkoch/TestFx/wiki/Motivation))*
+*Next Level Testing. It's [what you're waiting for](https://github.com/matkoch/TestFx/wiki/Motivation).*
 
 TestFx is indeed another test framework, but it is also a **platform**. Its novelty lies in the **generalization of execution**, allowing a test to be represented in every possible fashion. Developers can now **invent new test languages** more rapidly, without worrying about the foundation for a pleasent testing experience, like a **console runner** or **ReSharper integration**.
 
