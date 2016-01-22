@@ -17,7 +17,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using TestFx.Evaluation;
 using TestFx.SpecK.InferredApi;
+using TestFx.Utilities.Collections;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.SpecK
@@ -66,7 +68,7 @@ namespace TestFx.SpecK
           from propertyValue2 in propertyValues2.ToList()
           select factory(new object[] { propertyValue1, propertyValue2 });
 
-      return combine.WithSequences(values.ToDictionary(GetText, x => x));
+      return combine.WithSequences(ConvertToDictionary(values));
     }
 
     public static IArrangeOrAssert<TSubject, TResult, Dummy, TNewSequence> WithPermutations<TSubject, TResult, TNewSequence, T1, T2, T3> (
@@ -86,7 +88,7 @@ namespace TestFx.SpecK
           from propertyValue3 in propertyValues3.ToList()
           select factory(new object[] { propertyValue1, propertyValue2, propertyValue3 });
 
-      return combine.WithSequences(values.ToDictionary(GetText, x => x));
+      return combine.WithSequences(ConvertToDictionary(values));
     }
 
     public static IArrangeOrAssert<TSubject, TResult, Dummy, TNewSequence> WithPermutations<TSubject, TResult, TNewSequence, T1, T2, T3, T4>
@@ -110,7 +112,7 @@ namespace TestFx.SpecK
           from propertyValue4 in propertyValues4.ToList()
           select factory(new object[] { propertyValue1, propertyValue2, propertyValue3, propertyValue4 });
 
-      return combine.WithSequences(values.ToDictionary(GetText, x => x));
+      return combine.WithSequences(ConvertToDictionary(values));
     }
 
     private static Func<IList<object>, TNewSequence> CreateFactory<TNewSequence> (params LambdaExpression[] memberExpressions)
@@ -126,13 +128,21 @@ namespace TestFx.SpecK
       return values => typeof (TNewSequence).CreateInstance<TNewSequence>(argumentMapping.Select(x => values[x]));
     }
 
-    private static string GetText<TNewSequence> (TNewSequence seq)
+    private static IDictionary<string, TSequence> ConvertToDictionary<TSequence> (IEnumerable<TSequence> values)
     {
-      var properties = typeof (TNewSequence).GetProperties();
+      return values.ToDictionary(
+          GetText,
+          x => x,
+          exceptionFactory: (ex, key) => new EvaluationException(string.Format("Sequence with key '{0}' is duplicated.", key)));
+    }
+
+    private static string GetText<TSequence> (TSequence seq)
+    {
+      var properties = typeof (TSequence).GetProperties();
       return string.Join(", ", properties.Select(x => GetText(seq, x)));
     }
 
-    private static string GetText<TNewSequence> (TNewSequence seq, PropertyInfo property)
+    private static string GetText<TSequence> (TSequence seq, PropertyInfo property)
     {
       var value = property.PropertyType == typeof (Type) || property.PropertyType.IsClass
           ? property.PropertyType.Name
