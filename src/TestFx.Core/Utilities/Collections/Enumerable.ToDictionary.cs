@@ -15,33 +15,41 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Collections
 {
-  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static partial class EnumerableExtensions
   {
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
     [DebuggerHidden]
-    public static IEnumerable<T> Concat<T> ([CanBeNull] this T obj, IEnumerable<T> enumerable)
+    public static IDictionary<TKey, TValue> ToDictionary<T, TKey, TValue> (
+        this IEnumerable<T> enumerable,
+        [InstantHandle] Func<T, TKey> keySelector,
+        [InstantHandle] Func<T, TValue> valueSelector,
+        IEqualityComparer<TKey> comparer = null,
+        Func<ArgumentException, TKey, Exception> exceptionFactory = null)
     {
-      yield return obj;
+      var list = enumerable.ToList();
+      var dictionary = new Dictionary<TKey, TValue>(list.Count, comparer);
 
-      foreach (var element in enumerable)
-        yield return element;
-    }
+      foreach (var item in list)
+      {
+        var key = keySelector(item);
+        try
+        {
+          dictionary.Add(key, valueSelector(item));
+        }
+        catch (ArgumentException exception)
+        {
+          exceptionFactory = exceptionFactory ?? ((ex, k) => ex);
+          throw exceptionFactory(exception, key);
+        }
+      }
 
-    [DebuggerNonUserCode]
-    [DebuggerStepThrough]
-    [DebuggerHidden]
-    public static IEnumerable<T> Concat<T> (this IEnumerable<T> enumerable, [CanBeNull] T obj)
-    {
-      foreach (var element in enumerable)
-        yield return element;
-
-      yield return obj;
+      return dictionary;
     }
   }
 }

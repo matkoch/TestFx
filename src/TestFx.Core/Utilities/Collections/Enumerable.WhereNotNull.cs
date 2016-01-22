@@ -15,33 +15,19 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using JetBrains.Annotations;
+using System.Linq;
 
 namespace TestFx.Utilities.Collections
 {
-  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static partial class EnumerableExtensions
   {
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
     [DebuggerHidden]
-    public static IEnumerable<T> Concat<T> ([CanBeNull] this T obj, IEnumerable<T> enumerable)
+    public static IEnumerable<T> WhereNotNull<T> (this IEnumerable<T> enumerable)
+        where T : class
     {
-      yield return obj;
-
-      foreach (var element in enumerable)
-        yield return element;
-    }
-
-    [DebuggerNonUserCode]
-    [DebuggerStepThrough]
-    [DebuggerHidden]
-    public static IEnumerable<T> Concat<T> (this IEnumerable<T> enumerable, [CanBeNull] T obj)
-    {
-      foreach (var element in enumerable)
-        yield return element;
-
-      yield return obj;
+      return enumerable.Where(x => x != null);
     }
   }
 }
