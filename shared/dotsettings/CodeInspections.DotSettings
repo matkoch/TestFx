@@ -352,4 +352,14 @@
 	<s:String x:Key="/Default/CodeStyle/Naming/XamlNaming/UserRules/=NAMESPACE_005FALIAS/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="aaBb" /&gt;</s:String>
 	<s:String x:Key="/Default/CodeStyle/Naming/XamlNaming/UserRules/=XAML_005FFIELD/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
 	<s:String x:Key="/Default/CodeStyle/Naming/XamlNaming/UserRules/=XAML_005FRESOURCE/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
+	<s:Boolean x:Key="/Default/ReSpeller/CheckInternal/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ReSpeller/CheckLocals/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ReSpeller/CheckPrivate/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ReSpeller/CheckProtected/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ReSpeller/CheckProtectedInternal/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ReSpeller/CheckPublic/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ReSpeller/DocCommentsUseMemberModifiers/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ReSpeller/UserDictionaries/=en_005Fus/Words/=Combinatorics/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ReSpeller/UserDictionaries/=en_005Fus/Words/=Combinatorics/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ReSpeller/UserDictionaries/=en_005Fus/Words/=Combinatoricsddfg/@EntryIndexedValue">True</s:Boolean>
 </wpf:ResourceDictionary>
