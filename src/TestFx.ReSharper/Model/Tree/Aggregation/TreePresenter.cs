@@ -13,13 +13,11 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
-using JetBrains.ReSharper.Psi.Util;
 using TestFx.Extensibility;
 using TestFx.ReSharper.Utilities.Psi;
 using TestFx.Utilities;
@@ -47,7 +45,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     [CanBeNull]
     public string Present (IClassDeclaration classDeclaration)
     {
-      var clazz = (IClass) classDeclaration.DeclaredElement;
+      var clazz = (IClass) classDeclaration.DeclaredElement.NotNull();
 
       var subjectAttributeData = clazz.GetAttributeData<SuiteAttributeBase>();
       if (subjectAttributeData == null)
@@ -55,8 +53,8 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
 
       var subjectAttribute = subjectAttributeData.ToCommon();
 
-      var subjectAttributeConstructor = subjectAttributeData.Constructor;
-      var displayFormatAttribute = subjectAttributeConstructor.GetAttributeData<DisplayFormatAttribute>().ToCommon();
+      var subjectAttributeConstructor = subjectAttributeData.Constructor.NotNull();
+      var displayFormatAttribute = subjectAttributeConstructor.GetAttributeData<DisplayFormatAttribute>().NotNull().ToCommon();
       
       return _introspectionPresenter.Present(displayFormatAttribute, clazz.ToCommon(), subjectAttribute);
     }
@@ -64,7 +62,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     [CanBeNull]
     public string Present (IInvocationExpression invocationExpression)
     {
-      var method = invocationExpression.Reference.GetResolved<IMethod>();
+      var method = invocationExpression.Reference.NotNull().GetResolved<IMethod>();
       if (method == null)
         return null;
 
@@ -88,7 +86,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       if (literalExpression == null)
         return IntrospectionPresenter.UnknownValue;
 
-      var constantValue = literalExpression.ConstantValue.Value.AssertNotNull();
+      var constantValue = literalExpression.ConstantValue.Value.NotNull();
       return constantValue.ToString().Trim('"');
     }
   }

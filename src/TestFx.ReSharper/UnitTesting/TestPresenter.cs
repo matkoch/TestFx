@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.CommonControls;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.TreeModels;
@@ -32,7 +33,11 @@ namespace TestFx.ReSharper.UnitTesting
   {
     private readonly IComparer<TreeModelNode> _comparer = new NodeComparer();
 
-    public void Present (IUnitTestElement element, IPresentableItem item, TreeModelNode node, PresentationState state)
+    public void Present (
+        [NotNull] IUnitTestElement element,
+        [NotNull] IPresentableItem item,
+        [NotNull] TreeModelNode node,
+        [NotNull] PresentationState state)
     {
       if (element is ChildTestElement)
         node.Model.Comparer = _comparer;
@@ -40,9 +45,8 @@ namespace TestFx.ReSharper.UnitTesting
 
     private class NodeComparer : IComparer<TreeModelNode>
     {
-      public int Compare (TreeModelNode x, TreeModelNode y)
+      public int Compare ([NotNull] TreeModelNode x, [NotNull] TreeModelNode y)
       {
-        System.Diagnostics.Debugger.Launch();
         var first = x.DataValue as ITestElement;
         var second = y.DataValue as ITestElement;
         if (first == null || second == null)

@@ -14,6 +14,7 @@
 
 using System;
 using System.Diagnostics;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
@@ -52,7 +53,7 @@ namespace TestFx.ReSharper.UnitTesting
       get { return ID; }
     }
 
-    public bool IsElementOfKind (IDeclaredElement declaredElement, UnitTestElementKind elementKind)
+    public bool IsElementOfKind ([NotNull] IDeclaredElement declaredElement, UnitTestElementKind elementKind)
     {
       var clazz = declaredElement as ITypeElement;
       if (clazz == null)
@@ -61,24 +62,24 @@ namespace TestFx.ReSharper.UnitTesting
         if (member == null)
           return false;
 
-        clazz = member.GetContainingType();
+        clazz = member.GetContainingType().NotNull();
       }
 
       return clazz.GetAttributeData<SuiteAttributeBase>() != null;
     }
 
-    public bool IsElementOfKind (IUnitTestElement element, UnitTestElementKind elementKind)
+    public bool IsElementOfKind ([NotNull] IUnitTestElement element, UnitTestElementKind elementKind)
     {
       var testElement = element as ITestElement;
       return testElement != null && testElement.ElementKind == elementKind;
     }
 
-    public bool IsSupported (IHostProvider hostProvider)
+    public bool IsSupported ([NotNull] IHostProvider hostProvider)
     {
       return true;
     }
 
-    public int CompareUnitTestElements (IUnitTestElement x, IUnitTestElement y)
+    public int CompareUnitTestElements ([NotNull] IUnitTestElement x, [NotNull] IUnitTestElement y)
     {
       return _unitTestElementComparer.Compare(x, y);
     }
@@ -90,7 +91,7 @@ namespace TestFx.ReSharper.UnitTesting
       Trace.Assert(parentElement != null, "parentElement != null");
 
       var elementTypeFullName = typeof(ChildTestElement).FullName;
-      var project = parentElement.GetProject().AssertNotNull();
+      var project = parentElement.GetProject().NotNull();
       var entity = new TestEntitySurrogate(dynamicTask.Identity, project, new string[0], dynamicTask.Text);
 
       var elementFactory = project.GetComponent<ITestElementFactory>();

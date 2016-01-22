@@ -25,7 +25,7 @@ using TestFx.Utilities;
 
 namespace TestFx.SpecK.Implementation.Controllers
 {
-  public interface ITestController<TSubject> : ITestController
+  public interface ITestController<in TSubject> : ITestController
   {
     void SetSubjectFactory<T> (string text, Func<Dummy, TSubject> subjectFactory)
         where T : SubjectFactory;

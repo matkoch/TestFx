@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Farada.TestDataGeneration;
@@ -23,6 +22,7 @@ using Farada.TestDataGeneration.ValueProviders;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
+using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 using TestFx.Utilities.Reflection;
 
@@ -83,7 +83,7 @@ namespace TestFx.Farada
 
     private void CreateAndAssignAuto(object suite, ITestDataGenerator generator, AutoDataAttribute attribute, FieldInfo field)
     {
-      var autoData = this.InvokeGenericMethod("CreateAutoData", new object[] { generator, attribute.MaxRecursionDepth }, new[] { field.FieldType });
+      var autoData = this.InvokeGenericMethod("CreateAutoData", new object[] { generator, attribute.MaxRecursionDepth }, new[] { field.FieldType }).NotNull();
 
       attribute.CurrentSuite = suite;
       attribute.Mutate(autoData);

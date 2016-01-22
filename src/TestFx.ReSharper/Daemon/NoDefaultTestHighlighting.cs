@@ -14,7 +14,6 @@
 
 using System;
 using JetBrains.ReSharper.Feature.Services.Daemon;
-using JetBrains.ReSharper.Psi.Tree;
 using TestFx.ReSharper.Daemon;
 using TestFx.ReSharper.Model.Tree;
 

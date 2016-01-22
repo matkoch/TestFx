@@ -21,6 +21,7 @@ using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Modules;
 using JetBrains.ReSharper.Psi.Resolve.Managed;
 using JetBrains.ReSharper.Psi.Tree;
+// ReSharper disable All
 
 namespace TestFx.ReSharper.Model.Tree.Wrapper
 {

@@ -81,7 +81,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
         return Enumerable.Empty<ITestFile>();
 
       return declaredElement.GetDeclarations()
-          .Select(x => x.GetSourceFile().AssertNotNull())
+          .Select(x => x.GetSourceFile().NotNull())
           .SelectMany(x => x.GetPsiFiles<CSharpLanguage>())
           .Select(x => x.ToTestFile());
     }

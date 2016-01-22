@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+// ReSharper disable InconsistentNaming
 
 namespace TestFx.Extensibility
 {

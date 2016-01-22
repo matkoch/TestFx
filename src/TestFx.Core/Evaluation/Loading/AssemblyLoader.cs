@@ -84,7 +84,7 @@ namespace TestFx.Evaluation.Loading
         IIdentity assemblyIdentity)
     {
       // TODO: Move selection to AssemblyExplorer
-      var suiteTypeLoader = loaderDictionary.Single(x => x.Key == suiteType.GetAttribute<SuiteAttributeBase>().AssertNotNull().GetType()).Value;
+      var suiteTypeLoader = loaderDictionary.Single(x => x.Key == suiteType.GetAttribute<SuiteAttributeBase>().NotNull().GetType()).Value;
       return suiteTypeLoader.Load(suiteType, assemblySetups, assemblyIdentity);
     }
   }

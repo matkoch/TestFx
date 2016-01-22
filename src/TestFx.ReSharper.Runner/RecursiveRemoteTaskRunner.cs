@@ -15,6 +15,7 @@
 extern alias mscorlib;
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using mscorlib::System.Threading;
 using TestFx.Evaluation;
@@ -35,7 +36,7 @@ namespace TestFx.ReSharper.Runner
     {
     }
 
-    public override void ExecuteRecursive (TaskExecutionNode node)
+    public override void ExecuteRecursive ([NotNull] TaskExecutionNode node)
     {
       var runIntent = CreateRunIntent(node);
       var taskDictionary = node.DescendantsAndSelf(x => x.Children)

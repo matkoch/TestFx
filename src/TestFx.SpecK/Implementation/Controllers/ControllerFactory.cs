@@ -91,7 +91,7 @@ namespace TestFx.SpecK.Implementation.Controllers
 
       var wrappedAction = actionContainer.VoidAction != null
           ? GuardAction(context, actionContainer.VoidAction)
-          : GuardAction(context, x => context.Result = actionContainer.ResultAction.AssertNotNull()(x));
+          : GuardAction(context, x => context.Result = actionContainer.ResultAction.NotNull()(x));
       controller.AddAction<Act>(actionContainer.Text, x => wrappedAction());
       configurator(controller);
 

@@ -17,6 +17,7 @@ using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Modules;
+using JetBrains.Util;
 
 namespace TestFx.ReSharper.Utilities.ProjectModel
 {
@@ -34,7 +35,7 @@ namespace TestFx.ReSharper.Utilities.ProjectModel
       var solution = project.GetSolution();
       var psiServices = solution.GetPsiServices();
       var modules = psiServices.Modules;
-      return modules.GetPrimaryPsiModule(project, TargetFrameworkId.Default);
+      return modules.GetPrimaryPsiModule(project, TargetFrameworkId.Default).NotNull();
     }
   }
 }

@@ -21,9 +21,9 @@ namespace TestFx.Utilities.Reflection
   {
     public const BindingFlags All = Instance | Static;
 
-    public const BindingFlags Instance = PublicOrNonPublic | BindingFlags.Instance;
-    public const BindingFlags Static = PublicOrNonPublic | BindingFlags.Static;
+    public const BindingFlags Instance = c_publicOrNonPublic | BindingFlags.Instance;
+    public const BindingFlags Static = c_publicOrNonPublic | BindingFlags.Static;
 
-    private const BindingFlags PublicOrNonPublic = BindingFlags.Public | BindingFlags.NonPublic;
+    private const BindingFlags c_publicOrNonPublic = BindingFlags.Public | BindingFlags.NonPublic;
   }
 }

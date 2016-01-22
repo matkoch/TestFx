@@ -14,6 +14,7 @@
 
 using System;
 using TestFx.Extensibility;
+// ReSharper disable InconsistentNaming
 
 namespace TestFx.SpecK.Implementation
 {

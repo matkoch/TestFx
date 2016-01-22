@@ -25,6 +25,7 @@ namespace TestFx.SpecK.Tests.Setups
     [Subject (typeof (ThrowingSetupExecutionTest), "Test")]
     public class DomainSpec : Spec<object>
     {
+      // TODO: Assert NotNull + Value Init
       [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;
 
       public DomainSpec ()

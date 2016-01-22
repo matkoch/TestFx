@@ -38,8 +38,8 @@ namespace TestFx.Extensibility
     {
       var uninitializedSuite = FormatterServices.GetUninitializedObject(suiteType);
 
-      var subjectAttribute = suiteType.GetAttributeData<SuiteAttributeBase>();
-      var displayFormatAttribute = subjectAttribute.Constructor.GetAttributeData<DisplayFormatAttribute>();
+      var subjectAttribute = suiteType.GetAttributeData<SuiteAttributeBase>().NotNull();
+      var displayFormatAttribute = subjectAttribute.Constructor.GetAttributeData<DisplayFormatAttribute>().NotNull();
 
       var text = _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), suiteType.ToCommon(), subjectAttribute.ToCommon());
       var identity = assemblyIdentity.CreateChildIdentity(suiteType.FullName);

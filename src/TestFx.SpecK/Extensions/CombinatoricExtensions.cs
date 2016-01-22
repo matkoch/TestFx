@@ -17,14 +17,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using JetBrains.Annotations;
 using TestFx.Evaluation;
 using TestFx.SpecK.InferredApi;
 using TestFx.Utilities.Collections;
 using TestFx.Utilities.Reflection;
 
+// ReSharper disable once CheckNamespace
 namespace TestFx.SpecK
 {
-  public static class CombinatoricExtensions
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
+  public static class CombinatoricsExtensions
   {
     public static IArrangeOrAssert<TSubject, TResult, Dummy, TNewSequence> WithSequences<TSubject, TResult, TNewSequence> (
         this ICombine<TSubject, TResult> combine,

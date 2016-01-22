@@ -17,14 +17,13 @@ using FakeItEasy;
 using FakeItEasy.Core;
 using TestFx.SpecK.Implementation;
 using TestFx.SpecK.Implementation.Containers;
-using TestFx.SpecK.Implementation.Controllers;
 using TestFx.SpecK.InferredApi;
 
 namespace TestFx.FakeItEasy
 {
   public static class AssertionExtensions
   {
-    private const string Key = "FakeItEasy.OrderedAssertions";
+    private const string c_key = "FakeItEasy.OrderedAssertions";
 
     public static IAssert<TSubject, TResult, TVars, TSequence> ItCallsInOrder<TSubject, TResult, TVars, TSequence> (
         this IAssert<TSubject, TResult, TVars, TSequence> assert,
@@ -43,7 +42,7 @@ namespace TestFx.FakeItEasy
           (x, originalAction) =>
           {
             var scope = Fake.CreateScope();
-            x[Key] = scope;
+            x[c_key] = scope;
             using (scope)
             {
               originalAction();
@@ -53,7 +52,7 @@ namespace TestFx.FakeItEasy
           "calls in order " + text,
           x =>
           {
-            var scope = (IFakeScope) x[Key];
+            var scope = (IFakeScope) x[c_key];
             using (scope.OrderedAssertions())
             {
               orderedAssertion(x);

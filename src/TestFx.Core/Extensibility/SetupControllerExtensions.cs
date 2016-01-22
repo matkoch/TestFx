@@ -25,7 +25,7 @@ namespace TestFx.Extensibility
         where TSetup : IActionDescriptor
         where TCleanup : ICleanupDescriptor
     {
-      controller.AddSetupCleanup<TSetup, TCleanup>(ParseAction(setup), setup, ParseAction(cleanup), cleanup);
+      controller.AddSetupCleanup<TSetup, TCleanup>(ParseAction(setup), setup, cleanup != null ? ParseAction(cleanup) : null, cleanup);
     }
 
     public static void AddSetupCleanup<TSetup, TCleanup> (
@@ -35,14 +35,11 @@ namespace TestFx.Extensibility
         where TSetup : IActionDescriptor
         where TCleanup : ICleanupDescriptor
     {
-      controller.AddSetupCleanup<TSetup, TCleanup>(ParseAction(setup), setup, ParseAction(cleanup), cleanup);
+      controller.AddSetupCleanup<TSetup, TCleanup>(ParseAction(setup), setup, cleanup != null ? ParseAction(cleanup) : null, cleanup);
     }
 
     private static string ParseAction (Delegate action)
     {
-      if (action == null)
-        return null;
-
       return action.Method.Name != "lambda_method"
           ? action.Method.Name
           : "<lambda method>";

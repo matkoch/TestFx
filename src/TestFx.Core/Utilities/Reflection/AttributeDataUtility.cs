@@ -90,12 +90,12 @@ namespace TestFx.Utilities.Reflection
 
     public Attribute GetAttribute (CustomAttributeData attributeData)
     {
-      var originalAttributeType = attributeData.Constructor.DeclaringType.AssertNotNull();
-      var attributeType = Type.GetType(originalAttributeType.AssemblyQualifiedName.AssertNotNull(), throwOnError: true);
+      var originalAttributeType = attributeData.Constructor.DeclaringType.NotNull();
+      var attributeType = Type.GetType(originalAttributeType.AssemblyQualifiedName.NotNull(), throwOnError: true);
 
       var arguments = attributeData.ConstructorArguments.Select(GetArgumentValue).ToArray();
       var attribute = attributeType.CreateInstance<Attribute>(arguments);
-      attributeData.NamedArguments.AssertNotNull().ForEach(x => attribute.SetMemberValue(x.MemberInfo.Name, GetArgumentValue(x.TypedValue)));
+      attributeData.NamedArguments.NotNull().ForEach(x => attribute.SetMemberValue(x.MemberInfo.Name, GetArgumentValue(x.TypedValue)));
 
       return attribute;
     }

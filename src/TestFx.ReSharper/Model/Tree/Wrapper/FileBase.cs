@@ -19,6 +19,7 @@ using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Parsing;
 using JetBrains.ReSharper.Psi.Tree;
+// ReSharper disable All
 
 namespace TestFx.ReSharper.Model.Tree.Wrapper
 {

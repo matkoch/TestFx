@@ -41,7 +41,7 @@ namespace TestFx.ReSharper.UnitTesting.Utilities
 
     public IProject GetProject ()
     {
-      return ElementId.GetProject();
+      return ElementId.GetProject().NotNull();
     }
   }
 }

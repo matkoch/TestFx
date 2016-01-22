@@ -13,9 +13,12 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 
 namespace TestFx.Extensibility
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   [AttributeUsage (AttributeTargets.Constructor | AttributeTargets.Method)]
   public class DisplayFormatAttribute : Attribute
   {

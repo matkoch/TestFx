@@ -14,6 +14,7 @@
 
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using TestFx.ReSharper.Utilities.Metadata;
@@ -51,6 +52,7 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
       return new TestAssembly(testTypes.ToList(), assembly);
     }
 
+    [CanBeNull]
     private ITestMetadata VisitType (IMetadataTypeInfo type, IIdentity parentIdentity)
     {
       var text = _metadataPresenter.Present(type);

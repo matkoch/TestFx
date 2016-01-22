@@ -16,13 +16,15 @@ using System;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 using TestFx.SpecK.Implementation.Containers;
-using TestFx.SpecK.Implementation.Controllers;
 using TestFx.SpecK.Implementation.Utilities;
 using TestFx.SpecK.InferredApi;
 using TestFx.Utilities;
 
+// ReSharper disable once CheckNamespace
 namespace TestFx.SpecK
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class ExceptionExtensions
   {
     private const bool c_expectException = true;
@@ -50,7 +52,7 @@ namespace TestFx.SpecK
             if (messageProvider != null)
               AssertionHelper.AssertExceptionMessage(messageProvider(x.Vars), x.Exception);
             if (innerExceptionProvider != null)
-              AssertionHelper.AssertObjectEquals("InnerException", innerExceptionProvider(x.Vars), x.Exception.AssertNotNull().InnerException);
+              AssertionHelper.AssertObjectEquals("InnerException", innerExceptionProvider(x.Vars), x.Exception.NotNull().InnerException);
           },
           c_expectException);
       return assert;

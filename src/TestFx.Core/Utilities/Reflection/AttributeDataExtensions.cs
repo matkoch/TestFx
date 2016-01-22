@@ -15,9 +15,12 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Reflection
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class AttributeDataExtensions
   {
     public static IEnumerable<CustomAttributeData> GetAttributeDatas<T> (this Assembly assembly) where T : Attribute
@@ -35,17 +38,20 @@ namespace TestFx.Utilities.Reflection
       return AttributeDataUtility.Instance.GetAttributeDatas<T>(memberInfo);
     }
 
-    public static CustomAttributeData GetAttributeData<T> (this Assembly assembly) where T : Attribute
+    [CanBeNull]
+    public static CustomAttributeData GetAttributeData<T>(this Assembly assembly) where T : Attribute
     {
       return AttributeDataUtility.Instance.GetAttributeData<T>(assembly);
     }
 
+    [CanBeNull]
     public static CustomAttributeData GetAttributeData<T> (this Type type) where T : Attribute
     {
       return AttributeDataUtility.Instance.GetAttributeData<T>(type);
     }
 
-    public static CustomAttributeData GetAttributeData<T> (this MemberInfo memberInfo) where T : Attribute
+    [CanBeNull]
+    public static CustomAttributeData GetAttributeData<T>(this MemberInfo memberInfo) where T : Attribute
     {
       return AttributeDataUtility.Instance.GetAttributeData<T>(memberInfo);
     }

@@ -190,7 +190,7 @@ namespace TestFx.SpecK
 
     public sealed class Dummy
     {
-      public override bool Equals (object obj)
+      public override bool Equals ([CanBeNull] object obj)
       {
         throw new NotSupportedException();
       }

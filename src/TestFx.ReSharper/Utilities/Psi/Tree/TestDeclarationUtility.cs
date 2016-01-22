@@ -13,8 +13,6 @@
 // limitations under the License.
 
 using System;
-using JetBrains.DocumentModel;
-using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 using TestFx.ReSharper.Model.Tree;
@@ -59,7 +57,7 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
     private Ranges GetUnitTestElementLocation(IInvocationExpression invocation)
     {
       var reference = (invocation.InvokedExpression as IReferenceExpression)
-          .AssertNotNull("invocationExpression.InvokedExpression is not a IReferenceExpression");
+          .NotNull("invocationExpression.InvokedExpression is not a IReferenceExpression");
 
       var startOffset = reference.NameIdentifier.GetDocumentStartOffset();
       var endOffset = invocation.GetDocumentRange().EndOffsetRange();

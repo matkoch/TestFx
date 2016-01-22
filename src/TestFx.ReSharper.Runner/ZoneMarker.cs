@@ -16,7 +16,7 @@ using System;
 using JetBrains.Application.BuildScript.Application.Zones;
 using JetBrains.ReSharper.UnitTestFramework;
 
-namespace TestFx.ReSharper
+namespace TestFx.ReSharper.Runner
 {
   [ZoneMarker]
   public class ZoneMarker : IRequire<IUnitTestingZone>

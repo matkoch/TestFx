@@ -14,6 +14,7 @@
 
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.Util;
 using TestFx.Utilities.Introspection;
@@ -36,7 +37,7 @@ namespace TestFx.ReSharper.Utilities.Psi
     public CommonType GetCommonType (IType type)
     {
       // TODO: type can be ??? if not resolvable. Compare to TypeUtility.GetImplementedTypes
-      return GetCommonType(((IDeclaredType) type).GetTypeElement());
+      return GetCommonType(((IDeclaredType) type).GetTypeElement().NotNull());
     }
 
     public CommonType GetCommonType (ITypeElement type)
@@ -54,6 +55,7 @@ namespace TestFx.ReSharper.Utilities.Psi
       return new CommonAttribute(type, positionalArguments, namedArguments);
     }
 
+    [CanBeNull]
     private CommonPositionalArgument GetPositionalArgument (AttributeValue argument, int position)
     {
       if (argument.IsBadValue)
@@ -63,6 +65,7 @@ namespace TestFx.ReSharper.Utilities.Psi
       return new CommonPositionalArgument(position, typeAndValue.Item1, typeAndValue.Item2);
     }
 
+    [CanBeNull]
     private CommonNamedArgument GetNamedArguments (Pair<string, AttributeValue> argument)
     {
       if (argument.Second.IsBadValue)
@@ -75,14 +78,14 @@ namespace TestFx.ReSharper.Utilities.Psi
     private Tuple<CommonType, object> GetTypeAndValue (AttributeValue argument)
     {
       if (argument.IsType)
-        return Tuple.Create(typeof (Type).ToCommon(), ConvertToCommon(argument, x => GetCommonType(x.TypeValue)));
+        return Tuple.Create(typeof (Type).ToCommon(), ConvertToCommon(argument, x => GetCommonType(x.TypeValue.NotNull())));
 
       if (argument.IsArray)
         throw new Exception(); // Use GetScalarType
       //return Tuple.Create(GetCommonType(argument.ArrayType), (object) argument.ArrayValue.Select(GetTypeAndValue).Select(x => x.Item2).ToArray());
 
       // TODO: ConvertToCommon required?
-      return Tuple.Create(GetCommonType(argument.ConstantValue.Type), ConvertToCommon(argument, x => x.ConstantValue.Value));
+      return Tuple.Create(GetCommonType(argument.ConstantValue.Type.NotNull()), ConvertToCommon(argument, x => x.ConstantValue.Value));
     }
 
     // TODO: ConvertToCommon handling bad values

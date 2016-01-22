@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.UnitTesting.Elements;
@@ -22,7 +23,7 @@ namespace TestFx.ReSharper.UnitTesting
 {
   public partial class TestProvider
   {
-    public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Dictionary<string, IUnitTestElement> elements)
+    public IUnitTestElement GetDynamicElement ([NotNull] RemoteTask remoteTask, [NotNull] Dictionary<string, IUnitTestElement> elements)
     {
       return GetDynamicElement(
           remoteTask,

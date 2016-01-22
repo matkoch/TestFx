@@ -22,10 +22,21 @@ namespace TestFx.Utilities
   {
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
-    public static T AssertNotNull<T> ([CanBeNull] this T obj, string reason = null) where T : class
+    public static T NotNull<T> ([CanBeNull] this T obj, string reason = null)
+        where T : class
     {
       Debug.Assert(obj != null, reason ?? "previous value is null");
       return obj;
+    }
+
+    [DebuggerNonUserCode]
+    [DebuggerStepThrough]
+    public static T NotNull<T> ([CanBeNull] this object obj, string reason = null)
+        where T : class
+    {
+      var castedObject = obj as T;
+      Debug.Assert(castedObject != null, reason ?? "previous value is null");
+      return castedObject;
     }
   }
 }

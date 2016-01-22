@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.Metadata.Utils;
+// ReSharper disable All
 
 namespace TestFx.ReSharper.Model.Metadata.Wrapper
 {

@@ -15,6 +15,7 @@
 using System;
 using System.Diagnostics;
 using System.Xml;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using TestFx.Utilities;
 
@@ -45,7 +46,7 @@ namespace TestFx.ReSharper.Runner.Tasks
       _absoluteId = absoluteId;
     }
 
-    public override void SaveXml (XmlElement element)
+    public override void SaveXml ([NotNull] XmlElement element)
     {
       base.SaveXml(element);
       SetXmlAttribute(element, c_absoluteIdField, _absoluteId);
@@ -56,18 +57,19 @@ namespace TestFx.ReSharper.Runner.Tasks
       get { return Utilities.Identity.Parse(_absoluteId); }
     }
 
-    public bool Equals (Task other)
+    public bool Equals ([CanBeNull] Task other)
     {
-      return Equals(RunnerID, other.RunnerID) &&
-             Equals(Identity, other.Identity);
+      return other != null
+             && Equals(RunnerID, other.RunnerID)
+             && Equals(Identity, other.Identity);
     }
 
-    public override bool Equals (RemoteTask other)
+    public override bool Equals ([CanBeNull] RemoteTask other)
     {
       return Equals(other as Task);
     }
 
-    public override bool Equals (object other)
+    public override bool Equals ([CanBeNull] object other)
     {
       return Equals(other as Task);
     }

@@ -14,9 +14,12 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace TestFx.Extensibility.Contexts
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public interface ITestContext
   {
     bool IsFailing { get; }

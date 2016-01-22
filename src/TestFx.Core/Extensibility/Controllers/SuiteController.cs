@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.Utilities;
@@ -24,7 +25,7 @@ namespace TestFx.Extensibility.Controllers
 {
   public interface ISuiteController
   {
-    void AddSetupCleanup<TSetup, TCleanup> (string setupText, Action setup, string cleanupText, Action cleanup)
+    void AddSetupCleanup<TSetup, TCleanup> (string setupText, Action setup, [CanBeNull] string cleanupText, [CanBeNull] Action cleanup)
         where TSetup : IActionDescriptor
         where TCleanup : ICleanupDescriptor;
   }
@@ -40,14 +41,14 @@ namespace TestFx.Extensibility.Controllers
       _operationSorter = operationSorter;
     }
 
-    public void AddSetupCleanup<TSetup, TCleanup> (string setupText, Action setup, string cleanupText, Action cleanup)
+    public void AddSetupCleanup<TSetup, TCleanup> (string setupText, Action setup, [CanBeNull] string cleanupText, [CanBeNull] Action cleanup)
         where TSetup : IActionDescriptor
         where TCleanup : ICleanupDescriptor
     {
       // TODO: shared code with TestController
       IOperationProvider cleanupProvider = null;
       if (cleanup != null)
-        cleanupProvider = OperationProvider.Create<TCleanup>(OperationType.Action, cleanupText, cleanup);
+        cleanupProvider = OperationProvider.Create<TCleanup>(OperationType.Action, cleanupText.NotNull(), cleanup);
       var setupProvider = OperationProvider.Create<TSetup>(OperationType.Action, setupText, setup, cleanupProvider);
       var unsortedOperationProviders = cleanupProvider.Concat(_provider.ContextProviders).Concat(setupProvider).WhereNotNull();
       _provider.ContextProviders = _operationSorter.Sort(unsortedOperationProviders);
@@ -72,7 +73,7 @@ namespace TestFx.Extensibility.Controllers
       _provider.TestProviders = _provider.TestProviders.Concat(provider);
       return provider;
     }
-
+    
     private void EnsureUniqueness (IProvider newProvider, IEnumerable<IProvider> existingProviders)
     {
       if (existingProviders.Any(x => x.Identity.Equals(newProvider.Identity)))

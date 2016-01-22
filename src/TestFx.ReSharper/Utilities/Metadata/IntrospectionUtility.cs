@@ -15,6 +15,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.Util;
 using TestFx.Utilities.Introspection;
@@ -51,7 +52,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
 
     public CommonAttribute GetCommonAttribute (IMetadataCustomAttribute metadataCustomAttribute)
     {
-      var type = GetCommonType(metadataCustomAttribute.UsedConstructor.DeclaringType);
+      var type = GetCommonType(metadataCustomAttribute.UsedConstructor.NotNull().DeclaringType);
       var positionalArguments = metadataCustomAttribute.ConstructorArguments.Select(GetPositionalArgument).WhereNotNull();
       var namedArguments = metadataCustomAttribute.InitializedFields.Select(GetNamedArgument)
           .Concat(metadataCustomAttribute.InitializedProperties.Select(GetNamedArgument)).WhereNotNull();
@@ -59,6 +60,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
       return new CommonAttribute(type, positionalArguments, namedArguments);
     }
 
+    [CanBeNull]
     private CommonPositionalArgument GetPositionalArgument (MetadataAttributeValue argument, int position)
     {
       if (argument.IsBadValue())
@@ -69,7 +71,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
 
     private CommonNamedArgument GetNamedArgument (IMetadataCustomAttributeFieldInitialization argument)
     {
-      return new CommonNamedArgument(argument.Field.Name, GetCommonType(argument.Field.Type), GetValue(argument.Value));
+      return new CommonNamedArgument(argument.Field.Name, GetCommonType(argument.Field.Type.NotNull()), GetValue(argument.Value));
     }
 
     private CommonNamedArgument GetNamedArgument (IMetadataCustomAttributePropertyInitialization argument)
@@ -83,8 +85,11 @@ namespace TestFx.ReSharper.Utilities.Metadata
 
       if (argument.ValuesArray != null)
         return argument.ValuesArray.Select(GetValue).ToArray();
-      if (argument.Value is IMetadataType)
-        return GetCommonType(((IMetadataType) argument.Value));
+
+      var type = argument.Value as IMetadataType;
+      if (type != null)
+        return GetCommonType(type);
+
       return argument.Value;
     }
   }

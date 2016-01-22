@@ -65,7 +65,7 @@ namespace TestFx.SpecK
 
   public abstract class Spec : Spec<Dummy>
   {
-    public override sealed Dummy CreateSubject ()
+    public sealed override Dummy CreateSubject ()
     {
       throw new NotSupportedException();
     }

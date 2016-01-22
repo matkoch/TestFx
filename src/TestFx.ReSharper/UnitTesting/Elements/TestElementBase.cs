@@ -172,7 +172,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       get { return _unitTestProvider; }
     }
 
-    public IUnitTestRunStrategy GetRunStrategy (IHostProvider hostProvider)
+    public IUnitTestRunStrategy GetRunStrategy ([NotNull] IHostProvider hostProvider)
     {
       return RunStrategy;
     }

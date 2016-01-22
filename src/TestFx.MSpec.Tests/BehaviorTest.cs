@@ -19,6 +19,11 @@ using Machine.Specifications;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
+// ReSharper disable UnassignedField.Local
+// ReSharper disable UnusedMember.Local
+// ReSharper disable ClassNeverInstantiated.Global
+#pragma warning disable 649
+#pragma warning disable 169
 
 namespace TestFx.MSpec.Tests
 {

@@ -40,7 +40,7 @@ namespace TestFx.TestInfrastructure
     {
       var failure = GetFailingOperation(testResult, failingOperation);
 
-      var exception = failure.Exception.AssertNotNull();
+      var exception = failure.Exception.NotNull();
       if (message != null)
         Assert.That(exception.Message, Is.EqualTo(message));
 

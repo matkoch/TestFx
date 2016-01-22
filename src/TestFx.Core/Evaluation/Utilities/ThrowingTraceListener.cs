@@ -14,6 +14,7 @@
 
 using System;
 using System.Diagnostics;
+using JetBrains.Annotations;
 
 namespace TestFx.Evaluation.Utilities
 {
@@ -27,12 +28,12 @@ namespace TestFx.Evaluation.Utilities
     {
     }
 
-    public override void Fail (string message)
+    public override void Fail ([NotNull] string message)
     {
       throw new DiagnosticException(message);
     }
 
-    public override void Fail (string message, string detailMessage)
+    public override void Fail ([NotNull] string message, string detailMessage)
     {
       throw new DiagnosticException(message, detailMessage);
     }

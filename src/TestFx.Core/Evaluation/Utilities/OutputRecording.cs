@@ -66,7 +66,7 @@ namespace TestFx.Evaluation.Utilities
       Console.SetError(TextWriter.Synchronized(errOut));
     }
 
-    private void SwapTraceListeners (TraceListener newListener, [CanBeNull] TraceListener oldListener)
+    private void SwapTraceListeners ([CanBeNull] TraceListener newListener, [CanBeNull] TraceListener oldListener)
     {
       if (oldListener != null)
         Trace.Listeners.Remove(oldListener);

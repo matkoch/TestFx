@@ -40,9 +40,9 @@ namespace TestFx.Utilities.Reflection
     public CommonAttribute GetCommonAttribute (CustomAttributeData customAttributeData)
     {
       var positionalArguments = customAttributeData.ConstructorArguments.Select(GetCommonPositionalArgument);
-      var namedArguments = customAttributeData.NamedArguments.AssertNotNull().Select(GetCommonNamedArgument);
+      var namedArguments = customAttributeData.NamedArguments.NotNull().Select(GetCommonNamedArgument);
 
-      return new CommonAttribute(GetCommonType(customAttributeData.Constructor.DeclaringType), positionalArguments, namedArguments);
+      return new CommonAttribute(GetCommonType(customAttributeData.Constructor.DeclaringType.NotNull()), positionalArguments, namedArguments);
     }
 
     private CommonNamedArgument GetCommonNamedArgument (CustomAttributeNamedArgument argument)

@@ -22,6 +22,7 @@ using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.SpecK.Implementation.Utilities;
 using TestFx.SpecK.InferredApi;
+using TestFx.Utilities;
 
 namespace TestFx.SpecK.Implementation.Controllers
 {
@@ -85,19 +86,21 @@ namespace TestFx.SpecK.Implementation.Controllers
         testControllerWithSubject.SetSubjectFactory<SetupSubject>("<Create_Subject>", x => _suite.CreateSubject());
 
       _testSetupCleanupTuples.ForEach(
-          x => testControllerWithSubject.AddSetupCleanup<SetupCommon, CleanupCommon>(ConvertToNonGeneric(x.Item1), ConvertToNonGeneric(x.Item2)));
+          x => testControllerWithSubject.AddSetupCleanup<SetupCommon, CleanupCommon>(
+              setup: ConvertToNonGeneric(x.Item1).NotNull(),
+              cleanup: ConvertToNonGeneric(x.Item2)));
     }
 
     private ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (
         [CanBeNull] Action<TSubject> voidAction,
         [CanBeNull] Func<TSubject, TResult> resultAction)
     {
-      //var actionText = _introspectionPresenter.Present("{0}", new[] { expression.ToCommon(typeof (ISuite), typeof (ITestContext)) });
       var actionContainer = new ActionContainer<TSubject, TResult>("<Action>", voidAction, resultAction);
       return _controllerFactory.CreateSpecializedSuiteController(_provider, actionContainer, ConfigureTestController);
     }
 
-    private Action<Extensibility.Contexts.ITestContext> ConvertToNonGeneric (Action<ITestContext<TSubject>> action)
+    [CanBeNull]
+    private Action<Extensibility.Contexts.ITestContext> ConvertToNonGeneric ([CanBeNull] Action<ITestContext<TSubject>> action)
     {
       return action != null ? (x => action((ITestContext<TSubject>) x)) : (Action<Extensibility.Contexts.ITestContext>) null;
     }

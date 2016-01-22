@@ -34,7 +34,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
 
     public IEnumerable<IMetadataTypeInfo> GetImplementedTypes (IMetadataTypeInfo type)
     {
-      return type.DescendantsAndSelf(x => x.Base.AssertNotNull().Type, x => x.Base != null).Concat(type.Interfaces.Select(x => x.Type));
+      return type.DescendantsAndSelf(x => x.Base.NotNull().Type, x => x.Base != null).Concat(type.Interfaces.Select(x => x.Type));
     }
 
     public bool IsImplementingType (IMetadataTypeInfo type, Type implementedType)

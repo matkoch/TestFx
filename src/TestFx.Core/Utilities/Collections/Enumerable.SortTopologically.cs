@@ -35,14 +35,14 @@ namespace TestFx.Utilities.Collections
             .ToList();
 
         if (throwIfOrderIsUndefined && independents.Count > 1)
-          throw new UndefinedOrderException(independents.Select(x => x.Value));
+          throw new UndefinedOrderException { Data = { { "items", independents.Select(x => x.Value) } } };
 
         var independent = independents.FirstOrDefault();
         if (independent == null)
         {
           var scc = new StronglyConnectedComponentFinder<T>();
           var enumerable = scc.DetectCycle(graphAsList).Select(x => x.Select(y => y.Value));
-          throw new CircularDependencyException(enumerable.Cast<IEnumerable>());
+          throw new CircularDependencyException(enumerable);
         }
 
         graphAsList.Remove(independent);

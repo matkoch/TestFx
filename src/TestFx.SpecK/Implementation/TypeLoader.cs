@@ -41,7 +41,7 @@ namespace TestFx.SpecK.Implementation
     protected override void InitializeTypeSpecificFields (object suite, SuiteProvider provider)
     {
       var suiteType = suite.GetType();
-      var closedSpeckType = suiteType.GetClosedTypeOf(typeof (ISuite<>)).AssertNotNull();
+      var closedSpeckType = suiteType.GetClosedTypeOf(typeof (ISuite<>)).NotNull();
       var subjectType = closedSpeckType.GetGenericArguments().Single();
 
       var suiteController = _controllerFactory.CreateClassSuiteController(suite, subjectType, provider);

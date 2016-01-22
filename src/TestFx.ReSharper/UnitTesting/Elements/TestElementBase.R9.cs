@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using JetBrains.ReSharper.UnitTestFramework;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
@@ -30,7 +31,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return _text;
     }
 
-    public IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements, IUnitTestRun run)
+    public IList<UnitTestTask> GetTaskSequence ([NotNull] ICollection<IUnitTestElement> explicitElements, [NotNull] IUnitTestRun run)
     {
       return GetTaskSequence(explicitElements);
     }

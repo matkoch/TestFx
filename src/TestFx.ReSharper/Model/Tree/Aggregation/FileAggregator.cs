@@ -59,6 +59,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       return new TestFile(classTests, csharpFile);
     }
 
+    [CanBeNull]
     private ITestDeclaration GetClassTest (IClassDeclaration classDeclaration, IIdentity parentIdentity)
     {
       var text = _treePresenter.Present(classDeclaration);
@@ -66,9 +67,9 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
         return null;
 
       var identity = parentIdentity.CreateChildIdentity(classDeclaration.CLRName);
-      var clazz = (IClass) classDeclaration.DeclaredElement;
+      var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
       var categories = clazz.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
-          x => x.PositionParameter(0).ArrayValue.AssertNotNull().Select(y => (string) y.ConstantValue.Value),
+          x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
           () => new string[0]);
       var constructorDeclaration = classDeclaration.ConstructorDeclarations.SingleOrDefault(x => !x.IsStatic && x.ParameterDeclarations.Count == 0);
       var expressionTests = TreeNodeEnumerable.Create(
@@ -83,7 +84,8 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       return new ClassTestDeclaration(identity, _project, categories, text, expressionTests, classDeclaration);
     }
 
-    private ITestDeclaration GetInvocationTest (IInvocationExpression invocationExpression, IIdentity parentIdentity)
+    [CanBeNull]
+    private ITestDeclaration GetInvocationTest(IInvocationExpression invocationExpression, IIdentity parentIdentity)
     {
       var text = _treePresenter.Present(invocationExpression);
       if (text == null)

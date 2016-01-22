@@ -90,7 +90,7 @@ namespace TestFx.Extensibility.Controllers
       // TODO: shared code with SuiteController
       IOperationProvider cleanupProvider = null;
       if (cleanup != null)
-        cleanupProvider = OperationProvider.Create<TCleanup>(OperationType.Action, cleanupText.AssertNotNull(), InjectContextAndGuardAction(cleanup));
+        cleanupProvider = OperationProvider.Create<TCleanup>(OperationType.Action, cleanupText.NotNull(), InjectContextAndGuardAction(cleanup));
       var setupProvider = OperationProvider.Create<TSetup>(OperationType.Action, setupText, InjectContextAndGuardAction(setup), cleanupProvider);
       var unsortedOperationProviders = cleanupProvider.Concat(_provider.OperationProviders).Concat(setupProvider).WhereNotNull();
       _provider.OperationProviders = _operationSorter.Sort(unsortedOperationProviders);
@@ -102,7 +102,7 @@ namespace TestFx.Extensibility.Controllers
       var newOperationProviders = _provider.OperationProviders.Where(x => typeof (T).IsAssignableFrom(x.Descriptor))
           .Select(x => OperationProvider.Create<T>(x.Type, x.Text, () => replacingAction(_context, x.Action), x.CleanupProvider));
       RemoveAll<T>();
-      var unsortedOperationProviders = _provider.OperationProviders.Concat(newOperationProviders.Cast<IOperationProvider>());
+      var unsortedOperationProviders = _provider.OperationProviders.Concat(newOperationProviders);
       _provider.OperationProviders = _operationSorter.Sort(unsortedOperationProviders);
     }
 

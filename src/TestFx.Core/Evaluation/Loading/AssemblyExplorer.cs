@@ -35,7 +35,7 @@ namespace TestFx.Evaluation.Loading
       var assemblySetupTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<IAssemblySetup>());
 
       var suiteTypes = assembly.GetTypes().Where(x => x.GetAttribute<SuiteAttributeBase>() != null).ToList();
-      var suiteAttributes = suiteTypes.Select(x => x.GetAttribute<SuiteAttributeBase>().AssertNotNull().GetType()).Distinct();
+      var suiteAttributes = suiteTypes.Select(x => x.GetAttribute<SuiteAttributeBase>().NotNull().GetType()).Distinct();
       //var suiteBaseTypes = suiteTypes.Select(x => x.GetImmediateDerivedTypesOf<ISuite>().Single()).Distinct();
       var testExtensions = assembly.GetAttributes<UseTestExtension>()
           .Select(x => x.TestExtensionType.CreateInstance<ITestExtension>())
@@ -47,8 +47,8 @@ namespace TestFx.Evaluation.Loading
 
     private ITypeLoader CreateTypeLoader (Type suiteAttribute, IEnumerable<ITestExtension> testExtensions)
     {
-      var typeLoaderType = suiteAttribute.GetAttribute<TypeLoaderTypeAttribute>().AssertNotNull().TypeLoaderType;
-      var operationOrdering = suiteAttribute.GetAttribute<OperationOrderingAttribute>().AssertNotNull().OperationDescriptors;
+      var typeLoaderType = suiteAttribute.GetAttribute<TypeLoaderTypeAttribute>().NotNull().TypeLoaderType;
+      var operationOrdering = suiteAttribute.GetAttribute<OperationOrderingAttribute>().NotNull().OperationDescriptors;
 
       var builder = new ContainerBuilder();
       builder.RegisterModule<UtilitiesModule>();

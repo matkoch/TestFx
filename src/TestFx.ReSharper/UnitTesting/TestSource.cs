@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi.Tree;
@@ -48,17 +49,21 @@ namespace TestFx.ReSharper.UnitTesting
       _testProvider = testProvider;
     }
 
-    public void ExploreSolution (IUnitTestElementsObserver observer)
+    public void ExploreSolution ([NotNull] IUnitTestElementsObserver observer)
     {
     }
 
-    public void ExploreProjects (IDictionary<IProject, FileSystemPath> projects, MetadataLoader loader, IUnitTestElementsObserver observer, CancellationToken cancellationToken)
+    public void ExploreProjects (
+        [NotNull] IDictionary<IProject, FileSystemPath> projects,
+        [NotNull] MetadataLoader loader,
+        [NotNull] IUnitTestElementsObserver observer,
+        CancellationToken cancellationToken)
     {
       _metadataElementsSource.ExploreProjects(projects, loader, observer, _testMetadataExplorer.Explore, cancellationToken);
       observer.OnCompleted();
     }
 
-    public void ExploreFile (IFile psiFile, IUnitTestElementsObserver observer, Func<bool> interrupted)
+    public void ExploreFile ([NotNull] IFile psiFile, [NotNull] IUnitTestElementsObserver observer, [NotNull] Func<bool> interrupted)
     {
       _testFileExplorer.Explore(psiFile, observer.OnUnitTestElementDisposition, () => !interrupted());
       observer.OnCompleted();

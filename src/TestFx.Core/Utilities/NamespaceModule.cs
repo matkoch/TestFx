@@ -15,6 +15,7 @@
 using System;
 using System.Reflection;
 using Autofac;
+using JetBrains.Annotations;
 using Module = Autofac.Module;
 
 namespace TestFx.Utilities
@@ -25,7 +26,7 @@ namespace TestFx.Utilities
     private readonly string _namespace;
 
     public NamespaceModule (Type typeInNamespace)
-        : this(typeInNamespace.Assembly, typeInNamespace.Namespace)
+        : this(typeInNamespace.Assembly, typeInNamespace.Namespace.NotNull())
     {
     }
 
@@ -35,7 +36,7 @@ namespace TestFx.Utilities
       _namespace = @namespace;
     }
 
-    protected override void Load (ContainerBuilder builder)
+    protected override void Load ([NotNull] ContainerBuilder builder)
     {
       builder.RegisterAssemblyTypes(_assembly).InNamespace(_namespace)
           .AsImplementedInterfaces()

@@ -77,7 +77,7 @@ namespace TestFx.ReSharper.References
       if (attribute == null)
         return null;
 
-      var argument = (ICSharpArgument) literalExpression.Parent.AssertNotNull();
+      var argument = (ICSharpArgument) literalExpression.Parent.NotNull();
       if (argument.MatchingParameter == null)
         return null;
 
@@ -85,7 +85,7 @@ namespace TestFx.ReSharper.References
       if (parameter.HasAttributeInstance(s_memberReferenceAttribute, false))
         return null;
 
-      var constructor = attribute.ConstructorReference.GetResolved<IConstructor>().AssertNotNull();
+      var constructor = attribute.ConstructorReference.GetResolved<IConstructor>().NotNull();
       var literalArgumentIndex = constructor.Parameters.IndexOf(parameter);
       if (literalArgumentIndex == 0)
         return null;

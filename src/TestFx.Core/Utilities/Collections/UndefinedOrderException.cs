@@ -7,25 +7,19 @@ namespace TestFx.Utilities.Collections
   /// <summary>
   /// Exception that is thrown when ordering a set of items where the order is not totally defined.
   /// </summary>
+  [Serializable]
   public class UndefinedOrderException : Exception
   {
-    private const string c_message = "Undefined order for items:\r\n";
+    private const string c_message = "Undefined order of items.";
 
-    public UndefinedOrderException (IEnumerable items)
+    public UndefinedOrderException ()
+      : base(c_message)
     {
-      Items = items;
     }
 
     protected UndefinedOrderException (SerializationInfo info, StreamingContext context)
         : base(info, context)
     {
-    }
-
-    public IEnumerable Items { get; private set; }
-
-    public override string Message
-    {
-      get { return c_message + Items; }
     }
   }
 }

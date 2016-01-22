@@ -13,14 +13,12 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Providers
 {
-  public interface ITestProvider : IProvider
+  public interface ITestProvider : IOperationCollectionProvider
   {
-    IEnumerable<IOperationProvider> OperationProviders { get; }
   }
 
   public class TestProvider : OperationCollectionProvider, ITestProvider

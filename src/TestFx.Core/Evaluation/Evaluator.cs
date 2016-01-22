@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
+using JetBrains.Annotations;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
@@ -23,6 +24,7 @@ using TestFx.Evaluation.Runners;
 
 namespace TestFx.Evaluation
 {
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class Evaluator
   {
     public static IRunResult Run (IRunIntent runIntent, params IRunListener[] listeners)

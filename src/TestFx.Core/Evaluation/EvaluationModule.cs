@@ -14,6 +14,7 @@
 
 using System;
 using Autofac;
+using JetBrains.Annotations;
 using TestFx.Evaluation.Loading;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
@@ -33,7 +34,7 @@ namespace TestFx.Evaluation
       _useSeparateAppDomains = useSeparateAppDomains;
     }
 
-    protected override void Load (ContainerBuilder builder)
+    protected override void Load ([NotNull] ContainerBuilder builder)
     {
       // Loading
       builder.RegisterType<AssemblyExplorer>().As<IAssemblyExplorer>();

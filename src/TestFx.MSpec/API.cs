@@ -18,9 +18,9 @@ using TestFx;
 using TestFx.Extensibility;
 using TestFx.MSpec.Implementation;
 
+// ReSharper disable once CheckNamespace
 namespace Machine.Specifications
 {
-
   #region SuiteAttribute
 
   [TypeLoaderType (typeof (TypeLoader))]
@@ -58,6 +58,8 @@ namespace Machine.Specifications
 
   public delegate void Cleanup ();
 
+  // ReSharper disable once InconsistentNaming
+  // ReSharper disable once UnusedTypeParameter
   public delegate void Behaves_like<T> ();
 
   #endregion
@@ -95,14 +97,18 @@ namespace Machine.Specifications
 
   #region Catch
 
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class Catch
   {
+    [CanBeNull]
     public static Exception Exception (Action throwingAction)
     {
       return Only<Exception>(throwingAction);
     }
 
-    public static Exception Exception<T> (Func<T> throwingFunc)
+    [CanBeNull]
+    public static Exception Exception<T>(Func<T> throwingFunc)
     {
       try
       {
@@ -116,7 +122,8 @@ namespace Machine.Specifications
       return null;
     }
 
-    public static TException Only<TException> (Action throwingAction)
+    [CanBeNull]
+    public static TException Only<TException>(Action throwingAction)
         where TException : Exception
     {
       try

@@ -49,20 +49,20 @@ namespace TestFx.ReSharper.UnitTesting
       _solution = solution;
     }
 
-    public void SerializeElement (XmlElement xmlElement, IUnitTestElement element)
+    public void SerializeElement ([NotNull] XmlElement xmlElement, [NotNull] IUnitTestElement element)
     {
       xmlElement.SetAttribute(c_elementType, element.GetType().FullName);
       xmlElement.SetAttribute(c_absoluteId, element.Id);
-      xmlElement.SetAttribute(c_projectId, ((ITestElement) element).GetProject().AssertNotNull().GetPersistentID());
+      xmlElement.SetAttribute(c_projectId, ObjectExtensions.NotNull(((ITestElement) element).GetProject()).GetPersistentID());
       xmlElement.SetAttribute(c_text, element.GetPresentation());
       xmlElement.SetAttribute(c_categories, element.Categories.Select(x => x.Name).Join("|"));
     }
 
     public IUnitTestElement DeserializeElement (
-        XmlElement parent,
-        string id,
+        [NotNull] XmlElement parent,
+        [NotNull] string id,
         [CanBeNull] IUnitTestElement parentElement,
-        IProject project)
+        [NotNull] IProject project)
     {
       return DeserializeElement(parent, parentElement);
     }
@@ -76,7 +76,7 @@ namespace TestFx.ReSharper.UnitTesting
       var categories = xmlElement.GetAttribute(c_categories).Split('|');
 
       var identity = Identity.Parse(absoluteId);
-      var project = ProjectUtil.FindProjectElementByPersistentID(_solution, projectId).GetProject();
+      var project = ProjectUtil.FindProjectElementByPersistentID(_solution, projectId).GetProject().NotNull();
       var entity = new TestEntitySurrogate(identity, project, categories, text);
 
       return _testElementFactory.GetOrCreateTestElement(elementTypeFullName, entity, parentElement);

@@ -67,7 +67,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
           identity =>
               new ClassTestElement(
                   identity,
-                  new Task[] { new RunTask(), new AssemblyTask(identity.Parent), new TestTask(identity) }));
+                  new Task[] { new RunTask(), new AssemblyTask(identity.Parent.NotNull()), new TestTask(identity) }));
 
       CreateAndAppendChildren(element, testEntity);
       return element;
@@ -80,7 +80,6 @@ namespace TestFx.ReSharper.UnitTesting.Elements
           identity => new ChildTestElement(identity, new Task[] { new TestTask(identity) }));
     }
 
-    [CanBeNull]
     private IUnitTestElement GetOrCreateAndUpdateElement (
         ITestEntity testEntity,
         Func<ITestIdentity, ITestElement> factory)

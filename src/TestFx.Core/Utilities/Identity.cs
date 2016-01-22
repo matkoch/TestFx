@@ -98,7 +98,7 @@ namespace TestFx.Utilities
       return string.Equals(Absolute, other.Absolute);
     }
 
-    public override bool Equals (object obj)
+    public override bool Equals ([CanBeNull] object obj)
     {
       return Equals(obj as IIdentity);
     }

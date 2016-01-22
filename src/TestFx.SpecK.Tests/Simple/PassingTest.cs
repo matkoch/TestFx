@@ -14,6 +14,7 @@
 
 using System;
 using FakeItEasy.Core;
+using JetBrains.Annotations;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
@@ -24,7 +25,8 @@ namespace TestFx.SpecK.Tests.Simple
     [Subject (typeof (PassingTest), "Test")]
     public class DomainSpec : Spec
     {
-      object Object;
+      [UsedImplicitly]
+      object ResetableObject;
 
       public DomainSpec ()
       {

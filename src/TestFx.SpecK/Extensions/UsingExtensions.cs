@@ -13,15 +13,18 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.SpecK.Implementation;
 using TestFx.SpecK.Implementation.Containers;
-using TestFx.SpecK.Implementation.Controllers;
 using TestFx.SpecK.InferredApi;
 using TestFx.Utilities.Reflection;
 
+// ReSharper disable once CheckNamespace
 namespace TestFx.SpecK
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class UsingExtensions
   {
     public static IArrangeOrAssert<TSubject, TResult, TVars, TSequence> GivenUsing<TSubject, TResult, TVars, TSequence> (

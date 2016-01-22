@@ -53,7 +53,7 @@ namespace TestFx.Evaluation.Utilities
       return new AppDomain(appDomain);
     }
 
-    private AppDomainSetup CreateAppDomainSetup (Assembly assembly, string shadowCopyPath)
+    private AppDomainSetup CreateAppDomainSetup (Assembly assembly, [CanBeNull] string shadowCopyPath)
     {
       return new AppDomainSetup
              {

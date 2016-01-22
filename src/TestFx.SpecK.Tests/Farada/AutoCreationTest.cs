@@ -16,6 +16,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using FakeItEasy.Core;
 using FluentAssertions;
+using JetBrains.Annotations;
 using TestFx.Evaluation.Results;
 using TestFx.Farada;
 using TestFx.TestInfrastructure;
@@ -53,6 +54,7 @@ namespace TestFx.SpecK.Tests.Farada
               "Fills properties");
     }
 
+    [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
     public class DomainModel
     {
       [Required]

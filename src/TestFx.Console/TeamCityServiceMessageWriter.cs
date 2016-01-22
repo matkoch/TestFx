@@ -15,6 +15,7 @@
 using System;
 using System.Globalization;
 using System.Text;
+// ReSharper disable All
 
 namespace TestFx.Console
 {

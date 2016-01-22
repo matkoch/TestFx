@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using TestFx.Evaluation;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
@@ -31,6 +32,7 @@ namespace TestFx.SpecK.Implementation.Utilities
     T CreateFor<T> (ISuite<T> suiteInstance);
   }
 
+  [UsedImplicitly]
   public class SubjectFactory : ISubjectFactory
   {
     public T CreateFor<T> (ISuite<T> suiteInstance)
@@ -51,7 +53,7 @@ namespace TestFx.SpecK.Implementation.Utilities
       {
         var missingParameters = constructorParameters.Select((x, i) => Tuple.Create(x, arguments[i]))
             .Where(x => x.Item2 == null)
-            .Select(x => x.Item1.AssertNotNull().Name);
+            .Select(x => x.Item1.NotNull().Name);
 
         throw new EvaluationException(
             string.Format(
@@ -63,6 +65,7 @@ namespace TestFx.SpecK.Implementation.Utilities
       return (T) constructor.Invoke(arguments);
     }
 
+    [CanBeNull]
     private object GetArgumentValue (ParameterInfo parameter, object suiteInstance, IList<FieldInfo> suiteFields)
     {
       var argumentField = suiteFields.SingleOrDefault(x => x.Name.Equals(parameter.Name, StringComparison.OrdinalIgnoreCase));

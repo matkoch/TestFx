@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using Machine.Specifications;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
@@ -41,8 +42,8 @@ namespace TestFx.MSpec.Implementation
 
       var setupOperationProviders = GetSetupOperationProviders(hierarchyTypes, behaviorTypes, suite, suiteType);
 
-      var assertionFields = GetFields<It>(suiteType).Concat(behaviorTypes.SelectMany(GetFields<It>));
-      var testProviders = assertionFields.Select(x => CreateTestProvider(provider.Identity, GetInstance(x.DeclaringType, suite), x));
+      var assertionFields = Enumerable.Concat(GetFields<It>(suiteType), behaviorTypes.SelectMany(GetFields<It>));
+      var testProviders = assertionFields.Select(x => CreateTestProvider(provider.Identity, GetInstance(x.DeclaringType.NotNull(), suite), x));
 
       provider.ContextProviders = setupOperationProviders;
       provider.TestProviders = testProviders;
@@ -89,6 +90,7 @@ namespace TestFx.MSpec.Implementation
       return declaringType.IsInstanceOfType(suite) ? suite : declaringType.CreateInstance<object>();
     }
 
+    [CanBeNull]
     private IOperationProvider GetEstablishOperationProviderOrNull (Type type, object instance)
     {
       var setupField = GetFields<Establish>(type).SingleOrDefault();

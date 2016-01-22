@@ -22,6 +22,7 @@ namespace TestFx.Utilities.Collections
   /// <summary>
   /// Exception that is thrown when sorting a set of items is not possible due to a circular dependency.
   /// </summary>
+  [Serializable]
   public class CircularDependencyException : Exception
   {
     private const string c_message = "Circular dependencies detected:\r\n";

@@ -15,6 +15,7 @@
 using System;
 using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
+using JetBrains.Util;
 using TestFx.Extensibility;
 using TestFx.ReSharper.Utilities.Metadata;
 
@@ -43,7 +44,7 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
         return null;
 
       var subjectAttribute = subjectAttributeData.ToCommon();
-      var displayFormatAttribute = subjectAttributeData.UsedConstructor.GetAttributeData<DisplayFormatAttribute>().ToCommon();
+      var displayFormatAttribute = subjectAttributeData.UsedConstructor.NotNull().GetAttributeData<DisplayFormatAttribute>().NotNull().ToCommon();
       return _introspectionPresenter.Present(displayFormatAttribute, type.ToCommon(), subjectAttribute);
     }
   }

@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Util;
+using JetBrains.Util;
 using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Utilities.Psi
@@ -35,7 +36,7 @@ namespace TestFx.ReSharper.Utilities.Psi
 
     public IEnumerable<ITypeElement> GetImplementedTypes (IType type)
     {
-      return type.IsResolved ? GetImplementedTypes(type.GetTypeElement()) : new ITypeElement[0];
+      return type.IsResolved ? GetImplementedTypes(type.GetTypeElement().NotNull()) : new ITypeElement[0];
     }
 
     public IEnumerable<ITypeElement> GetImplementedTypes (ITypeElement type)

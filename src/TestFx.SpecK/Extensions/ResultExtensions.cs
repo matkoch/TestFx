@@ -14,13 +14,16 @@
 
 using System;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
 using TestFx.SpecK.Implementation.Containers;
-using TestFx.SpecK.Implementation.Controllers;
 using TestFx.SpecK.Implementation.Utilities;
 using TestFx.SpecK.InferredApi;
 
+// ReSharper disable once CheckNamespace
 namespace TestFx.SpecK
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class ResultExtensions
   {
     /// <summary>

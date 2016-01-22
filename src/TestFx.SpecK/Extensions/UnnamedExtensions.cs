@@ -13,11 +13,15 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.SpecK.InferredApi;
 
+// ReSharper disable once CheckNamespace
 namespace TestFx.SpecK
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class UnnamedExtensions
   {
     [DisplayFormat ("<Default>")]

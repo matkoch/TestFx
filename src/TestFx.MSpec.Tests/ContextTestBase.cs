@@ -14,8 +14,11 @@
 
 using System;
 using FakeItEasy;
+using JetBrains.Annotations;
 using Machine.Specifications;
 using TestFx.TestInfrastructure;
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable UnusedMember.Local
 
 namespace TestFx.MSpec.Tests
 {

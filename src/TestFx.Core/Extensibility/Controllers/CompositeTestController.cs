@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using TestFx.Extensibility.Contexts;
 using TestFx.Utilities.Collections;
 
@@ -24,12 +25,16 @@ namespace TestFx.Extensibility.Controllers
   {
     private readonly ICollection<ITestController> _controllers;
 
-    public CompositeTestController (ICollection<ITestController> controllers)
+    protected CompositeTestController (IEnumerable<ITestController> controllers)
     {
       _controllers = controllers.ToList();
     }
 
-    public void AddSetupCleanup<TSetup, TCleanup> (string setupText, Action<ITestContext> setup, string cleanupText, Action<ITestContext> cleanup)
+    public void AddSetupCleanup<TSetup, TCleanup> (
+        string setupText,
+        Action<ITestContext> setup,
+        [CanBeNull] string cleanupText,
+        [CanBeNull] Action<ITestContext> cleanup)
         where TSetup : IActionDescriptor
         where TCleanup : ICleanupDescriptor
     {

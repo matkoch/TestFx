@@ -35,7 +35,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       var testFile = csharpFile.UserData.GetData(s_testFileKey);
       if (testFile == null)
       {
-        testFile = FileAggregatorFactory.Instance.Aggregate(file.GetProject().AssertNotNull(), notInterrupted).GetTestFile(csharpFile);
+        testFile = FileAggregatorFactory.Instance.Aggregate(file.GetProject().NotNull(), notInterrupted).GetTestFile(csharpFile);
         csharpFile.UserData.PutData(s_testFileKey, testFile);
       }
 

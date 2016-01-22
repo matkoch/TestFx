@@ -21,7 +21,7 @@ namespace TestFx.Extensibility.Providers
 {
   public interface ISuiteProvider : IProvider
   {
-    IReadOnlyCollection<string> Resources { get; }
+    IEnumerable<string> Resources { get; }
 
     IEnumerable<IOperationProvider> ContextProviders { get; }
     IEnumerable<ISuiteProvider> SuiteProviders { get; }
@@ -58,7 +58,7 @@ namespace TestFx.Extensibility.Providers
       _testProviders = new ITestProvider[0];
     }
 
-    public IReadOnlyCollection<string> Resources
+    public IEnumerable<string> Resources
     {
       get { return _resources; }
     }

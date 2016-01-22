@@ -17,6 +17,7 @@ using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Reflection
 {
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class PrivateInvokeExtensions
   {
     [CanBeNull]

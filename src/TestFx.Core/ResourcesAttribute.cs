@@ -13,10 +13,12 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 
 namespace TestFx
 {
   [AttributeUsage (AttributeTargets.Class)]
+  [UsedImplicitly]
   public sealed class ResourcesAttribute : Attribute
   {
     private readonly string[] _resources;

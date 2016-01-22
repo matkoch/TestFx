@@ -13,9 +13,12 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 
 namespace TestFx
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   [AttributeUsage (AttributeTargets.Class)]
   public sealed class CategoriesAttribute : Attribute
   {

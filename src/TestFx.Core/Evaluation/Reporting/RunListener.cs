@@ -16,12 +16,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Results;
 using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation.Reporting
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public interface IRunListener
   {
     void OnRunStarted (IRunIntent intent);

@@ -21,7 +21,7 @@ namespace TestFx.Extensibility.Providers
 {
   public interface IOperationCollectionProvider : IProvider
   {
-    IEnumerable<IOperationProvider> OperationProviders { get; set; }
+    IEnumerable<IOperationProvider> OperationProviders { get; }
   }
 
   public class OperationCollectionProvider : Provider, IOperationCollectionProvider
