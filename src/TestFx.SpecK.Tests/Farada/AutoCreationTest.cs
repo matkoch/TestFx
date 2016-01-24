@@ -30,6 +30,7 @@ namespace TestFx.SpecK.Tests.Farada
     public class DomainSpec : Spec
     {
       [AutoData] DomainModel Model;
+      [AutoData] [Range (5, 7)] int Integer;
 
       public DomainSpec ()
       {
@@ -39,7 +40,8 @@ namespace TestFx.SpecK.Tests.Farada
                 {
                   Model.Age.Should ().BeInRange (30, 33);
                   Model.FirstName.Length.Should ().BeInRange (3, 10);
-                }));
+                })
+                .It ("Fills fields", x => Integer.Should ().BeInRange (5, 7)));
       }
     }
 
@@ -51,7 +53,8 @@ namespace TestFx.SpecK.Tests.Farada
               Constants.Reset_Instance_Fields,
               Constants.Create_AutoData + "<1337>",
               Constants.Action,
-              "Fills properties");
+              "Fills properties",
+              "Fills fields");
     }
 
     [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
@@ -62,7 +65,7 @@ namespace TestFx.SpecK.Tests.Farada
       [MaxLength (10)]
       public string FirstName { get; set; }
 
-      [System.ComponentModel.DataAnnotations.Range (30, 33)]
+      [Range (30, 33)]
       public int Age { get; set; }
     }
   }

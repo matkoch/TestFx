@@ -17,6 +17,7 @@ using System.Linq;
 using System.Reflection;
 using Farada.TestDataGeneration;
 using Farada.TestDataGeneration.CompoundValueProviders;
+using Farada.TestDataGeneration.FastReflection;
 using Farada.TestDataGeneration.Fluent;
 using Farada.TestDataGeneration.ValueProviders;
 using JetBrains.Annotations;
@@ -30,7 +31,14 @@ namespace TestFx.Farada
 {
   public class FaradaTestExtension : ITestExtension
   {
-    private readonly Random _seedGenerator = new Random();
+    private readonly FastReflectionUtility _reflectionUtility;
+    private readonly Random _seedGenerator;
+
+    public FaradaTestExtension ()
+    {
+      _reflectionUtility = new FastReflectionUtility(new DefaultMemberExtensionService());
+      _seedGenerator = new Random();
+    }
 
     public int Priority
     {
@@ -81,9 +89,12 @@ namespace TestFx.Farada
           : (x => x);
     }
 
-    private void CreateAndAssignAuto(object suite, ITestDataGenerator generator, AutoDataAttribute attribute, FieldInfo field)
+    private void CreateAndAssignAuto (object suite, ITestDataGenerator generator, AutoDataAttribute attribute, FieldInfo field)
     {
-      var autoData = this.InvokeGenericMethod("CreateAutoData", new object[] { generator, attribute.MaxRecursionDepth }, new[] { field.FieldType }).NotNull();
+      var autoData = this.InvokeGenericMethod(
+          "CreateAutoData",
+          new object[] { generator, field, attribute.MaxRecursionDepth },
+          new[] { field.FieldType }).NotNull();
 
       attribute.CurrentSuite = suite;
       attribute.Mutate(autoData);
@@ -92,9 +103,9 @@ namespace TestFx.Farada
     }
 
     [UsedImplicitly]
-    private object CreateAutoData<T> (ITestDataGenerator generator, int maxRecursionDepth)
+    private object CreateAutoData<T> (ITestDataGenerator generator, FieldInfo field, int maxRecursionDepth)
     {
-      return generator.Create<T>(maxRecursionDepth);
+      return generator.Create<T>(maxRecursionDepth, _reflectionUtility.GetFieldInfo(field));
     }
   }
 }
