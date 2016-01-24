@@ -14,6 +14,7 @@
 
 using System;
 using FakeItEasy.Core;
+using JetBrains.Annotations;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
@@ -41,6 +42,7 @@ namespace TestFx.SpecK.Tests.Subject
               "Missing default constructor for subject type 'DomainType'.");
     }
 
+    [UsedImplicitly]
     public class DomainType
     {
       public DomainType ()

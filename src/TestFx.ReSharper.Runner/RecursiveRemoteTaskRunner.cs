@@ -47,7 +47,7 @@ namespace TestFx.ReSharper.Runner
 
       try
       {
-        var result = Evaluator.Run(runIntent, listener);
+        Evaluator.Run(runIntent, listener);
       }
       catch (Exception)
       {

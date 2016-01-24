@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -95,6 +95,16 @@ namespace TestFx.Evaluation.Reporting
     {
       var builder = new StringBuilder();
 
+      AppendOperations(results, builder);
+      AppendOutput(entries, builder);
+      if (exceptions != null)
+        AppendExceptions(exceptions, builder);
+
+      return builder.ToString();
+    }
+
+    private void AppendOperations (IEnumerable<IOperationResult> results, StringBuilder builder)
+    {
       builder.AppendLine("Operations:");
       foreach (var result in results)
       {
@@ -111,27 +121,28 @@ namespace TestFx.Evaluation.Reporting
 
         builder.Append("\r\n");
       }
+    }
 
+    private void AppendOutput (IEnumerable<OutputEntry> entries, StringBuilder builder)
+    {
       var entriesList = entries.ToList();
       if (entriesList.Count != 0)
       {
         builder.AppendLine().AppendLine("Output:");
         entriesList.ForEach(x => builder.AppendFormat("[{0}] {1}\r\n", x.Type.ToString(), x.Message));
       }
+    }
 
-      if (exceptions != null)
+    private static void AppendExceptions (IEnumerable<IExceptionDescriptor> exceptions, StringBuilder builder)
+    {
+      foreach (var exception in exceptions)
       {
-        foreach (var exception in exceptions)
-        {
-          builder.AppendLine().AppendLine();
+        builder.AppendLine().AppendLine();
 
-          builder.AppendFormat("{0}:", exception.FullName).AppendLine();
-          builder.Append(exception.Message).AppendLine();
-          builder.Append(exception.StackTrace);
-        }
+        builder.AppendFormat("{0}:", exception.FullName).AppendLine();
+        builder.Append(exception.Message).AppendLine();
+        builder.Append(exception.StackTrace);
       }
-
-      return builder.ToString();
     }
   }
 }

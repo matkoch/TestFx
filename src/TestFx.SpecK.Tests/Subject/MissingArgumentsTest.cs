@@ -14,6 +14,7 @@
 
 using System;
 using FakeItEasy.Core;
+using JetBrains.Annotations;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
@@ -41,6 +42,7 @@ namespace TestFx.SpecK.Tests.Subject
               "Missing constructor arguments for subject type 'DomainType': firstMissingString, secondMissingString");
     }
 
+    [UsedImplicitly]
     public class DomainType
     {
       public DomainType (string firstMissingString, string myString, string secondMissingString)

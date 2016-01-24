@@ -22,7 +22,6 @@ using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
 using TestFx.ReSharper.Utilities.Psi;
-using TestFx.Utilities;
 
 namespace TestFx.ReSharper.References
 {
@@ -30,7 +29,7 @@ namespace TestFx.ReSharper.References
   {
     private static readonly ClrTypeName s_memberReferenceAttribute = new ClrTypeName("JetBrains.Annotations.MemberReferenceAttribute");
 
-    public IReference[] GetReferences (ITreeNode element, IReference[] oldReferences)
+    public IReference[] GetReferences (ITreeNode element, [CanBeNull] IReference[] oldReferences)
     {
       var literalExpression = element as ICSharpLiteralExpression;
       if (literalExpression == null || !(literalExpression.ConstantValue.Value is string) || literalExpression.ConstantValue.IsBadValue())

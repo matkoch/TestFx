@@ -17,7 +17,6 @@ using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
-using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Model.Tree.Aggregation
 {

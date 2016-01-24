@@ -14,10 +14,13 @@
 
 using System;
 using FluentAssertions;
+using JetBrains.Annotations;
 using TestFx.Evaluation.Results;
 
 namespace TestFx.TestInfrastructure
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class ResultExtensions
   {
     public static T HasRelativeId<T> (this T result, string relativeId)

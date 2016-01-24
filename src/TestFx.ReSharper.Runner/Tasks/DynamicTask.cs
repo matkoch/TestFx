@@ -30,6 +30,7 @@ namespace TestFx.ReSharper.Runner.Tasks
     private readonly string _parentGuid;
     private readonly string _text;
 
+    [UsedImplicitly]
     public DynamicTask (XmlElement element)
         : base(element)
     {

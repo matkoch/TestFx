@@ -22,6 +22,7 @@ namespace TestFx.Utilities
   {
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
+    // ReSharper disable once UnusedParameter.Global
     public static T NotNull<T> ([CanBeNull] this T obj, string reason = null)
         where T : class
     {
@@ -31,6 +32,7 @@ namespace TestFx.Utilities
 
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
+    // ReSharper disable once UnusedParameter.Global
     public static T NotNull<T> ([CanBeNull] this object obj, string reason = null)
         where T : class
     {

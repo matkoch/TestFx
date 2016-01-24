@@ -14,6 +14,7 @@
 
 using System;
 using System.Xml;
+using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Runner.Tasks
@@ -21,6 +22,7 @@ namespace TestFx.ReSharper.Runner.Tasks
   [Serializable]
   public class AssemblyTask : Task
   {
+    [UsedImplicitly]
     public AssemblyTask (XmlElement element)
         : base(element)
     {

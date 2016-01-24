@@ -97,7 +97,7 @@ namespace TestFx.Utilities.Reflection
           () => new MissingMemberException(type.FullName, propertyName));
     }
 
-    private T GetMember<T> (Func<Type, T> memberSelector, Type type, Func<Exception> exceptionProvider)
+    private T GetMember<T> ([InstantHandle] Func<Type, T> memberSelector, Type type, [InstantHandle] Func<Exception> exceptionProvider)
         where T : MemberInfo
     {
       var member = type.DescendantsAndSelf(x => x.BaseType).Select(memberSelector).WhereNotNull().FirstOrDefault();

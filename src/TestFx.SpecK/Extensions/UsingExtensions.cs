@@ -64,6 +64,7 @@ namespace TestFx.SpecK
           "Create " + text,
           x => scope = scopeProvider((ITestContext<TSubject, TResult, TVars, TSequence>) x),
           "Dispose " + text,
+          // ReSharper disable once ImplicitlyCapturedClosure
           x => scope.Dispose());
       return (IArrangeOrAssert<TSubject, TResult, TVars, TSequence>) arrange;
     }

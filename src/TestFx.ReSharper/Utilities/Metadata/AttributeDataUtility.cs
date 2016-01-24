@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
+using JetBrains.Util;
 
 namespace TestFx.ReSharper.Utilities.Metadata
 {
@@ -34,7 +35,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
 
     public IEnumerable<IMetadataCustomAttribute> GetAttributeDatas<T> (IMetadataEntity entity) where T : Attribute
     {
-      return entity.CustomAttributes.Where(x => x.UsedConstructor.DeclaringType.Implements(typeof (T)));
+      return entity.CustomAttributes.Where(x => x.UsedConstructor.NotNull().DeclaringType.Implements(typeof (T)));
     }
 
     [CanBeNull]

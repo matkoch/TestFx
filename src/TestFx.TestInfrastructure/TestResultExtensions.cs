@@ -14,12 +14,15 @@
 
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.Utilities;
 
 namespace TestFx.TestInfrastructure
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class TestResultExtensions
   {
     public static ITestResult HasOperations (this ITestResult testResult, params string[] operations)

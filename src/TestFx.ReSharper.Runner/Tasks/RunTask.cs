@@ -16,6 +16,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Xml;
+using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Runner.Tasks
@@ -27,6 +28,7 @@ namespace TestFx.ReSharper.Runner.Tasks
 
     private readonly int _visualStudioProcessId;
 
+    [UsedImplicitly]
     public RunTask (XmlElement element)
         : base(element)
     {

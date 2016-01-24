@@ -74,6 +74,7 @@ namespace TestFx.Extensibility.Controllers
       return provider;
     }
     
+    // ReSharper disable once UnusedParameter.Local
     private void EnsureUniqueness (IProvider newProvider, IEnumerable<IProvider> existingProviders)
     {
       if (existingProviders.Any(x => x.Identity.Equals(newProvider.Identity)))
