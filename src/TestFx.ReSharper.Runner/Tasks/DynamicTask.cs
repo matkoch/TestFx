@@ -22,11 +22,9 @@ namespace TestFx.ReSharper.Runner.Tasks
   [Serializable]
   public class DynamicTask : Task
   {
-    private const string c_elementTypeFullName = "elementTypeFullName";
     private const string c_parentGuid = "parentAbsoluteId";
     private const string c_text = "text";
 
-    private readonly string _taskTypeFullName;
     private readonly string _parentGuid;
     private readonly string _text;
 
@@ -34,15 +32,13 @@ namespace TestFx.ReSharper.Runner.Tasks
     public DynamicTask (XmlElement element)
         : base(element)
     {
-      _taskTypeFullName = GetXmlAttribute(element, c_elementTypeFullName);
       _parentGuid = GetXmlAttribute(element, c_parentGuid);
       _text = GetXmlAttribute(element, c_text);
     }
 
-    public DynamicTask (Type taskType, string parentGuid, IIdentity identity, [CanBeNull] string text)
+    public DynamicTask (string parentGuid, IIdentity identity, [CanBeNull] string text)
         : base(identity)
     {
-      _taskTypeFullName = taskType.FullName;
       _parentGuid = parentGuid;
       _text = text;
     }
@@ -50,7 +46,6 @@ namespace TestFx.ReSharper.Runner.Tasks
     public override void SaveXml (XmlElement element)
     {
       base.SaveXml(element);
-      SetXmlAttribute(element, c_elementTypeFullName, _taskTypeFullName);
       SetXmlAttribute(element, c_parentGuid, _parentGuid);
       SetXmlAttribute(element, c_text, _text);
     }
@@ -58,11 +53,6 @@ namespace TestFx.ReSharper.Runner.Tasks
     public override bool IsMeaningfulTask
     {
       get { return true; }
-    }
-
-    public string TaskTypeFullName
-    {
-      get { return _taskTypeFullName; }
     }
 
     public string ParentGuid

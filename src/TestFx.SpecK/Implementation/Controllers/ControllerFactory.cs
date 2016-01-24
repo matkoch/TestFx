@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
 using TestFx.Extensibility.Providers;
@@ -52,6 +53,7 @@ namespace TestFx.SpecK.Implementation.Controllers
         TestContext<TSubject, TResult, TVars, TSequence> context);
   }
 
+  [UsedImplicitly]
   public class ControllerFactory : IControllerFactory
   {
     private readonly IOperationSorter _operationSorter;

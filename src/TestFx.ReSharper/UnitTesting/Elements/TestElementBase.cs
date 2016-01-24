@@ -40,7 +40,6 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     private readonly ITestIdentity _identity;
     private readonly IList<Task> _tasks;
-    private readonly IUnitTestProvider _unitTestProvider;
     private readonly HashSet<IUnitTestElement> _children;
 
     private UnitTestElementState _state;
@@ -53,7 +52,6 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
       _identity = identity;
       _tasks = tasks;
-      _unitTestProvider = identity.ElementId.Provider;
       _children = new HashSet<IUnitTestElement>();
     }
 
@@ -167,11 +165,6 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       get { return _children; }
     }
 
-    public IUnitTestProvider Provider
-    {
-      get { return _unitTestProvider; }
-    }
-
     public IUnitTestRunStrategy GetRunStrategy ([NotNull] IHostProvider hostProvider)
     {
       return RunStrategy;
@@ -203,11 +196,6 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
       _state = UnitTestElementState.Invalid;
       return UnitTestElementDisposition.InvalidDisposition;
-    }
-
-    public bool Equals (IUnitTestElement other)
-    {
-      return ReferenceEquals(this, other) || Id.Equals(other.Id);
     }
 
     private UnitTestElementLocation GetUnitTestElementLocation (ITestDeclaration declaration)

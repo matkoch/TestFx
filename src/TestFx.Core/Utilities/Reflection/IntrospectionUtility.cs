@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using TestFx.Utilities.Collections;
@@ -57,7 +58,7 @@ namespace TestFx.Utilities.Reflection
 
     private object GetArgumentValue (CustomAttributeTypedArgument argument)
     {
-      var value = argument.GetValue();
+      var value = GetValue(argument);
 
       var valueAsTypeArray = value as Type[];
       if (valueAsTypeArray != null)
@@ -67,6 +68,22 @@ namespace TestFx.Utilities.Reflection
         return ((Type) value).ToCommon();
 
       return value;
+    }
+
+    private object GetValue (CustomAttributeTypedArgument argument)
+    {
+      var collectionValue = argument.Value as ReadOnlyCollection<CustomAttributeTypedArgument>;
+      if (collectionValue != null)
+      {
+        var untypedArray = collectionValue.Select(GetArgumentValue).ToArray();
+        var typedArray = Array.CreateInstance(argument.ArgumentType.GetElementType(), untypedArray.Length);
+        Array.Copy(untypedArray, typedArray, untypedArray.Length);
+        return typedArray;
+      }
+
+      if (argument.ArgumentType.IsEnum)
+        return Enum.ToObject(argument.ArgumentType, argument.Value);
+      return argument.Value;
     }
   }
 }

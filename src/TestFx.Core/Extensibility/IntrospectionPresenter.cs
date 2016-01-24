@@ -24,7 +24,6 @@ namespace TestFx.Extensibility
   {
     string Present (CommonAttribute displayAttribute, CommonType declaringType, CommonAttribute subjectAttribute);
     string Present (CommonAttribute displayAttribute, IDictionary<string, object> arguments);
-    string Present(string displayFormat, IDictionary<string, object> arguments);
   }
 
   public class IntrospectionPresenter : IIntrospectionPresenter
@@ -45,7 +44,7 @@ namespace TestFx.Extensibility
       return Present(GetDisplayFormat(displayAttribute), arguments);
     }
 
-    public string Present(string displayFormat, IDictionary<string, object> arguments)
+    private string Present(string displayFormat, IDictionary<string, object> arguments)
     {
       return arguments.Aggregate(displayFormat, (current, pair) => current.Replace("{" + pair.Key + "}", pair.Value.ToString()));
     }

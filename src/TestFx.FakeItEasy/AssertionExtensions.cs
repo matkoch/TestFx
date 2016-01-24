@@ -15,12 +15,15 @@
 using System;
 using FakeItEasy;
 using FakeItEasy.Core;
+using JetBrains.Annotations;
 using TestFx.SpecK.Implementation;
 using TestFx.SpecK.Implementation.Containers;
 using TestFx.SpecK.InferredApi;
 
 namespace TestFx.FakeItEasy
 {
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class AssertionExtensions
   {
     private const string c_key = "FakeItEasy.OrderedAssertions";

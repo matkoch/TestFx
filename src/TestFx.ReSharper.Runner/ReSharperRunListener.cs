@@ -96,14 +96,14 @@ namespace TestFx.ReSharper.Runner
     // TODO: repetition
     private void CreateDynamicTask (string parentGuid, ISuiteResult result)
     {
-      var dynamicTask = new DynamicTask(typeof (TestTask), parentGuid, result.Identity, result.Text);
+      var dynamicTask = new DynamicTask(parentGuid, result.Identity, result.Text);
       _server.CreateDynamicElement(dynamicTask);
       Finished(result, dynamicTask);
     }
 
     private void CreateDynamicTask (string parentGuid, ITestResult result)
     {
-      var dynamicTask = new DynamicTask(typeof (TestTask), parentGuid, result.Identity, result.Text);
+      var dynamicTask = new DynamicTask(parentGuid, result.Identity, result.Text);
       _server.CreateDynamicElement(dynamicTask);
       Finished(result, dynamicTask);
     }

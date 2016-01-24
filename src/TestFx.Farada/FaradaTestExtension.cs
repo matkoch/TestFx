@@ -24,7 +24,6 @@ using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
 using TestFx.Utilities;
-using TestFx.Utilities.Collections;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.Farada
@@ -49,8 +48,7 @@ namespace TestFx.Farada
     {
       var suiteType = suite.GetType();
       var fieldsWithAttribute = suiteType.GetFieldsWithAttribute<AutoDataAttribute>()
-          .OrderBy(x => x.Item1.Name)
-          .SortTopologically(IsDependentAutoData).ToList();
+          .OrderBy(x => x.Item1.Name).ToList();
 
       if (fieldsWithAttribute.Count == 0)
         return;
@@ -65,12 +63,6 @@ namespace TestFx.Farada
       testController.AddAction<SetupExtension>(
           string.Format("<Create_AutoData><{0}>", seed),
           x => fieldsWithAttribute.ForEach(t => CreateAndAssignAuto(suite, generator, t.Item2, t.Item1)));
-    }
-
-    private bool IsDependentAutoData (Tuple<FieldInfo, AutoDataAttribute> autoData1, Tuple<FieldInfo, AutoDataAttribute> autoData2)
-    {
-      var memberDependencies = autoData1.Item2.GetType().GetFieldsWithAttribute<SuiteMemberDependencyAttribute>();
-      return memberDependencies.Any(x => x.Item1.Name == autoData2.Item1.Name);
     }
 
     private int GetSeed (Type suiteType)

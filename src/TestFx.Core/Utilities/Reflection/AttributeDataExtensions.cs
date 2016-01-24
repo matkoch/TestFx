@@ -55,10 +55,5 @@ namespace TestFx.Utilities.Reflection
     {
       return AttributeDataUtility.Instance.GetAttributeData<T>(memberInfo);
     }
-
-    public static object GetValue (this CustomAttributeTypedArgument argument)
-    {
-      return AttributeDataUtility.Instance.GetArgumentValue(argument);
-    }
   }
 }

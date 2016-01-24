@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.Utilities;
 
@@ -37,11 +36,6 @@ namespace TestFx.ReSharper.UnitTesting.Utilities
     public UnitTestElementId ElementId
     {
       get { return _elementId; }
-    }
-
-    public IProject GetProject ()
-    {
-      return ElementId.GetProject().NotNull();
     }
   }
 }

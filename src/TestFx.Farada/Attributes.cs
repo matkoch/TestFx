@@ -24,14 +24,11 @@ namespace TestFx.Farada
     Func<ITestDataConfigurator, ITestDataConfigurator> Configuration { get; }
   }
 
-
-  [AttributeUsage (AttributeTargets.Property)]
-  public class SuiteMemberDependencyAttribute : Attribute
-  {
-  }
-
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   [AttributeUsage (AttributeTargets.Field)]
   [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
+  // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
   public class AutoDataAttribute : Attribute
   {
     private object _currentSuite;

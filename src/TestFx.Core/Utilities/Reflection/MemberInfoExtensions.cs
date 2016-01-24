@@ -18,6 +18,8 @@ using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Reflection
 {
+  [PublicAPI ("Used by extensions")]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class MemberInfoExtensions
   {
     [CanBeNull]

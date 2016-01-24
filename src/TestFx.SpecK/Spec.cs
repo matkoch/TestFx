@@ -52,9 +52,9 @@ namespace TestFx.SpecK
       return new SpecializedSuiteContainer<TSubject, TResult>(expressionSuiteController);
     }
 
-    public IIgnoreOrCase<TSubject, IList<TItem>> Specify<TItem> (Func<TSubject, IEnumerable<TItem>> action)
+    public IIgnoreOrCase<TSubject, IReadOnlyList<TItem>> Specify<TItem> (Func<TSubject, IEnumerable<TItem>> action)
     {
-      return Specify(x => (IList<TItem>) action(x).ToList());
+      return Specify(x => (IReadOnlyList<TItem>) action(x).ToList());
     }
 
     public virtual TSubject CreateSubject ()

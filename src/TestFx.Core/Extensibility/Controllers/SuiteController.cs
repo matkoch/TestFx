@@ -54,16 +54,6 @@ namespace TestFx.Extensibility.Controllers
       _provider.ContextProviders = _operationSorter.Sort(unsortedOperationProviders);
     }
 
-    protected SuiteProvider CreateSuiteProvider (string relativeId, string text, bool ignore)
-    {
-      var identity = _provider.Identity.CreateChildIdentity(relativeId);
-      var provider = SuiteProvider.Create(identity, text, ignore);
-      EnsureUniqueness(provider, _provider.TestProviders);
-
-      _provider.SuiteProviders = _provider.SuiteProviders.Concat(provider);
-      return provider;
-    }
-
     protected TestProvider CreateTestProvider (string relativeId, string text, bool ignore)
     {
       var identity = _provider.Identity.CreateChildIdentity(relativeId);

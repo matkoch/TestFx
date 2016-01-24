@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
@@ -36,10 +35,6 @@ namespace TestFx.Utilities.Reflection
 
     [CanBeNull]
     CustomAttributeData GetAttributeData<T> (MemberInfo memberInfo) where T : Attribute;
-
-    Attribute GetAttribute (CustomAttributeData attributeData);
-
-    object GetArgumentValue (CustomAttributeTypedArgument argument);
   }
 
   public class AttributeDataUtility : IAttributeDataUtility
@@ -86,35 +81,6 @@ namespace TestFx.Utilities.Reflection
           let originalAttributeType = customAttributeData.Constructor.DeclaringType
           where originalAttributeType.DescendantsAndSelf(x => x.BaseType).Any(x => x.FullName == typeof (T).FullName)
           select customAttributeData;
-    }
-
-    public Attribute GetAttribute (CustomAttributeData attributeData)
-    {
-      var originalAttributeType = attributeData.Constructor.DeclaringType.NotNull();
-      var attributeType = Type.GetType(originalAttributeType.AssemblyQualifiedName.NotNull(), throwOnError: true);
-
-      var arguments = attributeData.ConstructorArguments.Select(GetArgumentValue).ToArray();
-      var attribute = attributeType.CreateInstance<Attribute>(arguments);
-      attributeData.NamedArguments.NotNull().ForEach(x => attribute.SetMemberValue(x.MemberInfo.Name, GetArgumentValue(x.TypedValue)));
-
-      return attribute;
-    }
-
-    public object GetArgumentValue (CustomAttributeTypedArgument argument)
-    {
-      var collectionValue = argument.Value as ReadOnlyCollection<CustomAttributeTypedArgument>;
-      if (collectionValue != null)
-      {
-        var untypedArray = collectionValue.Select(GetArgumentValue).ToArray();
-        var typedArray = Array.CreateInstance(argument.ArgumentType.GetElementType(), untypedArray.Length);
-        Array.Copy(untypedArray, typedArray, untypedArray.Length);
-        return typedArray;
-      }
-
-      if (argument.ArgumentType.IsEnum)
-        return Enum.ToObject(argument.ArgumentType, argument.Value);
-
-      return argument.Value;
     }
   }
 }

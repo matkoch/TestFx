@@ -25,6 +25,8 @@ namespace TestFx.SpecK
 {
   #region ISuite<TSubject>
 
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public interface ISuite<TSubject>
   {
     void SetupOnce (Action setup, Action cleanup = null);
@@ -32,6 +34,7 @@ namespace TestFx.SpecK
 
     IIgnoreOrCase<TSubject, Dummy> Specify (Action<TSubject> action);
     IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Func<TSubject, TResult> action);
+    IIgnoreOrCase<TSubject, IReadOnlyList<TItem>> Specify<TItem> (Func<TSubject, IEnumerable<TItem>> action);
 
     TSubject CreateSubject ();
   }
@@ -267,6 +270,11 @@ namespace TestFx.SpecK
       }
 
       public IIgnoreOrCase<FileStream, TResult> Specify<TResult> (Func<FileStream, TResult> action)
+      {
+        throw new NotImplementedException();
+      }
+
+      public IIgnoreOrCase<FileStream, IReadOnlyList<TItem>> Specify<TItem> (Func<FileStream, IEnumerable<TItem>> action)
       {
         throw new NotImplementedException();
       }
