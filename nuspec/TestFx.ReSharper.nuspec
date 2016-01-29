@@ -17,6 +17,7 @@
   <files>
     <file src="TestFx.ReSharper\bin\$configuration$\Autofac.*" target="DotFiles" />
     <file src="TestFx.ReSharper\bin\$configuration$\TestFx.*" target="DotFiles" />
+    <file src="TestFx.ReSharper\bin\$configuration$\Microsoft.VisualStudio.ExtensionManager.*" target="DotFiles" />
     <file src="TestFx.ReSharper\*.DotSettings" target="DotFiles\Extensions\TestFx.ReSharper\settings" />
   </files>
 </package>

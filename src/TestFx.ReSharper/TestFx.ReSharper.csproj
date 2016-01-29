@@ -96,6 +96,10 @@
       <HintPath>..\..\packages\JetBrains.Platform.Lib.Microsoft.Deployment.WindowsInstaller.2.0.20140821.0\lib\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.ExtensionManager, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Microsoft.VisualStudio.ExtensionManager.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\..\packages\JetBrains.Platform.Lib.VisualStudio.AnyVs.ShellInterop.PrivateBuild.2.0.20140304.0\lib\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
       <Private>True</Private>
@@ -245,6 +249,7 @@
     <Compile Include="Utilities\Psi\Tree\Ranges.cs" />
     <Compile Include="Utilities\Psi\Tree\TestDeclarationExtensions.cs" />
     <Compile Include="Utilities\Psi\Tree\TestDeclarationUtility.cs" />
+    <Compile Include="Utilities\Psi\Tree\TreeNodeExtensions.cs" />
     <Compile Include="Utilities\Psi\TypeExtensions.cs" />
     <Compile Include="Utilities\Psi\TypeUtility.cs" />
     <Compile Include="ZoneMarker.cs" />

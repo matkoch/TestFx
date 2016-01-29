@@ -21,20 +21,35 @@ namespace TestFx.Evaluation.Reporting
   public static class ResultExtensions
   {
     private static readonly Dictionary<State, string> s_stateSymbols;
+    private static readonly Dictionary<OutputType, string> s_outputTypeSymbols;
 
     static ResultExtensions ()
     {
-      s_stateSymbols = new Dictionary<State, string>
-                       {
-                           { State.Passed, "\u2713  " },
-                           { State.Failed, " \u2717 " },
-                           { State.Inconclusive, "  N" }
-                       };
+      s_stateSymbols =
+          new Dictionary<State, string>
+          {
+              { State.Passed, ":white_check_mark:" },
+              { State.Failed, ":no_entry:" },
+              { State.Inconclusive, ":children_crossing:" }
+          };
+
+      s_outputTypeSymbols =
+          new Dictionary<OutputType, string>
+          {
+              { OutputType.Standard, ":small_blue_diamond:" },
+              { OutputType.Debug, ":small_orange_diamond:" },
+              { OutputType.Error, ":small_red_triangle:" },
+          };
     }
 
-    public static string GetSymbol (this IResult result)
+    public static string GetSymbol (this State state)
     {
-      return s_stateSymbols[result.State];
+      return s_stateSymbols[state];
+    }
+
+    public static string GetSymbol (this OutputType outputType)
+    {
+      return s_outputTypeSymbols[outputType];
     }
   }
 }

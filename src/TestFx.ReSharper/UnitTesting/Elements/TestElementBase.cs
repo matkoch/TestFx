@@ -95,6 +95,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
       _text = text;
       _explicitReason = explicitReason;
+      
       _categories = categories;
       _state = UnitTestElementState.Valid;
     }

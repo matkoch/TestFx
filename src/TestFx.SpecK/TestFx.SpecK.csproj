@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Api.cs" />
     <Compile Include="Extensions\CombinatoricExtensions.cs" />
+    <Compile Include="Extensions\UnimplementedExtensions.cs" />
     <Compile Include="Extensions\UsingExtensions.cs" />
     <Compile Include="Extensions\UnnamedExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />

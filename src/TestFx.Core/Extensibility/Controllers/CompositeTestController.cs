@@ -53,6 +53,16 @@ namespace TestFx.Extensibility.Controllers
       _controllers.ForEach(x => x.AddAssertion<T>(text, action));
     }
 
+    public void AddNotImplementedAction<T> (string text) where T : IOperationDescriptor
+    {
+      _controllers.ForEach(x => x.AddNotImplementedAction<T>(text));
+    }
+
+    public void AddNotImplementedAssertion<T> (string text) where T : IOperationDescriptor
+    {
+      _controllers.ForEach(x => x.AddNotImplementedAssertion<T>(text));
+    }
+
     public void Replace<T> (Action<ITestContext, Action> replacingAction)
         where T : IOperationDescriptor
     {

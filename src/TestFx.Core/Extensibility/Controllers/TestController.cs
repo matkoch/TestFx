@@ -39,6 +39,12 @@ namespace TestFx.Extensibility.Controllers
     void AddAssertion<T> (string text, Action<ITestContext> action)
         where T : IAssertionDescriptor;
 
+    void AddNotImplementedAction<T> (string text)
+        where T : IOperationDescriptor;
+
+    void AddNotImplementedAssertion<T> (string text)
+        where T : IOperationDescriptor;
+
     void Replace<T> (Action<ITestContext, Action> replacingAction)
         where T : IOperationDescriptor;
 
@@ -71,10 +77,26 @@ namespace TestFx.Extensibility.Controllers
       Add<T>(OperationType.Assertion, text, action);
     }
 
+    public void AddNotImplementedAction<T> (string text) where T : IOperationDescriptor
+    {
+      Add<T>(OperationType.Action, text, OperationProvider.NotImplemented);
+    }
+
+    public void AddNotImplementedAssertion<T> (string text) where T : IOperationDescriptor
+    {
+      Add<T>(OperationType.Assertion, text, OperationProvider.NotImplemented);
+    }
+
     private void Add<T> (OperationType type, string text, Action<ITestContext> action)
         where T : IOperationDescriptor
     {
-      var operationProvider = OperationProvider.Create<T>(type, text, InjectContextAndGuardAction(action));
+      Add<T>(type, text, InjectContextAndGuardAction(action));
+    }
+
+    private void Add<T> (OperationType type, string text, Action action)
+        where T : IOperationDescriptor
+    {
+      var operationProvider = OperationProvider.Create<T>(type, text, action);
       var unsortedOperationProviders = _provider.OperationProviders.Concat(operationProvider);
       _provider.OperationProviders = _operationSorter.Sort(unsortedOperationProviders);
     }
