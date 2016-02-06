@@ -34,7 +34,7 @@ namespace TestFx.ReSharper.Utilities.Psi
 
     public IEnumerable<IAttributeInstance> GetAttributeDatas<T> (IAttributesSet attributeSet) where T : Attribute
     {
-      return attributeSet.GetAttributeInstances(true).Where(x => x.GetAttributeType().Implements(typeof (T)));
+      return attributeSet.GetAttributeInstances(inherit: false).Where(x => x.GetAttributeType().Implements(typeof (T)));
     }
 
     [CanBeNull]

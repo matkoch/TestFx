@@ -68,9 +68,10 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
 
       var identity = parentIdentity.CreateChildIdentity(classDeclaration.CLRName);
       var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
-      var categories = clazz.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
-          x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
-          () => new string[0]);
+      var categories = clazz.GetAttributeData<CategoriesAttribute>()
+          .GetValueOrDefault(
+              x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
+              () => new string[0]);
       var constructorDeclaration = classDeclaration.ConstructorDeclarations.SingleOrDefault(x => !x.IsStatic && x.ParameterDeclarations.Count == 0);
       var expressionTests = TreeNodeEnumerable.Create(
           () =>
