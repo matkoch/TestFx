@@ -53,8 +53,8 @@ namespace TestFx.SpecK.Tests.Simple
 
       runResult.GetTestResult ()
           .HasPassed ()
-          .HasRelativeId ("<Default>")
-          .HasText ("<Default>")
+          .HasRelativeId (Constants.Default)
+          .HasText (Constants.Default)
           .HasOperations (
               Constants.Reset_Instance_Fields,
               "<Arrangement>", Constants.Action,

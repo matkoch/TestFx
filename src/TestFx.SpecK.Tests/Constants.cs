@@ -18,6 +18,7 @@ namespace TestFx.SpecK.Tests
 {
   public static class Constants
   {
+    public const string Default = "<Default>";
     public const string Action = "<Action>";
     public const string Create_Subject = "<Create_Subject>";
     public const string Reset_Instance_Fields = "<Reset_Instance_Fields>";

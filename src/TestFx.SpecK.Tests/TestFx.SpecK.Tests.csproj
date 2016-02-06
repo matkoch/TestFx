@@ -78,6 +78,7 @@
     <Compile Include="Setups\ThrowingSetupExecutionTest.cs" />
     <Compile Include="Simple\InconclusiveTest.cs" />
     <Compile Include="Simple\IsolationTest.cs" />
+    <Compile Include="Simple\InheritanceTest.cs" />
     <Compile Include="Simple\VariableTest.cs" />
     <Compile Include="Exceptions\UserClass.cs" />
     <Compile Include="FakeItEasy\OrderedAssertionsTest.cs" />
