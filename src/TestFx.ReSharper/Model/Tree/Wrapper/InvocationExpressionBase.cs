@@ -234,5 +234,45 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
     {
       get { return _invocationExpression.RPar; }
     }
+
+    public ICSharpExpression SetConditionalQualifier (ICSharpExpression expression)
+    {
+      return _invocationExpression.SetConditionalQualifier(expression);
+    }
+
+    public void SetConditionalAccessSign (bool value)
+    {
+      _invocationExpression.SetConditionalAccessSign(value);
+    }
+
+    public IExpressionType UnliftedExpressionType ()
+    {
+      return _invocationExpression.UnliftedExpressionType();
+    }
+
+    public bool HasConditionalAccessSign
+    {
+      get { return _invocationExpression.HasConditionalAccessSign; }
+    }
+
+    public ICSharpExpression ConditionalQualifier
+    {
+      get { return _invocationExpression.ConditionalQualifier; }
+    }
+
+    public IConditionalAccessSign ConditionalAccessSign
+    {
+      get { return _invocationExpression.ConditionalAccessSign; }
+    }
+
+    public bool IsNameofOperator ()
+    {
+      return _invocationExpression.IsNameofOperator();
+    }
+
+    public bool IsNameofOperator (IResolveContext resolveContext)
+    {
+      return _invocationExpression.IsNameofOperator(resolveContext);
+    }
   }
 }

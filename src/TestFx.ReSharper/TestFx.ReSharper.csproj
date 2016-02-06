@@ -194,15 +194,11 @@
     <Compile Include="Model\Tree\ITestDeclaration.cs" />
     <Compile Include="Model\Tree\ITestDeclarationHolder.cs" />
     <Compile Include="Model\Tree\TestFile.cs" />
-    <Compile Include="Model\Tree\Wrapper\ClassDeclarationBase.R9.cs" />
     <Compile Include="Model\Tree\Wrapper\ClassDeclarationBase.cs" />
     <Compile Include="Model\Tree\Wrapper\DeclarationBase.cs" />
     <Compile Include="Model\Tree\Wrapper\ExpressionStatementBase.cs" />
-    <Compile Include="Model\Tree\Wrapper\FileBase.R9.cs" />
     <Compile Include="Model\Tree\Wrapper\FileBase.cs" />
     <Compile Include="Model\Tree\Wrapper\FunctionDeclarationBase.cs" />
-    <Compile Include="Model\Tree\Wrapper\InvocationExpressionBase.R91.cs" />
-    <Compile Include="Model\Tree\Wrapper\InvocationExpressionBase.R9.cs" />
     <Compile Include="Model\Tree\Wrapper\InvocationExpressionBase.cs" />
     <Compile Include="Model\Tree\Wrapper\TreeNodeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

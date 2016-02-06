@@ -257,5 +257,20 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
     {
       get { return _file.AttributesEnumerable; }
     }
+
+    public IExternAliasDirective AddExternAliasAfter (IExternAliasDirective externAlias, IExternAliasDirective anchor)
+    {
+      return _file.AddExternAliasAfter(externAlias, anchor);
+    }
+
+    public IExternAliasDirective AddExternAliasBefore (IExternAliasDirective externAlias, IExternAliasDirective anchor)
+    {
+      return _file.AddExternAliasBefore(externAlias, anchor);
+    }
+
+    public void RemoveExternAlias (IExternAliasDirective externAlias)
+    {
+      _file.RemoveExternAlias(externAlias);
+    }
   }
 }

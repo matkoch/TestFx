@@ -21,7 +21,7 @@ using JetBrains.ReSharper.Psi.Tree;
 
 namespace TestFx.ReSharper.Model.Tree.Wrapper
 {
-  public abstract partial class ClassDeclarationBase : DeclarationBase, IClassDeclaration
+  public abstract class ClassDeclarationBase : DeclarationBase, IClassDeclaration
   {
     private readonly IClassDeclaration _classDeclaration;
 
@@ -639,5 +639,51 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
     {
       get { return _classDeclaration.ModifiersList; }
     }
+
+    public void SetDocCommentBlock(IDocCommentBlock block)
+    {
+      _classDeclaration.SetDocCommentBlock(block);
+    }
+
+    public IDocCommentBlock DocCommentBlock
+    {
+      get { return _classDeclaration.DocCommentBlock; }
+    }
+
+    public IPrimaryConstructorDeclaration AddPrimaryConstructorDeclaration(IPrimaryConstructorDeclaration declaration)
+    {
+      return _classDeclaration.AddPrimaryConstructorDeclaration(declaration);
+    }
+
+    public void RemovePrimaryConstructorDeclaration()
+    {
+      _classDeclaration.RemovePrimaryConstructorDeclaration();
+    }
+
+    public IBlock SetPrimaryConstructorBody(IBlock bodyBlock)
+    {
+      return _classDeclaration.SetPrimaryConstructorBody(bodyBlock);
+    }
+
+    public IPrimaryConstructorDeclaration SetPrimaryConstructor(IPrimaryConstructorDeclaration param)
+    {
+      return _classDeclaration.SetPrimaryConstructor(param);
+    }
+
+    public IPrimaryConstructorDeclaration PrimaryConstructor
+    {
+      get { return _classDeclaration.PrimaryConstructor; }
+    }
+
+    public TreeNodeCollection<IBlock> PrimaryConstructorBodies
+    {
+      get { return _classDeclaration.PrimaryConstructorBodies; }
+    }
+
+    public TreeNodeEnumerable<IBlock> PrimaryConstructorBodiesEnumerable
+    {
+      get { return _classDeclaration.PrimaryConstructorBodiesEnumerable; }
+    }
+
   }
 }
