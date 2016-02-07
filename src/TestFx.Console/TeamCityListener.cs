@@ -44,15 +44,15 @@ namespace TestFx.Console
         var message = GetGeneralMessage(exceptions, operations);
         var details = GetDetails(operations, result.OutputEntries);
 
-        _writer.WriteTestFailed(result.Identity.Absolute, message, details);
+        _writer.WriteTestFailed(result.Identity.Relative, message, details);
       }
 
-      _writer.WriteTestSuiteFinished(result.Identity.Absolute);
+      _writer.WriteTestSuiteFinished(result.Identity.Relative);
     }
 
     public override void OnTestFinished (ITestResult result)
     {
-      var testName = result.Identity.Absolute;
+      var testName = result.Identity.Relative;
       switch (result.State)
       {
         case State.Passed:
