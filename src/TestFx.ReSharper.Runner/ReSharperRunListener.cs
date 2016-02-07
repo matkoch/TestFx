@@ -37,12 +37,12 @@ namespace TestFx.ReSharper.Runner
       _taskDictionary = taskDictionary;
     }
 
-    public override void OnSuiteStarted (IIntent intent)
+    public override void OnSuiteStarted (IIntent intent, string text)
     {
       IfTaskExists(intent, Started);
     }
 
-    public override void OnTestStarted (IIntent intent)
+    public override void OnTestStarted (IIntent intent, string text)
     {
       IfTaskExists(intent, Started);
     }

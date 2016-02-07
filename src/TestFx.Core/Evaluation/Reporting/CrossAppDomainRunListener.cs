@@ -32,9 +32,9 @@ namespace TestFx.Evaluation.Reporting
       _listener = listener;
     }
 
-    public void OnError (IExceptionDescriptor exception)
+    public void OnRunStarted (IRunIntent intent)
     {
-      _listener.OnError(exception);
+      _listener.OnRunStarted(intent);
     }
 
     public void OnRunFinished (IRunResult result)
@@ -42,9 +42,9 @@ namespace TestFx.Evaluation.Reporting
       _listener.OnRunFinished(result);
     }
 
-    public void OnRunStarted (IRunIntent intent)
+    public void OnSuiteStarted (IIntent intent, string text)
     {
-      _listener.OnRunStarted(intent);
+      _listener.OnSuiteStarted(intent, text);
     }
 
     public void OnSuiteFinished (ISuiteResult result)
@@ -52,9 +52,9 @@ namespace TestFx.Evaluation.Reporting
       _listener.OnSuiteFinished(result);
     }
 
-    public void OnSuiteStarted (IIntent intent)
+    public void OnTestStarted (IIntent intent, string text)
     {
-      _listener.OnSuiteStarted(intent);
+      _listener.OnTestStarted(intent, text);
     }
 
     public void OnTestFinished (ITestResult result)
@@ -62,9 +62,9 @@ namespace TestFx.Evaluation.Reporting
       _listener.OnTestFinished(result);
     }
 
-    public void OnTestStarted (IIntent intent)
+    public void OnError (IExceptionDescriptor exception)
     {
-      _listener.OnTestStarted(intent);
+      _listener.OnError(exception);
     }
   }
 }

@@ -29,9 +29,9 @@ namespace TestFx.Evaluation.Reporting
       _listeners = listeners;
     }
 
-    public void OnError (IExceptionDescriptor exception)
+    public void OnRunStarted (IRunIntent intent)
     {
-      _listeners.ForEach(x => x.OnError(exception));
+      _listeners.ForEach(x => x.OnRunStarted(intent));
     }
 
     public void OnRunFinished (IRunResult result)
@@ -39,9 +39,9 @@ namespace TestFx.Evaluation.Reporting
       _listeners.ForEach(x => x.OnRunFinished(result));
     }
 
-    public void OnRunStarted (IRunIntent intent)
+    public void OnSuiteStarted (IIntent intent, string text)
     {
-      _listeners.ForEach(x => x.OnRunStarted(intent));
+      _listeners.ForEach(x => x.OnSuiteStarted(intent, text));
     }
 
     public void OnSuiteFinished (ISuiteResult result)
@@ -49,9 +49,9 @@ namespace TestFx.Evaluation.Reporting
       _listeners.ForEach(x => x.OnSuiteFinished(result));
     }
 
-    public void OnSuiteStarted (IIntent intent)
+    public void OnTestStarted (IIntent intent, string text)
     {
-      _listeners.ForEach(x => x.OnSuiteStarted(intent));
+      _listeners.ForEach(x => x.OnTestStarted(intent, text));
     }
 
     public void OnTestFinished (ITestResult result)
@@ -59,9 +59,9 @@ namespace TestFx.Evaluation.Reporting
       _listeners.ForEach(x => x.OnTestFinished(result));
     }
 
-    public void OnTestStarted (IIntent intent)
+    public void OnError (IExceptionDescriptor exception)
     {
-      _listeners.ForEach(x => x.OnTestStarted(intent));
+      _listeners.ForEach(x => x.OnError(exception));
     }
   }
 }

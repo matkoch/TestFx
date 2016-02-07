@@ -73,7 +73,7 @@ namespace TestFx.Evaluation.Runners
         IEnumerable<Tuple<IIntent, ISuiteProvider>> suitePairs,
         IEnumerable<Tuple<IIntent, ITestProvider>> testPairs)
     {
-      _listener.OnSuiteStarted(intent);
+      _listener.OnSuiteStarted(intent, provider.Text);
 
       IOutputRecording outputRecording;
       IContextScope contextScope;

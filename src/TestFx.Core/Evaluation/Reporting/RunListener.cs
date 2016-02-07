@@ -30,10 +30,10 @@ namespace TestFx.Evaluation.Reporting
     void OnRunStarted (IRunIntent intent);
     void OnRunFinished (IRunResult result);
 
-    void OnSuiteStarted (IIntent intent);
+    void OnSuiteStarted (IIntent intent, string text);
     void OnSuiteFinished (ISuiteResult result);
 
-    void OnTestStarted (IIntent intent);
+    void OnTestStarted (IIntent intent, string text);
     void OnTestFinished (ITestResult result);
 
     void OnError (IExceptionDescriptor exception);
@@ -56,7 +56,7 @@ namespace TestFx.Evaluation.Reporting
     {
     }
 
-    public virtual void OnSuiteStarted (IIntent intent)
+    public virtual void OnSuiteStarted (IIntent intent, string text)
     {
     }
 
@@ -64,7 +64,7 @@ namespace TestFx.Evaluation.Reporting
     {
     }
 
-    public virtual void OnTestStarted (IIntent intent)
+    public virtual void OnTestStarted (IIntent intent, string text)
     {
     }
 

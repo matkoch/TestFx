@@ -47,7 +47,7 @@ namespace TestFx.Evaluation.Runners
       if (provider.Ignored)
         return _resultFactory.CreateIgnoredTestResult(provider);
 
-      _listener.OnTestStarted(intent);
+      _listener.OnTestStarted(intent, provider.Text);
 
       IOutputRecording outputRecording;
       var operationResults = new List<IOperationResult>();

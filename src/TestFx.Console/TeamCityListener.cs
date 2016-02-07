@@ -29,9 +29,9 @@ namespace TestFx.Console
       _writer = writer;
     }
 
-    public override void OnSuiteStarted (IIntent intent)
+    public override void OnSuiteStarted (IIntent intent, string text)
     {
-      _writer.WriteTestSuiteStarted(intent.Identity.Absolute);
+      _writer.WriteTestSuiteStarted(text);
     }
 
     public override void OnSuiteFinished (ISuiteResult result)
@@ -44,15 +44,15 @@ namespace TestFx.Console
         var message = GetGeneralMessage(exceptions, operations);
         var details = GetDetails(operations, result.OutputEntries);
 
-        _writer.WriteTestFailed(result.Identity.Relative, message, details);
+        _writer.WriteTestFailed(result.Text, message, details);
       }
 
-      _writer.WriteTestSuiteFinished(result.Identity.Relative);
+      _writer.WriteTestSuiteFinished(result.Text);
     }
 
     public override void OnTestFinished (ITestResult result)
     {
-      var testName = result.Identity.Relative;
+      var testName = result.Text;
       switch (result.State)
       {
         case State.Passed:
