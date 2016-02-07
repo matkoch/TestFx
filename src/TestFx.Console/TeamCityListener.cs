@@ -51,13 +51,17 @@ namespace TestFx.Console
       _writer.WriteTestSuiteFinished(result.Text);
     }
 
+    public override void OnTestStarted (IIntent intent, string text)
+    {
+      _writer.WriteTestStarted(text, captureStandardOutput: false);
+    }
+
     public override void OnTestFinished (ITestResult result)
     {
-      var testName = result.Text;
       switch (result.State)
       {
         case State.Passed:
-          _writer.WriteTestFinished(testName, result.Duration);
+          _writer.WriteTestFinished(result.Text, result.Duration);
           break;
         case State.Failed:
           var operations = result.OperationResults.ToList();
@@ -66,11 +70,12 @@ namespace TestFx.Console
           var message = GetGeneralMessage(exceptions, operations);
           var details = GetDetails(operations, result.OutputEntries, exceptions);
 
-          _writer.WriteTestFailed(testName, message, details);
+          _writer.WriteTestFailed(result.Text, message, details);
+          _writer.WriteTestFinished(result.Text, result.Duration);
           break;
         case State.Ignored:
         case State.Inconclusive:
-          _writer.WriteTestIgnored(testName, string.Empty);
+          _writer.WriteTestIgnored(result.Text, string.Empty);
           break;
       }
     }
