@@ -41,6 +41,13 @@ namespace TestFx.Evaluation.Reporting
 
   public class RunListener : IRunListener
   {
+    private readonly ISymbolProvider _symbolProvider;
+
+    public RunListener (ISymbolProvider symbolProvider = null)
+    {
+      _symbolProvider = symbolProvider ?? new DefaultSymbolProvider();
+    }
+
     public virtual void OnRunStarted (IRunIntent intent)
     {
     }
@@ -114,7 +121,7 @@ namespace TestFx.Evaluation.Reporting
           continue;
         }
 
-        builder.AppendFormat("{0} {1}", result.State.GetSymbol(), result.Text);
+        builder.AppendFormat("{0} {1}", _symbolProvider.GetSymbol(result.State), result.Text);
 
         if (result.Exception != null)
           builder.AppendFormat(" ({0})", result.Exception.Name);
@@ -129,7 +136,7 @@ namespace TestFx.Evaluation.Reporting
       if (entriesList.Count != 0)
       {
         builder.AppendLine().AppendLine("Output:");
-        entriesList.ForEach(x => builder.AppendFormat("{0} {1}\r\n", x.Type.GetSymbol(), x.Message));
+        entriesList.ForEach(x => builder.AppendFormat("{0} {1}\r\n", _symbolProvider.GetSymbol(x.Type), x.Message));
       }
     }
 

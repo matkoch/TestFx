@@ -14,18 +14,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 
-namespace TestFx.Evaluation.Reporting
+namespace TestFx.ReSharper.Runner
 {
-  public static class ResultExtensions
+  internal class EmojiSymbolProvider : ISymbolProvider
   {
-    private static readonly Dictionary<State, string> s_stateSymbols;
-    private static readonly Dictionary<OutputType, string> s_outputTypeSymbols;
+    private readonly Dictionary<State, string> _stateSymbols;
+    private readonly Dictionary<OutputType, string> _outputTypeSymbols;
 
-    static ResultExtensions ()
+    public EmojiSymbolProvider ()
     {
-      s_stateSymbols =
+      _stateSymbols =
           new Dictionary<State, string>
           {
               { State.Passed, ":white_check_mark:" },
@@ -33,7 +35,7 @@ namespace TestFx.Evaluation.Reporting
               { State.Inconclusive, ":children_crossing:" }
           };
 
-      s_outputTypeSymbols =
+      _outputTypeSymbols =
           new Dictionary<OutputType, string>
           {
               { OutputType.Standard, ":small_blue_diamond:" },
@@ -42,14 +44,14 @@ namespace TestFx.Evaluation.Reporting
           };
     }
 
-    public static string GetSymbol (this State state)
+    public string GetSymbol (State state)
     {
-      return s_stateSymbols[state];
+      return _stateSymbols[state];
     }
 
-    public static string GetSymbol (this OutputType outputType)
+    public string GetSymbol (OutputType outputType)
     {
-      return s_outputTypeSymbols[outputType];
+      return _outputTypeSymbols[outputType];
     }
   }
 }

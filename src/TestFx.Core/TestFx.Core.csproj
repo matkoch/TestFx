@@ -56,8 +56,9 @@
     <Compile Include="AssemblySetupAttribute.cs" />
     <Compile Include="CategoriesAttribute.cs" />
     <Compile Include="Evaluation\EvaluationModule.cs" />
+    <Compile Include="Evaluation\Reporting\DefaultSymbolProvider.cs" />
     <Compile Include="Evaluation\Reporting\FillingOperationResult.cs" />
-    <Compile Include="Evaluation\Reporting\ResultExtensions.cs" />
+    <Compile Include="Evaluation\Reporting\ISymbolProvider.cs" />
     <Compile Include="Evaluation\Runners\ContextRunnerBase.cs" />
     <Compile Include="Extensibility\Controllers\CompositeTestController.cs" />
     <Compile Include="ResetInstanceFieldsTestExtensions.cs" />
