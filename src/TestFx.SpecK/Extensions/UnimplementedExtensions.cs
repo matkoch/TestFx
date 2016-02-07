@@ -19,6 +19,7 @@ using TestFx.SpecK.Implementation.Containers;
 using TestFx.SpecK.InferredApi;
 
 // ReSharper disable once CheckNamespace
+
 namespace TestFx.SpecK
 {
   [PublicAPI]

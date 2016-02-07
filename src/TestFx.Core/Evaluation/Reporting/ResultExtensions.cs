@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ namespace TestFx.Evaluation.Reporting
           {
               { OutputType.Standard, ":small_blue_diamond:" },
               { OutputType.Debug, ":small_orange_diamond:" },
-              { OutputType.Error, ":small_red_triangle:" },
+              { OutputType.Error, ":small_red_triangle:" }
           };
     }
 

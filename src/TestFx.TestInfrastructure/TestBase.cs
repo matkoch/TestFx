@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ namespace TestFx.TestInfrastructure
     private IRootRunner _rootRunner;
 
     [TestFixtureSetUp]
-    public void FixtureSetUp()
+    public void FixtureSetUp ()
     {
       var builder = new ContainerBuilder();
       var evaluationModule = new EvaluationModule(new RunListener(), useSeparateAppDomains: false);
@@ -52,7 +52,7 @@ namespace TestFx.TestInfrastructure
       IFakeScope scope;
 
       var runIntent = RunIntent.Create(useSeparateAppDomains: false);
-      runIntent.AddType(typeof(T));
+      runIntent.AddType(typeof (T));
 
       using (scope = Fake.CreateScope())
       {

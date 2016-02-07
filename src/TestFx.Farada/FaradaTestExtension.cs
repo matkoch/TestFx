@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ namespace TestFx.Farada
       get { return 0; }
     }
 
-    public void Extend(ITestController testController, object suite)
+    public void Extend (ITestController testController, object suite)
     {
       var suiteType = suite.GetType();
       var fieldsWithAttribute = suiteType.GetFieldsWithAttribute<AutoDataAttribute>()

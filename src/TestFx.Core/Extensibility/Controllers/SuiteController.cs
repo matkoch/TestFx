@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ namespace TestFx.Extensibility.Controllers
       _provider.TestProviders = _provider.TestProviders.Concat(provider);
       return provider;
     }
-    
+
     // ReSharper disable once UnusedParameter.Local
     private void EnsureUniqueness (IProvider newProvider, IEnumerable<IProvider> existingProviders)
     {

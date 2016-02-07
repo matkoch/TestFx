@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using TestFx.SpecK.Implementation.Utilities;
 using TestFx.SpecK.InferredApi;
 
 // ReSharper disable once CheckNamespace
+
 namespace TestFx.SpecK
 {
   [PublicAPI]
@@ -27,7 +28,7 @@ namespace TestFx.SpecK
   public static class ResultExtensions
   {
     /// <summary>
-    /// .ItReturns((DerivedType x) => x);
+    ///   .ItReturns((DerivedType x) => x);
     /// </summary>
     public static IAssert<TSubject, TResult, TVars, TSequence> ItReturns<TSubject, TResult, TVars, TSequence, TDerivedResult> (
         this IAssert<TSubject, TResult, TVars, TSequence> assert,
@@ -40,9 +41,9 @@ namespace TestFx.SpecK
           x => resultAssertion(x.Result as TDerivedResult));
       return assert;
     }
-    
+
     /// <summary>
-    /// .ItReturns(x => x.Exception);
+    ///   .ItReturns(x => x.Exception);
     /// </summary>
     public static IAssert<TSubject, TResult, TVars, TSequence> ItReturns<TSubject, TResult, TVars, TSequence> (
         this IAssert<TSubject, TResult, TVars, TSequence> assert,

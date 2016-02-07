@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using TestFx.SpecK.InferredApi;
 
 namespace TestFx.SpecK
 {
+
   #region ISuite<TSubject>
 
   [PublicAPI]
@@ -67,18 +68,18 @@ namespace TestFx.SpecK
 
   [MeansImplicitUse]
   [BaseTypeRequired (typeof (ISuite<>))]
-  [TypeLoaderType(typeof(TypeLoader))]
-  [OperationOrdering(
-      typeof(SetupExtension),
-      typeof(SetupCommon),
-      typeof(SetupSubject),
-      typeof(Arrange),
-      typeof(BeforeAct),
-      typeof(Act),
-      typeof(AfterAct),
-      typeof(Assert),
-      typeof(CleanupCommon),
-      typeof(CleanupExtension))]
+  [TypeLoaderType (typeof (TypeLoader))]
+  [OperationOrdering (
+      typeof (SetupExtension),
+      typeof (SetupCommon),
+      typeof (SetupSubject),
+      typeof (Arrange),
+      typeof (BeforeAct),
+      typeof (Act),
+      typeof (AfterAct),
+      typeof (Assert),
+      typeof (CleanupCommon),
+      typeof (CleanupExtension))]
   public class SubjectAttribute : SuiteAttributeBase
   {
     [UsedImplicitly]
@@ -112,6 +113,7 @@ namespace TestFx.SpecK
 
   namespace InferredApi
   {
+
     #region Arrangement / Assertion delegates
 
     // TODO: only ITestContext<TSubject>
@@ -156,13 +158,14 @@ namespace TestFx.SpecK
 
     public interface ICombine<TSubject, out TResult>
     {
-      IArrangeOrAssert<TSubject, TResult, Dummy, TNewSequenceuence> WithSequences<TNewSequenceuence> (IDictionary<string, TNewSequenceuence> sequences);
+      IArrangeOrAssert<TSubject, TResult, Dummy, TNewSequenceuence> WithSequences<TNewSequenceuence> (
+          IDictionary<string, TNewSequenceuence> sequences);
     }
 
     public interface IArrange<TSubject, out TResult, TVars, TSequence> : IArrange
     {
       IArrangeOrAssert<TSubject, TResult, TNewVars, TSequence> GivenVars<TNewVars> (Func<Dummy, TNewVars> variablesProvider);
-      
+
       // TODO: should check whether there is a setup that requires the subject... then possibly throw exception
       IArrangeOrAssert<TSubject, TResult, TVars, TSequence> GivenSubject (string description, Func<Dummy, TSubject> subjectFactory);
 
@@ -214,6 +217,7 @@ namespace TestFx.SpecK
 
   namespace Test
   {
+
     #region Spec class
 
     internal class StreamSuite : ISuite<FileStream>
@@ -221,19 +225,23 @@ namespace TestFx.SpecK
       public StreamSuite ()
       {
         ////Specify ((x, a) => x.EndRead (null), Adv.Combine()
-        Specify (x => x.EndRead (null))
-            .Case ("bla", _ => _
-                .GivenVars(x => new { A = "bla", B = 2 })
-                .GivenSubject ("file stream", x => File.OpenRead ("bla"))
-                .Given ("", x => x.Subject.Close ())
-                .ItForStream ())
-            .Skip ("reason")
-            .Case ("case2", _ => _
-                .GivenVars(x => new { A = "bla", B = 2 })
-                .Given ("", x => { })
-                .Given (MyContext (1, 2))
-                .Given (MyContext2 (1, 2))
-                .It (MyBehavior3 (1, 2)));
+        Specify(x => x.EndRead(null))
+            .Case(
+                "bla",
+                _ => _
+                    .GivenVars(x => new { A = "bla", B = 2 })
+                    .GivenSubject("file stream", x => File.OpenRead("bla"))
+                    .Given("", x => x.Subject.Close())
+                    .ItForStream())
+            .Skip("reason")
+            .Case(
+                "case2",
+                _ => _
+                    .GivenVars(x => new { A = "bla", B = 2 })
+                    .Given("", x => { })
+                    .Given(MyContext(1, 2))
+                    .Given(MyContext2(1, 2))
+                    .It(MyBehavior3(1, 2)));
       }
 
       private Context MyContext (int a, int b)

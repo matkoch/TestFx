@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@ using TestFx.Extensibility;
 using TestFx.MSpec.Implementation;
 
 // ReSharper disable once CheckNamespace
+
 namespace Machine.Specifications
 {
+
   #region SuiteAttribute
 
   [TypeLoaderType (typeof (TypeLoader))]
@@ -88,7 +90,7 @@ namespace Machine.Specifications
 
   #region BehaviorsAttribute
 
-  [AttributeUsage(AttributeTargets.Class)]
+  [AttributeUsage (AttributeTargets.Class)]
   public class BehaviorsAttribute : Attribute
   {
   }
@@ -108,7 +110,7 @@ namespace Machine.Specifications
     }
 
     [CanBeNull]
-    public static Exception Exception<T>(Func<T> throwingFunc)
+    public static Exception Exception<T> (Func<T> throwingFunc)
     {
       try
       {
@@ -123,7 +125,7 @@ namespace Machine.Specifications
     }
 
     [CanBeNull]
-    public static TException Only<TException>(Action throwingAction)
+    public static TException Only<TException> (Action throwingAction)
         where TException : Exception
     {
       try

@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ using TestFx.Utilities.Reflection;
 namespace TestFx.SpecK.Implementation.Utilities
 {
   /// <summary>
-  /// Factory that creates an instance of the subject based on the fields marked with <see cref="InjectedAttribute"/>
-  /// available in the <see cref="ISuite{TSubject}"/> instance.
+  ///   Factory that creates an instance of the subject based on the fields marked with <see cref="InjectedAttribute" />
+  ///   available in the <see cref="ISuite{TSubject}" /> instance.
   /// </summary>
   public interface ISubjectFactory
   {

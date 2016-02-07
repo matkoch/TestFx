@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using Machine.Specifications;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
+
 // ReSharper disable UnassignedField.Local
 // ReSharper disable UnusedMember.Local
 // ReSharper disable ClassNeverInstantiated.Global

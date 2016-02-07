@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ namespace TestFx.SpecK.Tests.Simple
   {
     public abstract class DomainSpecBase : Spec
     {
-      protected DomainSpecBase()
+      protected DomainSpecBase ()
       {
         Specify (x => Console.WriteLine (true))
             .Case ("Base case", _ => _);
@@ -49,8 +49,7 @@ namespace TestFx.SpecK.Tests.Simple
     [Subject (typeof (InheritanceTest), "Test")]
     public class SpecializedDomainSpec : DomainSpec
     {
-      [UsedImplicitly]
-      object ResetableObject;
+      [UsedImplicitly] object ResetableObject;
 
       public SpecializedDomainSpec ()
       {

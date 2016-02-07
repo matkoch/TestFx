@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ namespace TestFx.Console.Tests
   [ExcludeFromCodeCoverage]
   public static class DiffFormatter
   {
-    public static string GetFormattedDiff(string oldText, string newText)
+    public static string GetFormattedDiff (string oldText, string newText)
     {
       var differ = new Differ();
       var diff = GetDiff(differ, oldText, newText);

@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ using JetBrains.Annotations;
 namespace TestFx
 {
   [AttributeUsage (AttributeTargets.Field)]
-  [MeansImplicitUse(ImplicitUseKindFlags.Assign)]
+  [MeansImplicitUse (ImplicitUseKindFlags.Assign)]
   public sealed class AssemblySetupAttribute : Attribute
   {
   }

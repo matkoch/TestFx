@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -85,7 +85,7 @@ namespace TestFx.MSpec.Implementation
           .WhereNotNull();
     }
 
-    private object GetInstance(Type declaringType, object suite)
+    private object GetInstance (Type declaringType, object suite)
     {
       return declaringType.IsInstanceOfType(suite) ? suite : declaringType.CreateInstance<object>();
     }

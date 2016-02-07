@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using TestFx.SpecK.InferredApi;
 using TestFx.Utilities.Reflection;
 
 // ReSharper disable once CheckNamespace
+
 namespace TestFx.SpecK
 {
   [PublicAPI]

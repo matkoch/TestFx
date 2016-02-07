@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ using System;
 using FakeItEasy;
 using Machine.Specifications;
 using TestFx.TestInfrastructure;
+
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnusedMember.Local
 
@@ -80,7 +81,7 @@ namespace TestFx.MSpec.Tests
 
     public static Action ThrowingAction = () => { throw new Exception(); };
 
-    public override void SetUp()
+    public override void SetUp ()
     {
       base.SetUp();
 

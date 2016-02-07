@@ -1,4 +1,4 @@
-// Copyright 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,12 +16,13 @@ using System;
 using TestFx.Utilities.Reflection;
 
 // ReSharper disable once CheckNamespace
+
 namespace UserNamespace
 {
   public static class UserClass
   {
     public static void Throw<TException> (string message, Exception innerException)
-      where TException : Exception
+        where TException : Exception
     {
       throw typeof (TException).CreateInstance<TException> (message, innerException);
     }

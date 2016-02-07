@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ namespace TestFx.SpecK.Implementation.Controllers
 {
   public interface IControllerFactory
   {
-    ISuiteController CreateClassSuiteController(object suite, Type subjectType, SuiteProvider provider);
+    ISuiteController CreateClassSuiteController (object suite, Type subjectType, SuiteProvider provider);
 
     ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
         SuiteProvider provider,
@@ -114,7 +114,9 @@ namespace TestFx.SpecK.Implementation.Controllers
       return new TestController<TSubject, TResult, TVars, TSequence>(suiteProvider, provider, context, _operationSorter, this);
     }
 
-    private Action GuardAction<TSubject, TResult, TVars, TSequence> (MainTestContext<TSubject, TResult, TVars, TSequence> context, Action<TSubject> action)
+    private Action GuardAction<TSubject, TResult, TVars, TSequence> (
+        MainTestContext<TSubject, TResult, TVars, TSequence> context,
+        Action<TSubject> action)
     {
       return () =>
       {

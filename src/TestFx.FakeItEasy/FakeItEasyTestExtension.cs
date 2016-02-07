@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -55,13 +55,13 @@ namespace TestFx.FakeItEasy
       testController.AddAction<SetupExtension>("<Setup_Fakes>", x => fieldsWithAttribute.ForEach(t => SetupFakeReturnValue(suite, t.Item2, t.Item1)));
     }
 
-    private void CreateAndAssignFake(object suite, FakeBaseAttribute attribute, FieldInfo field)
+    private void CreateAndAssignFake (object suite, FakeBaseAttribute attribute, FieldInfo field)
     {
       var fake = this.InvokeGenericMethod("CreateFake", new object[] { attribute }, new[] { field.FieldType });
       field.SetValue(suite, fake);
     }
 
-    private void SetupFakeReturnValue(object suite, ReturnedFromAttribute attribute, FieldInfo field)
+    private void SetupFakeReturnValue (object suite, ReturnedFromAttribute attribute, FieldInfo field)
     {
       var fake = suite.GetMemberValue<object>(attribute.FakeField);
       var returnValue = field.GetValue(suite);

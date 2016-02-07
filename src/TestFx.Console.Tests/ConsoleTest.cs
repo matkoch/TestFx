@@ -1,4 +1,4 @@
-﻿// Copyright 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,17 +33,17 @@ namespace TestFx.Console.Tests
         {
             { "duration='(?<duration>[0-9]+)'", "duration='xx'" }
         };
-    
+
     [Test]
-    [TestCase("gold01", new[] { c_speckTestAssembly })]
-    [TestCase("gold02", new[] { c_mspecTestAssembly })]
-    [TestCase("gold03", new[] { c_speckTestAssembly, c_mspecTestAssembly })]
+    [TestCase ("gold01", new[] { c_speckTestAssembly })]
+    [TestCase ("gold02", new[] { c_mspecTestAssembly })]
+    [TestCase ("gold03", new[] { c_speckTestAssembly, c_mspecTestAssembly })]
     public void Test (string goldFile, string[] assemblies)
     {
       RunTest(goldFile, assemblies);
     }
 
-    private void RunTest(string goldFile, string[] assemblies, string additionalArguments = null)
+    private void RunTest (string goldFile, string[] assemblies, string additionalArguments = null)
     {
       var output = GetOutput("--assemblies " + string.Join(";", assemblies) + " --teamCity " + additionalArguments);
 
@@ -108,7 +108,7 @@ namespace TestFx.Console.Tests
       return Path.Combine(Path.GetTempPath(), fileName);
     }
 
-    private string GetPersistent(string value)
+    private string GetPersistent (string value)
     {
       return _replacements.Aggregate(value, (current, pair) => Regex.Replace(current, pair.Key, pair.Value, RegexOptions.Compiled));
     }
