@@ -29,9 +29,9 @@ namespace TestFx.ReSharper.Runner
   public class ReSharperRunListener : RunListener
   {
     private readonly IRemoteTaskServer _server;
-    private readonly IDictionary<string, Task> _taskDictionary;
+    private readonly IDictionary<IIdentity, Task> _taskDictionary;
 
-    public ReSharperRunListener (IRemoteTaskServer server, IDictionary<string, Task> taskDictionary)
+    public ReSharperRunListener (IRemoteTaskServer server, IDictionary<IIdentity, Task> taskDictionary)
     {
       _server = server;
       _taskDictionary = taskDictionary;

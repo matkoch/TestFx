@@ -25,6 +25,7 @@ namespace TestFx.Console
     private readonly TeamCityServiceMessageWriter _writer;
 
     public TeamCityListener (TeamCityServiceMessageWriter writer)
+        : base(new TextSymbolProvider())
     {
       _writer = writer;
     }
