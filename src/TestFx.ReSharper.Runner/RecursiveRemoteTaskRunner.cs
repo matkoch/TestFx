@@ -42,7 +42,7 @@ namespace TestFx.ReSharper.Runner
       var taskDictionary = node.DescendantsAndSelf(x => x.Children)
           .Select(x => x.RemoteTask)
           .Cast<Task>()
-          .ToDictionary(x => x.Identity.Absolute, x => x);
+          .ToDictionary(x => x.Identity, x => x);
       var listener = new ReSharperRunListener(Server, taskDictionary);
 
       try

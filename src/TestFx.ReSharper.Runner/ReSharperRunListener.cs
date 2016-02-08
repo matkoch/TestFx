@@ -15,18 +15,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.Utilities;
-using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Runner
 {
-  public class ReSharperRunListener : RunListener
+  internal class ReSharperRunListener : RunListener
   {
     private readonly IRemoteTaskServer _server;
     private readonly IDictionary<IIdentity, Task> _taskDictionary;
@@ -39,47 +37,39 @@ namespace TestFx.ReSharper.Runner
 
     public override void OnSuiteStarted (IIntent intent, string text)
     {
-      IfTaskExists(intent, Started);
+      Started(intent, text);
     }
 
     public override void OnTestStarted (IIntent intent, string text)
     {
-      IfTaskExists(intent, Started);
+      Started(intent, text);
     }
 
     public override void OnTestFinished (ITestResult result)
     {
-      IfTaskExists(result, x => Finished(result, x));
+      Finished(result, result.OperationResults, result.OutputEntries);
     }
 
     public override void OnSuiteFinished (ISuiteResult result)
     {
-      IfTaskExists(result, x => Finished(result, x));
+      Finished(result, MergeSetupsAndCleanups(result), result.OutputEntries);
     }
 
-    private void Started (Task task)
+    private void Started (IIntent intent, string text)
     {
+      Task task;
+      if (!_taskDictionary.TryGetValue(intent.Identity, out task))
+        task = CreateDynamicTask(intent, text);
+
       _server.TaskStarting(task);
     }
 
-    private void Finished (ISuiteResult result, Task task)
+    private void Finished (IResult result, IEnumerable<IOperationResult> operationResults, IEnumerable<OutputEntry> entries)
     {
-      var operations = MergeSetupsAndCleanups(result);
-      Finished(result, operations, result.OutputEntries, task);
+      var task = _taskDictionary[result.Identity];
 
-      result.SuiteResults.Where(TaskDoesNotExist).ForEach(x => CreateDynamicTask(task.Id, x));
-      result.TestResults.Where(TaskDoesNotExist).ForEach(x => CreateDynamicTask(task.Id, x));
-    }
-
-    private void Finished (ITestResult result, Task task)
-    {
-      Finished(result, result.OperationResults, result.OutputEntries, task);
-    }
-
-    private void Finished (IResult result, IEnumerable<IOperationResult> operationResults, IEnumerable<OutputEntry> entries, Task task)
-    {
+      // Don't process if task represents an assembly suite.
       if (!task.IsMeaningfulTask)
-          // Affects results representing the assembly.
         return;
 
       var operations = operationResults.ToList();
@@ -93,38 +83,13 @@ namespace TestFx.ReSharper.Runner
       _server.TaskFinished(task, message, result.GetTaskResult());
     }
 
-    // TODO: repetition
-    private void CreateDynamicTask (string parentGuid, ISuiteResult result)
+    private Task CreateDynamicTask (IIntent intent, string text)
     {
-      var dynamicTask = new DynamicTask(parentGuid, result.Identity, result.Text);
+      var parentTask = _taskDictionary[intent.Identity.Parent.NotNull()];
+      var dynamicTask = new DynamicTask(parentTask.Id, intent.Identity, text);
       _server.CreateDynamicElement(dynamicTask);
-      Finished(result, dynamicTask);
-    }
-
-    private void CreateDynamicTask (string parentGuid, ITestResult result)
-    {
-      var dynamicTask = new DynamicTask(parentGuid, result.Identity, result.Text);
-      _server.CreateDynamicElement(dynamicTask);
-      Finished(result, dynamicTask);
-    }
-
-    private void IfTaskExists<T> (T node, Action<Task> action) where T : IIdentifiable
-    {
-      var task = GetTask(node.Identity);
-      if (task != null)
-        action(task);
-    }
-
-    private bool TaskDoesNotExist (IResult result)
-    {
-      return GetTask(result.Identity) == null;
-    }
-
-    [CanBeNull]
-    private Task GetTask (IIdentity identity)
-    {
-      Task task;
-      return _taskDictionary.TryGetValue(identity.Absolute, out task) ? task : null;
+      _taskDictionary.Add(intent.Identity, dynamicTask);
+      return dynamicTask;
     }
   }
 }
