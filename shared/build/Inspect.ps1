@@ -17,7 +17,7 @@ Write-Step "Inspect Code"
 
 # Variables
 $InspectionResultFile = Join-Path $OutputDir "InspectionResults.xml"
-$ToolsDir             = Join-Path (Get-SolutionPackagePath "JetBrains.ReSharper.CommandLineTools") "tools"
+$ToolsDir             = Join-Path (Get-SolutionPackagePath "ReSharperCommandLineTools") "tools"
 $InspectCode          = Join-Path $ToolsDir "inspectcode.exe"
 $InspectionExtensions = "ReSharper.ImplicitNullability;ReSharper.SerializationInspections;ReSharper.XmlDocInspections"
 $InspectionCache      = Join-Path $SolutionDir "_ReSharper.InspectionCache"
