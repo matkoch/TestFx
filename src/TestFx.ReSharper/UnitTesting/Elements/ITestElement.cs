@@ -28,6 +28,6 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     void Update (string text, [CanBeNull] string explicitReason, IEnumerable<UnitTestElementCategory> categories);
 
     UnitTestElementDisposition GetDispositionFromFiles (params ITestFile[] testFiles);
-    IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements);
+    IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements, bool init);
   }
 }

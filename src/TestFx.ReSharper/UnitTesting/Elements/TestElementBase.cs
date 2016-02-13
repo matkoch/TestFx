@@ -22,12 +22,12 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.ReSharper.UnitTestFramework.Strategy;
+using JetBrains.Util;
 using TestFx.ReSharper.Model.Tree;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Utilities;
 using TestFx.ReSharper.Utilities.Psi.Tree;
 using TestFx.Utilities;
-using TestFx.Utilities.Collections;
 using RecursiveRemoteTaskRunner = TestFx.ReSharper.Runner.RecursiveRemoteTaskRunner;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
@@ -171,9 +171,12 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return RunStrategy;
     }
 
-    public IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements)
+    public IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements, bool init)
     {
-      var parentTasks = _parent != null ? _parent.GetTaskSequence(explicitElements) : new List<UnitTestTask>();
+      if (init && !explicitElements.Contains(this))
+        return new List<UnitTestTask>();
+
+      var parentTasks = _parent != null ? _parent.GetTaskSequence(explicitElements, init: false) : new List<UnitTestTask>();
       return parentTasks.Concat(_tasks.Select(x => new UnitTestTask(this, x))).ToList();
     }
 

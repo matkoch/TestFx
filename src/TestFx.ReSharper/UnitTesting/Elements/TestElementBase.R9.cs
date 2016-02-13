@@ -33,7 +33,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     public IList<UnitTestTask> GetTaskSequence ([NotNull] ICollection<IUnitTestElement> explicitElements, [NotNull] IUnitTestRun run)
     {
-      return GetTaskSequence(explicitElements);
+      return GetTaskSequence(explicitElements, init: true);
     }
   }
 }
