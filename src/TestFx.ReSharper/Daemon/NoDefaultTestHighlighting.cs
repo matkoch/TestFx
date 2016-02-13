@@ -23,7 +23,7 @@ using TestFx.ReSharper.Model.Tree;
     HighlightingGroupIds.CodeSmell,
     NoDefaultTestHighlighting.Message,
     NoDefaultTestHighlighting.Description,
-    Severity.ERROR,
+    Severity.WARNING,
     /*SolutionAnalysisRequired:*/ false)]
 
 namespace TestFx.ReSharper.Daemon
