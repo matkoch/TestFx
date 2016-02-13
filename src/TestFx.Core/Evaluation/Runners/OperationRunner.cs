@@ -23,7 +23,7 @@ namespace TestFx.Evaluation.Runners
     IOperationResult Run (IOperationProvider provider);
   }
 
-  public class OperationRunner : IOperationRunner
+  internal class OperationRunner : IOperationRunner
   {
     private readonly IResultFactory _resultFactory;
 

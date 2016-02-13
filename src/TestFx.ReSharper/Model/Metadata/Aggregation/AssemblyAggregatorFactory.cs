@@ -23,7 +23,7 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
     IAssemblyAggregator Create (IProject project, [CanBeNull] Func<bool> notInterrupted);
   }
 
-  public class AssemblyAggregatorFactory : IAssemblyAggregatorFactory
+  internal class AssemblyAggregatorFactory : IAssemblyAggregatorFactory
   {
     public static IAssemblyAggregatorFactory Instance = new AssemblyAggregatorFactory();
 

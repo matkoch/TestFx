@@ -23,7 +23,7 @@ using TestFx.Utilities;
 namespace TestFx.ReSharper.Model.Tree
 {
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public class InvocationTestDeclaration : InvocationExpressionBase, ITestDeclaration
+  internal class InvocationTestDeclaration : InvocationExpressionBase, ITestDeclaration
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;

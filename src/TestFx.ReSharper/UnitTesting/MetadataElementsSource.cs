@@ -35,7 +35,7 @@ namespace TestFx.ReSharper.UnitTesting
   }
 
   [SolutionComponent]
-  public class MetadataElementsSource : JetBrains.ReSharper.UnitTestFramework.MetadataElementsSource, IMetadataElementsSource
+  internal class MetadataElementsSource : JetBrains.ReSharper.UnitTestFramework.MetadataElementsSource, IMetadataElementsSource
   {
     public MetadataElementsSource (IShellLocks shellLocks)
         : base(Logger.GetLogger(typeof (MetadataElementsSource)), shellLocks)

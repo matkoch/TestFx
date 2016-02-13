@@ -25,12 +25,12 @@ namespace TestFx.Evaluation.Loading
 {
   public interface IAssemblyExplorer
   {
-    AssemblyExplorationData Explore (Assembly assembly);
+    IAssemblyExplorationData Explore(Assembly assembly);
   }
 
-  public class AssemblyExplorer : IAssemblyExplorer
+  internal class AssemblyExplorer : IAssemblyExplorer
   {
-    public AssemblyExplorationData Explore (Assembly assembly)
+    public IAssemblyExplorationData Explore(Assembly assembly)
     {
       var assemblySetupTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<IAssemblySetup>());
 

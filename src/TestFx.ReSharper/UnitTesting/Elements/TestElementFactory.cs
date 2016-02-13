@@ -35,7 +35,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
   }
 
   [SolutionComponent]
-  public class TestElementFactory : ITestElementFactory
+  internal class TestElementFactory : ITestElementFactory
   {
     private readonly ITestProvider _testProvider;
     private readonly IUnitTestElementManager _unitTestElementManager;

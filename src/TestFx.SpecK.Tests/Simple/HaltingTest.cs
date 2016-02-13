@@ -19,10 +19,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Simple
 {
-  public class HaltingTest : TestBase<HaltingTest.DomainSpec>
+  internal class HaltingTest : TestBase<HaltingTest.DomainSpec>
   {
     [Subject (typeof (HaltingTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       public DomainSpec ()
       {

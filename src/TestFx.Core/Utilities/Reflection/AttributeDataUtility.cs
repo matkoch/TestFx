@@ -37,7 +37,7 @@ namespace TestFx.Utilities.Reflection
     CustomAttributeData GetAttributeData<T> (MemberInfo memberInfo) where T : Attribute;
   }
 
-  public class AttributeDataUtility : IAttributeDataUtility
+  internal class AttributeDataUtility : IAttributeDataUtility
   {
     public static IAttributeDataUtility Instance = new AttributeDataUtility();
 

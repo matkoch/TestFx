@@ -19,7 +19,7 @@ using TestFx.SpecK.InferredApi;
 
 namespace TestFx.SpecK.Implementation.Contexts
 {
-  public class MainTestContext<TSubject, TResult, TVars, TSequence> : TestContext<TSubject, TResult, TVars, TSequence>
+  internal class MainTestContext<TSubject, TResult, TVars, TSequence> : TestContext<TSubject, TResult, TVars, TSequence>
   {
     private readonly ActionContainer<TSubject, TResult> _actionContainer;
     private readonly Action<ITestController> _configurator;

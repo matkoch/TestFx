@@ -21,10 +21,10 @@ using UserNamespace;
 
 namespace TestFx.SpecK.Tests.Exceptions
 {
-  public class ExceptionAssertionTest : TestBase<ExceptionAssertionTest.DomainSpec>
+  internal class ExceptionAssertionTest : TestBase<ExceptionAssertionTest.DomainSpec>
   {
     [Subject (typeof (ExceptionAssertionTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       string Message;
       Exception InnerException;

@@ -32,7 +32,7 @@ namespace TestFx.Utilities.Reflection
     bool IsExtensionMethod (MethodInfo methodInfo);
   }
 
-  public class MemberInfoUtility : IMemberInfoUtility
+  internal class MemberInfoUtility : IMemberInfoUtility
   {
     public static IMemberInfoUtility Instance = new MemberInfoUtility();
 

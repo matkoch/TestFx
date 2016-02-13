@@ -16,7 +16,7 @@ using System;
 
 namespace TestFx.SpecK.Implementation.Contexts
 {
-  public class DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence, TSubject, TResult, TVars, TSequence>
+  internal class DelegateTestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence, TSubject, TResult, TVars, TSequence>
       : TestContext<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence>
   {
     private readonly TestContext<TSubject, TResult, TVars, TSequence> _context;

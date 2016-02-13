@@ -28,7 +28,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
     bool IsImplementingType (IMetadataTypeInfo type, Type implementedType);
   }
 
-  public class TypeUtility : ITypeUtility
+  internal class TypeUtility : ITypeUtility
   {
     public static ITypeUtility Instance = new TypeUtility();
 

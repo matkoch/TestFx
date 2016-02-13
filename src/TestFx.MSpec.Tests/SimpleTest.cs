@@ -23,7 +23,7 @@ using TestFx.TestInfrastructure;
 namespace TestFx.MSpec.Tests
 {
   [Subject (typeof (int))]
-  public class when_adding
+  internal class when_adding
   {
     static int Result;
 
@@ -33,7 +33,7 @@ namespace TestFx.MSpec.Tests
   }
 
   [TestFixture]
-  public class SimpleTest : TestBase<when_adding>
+  internal class SimpleTest : TestBase<when_adding>
   {
     protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {

@@ -19,7 +19,7 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.MSpec.Tests
 {
-  public class SimpleContextExecutionTest : ContextTestBase
+  internal class SimpleContextExecutionTest : ContextTestBase
   {
     protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {

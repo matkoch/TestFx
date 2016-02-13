@@ -27,7 +27,7 @@ namespace TestFx.Evaluation.Utilities
     CancellationToken Token { get; }
   }
 
-  public sealed class CrossAppDomainCancellation : MarshalByRefObject, ICancellation
+  internal sealed class CrossAppDomainCancellation : MarshalByRefObject, ICancellation
   {
     private readonly CancellationTokenSource _cancellationTokenSource;
 

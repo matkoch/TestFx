@@ -26,7 +26,7 @@ namespace TestFx.ReSharper.Utilities.ProjectModel
     IPsiModule GetPrimaryPsiModule (IProject project);
   }
 
-  public class ProjectUtility : IProjectUtility
+  internal class ProjectUtility : IProjectUtility
   {
     public static IProjectUtility Instance = new ProjectUtility();
 

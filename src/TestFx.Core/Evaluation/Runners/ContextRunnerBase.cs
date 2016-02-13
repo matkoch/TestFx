@@ -20,7 +20,7 @@ using TestFx.Extensibility.Providers;
 
 namespace TestFx.Evaluation.Runners
 {
-  public class ContextRunnerBase
+  internal class ContextRunnerBase
   {
     protected class ContextResult
     {

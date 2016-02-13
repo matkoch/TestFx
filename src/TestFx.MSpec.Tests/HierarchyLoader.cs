@@ -20,7 +20,7 @@ using TestFx.MSpec.Implementation;
 namespace TestFx.MSpec.Tests
 {
   [TestFixture]
-  public class HierarchyLoaderTest
+  internal class HierarchyLoaderTest
   {
     [Test]
     public void Test ()
@@ -40,32 +40,32 @@ namespace TestFx.MSpec.Tests
     }
   }
 
-  public class U3 : X1.U2
+  internal class U3 : X1.U2
   {
-    public class U6 : X2.U5
+    internal class U6 : X2.U5
     {
     }
   }
 
-  public class X1
+  internal class X1
   {
-    public class U2 : U1
+    internal class U2 : U1
     {
     }
   }
 
-  public class U1
+  internal class U1
   {
   }
 
-  public class X2
+  internal class X2
   {
-    public class U5 : U4
+    internal class U5 : U4
     {
     }
   }
 
-  public class U4
+  internal class U4
   {
   }
 }

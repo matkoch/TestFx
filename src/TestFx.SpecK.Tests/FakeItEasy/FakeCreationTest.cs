@@ -22,10 +22,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.FakeItEasy
 {
-  public class FakeCreationTest : TestBase<FakeCreationTest.DomainSpec>
+  internal class FakeCreationTest : TestBase<FakeCreationTest.DomainSpec>
   {
     [Subject (typeof (FakeCreationTest), "Test")]
-    public class DomainSpec : Spec<DomainType>
+    internal class DomainSpec : Spec<DomainType>
     {
       [Faked] IFormatProvider FormatProvider;
 
@@ -56,7 +56,7 @@ namespace TestFx.SpecK.Tests.FakeItEasy
               "returns FormatProvider");
     }
 
-    public class DomainType
+    internal class DomainType
     {
       public DomainType (IFormatProvider formatProvider)
       {

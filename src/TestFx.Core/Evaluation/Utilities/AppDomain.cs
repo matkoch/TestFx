@@ -23,7 +23,7 @@ namespace TestFx.Evaluation.Utilities
     T CreateProxy<T> (Type proxyType, params object[] proxyArgs);
   }
 
-  public sealed class AppDomain : IAppDomain
+  internal sealed class AppDomain : IAppDomain
   {
     private const BindingFlags c_bindingFlags = BindingFlags.CreateInstance | BindingFlags.Public | BindingFlags.Instance;
 

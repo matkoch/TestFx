@@ -32,7 +32,7 @@ namespace TestFx.Utilities
         where T : class, IIdentifiable;
   }
 
-  public class IdentifiableCollectionUtility : IIdentifiableCollectionUtility
+  internal class IdentifiableCollectionUtility : IIdentifiableCollectionUtility
   {
     public static IIdentifiableCollectionUtility Instance = new IdentifiableCollectionUtility();
 

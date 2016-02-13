@@ -24,7 +24,7 @@ using TestFx.ReSharper.Model.Tree.Aggregation;
 namespace TestFx.ReSharper.Daemon
 {
   [DaemonStage]
-  public class TestFileDaemonStage : CSharpDaemonStageBase
+  internal class TestFileDaemonStage : CSharpDaemonStageBase
   {
     private readonly IEnumerable<ITestFileAnalyzer> _testFileAnalyzers;
 

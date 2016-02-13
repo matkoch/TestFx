@@ -25,7 +25,7 @@ namespace TestFx.Evaluation.Results
   }
 
   [Serializable]
-  public class TestResult : OutputResult, ITestResult
+  internal class TestResult : OutputResult, ITestResult
   {
     private readonly TimeSpan _duration;
     private readonly ICollection<IOperationResult> _operationResults;

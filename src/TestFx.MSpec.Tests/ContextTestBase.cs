@@ -22,10 +22,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.MSpec.Tests
 {
-  public class outer_context : outer_context_base
+  internal class outer_context : outer_context_base
   {
     [Subject (typeof (int))]
-    public class when_actioning : base_context
+    internal class when_actioning : base_context
     {
       Establish ctx = () => ContextTestBase.Establish();
 
@@ -41,28 +41,28 @@ namespace TestFx.MSpec.Tests
     Cleanup stuff = () => ContextTestBase.OuterContextCleanup();
   }
 
-  public class outer_context_base
+  internal class outer_context_base
   {
     Establish ctx = () => ContextTestBase.OuterContextBaseEstablish();
 
     Cleanup stuff = () => ContextTestBase.OuterContextBaseCleanup();
   }
 
-  public class base_context : base_context_base
+  internal class base_context : base_context_base
   {
     Establish ctx = () => ContextTestBase.BaseContextEstablish();
 
     Cleanup stuff = () => ContextTestBase.BaseContextCleanup();
   }
 
-  public class base_context_base
+  internal class base_context_base
   {
     Establish ctx = () => ContextTestBase.BaseContextBaseEstablish();
 
     Cleanup stuff = () => ContextTestBase.BaseContextBaseCleanup();
   }
 
-  public abstract class ContextTestBase : TestBase<outer_context.when_actioning>
+  internal abstract class ContextTestBase : TestBase<outer_context.when_actioning>
   {
     public static Action OuterContextBaseEstablish;
     public static Action OuterContextEstablish;

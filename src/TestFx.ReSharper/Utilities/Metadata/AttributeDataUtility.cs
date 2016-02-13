@@ -29,7 +29,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
     IMetadataCustomAttribute GetAttributeData<T> (IMetadataEntity entity) where T : Attribute;
   }
 
-  public class AttributeDataUtility : IAttributeDataUtility
+  internal class AttributeDataUtility : IAttributeDataUtility
   {
     public static IAttributeDataUtility Instance = new AttributeDataUtility();
 

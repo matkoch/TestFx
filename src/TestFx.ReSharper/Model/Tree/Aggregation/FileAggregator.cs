@@ -31,7 +31,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     ITestFile GetTestFile (ICSharpFile file);
   }
 
-  public class FileAggregator : IFileAggregator
+  internal class FileAggregator : IFileAggregator
   {
     private readonly ITreePresenter _treePresenter;
     private readonly IProject _project;

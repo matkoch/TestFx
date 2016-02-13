@@ -17,7 +17,7 @@ using System.Diagnostics;
 
 namespace TestFx.Evaluation.Utilities
 {
-  public class DelegateTraceListener : TraceListener
+  internal class DelegateTraceListener : TraceListener
   {
     private readonly Action<string> _write;
 

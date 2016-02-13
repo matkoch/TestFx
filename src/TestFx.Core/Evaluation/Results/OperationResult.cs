@@ -28,7 +28,7 @@ namespace TestFx.Evaluation.Results
   }
 
   [Serializable]
-  public class OperationResult : Result, IOperationResult
+  internal class OperationResult : Result, IOperationResult
   {
     private readonly OperationType _type;
     private readonly IExceptionDescriptor _exception;

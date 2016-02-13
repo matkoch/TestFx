@@ -20,10 +20,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Simple
 {
-  public class PassingTest : TestBase<PassingTest.DomainSpec>
+  internal class PassingTest : TestBase<PassingTest.DomainSpec>
   {
     [Subject (typeof (PassingTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       [UsedImplicitly] object ResetableObject;
 

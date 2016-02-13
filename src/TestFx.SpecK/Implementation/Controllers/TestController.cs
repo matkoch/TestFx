@@ -43,7 +43,7 @@ namespace TestFx.SpecK.Implementation.Controllers
         CreateDelegate<TDelegateSubject, TDelegateResult, TDelegateVars, TDelegateSequence> ();
   }
 
-  public class TestController<TSubject, TResult, TVars, TSequence> : TestController, ITestController<TSubject, TResult, TVars, TSequence>
+  internal class TestController<TSubject, TResult, TVars, TSequence> : TestController, ITestController<TSubject, TResult, TVars, TSequence>
   {
     private readonly SuiteProvider _suiteProvider;
     private readonly TestProvider _provider;

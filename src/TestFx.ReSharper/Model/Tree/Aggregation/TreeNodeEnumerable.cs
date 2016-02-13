@@ -29,7 +29,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     }
   }
 
-  public class TreeNodeEnumerable<T> : IEnumerable<T>
+  internal class TreeNodeEnumerable<T> : IEnumerable<T>
       where T : ITreeNode
   {
     private readonly Func<IEnumerable<T>> _treeNodeProvider;

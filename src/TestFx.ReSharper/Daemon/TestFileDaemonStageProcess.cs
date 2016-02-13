@@ -6,7 +6,7 @@ using TestFx.ReSharper.Model.Tree;
 
 namespace TestFx.ReSharper.Daemon
 {
-  public class TestFileDaemonStageProcess : IDaemonStageProcess
+  internal class TestFileDaemonStageProcess : IDaemonStageProcess
   {
     private readonly IDaemonProcess _process;
     private readonly ITestFile _file;

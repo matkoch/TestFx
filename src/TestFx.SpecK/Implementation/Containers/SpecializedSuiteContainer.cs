@@ -20,7 +20,7 @@ using TestFx.SpecK.InferredApi;
 
 namespace TestFx.SpecK.Implementation.Containers
 {
-  public class SpecializedSuiteContainer<TSubject, TResult> : Container, IIgnoreOrCase<TSubject, TResult>
+  internal class SpecializedSuiteContainer<TSubject, TResult> : Container, IIgnoreOrCase<TSubject, TResult>
   {
     private readonly ISpecializedSuiteController<TSubject, TResult> _controller;
 

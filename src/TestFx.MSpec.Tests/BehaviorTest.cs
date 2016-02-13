@@ -29,7 +29,7 @@ using TestFx.TestInfrastructure;
 namespace TestFx.MSpec.Tests
 {
   [Subject (typeof (int))]
-  public class when_calling
+  internal class when_calling
   {
     static object Result;
 
@@ -39,13 +39,13 @@ namespace TestFx.MSpec.Tests
   }
 
   [Behaviors]
-  public class MyBehavior
+  internal class MyBehavior
   {
     Behaves_like<MyBehavior2> _;
   }
 
   [Behaviors]
-  public class MyBehavior2
+  internal class MyBehavior2
   {
     static object Result;
 
@@ -53,7 +53,7 @@ namespace TestFx.MSpec.Tests
   }
 
   [TestFixture]
-  public class BehaviorTest : TestBase<when_calling>
+  internal class BehaviorTest : TestBase<when_calling>
   {
     protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {

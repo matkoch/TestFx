@@ -23,7 +23,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     IFileAggregator Aggregate (IProject project, [CanBeNull] Func<bool> notInterrupted);
   }
 
-  public class FileAggregatorFactory : IFileAggregatorFactory
+  internal class FileAggregatorFactory : IFileAggregatorFactory
   {
     public static IFileAggregatorFactory Instance = new FileAggregatorFactory();
 

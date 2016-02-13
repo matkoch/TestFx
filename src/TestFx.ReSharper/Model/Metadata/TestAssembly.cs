@@ -26,7 +26,7 @@ namespace TestFx.ReSharper.Model.Metadata
   }
 
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public class TestAssembly : MetadataAssemblyBase, ITestAssembly
+  internal class TestAssembly : MetadataAssemblyBase, ITestAssembly
   {
     private readonly IEnumerable<ITestMetadata> _testMetadatas;
 

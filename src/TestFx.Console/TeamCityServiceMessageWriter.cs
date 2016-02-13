@@ -24,7 +24,7 @@ namespace TestFx.Console
   /// These messages are interpreted by TeamCity to perform some task.
   /// See also: http://www.jetbrains.net/confluence/display/TCD3/Build+Script+Interaction+with+TeamCity
   /// </summary>
-  public class TeamCityServiceMessageWriter
+  internal class TeamCityServiceMessageWriter
   {
     private readonly Action<string> writer;
 

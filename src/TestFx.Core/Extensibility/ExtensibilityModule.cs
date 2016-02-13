@@ -18,7 +18,7 @@ using TestFx.Extensibility.Utilities;
 
 namespace TestFx.Extensibility
 {
-  public class ExtensibilityModule : Module
+  internal class ExtensibilityModule : Module
   {
     private readonly Type _typeLoaderType;
     private readonly Type[] _operationOrdering;

@@ -22,7 +22,7 @@ namespace TestFx.Evaluation.Results
   {
   }
 
-  public class RunResult : Result, IRunResult
+  internal class RunResult : Result, IRunResult
   {
     private readonly IEnumerable<ISuiteResult> _suiteResults;
 

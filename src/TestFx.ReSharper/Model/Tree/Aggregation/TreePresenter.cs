@@ -33,7 +33,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     string Present (IInvocationExpression invocationExpression);
   }
 
-  public class TreePresenter : ITreePresenter
+  internal class TreePresenter : ITreePresenter
   {
     private readonly IIntrospectionPresenter _introspectionPresenter;
 

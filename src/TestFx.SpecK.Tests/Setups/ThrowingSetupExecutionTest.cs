@@ -20,10 +20,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Setups
 {
-  public class ThrowingSetupExecutionTest : TestBase<ThrowingSetupExecutionTest.DomainSpec>
+  internal class ThrowingSetupExecutionTest : TestBase<ThrowingSetupExecutionTest.DomainSpec>
   {
     [Subject (typeof (ThrowingSetupExecutionTest), "Test")]
-    public class DomainSpec : Spec<object>
+    internal class DomainSpec : Spec<object>
     {
       // TODO: Assert NotNull + Value Init
       [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;
@@ -50,7 +50,7 @@ namespace TestFx.SpecK.Tests.Setups
       }
     }
 
-    public class MyAssemblySetup : IAssemblySetup
+    internal class MyAssemblySetup : IAssemblySetup
     {
       public void Setup ()
       {

@@ -21,10 +21,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.FakeItEasy
 {
-  public class FakeSetupTest : TestBase<FakeSetupTest.DomainSpec>
+  internal class FakeSetupTest : TestBase<FakeSetupTest.DomainSpec>
   {
     [Subject (typeof (FakeSetupTest), "Test")]
-    public class DomainSpec : Spec<DomainType>
+    internal class DomainSpec : Spec<DomainType>
     {
       [Faked] IServiceProvider ServiceProvider;
       [Dummy] [ReturnedFrom ("ServiceProvider")] object Service;
@@ -55,7 +55,7 @@ namespace TestFx.SpecK.Tests.FakeItEasy
               "retrieves Service from ServiceProvider");
     }
 
-    public class DomainType
+    internal class DomainType
     {
       public DomainType (IServiceProvider serviceProvider)
       {

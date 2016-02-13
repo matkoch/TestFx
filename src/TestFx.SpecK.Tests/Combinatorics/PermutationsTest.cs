@@ -20,10 +20,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Combinatorics
 {
-  public class PermutationsTest : TestBase<PermutationsTest.DomainSpec>
+  internal class PermutationsTest : TestBase<PermutationsTest.DomainSpec>
   {
     [Subject (typeof (PermutationsTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       int A;
       int B;

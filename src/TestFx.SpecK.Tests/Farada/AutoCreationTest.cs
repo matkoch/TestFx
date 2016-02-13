@@ -23,11 +23,11 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Farada
 {
-  public class AutoCreationTest : TestBase<AutoCreationTest.DomainSpec>
+  internal class AutoCreationTest : TestBase<AutoCreationTest.DomainSpec>
   {
     [Subject (typeof (AutoCreationTest), "Test")]
     [AutoDataSeed (1337)]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       [AutoData] DomainModel Model;
       [AutoData] [Range (5, 7)] int Integer;
@@ -58,7 +58,7 @@ namespace TestFx.SpecK.Tests.Farada
     }
 
     [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
-    public class DomainModel
+    internal class DomainModel
     {
       [Required]
       [MinLength (3)]

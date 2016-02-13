@@ -47,7 +47,7 @@ namespace TestFx.Evaluation.Results
     IOperationResult CreateInconclusiveOperationResult (IOperationProvider provider);
   }
 
-  public class ResultFactory : IResultFactory
+  internal class ResultFactory : IResultFactory
   {
     public IOutputRecording CreateOutputRecording ()
     {

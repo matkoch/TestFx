@@ -23,7 +23,7 @@ using NUnit.Framework;
 namespace TestFx.Console.Tests
 {
   [TestFixture]
-  public class ConsoleTest
+  internal class ConsoleTest
   {
     private const string c_speckTestAssembly = "TestFx.SpecK.Tests.dll";
     private const string c_mspecTestAssembly = "TestFx.MSpec.Tests.dll";

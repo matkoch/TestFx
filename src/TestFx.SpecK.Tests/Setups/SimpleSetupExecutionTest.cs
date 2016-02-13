@@ -21,10 +21,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Setups
 {
-  public class SimpleSetupExecutionTest : TestBase<SimpleSetupExecutionTest.DomainSpec>
+  internal class SimpleSetupExecutionTest : TestBase<SimpleSetupExecutionTest.DomainSpec>
   {
     [Subject (typeof (SimpleSetupExecutionTest), "Test")]
-    public class DomainSpec : Spec<object>
+    internal class DomainSpec : Spec<object>
     {
       [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;
 
@@ -52,7 +52,7 @@ namespace TestFx.SpecK.Tests.Setups
       }
     }
 
-    public class MyAssemblySetup : IAssemblySetup
+    internal class MyAssemblySetup : IAssemblySetup
     {
       public void Setup ()
       {

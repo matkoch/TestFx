@@ -20,7 +20,7 @@ using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation.Reporting
 {
-  public class CompositeRunListener : IRunListener
+  internal class CompositeRunListener : IRunListener
   {
     private readonly ICollection<IRunListener> _listeners;
 

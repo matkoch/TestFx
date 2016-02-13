@@ -25,7 +25,7 @@ namespace TestFx.Extensibility.Utilities
     IEnumerable<IOperationProvider> Sort (IEnumerable<IOperationProvider> operationProviders);
   }
 
-  public class OperationSorter : IOperationSorter
+  internal class OperationSorter : IOperationSorter
   {
     private readonly Type[] _operationDescriptors;
 

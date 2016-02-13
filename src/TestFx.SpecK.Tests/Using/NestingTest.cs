@@ -19,10 +19,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Using
 {
-  public class NestingTest : TestBase<NestingTest.DomainSpec>
+  internal class NestingTest : TestBase<NestingTest.DomainSpec>
   {
     [Subject (typeof (NestingTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       public DomainSpec ()
       {

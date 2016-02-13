@@ -24,7 +24,7 @@ using TestFx.Utilities.Collections;
 namespace TestFx.ReSharper.Daemon
 {
   [PsiComponent]
-  public class NoDefaultTestAnalyzer : ITestFileAnalyzer
+  internal class NoDefaultTestAnalyzer : ITestFileAnalyzer
   {
     public IEnumerable<IHighlighting> GetHighlightings(ITestFile file)
     {

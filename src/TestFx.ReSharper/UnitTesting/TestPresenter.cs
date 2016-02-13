@@ -29,7 +29,7 @@ namespace TestFx.ReSharper.UnitTesting
   }
 
   [UnitTestPresenter]
-  public class TestPresenter : ITestPresenter
+  internal class TestPresenter : ITestPresenter
   {
     private readonly IComparer<TreeModelNode> _comparer = new NodeComparer();
 

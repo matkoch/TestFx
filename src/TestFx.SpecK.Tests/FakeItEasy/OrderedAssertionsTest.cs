@@ -22,10 +22,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.FakeItEasy
 {
-  public class OrderedAssertionsTest : TestBase<OrderedAssertionsTest.DomainSpec>
+  internal class OrderedAssertionsTest : TestBase<OrderedAssertionsTest.DomainSpec>
   {
     [Subject (typeof (OrderedAssertionsTest), "Test")]
-    public class DomainSpec : Spec<DomainType>
+    internal class DomainSpec : Spec<DomainType>
     {
       [Faked] IDisposable FirstDisposable;
       [Faked] IDisposable SecondDisposable;
@@ -56,7 +56,7 @@ namespace TestFx.SpecK.Tests.FakeItEasy
               x => x.Name.Should ().Be ("ExpectationException"));
     }
 
-    public class DomainType
+    internal class DomainType
     {
       readonly IDisposable _firstDisposable;
       readonly IDisposable _secondDisposable;

@@ -18,7 +18,7 @@ using System.IO;
 
 namespace TestFx.Evaluation.Utilities
 {
-  public class DelegateStringWriter : StringWriter
+  internal class DelegateStringWriter : StringWriter
   {
     private readonly Action<string> _write;
 

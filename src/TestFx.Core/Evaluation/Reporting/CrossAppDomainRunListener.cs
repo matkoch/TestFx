@@ -18,7 +18,7 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.Evaluation.Reporting
 {
-  public class CrossAppDomainRunListener : MarshalByRefObject, IRunListener
+  internal class CrossAppDomainRunListener : MarshalByRefObject, IRunListener
   {
     public static IRunListener Create (params IRunListener[] listeners)
     {

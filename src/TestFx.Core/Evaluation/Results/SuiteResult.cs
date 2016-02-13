@@ -27,7 +27,7 @@ namespace TestFx.Evaluation.Results
   }
 
   [Serializable]
-  public class SuiteResult : OutputResult, ISuiteResult
+  internal class SuiteResult : OutputResult, ISuiteResult
   {
     private readonly ICollection<IOperationResult> _setupResults;
     private readonly ICollection<IOperationResult> _cleanupResults;

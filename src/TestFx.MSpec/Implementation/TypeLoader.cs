@@ -27,7 +27,7 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx.MSpec.Implementation
 {
-  public class TypeLoader : TypeLoaderBase
+  internal class TypeLoader : TypeLoaderBase
   {
     public TypeLoader (IIntrospectionPresenter introspectionPresenter)
         : base(introspectionPresenter)

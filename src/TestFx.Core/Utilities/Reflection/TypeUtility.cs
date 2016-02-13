@@ -37,7 +37,7 @@ namespace TestFx.Utilities.Reflection
     object GetDefaultValueFor (Type type);
   }
 
-  public class TypeUtility : ITypeUtility
+  internal class TypeUtility : ITypeUtility
   {
     public static ITypeUtility Instance = new TypeUtility();
 

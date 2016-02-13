@@ -27,7 +27,7 @@ namespace TestFx.Evaluation.Utilities
   {
   }
 
-  public sealed class OutputRecording : IOutputRecording
+  internal sealed class OutputRecording : IOutputRecording
   {
     private readonly TextWriter _previousStdOut;
     private readonly TextWriter _previousErrOut;

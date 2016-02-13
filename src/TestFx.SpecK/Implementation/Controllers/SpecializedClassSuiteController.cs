@@ -28,7 +28,7 @@ namespace TestFx.SpecK.Implementation.Controllers
     ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string description);
   }
 
-  public class SpecializedSuiteController<TSubject, TResult> : SuiteController, ISpecializedSuiteController<TSubject, TResult>
+  internal class SpecializedSuiteController<TSubject, TResult> : SuiteController, ISpecializedSuiteController<TSubject, TResult>
   {
     private readonly SuiteProvider _provider;
     private readonly ActionContainer<TSubject, TResult> _actionContainer;

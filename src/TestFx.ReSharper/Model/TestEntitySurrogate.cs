@@ -19,7 +19,7 @@ using TestFx.Utilities;
 
 namespace TestFx.ReSharper.Model
 {
-  public class TestEntitySurrogate : ITestEntity
+  internal class TestEntitySurrogate : ITestEntity
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;

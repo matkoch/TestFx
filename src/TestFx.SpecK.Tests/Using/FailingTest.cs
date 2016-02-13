@@ -19,10 +19,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Using
 {
-  public class FailingTest : TestBase<FailingTest.DomainSpec>
+  internal class FailingTest : TestBase<FailingTest.DomainSpec>
   {
     [Subject (typeof (FailingTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       public DomainSpec ()
       {

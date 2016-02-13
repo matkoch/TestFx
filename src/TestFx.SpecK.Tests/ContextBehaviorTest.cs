@@ -20,10 +20,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests
 {
-  public class ContextBehaviorTest : TestBase<ContextBehaviorTest.DomainSpec>
+  internal class ContextBehaviorTest : TestBase<ContextBehaviorTest.DomainSpec>
   {
     [Subject (typeof (ContextBehaviorTest), "Test")]
-    public class DomainSpec : Spec<DomainType>
+    internal class DomainSpec : Spec<DomainType>
     {
       DomainSpec ()
       {
@@ -59,7 +59,7 @@ namespace TestFx.SpecK.Tests
           .HasFailingOperation ("has property set to null");
     }
 
-    public class DomainType
+    internal class DomainType
     {
       public DomainType (string property)
       {

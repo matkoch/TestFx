@@ -34,7 +34,7 @@ namespace TestFx.SpecK.Implementation.Controllers
     ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Func<TSubject, TResult> resultExpression);
   }
 
-  public class ClassSuiteController<TSubject> : ClassSuiteController, IClassSuiteController<TSubject>
+  internal class ClassSuiteController<TSubject> : ClassSuiteController, IClassSuiteController<TSubject>
   {
     private readonly SuiteProvider _provider;
     private readonly ISuite<TSubject> _suite;
@@ -43,7 +43,7 @@ namespace TestFx.SpecK.Implementation.Controllers
 
     private bool _controllerAdded;
 
-    public ClassSuiteController (
+    public ClassSuiteController(
         SuiteProvider provider,
         ISuite<TSubject> suite,
         IEnumerable<ITestExtension> testExtensions,

@@ -22,10 +22,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Subject
 {
-  public class DefaultCreationTest : TestBase<DefaultCreationTest.DomainSpec>
+  internal class DefaultCreationTest : TestBase<DefaultCreationTest.DomainSpec>
   {
     [Subject (typeof (DefaultCreationTest), "Test")]
-    public class DomainSpec : Spec<DomainType>
+    internal class DomainSpec : Spec<DomainType>
     {
       [Injected] static string InjectedString = "MyString";
 
@@ -48,7 +48,7 @@ namespace TestFx.SpecK.Tests.Subject
               "creates subject only once");
     }
 
-    public class DomainType
+    internal class DomainType
     {
       public static int ConstructorCalls;
 

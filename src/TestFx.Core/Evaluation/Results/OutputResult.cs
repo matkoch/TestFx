@@ -25,7 +25,7 @@ namespace TestFx.Evaluation.Results
   }
 
   [Serializable]
-  public abstract class OutputResult : Result, IOutputResult
+  internal abstract class OutputResult : Result, IOutputResult
   {
     private readonly ICollection<OutputEntry> _outputEntries;
 

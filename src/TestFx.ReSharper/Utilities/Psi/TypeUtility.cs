@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.Utilities.Psi
     bool IsImplementingType (IDeclaredType type, Type implementedType);
   }
 
-  public class TypeUtility : ITypeUtility
+  internal class TypeUtility : ITypeUtility
   {
     public static ITypeUtility Instance = new TypeUtility();
 

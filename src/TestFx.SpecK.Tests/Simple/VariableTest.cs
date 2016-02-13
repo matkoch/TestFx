@@ -20,10 +20,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Simple
 {
-  public class VariableTest : TestBase<VariableTest.DomainSpec>
+  internal class VariableTest : TestBase<VariableTest.DomainSpec>
   {
     [Subject (typeof (VariableTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       int MyInteger;
 

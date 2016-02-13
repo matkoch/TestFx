@@ -31,7 +31,7 @@ namespace TestFx.Evaluation.Results
 
   [Serializable]
   [DebuggerDisplay("Name = {Name}, Message = {Message}")]
-  public class ExceptionDescriptor : IExceptionDescriptor
+  internal class ExceptionDescriptor : IExceptionDescriptor
   {
     public const ExceptionDescriptor None = null;
 

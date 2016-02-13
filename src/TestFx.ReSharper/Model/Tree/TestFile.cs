@@ -23,7 +23,7 @@ namespace TestFx.ReSharper.Model.Tree
   {
   }
 
-  public class TestFile : FileBase, ITestFile
+  internal class TestFile : FileBase, ITestFile
   {
     private readonly IEnumerable<ITestDeclaration> _testDeclarations;
 

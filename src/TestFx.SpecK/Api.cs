@@ -23,7 +23,6 @@ using TestFx.SpecK.InferredApi;
 
 namespace TestFx.SpecK
 {
-
   #region ISuite<TSubject>
 
   [PublicAPI]

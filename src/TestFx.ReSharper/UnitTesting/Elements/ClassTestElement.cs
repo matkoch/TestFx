@@ -32,7 +32,7 @@ using JetBrains.Metadata.Reader.Impl;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public class ClassTestElement : TestElementBase
+  internal class ClassTestElement : TestElementBase
   {
     private readonly ClrTypeName _testTypeName;
 

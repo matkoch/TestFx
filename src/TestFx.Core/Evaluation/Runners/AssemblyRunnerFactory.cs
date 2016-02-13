@@ -27,7 +27,7 @@ namespace TestFx.Evaluation.Runners
     IAssemblyRunner Create (IRunListener listener, IResourceManager resourceManager, ICancellationTokenSource cancellationTokenSource);
   }
 
-  public class AssemblyRunnerFactory : MarshalByRefObject, IAssemblyRunnerFactory
+  internal class AssemblyRunnerFactory : MarshalByRefObject, IAssemblyRunnerFactory
   {
     public IAssemblyRunner Create (IRunListener listener, IResourceManager resourceManager, ICancellationTokenSource cancellationTokenSource)
     {

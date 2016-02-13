@@ -28,7 +28,7 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
     ITestAssembly GetTestAssembly (IMetadataAssembly assembly);
   }
 
-  public class AssemblyAggregator : IAssemblyAggregator
+  internal class AssemblyAggregator : IAssemblyAggregator
   {
     private readonly IMetadataPresenter _metadataPresenter;
     private readonly IProject _project;

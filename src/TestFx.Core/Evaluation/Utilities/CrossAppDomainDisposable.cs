@@ -16,7 +16,7 @@ using System;
 
 namespace TestFx.Evaluation.Utilities
 {
-  public sealed class CrossAppDomainDisposable : MarshalByRefObject, IDisposable
+  internal sealed class CrossAppDomainDisposable : MarshalByRefObject, IDisposable
   {
     private readonly Action _disposeAction;
 

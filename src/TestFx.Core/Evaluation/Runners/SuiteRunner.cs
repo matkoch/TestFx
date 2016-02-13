@@ -28,7 +28,7 @@ namespace TestFx.Evaluation.Runners
     ISuiteResult Run (IIntent intent, ISuiteProvider provider);
   }
 
-  public class SuiteRunner : ISuiteRunner
+  internal class SuiteRunner : ISuiteRunner
   {
     private readonly IResourceManager _resourceManager;
     private readonly IResultFactory _resultFactory;

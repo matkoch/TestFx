@@ -21,7 +21,7 @@ using TestFx.Utilities.Collections;
 
 namespace TestFx.SpecK.Implementation.Controllers
 {
-  public class CompositeTestController<TSubject, TResult, TVars, TSequence>
+  internal class CompositeTestController<TSubject, TResult, TVars, TSequence>
       : CompositeTestController, ITestController<TSubject, TResult, TVars, TSequence>
   {
     private readonly IControllerFactory _controllerFactory;

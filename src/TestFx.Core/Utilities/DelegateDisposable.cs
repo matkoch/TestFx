@@ -16,7 +16,7 @@ using System;
 
 namespace TestFx.Utilities
 {
-  public class DelegateDisposable : IDisposable
+  internal class DelegateDisposable : IDisposable
   {
     private readonly Action _cleanup;
 

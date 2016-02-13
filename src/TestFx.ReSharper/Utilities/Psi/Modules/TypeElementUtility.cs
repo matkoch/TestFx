@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.Utilities.Psi.Modules
     ITypeElement GetTypeElement (IPsiModule psiModule, IClrTypeName clrTypeName);
   }
 
-  public class TypeElementUtility : ITypeElementUtility
+  internal class TypeElementUtility : ITypeElementUtility
   {
     public static ITypeElementUtility Instance = new TypeElementUtility();
 

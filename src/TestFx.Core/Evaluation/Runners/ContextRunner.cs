@@ -31,7 +31,7 @@ namespace TestFx.Evaluation.Runners
     IEnumerable<IOperationResult> CleanupResults { get; }
   }
 
-  public class ContextRunner : IContextRunner
+  internal class ContextRunner : IContextRunner
   {
     private sealed class ContextScope : IContextScope
     {

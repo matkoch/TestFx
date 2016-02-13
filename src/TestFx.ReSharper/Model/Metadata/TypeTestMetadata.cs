@@ -23,7 +23,7 @@ using TestFx.Utilities;
 namespace TestFx.ReSharper.Model.Metadata
 {
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public class TypeTestMetadata : MetadataTypeInfoBase, ITestMetadata
+  internal class TypeTestMetadata : MetadataTypeInfoBase, ITestMetadata
   {
     private readonly IIdentity _identity;
     private readonly IProject _project;

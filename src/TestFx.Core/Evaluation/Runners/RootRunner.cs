@@ -30,7 +30,7 @@ namespace TestFx.Evaluation.Runners
     IRunResult Run (IRunIntent intent);
   }
 
-  public class RootRunner : IRootRunner
+  internal class RootRunner : IRootRunner
   {
     private enum TestType
     {

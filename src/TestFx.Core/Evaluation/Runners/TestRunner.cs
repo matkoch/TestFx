@@ -29,7 +29,7 @@ namespace TestFx.Evaluation.Runners
     ITestResult Run (IIntent intent, ITestProvider provider);
   }
 
-  public class TestRunner : ITestRunner
+  internal class TestRunner : ITestRunner
   {
     private readonly IResultFactory _resultFactory;
     private readonly IOperationRunner _operationRunner;

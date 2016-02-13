@@ -33,7 +33,7 @@ namespace TestFx.ReSharper.Daemon
       "CSHARP",
       OverlapResolve = OverlapResolveKind.ERROR,
       ToolTipFormatString = Message)]
-  public class NoDefaultTestHighlighting : SimpleTestDeclarationHighlightingBase
+  internal class NoDefaultTestHighlighting : SimpleTestDeclarationHighlightingBase
   {
     public const string SeverityId = "NoDefaultTest";
     public const string Message = "Test suite has no default test case.";

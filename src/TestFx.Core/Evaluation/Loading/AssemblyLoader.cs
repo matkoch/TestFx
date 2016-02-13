@@ -30,7 +30,7 @@ namespace TestFx.Evaluation.Loading
     ISuiteProvider Load (IIntent assemblyIntent);
   }
 
-  public class AssemblyLoader : IAssemblyLoader
+  internal class AssemblyLoader : IAssemblyLoader
   {
     private readonly IAssemblyExplorer _assemblyExplorer;
     private readonly ISuiteControllerFactory _suiteControllerFactory;

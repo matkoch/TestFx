@@ -33,7 +33,7 @@ namespace TestFx.ReSharper.Daemon
       "CSHARP",
       OverlapResolve = OverlapResolveKind.ERROR,
       ToolTipFormatString = Message)]
-  public class DuplicatedTestHighlighting : SimpleTestDeclarationHighlightingBase
+  internal class DuplicatedTestHighlighting : SimpleTestDeclarationHighlightingBase
   {
     public const string SeverityId = "DuplicatedTest";
     public const string Message = "Test is duplicated.";

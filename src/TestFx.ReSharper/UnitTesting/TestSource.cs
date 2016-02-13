@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.UnitTesting
   }
 
   [SolutionComponent]
-  public class TestSource : ITestSource
+  internal class TestSource : ITestSource
   {
     private readonly ITestMetadataExplorer _testMetadataExplorer;
     private readonly ITestFileExplorer _testFileExplorer;

@@ -17,7 +17,14 @@ using System.Collections.Generic;
 
 namespace TestFx.Evaluation.Loading
 {
-  public class AssemblyExplorationData
+  public interface IAssemblyExplorationData
+  {
+    IDictionary<Type, ITypeLoader> TypeLoaders { get; }
+    IEnumerable<Type> SuiteTypes { get; }
+    IEnumerable<Type> AssemblySetupTypes { get; }
+  }
+
+  internal class AssemblyExplorationData : IAssemblyExplorationData
   {
     private readonly IDictionary<Type, ITypeLoader> _typeLoaders;
     private readonly IEnumerable<Type> _suiteTypes;

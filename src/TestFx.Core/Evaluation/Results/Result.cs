@@ -26,7 +26,7 @@ namespace TestFx.Evaluation.Results
 
   [Serializable]
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public abstract class Result : IResult
+  internal abstract class Result : IResult
   {
     private readonly IIdentity _identity;
     private readonly string _text;

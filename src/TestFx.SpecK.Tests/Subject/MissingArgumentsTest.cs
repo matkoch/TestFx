@@ -20,10 +20,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Subject
 {
-  public class MissingArgumentsTest : TestBase<MissingArgumentsTest.DomainSpec>
+  internal class MissingArgumentsTest : TestBase<MissingArgumentsTest.DomainSpec>
   {
     [Subject (typeof (MissingArgumentsTest), "Test")]
-    public class DomainSpec : Spec<DomainType>
+    internal class DomainSpec : Spec<DomainType>
     {
       [Injected] static string MyString = "MyString";
 
@@ -43,7 +43,7 @@ namespace TestFx.SpecK.Tests.Subject
     }
 
     [UsedImplicitly]
-    public class DomainType
+    internal class DomainType
     {
       public DomainType (string firstMissingString, string myString, string secondMissingString)
       {

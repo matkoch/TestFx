@@ -28,7 +28,7 @@ namespace TestFx.Utilities.Reflection
     CommonAttribute GetCommonAttribute (CustomAttributeData customAttributeData);
   }
 
-  public class IntrospectionUtility : IIntrospectionUtility
+  internal class IntrospectionUtility : IIntrospectionUtility
   {
     public static IIntrospectionUtility Instance = new IntrospectionUtility();
 

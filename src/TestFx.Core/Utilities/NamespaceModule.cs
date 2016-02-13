@@ -19,7 +19,7 @@ using JetBrains.Annotations;
 
 namespace TestFx.Utilities
 {
-  public class NamespaceModule : Autofac.Module
+  internal class NamespaceModule : Autofac.Module
   {
     private readonly Assembly _assembly;
     private readonly string _namespace;

@@ -24,7 +24,7 @@ namespace TestFx.Evaluation.Utilities
     IDisposable Acquire (IEnumerable<string> resources);
   }
 
-  public class ResourceManager : MarshalByRefObject, IResourceManager
+  internal class ResourceManager : MarshalByRefObject, IResourceManager
   {
     private const int c_retryTimeout = 500;
 

@@ -24,7 +24,7 @@ namespace TestFx.Evaluation.Loading
     ISuiteController Create (SuiteProvider suiteProvider);
   }
 
-  public class SuiteControllerFactory : ISuiteControllerFactory
+  internal class SuiteControllerFactory : ISuiteControllerFactory
   {
     private readonly IOperationSorter _operationSorter;
 

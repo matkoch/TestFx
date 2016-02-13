@@ -16,7 +16,7 @@ using System;
 
 namespace TestFx.Utilities
 {
-  public class UtilitiesModule : NamespaceModule
+  internal class UtilitiesModule : NamespaceModule
   {
     public UtilitiesModule ()
         : base(typeof (UtilitiesModule))

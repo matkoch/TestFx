@@ -19,7 +19,7 @@ using System.Text;
 namespace TestFx.Evaluation
 {
   [Serializable]
-  public class DiagnosticException : Exception
+  internal class DiagnosticException : Exception
   {
     protected DiagnosticException (SerializationInfo info, StreamingContext context)
         : base(info, context)

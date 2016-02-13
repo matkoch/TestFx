@@ -31,7 +31,7 @@ namespace TestFx.Utilities.Reflection
     void SetMemberValue (Type type, object instance, string memberName, object value, object[] args, BindingFlags bindingFlags);
   }
 
-  public class PrivateInvokeUtility : IPrivateInvokeUtility
+  internal class PrivateInvokeUtility : IPrivateInvokeUtility
   {
     public static IPrivateInvokeUtility Instance = new PrivateInvokeUtility();
 

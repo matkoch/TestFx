@@ -19,7 +19,7 @@ using JetBrains.ReSharper.UnitTestFramework;
 namespace TestFx.ReSharper.Runner
 {
   [ZoneMarker]
-  public class ZoneMarker : IRequire<IUnitTestingZone>
+  internal class ZoneMarker : IRequire<IUnitTestingZone>
   {
   }
 }

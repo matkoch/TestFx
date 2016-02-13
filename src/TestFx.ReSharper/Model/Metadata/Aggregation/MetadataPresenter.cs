@@ -27,7 +27,7 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
     string Present (IMetadataTypeInfo type);
   }
 
-  public class MetadataPresenter : IMetadataPresenter
+  internal class MetadataPresenter : IMetadataPresenter
   {
     private readonly IntrospectionPresenter _introspectionPresenter;
 

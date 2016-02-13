@@ -41,7 +41,7 @@ namespace TestFx.Utilities.Reflection
         where TAttribute : Attribute;
   }
 
-  public class AttributeUtility : IAttributeUtility
+  internal class AttributeUtility : IAttributeUtility
   {
     public static IAttributeUtility Instance = new AttributeUtility();
 

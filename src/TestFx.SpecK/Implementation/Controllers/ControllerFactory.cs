@@ -54,7 +54,7 @@ namespace TestFx.SpecK.Implementation.Controllers
   }
 
   [UsedImplicitly]
-  public class ControllerFactory : IControllerFactory
+  internal class ControllerFactory : IControllerFactory
   {
     private readonly IOperationSorter _operationSorter;
     private readonly IEnumerable<ITestExtension> _testExtensions;

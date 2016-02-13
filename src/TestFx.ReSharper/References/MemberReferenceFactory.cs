@@ -25,7 +25,7 @@ using TestFx.ReSharper.Utilities.Psi;
 
 namespace TestFx.ReSharper.References
 {
-  public class MemberReferenceFactory : IReferenceFactory
+  internal class MemberReferenceFactory : IReferenceFactory
   {
     private static readonly ClrTypeName s_memberReferenceAttribute = new ClrTypeName("JetBrains.Annotations.MemberReferenceAttribute");
 

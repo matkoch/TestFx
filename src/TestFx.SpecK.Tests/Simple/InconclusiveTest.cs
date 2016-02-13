@@ -19,10 +19,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Simple
 {
-  public class InconclusiveTest : TestBase<InconclusiveTest.DomainSpec>
+  internal class InconclusiveTest : TestBase<InconclusiveTest.DomainSpec>
   {
     [Subject (typeof (InconclusiveTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       DomainSpec ()
       {

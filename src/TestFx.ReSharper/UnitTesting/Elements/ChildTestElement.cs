@@ -25,7 +25,7 @@ using TestFx.ReSharper.UnitTesting.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public class ChildTestElement : TestElementBase
+  internal class ChildTestElement : TestElementBase
   {
     public ChildTestElement (ITestIdentity identity, IList<Task> tasks)
         : base(identity, tasks)

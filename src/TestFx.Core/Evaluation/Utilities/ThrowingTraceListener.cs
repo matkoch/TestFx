@@ -18,7 +18,7 @@ using JetBrains.Annotations;
 
 namespace TestFx.Evaluation.Utilities
 {
-  public class ThrowingTraceListener : TraceListener
+  internal class ThrowingTraceListener : TraceListener
   {
     public override void Write (string message)
     {

@@ -19,7 +19,7 @@ using System.Security;
 
 namespace TestFx.Evaluation.Utilities
 {
-  public class FakeAppDomainFactory : IAppDomainFactory
+  internal class FakeAppDomainFactory : IAppDomainFactory
   {
     public IAppDomain Create (
         Assembly baseAssembly,

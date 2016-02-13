@@ -25,7 +25,7 @@ using TestFx.ReSharper.Utilities.Psi.Resolve;
 
 namespace TestFx.ReSharper.References
 {
-  public class MemberReference : TreeReferenceBase<ILiteralExpression>, ICompleteableReference, IReferenceFromStringLiteral
+  internal class MemberReference : TreeReferenceBase<ILiteralExpression>, ICompleteableReference, IReferenceFromStringLiteral
   {
     private readonly ICSharpLiteralExpression _literalExpression;
     private readonly ITypeElement _typeElement;

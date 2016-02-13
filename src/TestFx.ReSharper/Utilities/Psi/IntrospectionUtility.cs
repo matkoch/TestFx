@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.Utilities.Psi
     CommonAttribute GetCommonAttribute (IAttributeInstance attributeInstance);
   }
 
-  public class IntrospectionUtility : IIntrospectionUtility
+  internal class IntrospectionUtility : IIntrospectionUtility
   {
     public static IIntrospectionUtility Instance = new IntrospectionUtility();
 

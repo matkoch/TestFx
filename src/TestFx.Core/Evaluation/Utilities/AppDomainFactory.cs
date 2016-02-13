@@ -34,7 +34,7 @@ namespace TestFx.Evaluation.Utilities
         IEnumerable<Assembly> fullTrustAssemblies = null);
   }
 
-  public class AppDomainFactory : IAppDomainFactory
+  internal class AppDomainFactory : IAppDomainFactory
   {
     public IAppDomain Create (
         Assembly baseAssembly,

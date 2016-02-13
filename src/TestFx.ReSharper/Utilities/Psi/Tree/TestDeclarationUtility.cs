@@ -25,7 +25,7 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
     Ranges GetRanges (ITestDeclaration declaration);
   }
 
-  public class TestDeclarationUtility : ITestDeclarationUtility
+  internal class TestDeclarationUtility : ITestDeclarationUtility
   {
     public static ITestDeclarationUtility Instance = new TestDeclarationUtility();
 

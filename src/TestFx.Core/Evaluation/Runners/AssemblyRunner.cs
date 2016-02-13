@@ -28,7 +28,7 @@ namespace TestFx.Evaluation.Runners
     ISuiteResult Run (IIntent assemblyIntent);
   }
 
-  public class AssemblyRunner : MarshalByRefObject, IAssemblyRunner
+  internal class AssemblyRunner : MarshalByRefObject, IAssemblyRunner
   {
     private readonly IAssemblyLoader _assemblyLoader;
     private readonly ISuiteRunner _suiteRunner;

@@ -33,7 +33,7 @@ namespace TestFx.SpecK.Implementation.Utilities
   }
 
   [UsedImplicitly]
-  public class SubjectFactory : ISubjectFactory
+  internal class SubjectFactory : ISubjectFactory
   {
     public T CreateFor<T> (ISuite<T> suiteInstance)
     {

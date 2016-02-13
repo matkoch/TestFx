@@ -23,7 +23,7 @@ using TestFx.Utilities.Collections;
 namespace TestFx.ReSharper.Daemon
 {
   [PsiComponent]
-  public class DuplicatedTestAnalyzer : ITestFileAnalyzer
+  internal class DuplicatedTestAnalyzer : ITestFileAnalyzer
   {
     public IEnumerable<IHighlighting> GetHighlightings(ITestFile file)
     {

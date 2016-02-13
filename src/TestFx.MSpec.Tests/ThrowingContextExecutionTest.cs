@@ -19,7 +19,7 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.MSpec.Tests
 {
-  public class ThrowingContextExecutionTest : ContextTestBase
+  internal class ThrowingContextExecutionTest : ContextTestBase
   {
     public override void SetUp ()
     {

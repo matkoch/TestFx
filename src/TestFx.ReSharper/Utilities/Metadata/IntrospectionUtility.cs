@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
     CommonAttribute GetCommonAttribute (IMetadataCustomAttribute metadataCustomAttribute);
   }
 
-  public class IntrospectionUtility : IIntrospectionUtility
+  internal class IntrospectionUtility : IIntrospectionUtility
   {
     public static IIntrospectionUtility Instance = new IntrospectionUtility();
 

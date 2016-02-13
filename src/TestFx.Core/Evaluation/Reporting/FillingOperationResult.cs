@@ -20,7 +20,7 @@ using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Reporting
 {
-  public class FillingOperationResult : IOperationResult
+  internal class FillingOperationResult : IOperationResult
   {
     public IIdentity Identity
     {

@@ -20,10 +20,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Simple
 {
-  public class IsolationTest : TestBase<IsolationTest.DomainSpec>
+  internal class IsolationTest : TestBase<IsolationTest.DomainSpec>
   {
     [Subject (typeof (IsolationTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       static object StaticObject;
       object InstanceObject;

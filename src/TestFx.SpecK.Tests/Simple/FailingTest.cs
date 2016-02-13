@@ -20,10 +20,10 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Simple
 {
-  public class FailingTest : TestBase<FailingTest.DomainSpec>
+  internal class FailingTest : TestBase<FailingTest.DomainSpec>
   {
     [Subject (typeof (FailingTest), "Test")]
-    public class DomainSpec : Spec
+    internal class DomainSpec : Spec
     {
       DomainSpec ()
       {

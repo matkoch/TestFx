@@ -20,7 +20,7 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.Console
 {
-  public class TeamCityListener : RunListener
+  internal class TeamCityListener : RunListener
   {
     private readonly TeamCityServiceMessageWriter _writer;
 

@@ -20,7 +20,7 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Simple
 {
-  public class InheritanceTest : TestBase<InheritanceTest.SpecializedDomainSpec>
+  internal class InheritanceTest : TestBase<InheritanceTest.SpecializedDomainSpec>
   {
     public abstract class DomainSpecBase : Spec
     {
@@ -32,7 +32,7 @@ namespace TestFx.SpecK.Tests.Simple
     }
 
     [Subject (typeof (InheritanceTest), "Test")]
-    public class DomainSpec : DomainSpecBase
+    internal class DomainSpec : DomainSpecBase
     {
       public DomainSpec ()
       {
@@ -47,7 +47,7 @@ namespace TestFx.SpecK.Tests.Simple
     }
 
     [Subject (typeof (InheritanceTest), "Test")]
-    public class SpecializedDomainSpec : DomainSpec
+    internal class SpecializedDomainSpec : DomainSpec
     {
       [UsedImplicitly] object ResetableObject;
 

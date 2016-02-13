@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.UnitTesting
   }
 
   [SolutionComponent]
-  public class TestElementSerializer : ITestElementSerializer
+  internal class TestElementSerializer : ITestElementSerializer
   {
     private const string c_projectId = "projectId";
     private const string c_elementType = "elementType";
