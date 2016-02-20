@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Runtime.CompilerServices;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Containers;
 using TestFx.SpecK.Implementation.Controllers;
@@ -39,9 +40,11 @@ namespace TestFx.SpecK.Implementation.Containers
     [DisplayFormat ("{0}")]
     public IIgnoreOrCase<TSubject, TResult> Case (
         string description,
-        Func<ICombineOrArrangeOrAssert<TSubject, TResult, Dummy, Dummy>, IAssert> succession)
+        Func<ICombineOrArrangeOrAssert<TSubject, TResult, Dummy, Dummy>, IAssert> succession,
+        [CallerFilePath] string filePath = null,
+        [CallerLineNumber] int lineNumber = 0)
     {
-      var testController = _controller.CreateTestController(description);
+      var testController = _controller.CreateTestController(description, filePath, lineNumber);
       succession(TestContainer.Create(testController));
       return this;
     }

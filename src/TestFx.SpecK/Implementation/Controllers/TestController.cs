@@ -96,7 +96,7 @@ namespace TestFx.SpecK.Implementation.Controllers
         TNewSequence sequence)
     {
       var identity = _provider.Identity.CreateChildIdentity(text);
-      var testProvider = TestProvider.Create(identity, text, ignored: false);
+      var testProvider = TestProvider.Create(identity, text, ignored: false, filePath: _provider.FilePath, lineNumber: _provider.LineNumber);
       suiteProvider.TestProviders = suiteProvider.TestProviders.Concat(new[] { testProvider });
       return _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, TNewSequence>(
           suiteProvider,

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 using TestFx.Extensibility.Controllers;
 using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
@@ -25,7 +26,7 @@ namespace TestFx.SpecK.Implementation.Controllers
   {
     void IgnoreNext ();
 
-    ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string description);
+    ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text, [CanBeNull] string filePath, int lineNumber);
   }
 
   internal class SpecializedSuiteController<TSubject, TResult> : SuiteController, ISpecializedSuiteController<TSubject, TResult>
@@ -56,9 +57,9 @@ namespace TestFx.SpecK.Implementation.Controllers
       _ignoreNext = true;
     }
 
-    public ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text)
+    public ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text, string filePath, int lineNumber)
     {
-      var testProvider = CreateTestProvider(text, text, _ignoreNext);
+      var testProvider = CreateTestProvider(text, text, _ignoreNext, filePath, lineNumber);
       var controller = _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, Dummy>(
           _provider,
           testProvider,

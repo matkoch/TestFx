@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.SpecK.InferredApi;
@@ -28,9 +29,13 @@ namespace TestFx.SpecK
     [DisplayFormat ("<Default>")]
     public static IIgnoreOrCase<TSubject, TResult> DefaultCase<TSubject, TResult> (
         this ICase<TSubject, TResult> @case,
-        Func<ICombineOrArrangeOrAssert<TSubject, TResult, Dummy, Dummy>, IAssert> succession)
+        Func<ICombineOrArrangeOrAssert<TSubject, TResult, Dummy, Dummy>, IAssert> succession,
+        [CallerFilePath] string filePath = null,
+        [CallerLineNumber] int lineNumber = -1)
     {
-      return @case.Case("<Default>", succession);
+      // ReSharper disable ExplicitCallerInfoArgument
+      return @case.Case("<Default>", succession, filePath, lineNumber);
+      // ReSharper restore ExplicitCallerInfoArgument
     }
 
     public static IArrangeOrAssert<TSubject, TResult, TVars, TSequence> Given<TSubject, TResult, TVars, TSequence> (

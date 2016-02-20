@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Containers;
@@ -147,7 +148,9 @@ namespace TestFx.SpecK
       [DisplayFormat ("{0}")]
       IIgnoreOrCase<TSubject, TResult> Case (
           string description,
-          Func<ICombineOrArrangeOrAssert<TSubject, TResult, Dummy, Dummy>, IAssert> succession);
+          Func<ICombineOrArrangeOrAssert<TSubject, TResult, Dummy, Dummy>, IAssert> succession,
+          [CallerFilePath] string filePath = null,
+          [CallerLineNumber] int lineNumber = -1);
     }
 
     public interface IIgnore<TSubject, TResult>

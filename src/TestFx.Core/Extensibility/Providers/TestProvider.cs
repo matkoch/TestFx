@@ -13,24 +13,44 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Providers
 {
   public interface ITestProvider : IOperationCollectionProvider
   {
+    [CanBeNull]
+    string FilePath { get; }
+    int LineNumber { get; }
   }
 
   public class TestProvider : OperationCollectionProvider, ITestProvider
   {
-    public static TestProvider Create (IIdentity identity, string text, bool ignored)
+    public static TestProvider Create (IIdentity identity, string text, bool ignored, string filePath = null, int lineNumber = -1)
     {
-      return new TestProvider(identity, text, ignored);
+      return new TestProvider(identity, text, ignored, filePath, lineNumber);
     }
 
-    private TestProvider (IIdentity identity, string text, bool ignored)
+    private readonly string _filePath;
+    private readonly int _lineNumber;
+
+    private TestProvider(IIdentity identity, string text, bool ignored, [CanBeNull] string filePath, int lineNumber)
         : base(identity, text, ignored)
     {
+      _filePath = filePath;
+      _lineNumber = lineNumber;
+    }
+
+    [CanBeNull]
+    public string FilePath
+    {
+      get { return _filePath; }
+    }
+
+    public int LineNumber
+    {
+      get { return _lineNumber; }
     }
   }
 }
