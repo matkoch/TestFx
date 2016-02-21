@@ -20,11 +20,11 @@ using TestFx.Evaluation.Results;
 
 namespace TestFx.Console
 {
-  internal class TeamCityListener : RunListener
+  internal class TeamCityRunListener : RunListener
   {
     private readonly TeamCityServiceMessageWriter _writer;
 
-    public TeamCityListener (TeamCityServiceMessageWriter writer)
+    public TeamCityRunListener (TeamCityServiceMessageWriter writer)
         : base(new TextSymbolProvider())
     {
       _writer = writer;

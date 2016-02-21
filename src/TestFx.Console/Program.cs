@@ -48,7 +48,7 @@ namespace TestFx.Console
     private static IEnumerable<IRunListener> CreateListener ()
     {
       if (TeamCity)
-        yield return new TeamCityListener(new TeamCityServiceMessageWriter(System.Console.WriteLine));
+        yield return new TeamCityRunListener(new TeamCityServiceMessageWriter(System.Console.WriteLine));
     }
   }
 }

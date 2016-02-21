@@ -54,7 +54,7 @@
     <Compile Include="Program.Arguments.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TeamCityListener.cs" />
+    <Compile Include="TeamCityRunListener.cs" />
     <Compile Include="TeamCityServiceMessageWriter.cs" />
     <Compile Include="TextSymbolProvider.cs" />
   </ItemGroup>
