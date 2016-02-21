@@ -14,6 +14,7 @@
 
 extern alias mscorlib;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.TaskRunnerFramework;
@@ -21,6 +22,7 @@ using mscorlib::System.Threading;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Intents;
 using TestFx.ReSharper.Runner.Tasks;
+using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Runner
@@ -38,12 +40,10 @@ namespace TestFx.ReSharper.Runner
 
     public override void ExecuteRecursive ([NotNull] TaskExecutionNode node)
     {
-      var runIntent = CreateRunIntent(node);
-      var taskDictionary = node.DescendantsAndSelf(x => x.Children)
-          .Select(x => x.RemoteTask)
-          .Cast<Task>()
-          .ToDictionary(x => x.Identity, x => x);
+      var taskDictionary = CreateTaskDictionary(node);
       var listener = new ReSharperRunListener(Server, taskDictionary);
+      var runIntent = CreateRunIntent(node);
+      _cancellationTokenSource = runIntent.CancellationTokenSource;
 
       try
       {
@@ -61,13 +61,19 @@ namespace TestFx.ReSharper.Runner
       _cancellationTokenSource.Cancel();
     }
 
+    private static Dictionary<IIdentity, Task> CreateTaskDictionary (TaskExecutionNode node)
+    {
+      return node.DescendantsAndSelf(x => x.Children)
+          .Select(x => x.RemoteTask).Cast<Task>()
+          .ToDictionary(x => x.Identity);
+    }
+
     private IRunIntent CreateRunIntent (TaskExecutionNode node)
     {
       var configuration = TaskExecutor.Configuration;
 
       var runTask = (RunTask) node.RemoteTask;
       var runIntent = RunIntent.Create(configuration.SeparateAppDomain, configuration.ShadowCopy, runTask.VisualStudioProcessId);
-      _cancellationTokenSource = runIntent.CancellationTokenSource;
 
       node.Children.Select(CreateIntent).ForEach(runIntent.AddIntent);
 
