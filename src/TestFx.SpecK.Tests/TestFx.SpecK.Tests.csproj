@@ -47,6 +47,7 @@
       <HintPath>..\..\packages\FluentAssertions.4.1.1\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="NullGuard, Version=1.4.5.0, Culture=neutral, PublicKeyToken=1958ac8092168428, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NullGuard.Fody.1.4.5\Lib\portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40\NullGuard.dll</HintPath>
       <Private>False</Private>
@@ -74,6 +75,7 @@
     <Compile Include="Exceptions\UnexpectedExceptionTest.cs" />
     <Compile Include="Exceptions\ExceptionAssertionTest.cs" />
     <Compile Include="Farada\AutoCreationTest.cs" />
+    <Compile Include="Generics\GenericArgumentTest.cs" />
     <Compile Include="Setups\SimpleSetupExecutionTest.cs" />
     <Compile Include="Setups\ThrowingSetupExecutionTest.cs" />
     <Compile Include="Simple\InconclusiveTest.cs" />
