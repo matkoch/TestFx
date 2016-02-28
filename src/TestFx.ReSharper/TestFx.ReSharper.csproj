@@ -270,11 +270,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-      if exist "$(BaseInstallationPath)"     xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)"
-      if exist "$(BaseInstallationPath)_000" xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)_000"
-      if exist "$(BaseInstallationPath)_001" xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)_001"
-    </PostBuildEvent>
+    <PostBuildEvent>if exist "$(BaseInstallationPath)"        xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)"
+if exist "$(BaseInstallationPath)_000" xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)_000"
+if exist "$(BaseInstallationPath)_001" xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)_001"
+</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
