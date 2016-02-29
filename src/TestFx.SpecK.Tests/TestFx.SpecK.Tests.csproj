@@ -76,6 +76,7 @@
     <Compile Include="Exceptions\ExceptionAssertionTest.cs" />
     <Compile Include="Farada\AutoCreationTest.cs" />
     <Compile Include="Generics\GenericArgumentTest.cs" />
+    <Compile Include="Generics\GenericTypeTest.cs" />
     <Compile Include="Setups\SimpleSetupExecutionTest.cs" />
     <Compile Include="Setups\ThrowingSetupExecutionTest.cs" />
     <Compile Include="Simple\InconclusiveTest.cs" />
