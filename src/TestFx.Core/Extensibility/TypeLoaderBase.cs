@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -34,9 +35,10 @@ namespace TestFx.Extensibility
       _introspectionPresenter = introspectionPresenter;
     }
 
-    public ISuiteProvider Load (Type suiteType, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity)
+    public ISuiteProvider Load (object suite, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity)
     {
-      var uninitializedSuite = FormatterServices.GetUninitializedObject(suiteType);
+      Trace.Assert(suite.GetType() != typeof (Type));
+      var suiteType = suite.GetType();
 
       var subjectAttribute = suiteType.GetAttributeData<SuiteAttributeBase>().NotNull();
       var displayFormatAttribute = subjectAttribute.Constructor.GetAttributeData<DisplayFormatAttribute>().NotNull();
@@ -46,10 +48,10 @@ namespace TestFx.Extensibility
       var resources = suiteType.GetAttribute<ResourcesAttribute>().GetValueOrDefault(x => x.Resources, () => new string[0]);
       var provider = SuiteProvider.Create(identity, text, ignored: false, resources: resources);
 
-      InitializeAssemblySetupFields(uninitializedSuite, assemblySetups);
-      InitializeTypeSpecificFields(uninitializedSuite, provider);
+      InitializeAssemblySetupFields(suite, assemblySetups);
+      InitializeTypeSpecificFields(suite, provider);
 
-      InvokeConstructor(uninitializedSuite);
+      InvokeConstructor(suite);
 
       return provider;
     }

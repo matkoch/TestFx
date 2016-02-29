@@ -17,6 +17,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac;
+using Autofac.Builder;
+using Autofac.Core;
+using Autofac.Core.Resolving;
 using TestFx.Extensibility;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
@@ -28,7 +31,7 @@ namespace TestFx.Evaluation.Loading
     IAssemblyExplorationData Explore(Assembly assembly);
   }
 
-  internal class AssemblyExplorer : IAssemblyExplorer
+  public class AssemblyExplorer : IAssemblyExplorer
   {
     public IAssemblyExplorationData Explore(Assembly assembly)
     {
@@ -40,23 +43,30 @@ namespace TestFx.Evaluation.Loading
       var testExtensions = assembly.GetAttributes<UseTestExtension>()
           .Select(x => x.TestExtensionType.CreateInstance<ITestExtension>())
           .OrderByDescending(x => x.Priority);
-      var typeLoaders = suiteAttributes.ToDictionary(x => x, x => CreateTypeLoader(x, testExtensions));
+      var typeLoaderFactories = suiteAttributes.ToDictionary(x => x, x => BuildTypeLoaderFactory(x, testExtensions));
 
-      return new AssemblyExplorationData(typeLoaders, suiteTypes, assemblySetupTypes);
+      return new AssemblyExplorationData(typeLoaderFactories, suiteTypes, assemblySetupTypes);
     }
 
-    private ITypeLoader CreateTypeLoader (Type suiteAttribute, IEnumerable<ITestExtension> testExtensions)
+    private TypeLoaderFactory BuildTypeLoaderFactory (Type suiteAttribute, IEnumerable<ITestExtension> testExtensions)
     {
       var typeLoaderType = suiteAttribute.GetAttribute<TypeLoaderTypeAttribute>().NotNull().TypeLoaderType;
       var operationOrdering = suiteAttribute.GetAttribute<OperationOrderingAttribute>().NotNull().OperationDescriptors;
 
       var builder = new ContainerBuilder();
       builder.RegisterModule<UtilitiesModule>();
-      builder.RegisterModule(new ExtensibilityModule(typeLoaderType, operationOrdering));
+      builder.RegisterModule(new ExtensibilityModule(typeLoaderType, operationOrdering)) ;
       builder.RegisterInstance(testExtensions).As<IEnumerable<ITestExtension>>();
+      builder.Register<TypeLoaderFactory>(
+          ctx =>
+          {
+            var innerCtx = ctx.Resolve<IComponentContext>();
+            return suite => innerCtx.Resolve<ITypeLoader>(new NamedParameter("suite", suite));
+          });
       var container = builder.Build();
 
-      return (ITypeLoader) container.Resolve(typeLoaderType);
+      // TODO: Add ability to resolve suite object
+      return container.Resolve<TypeLoaderFactory>();
     }
   }
 }

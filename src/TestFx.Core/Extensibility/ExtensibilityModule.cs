@@ -13,7 +13,11 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using Autofac;
+using JetBrains.Annotations;
+using TestFx.Evaluation.Loading;
+using TestFx.Evaluation.Utilities;
 using TestFx.Extensibility.Utilities;
 
 namespace TestFx.Extensibility
@@ -29,10 +33,12 @@ namespace TestFx.Extensibility
       _operationOrdering = operationOrdering;
     }
 
-    protected override void Load (ContainerBuilder builder)
+    protected override void Load ([NotNull] ContainerBuilder builder)
     {
-      builder.RegisterAssemblyTypes(_typeLoaderType.Assembly).AsImplementedInterfaces();
-      builder.RegisterType(_typeLoaderType).AsSelf();
+      builder.RegisterAssemblyTypes(_typeLoaderType.Assembly)
+          .AsImplementedInterfaces()
+          .OnPreparing(AutofacExtensions.ForwardFactoryParameters);
+      builder.RegisterType(_typeLoaderType).As<ITypeLoader>();
       builder.Register(ctx => new OperationSorter(_operationOrdering)).As<IOperationSorter>();
       builder.RegisterType<IntrospectionPresenter>().As<IIntrospectionPresenter>();
     }

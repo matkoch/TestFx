@@ -30,7 +30,7 @@ namespace TestFx.SpecK.Implementation.Controllers
 {
   public interface IControllerFactory
   {
-    ISuiteController CreateClassSuiteController (object suite, Type subjectType, SuiteProvider provider);
+    ISuiteController CreateClassSuiteController (Type subjectType, SuiteProvider provider);
 
     ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
         SuiteProvider provider,
@@ -56,21 +56,24 @@ namespace TestFx.SpecK.Implementation.Controllers
   [UsedImplicitly]
   internal class ControllerFactory : IControllerFactory
   {
+    private readonly object _suite;
     private readonly IOperationSorter _operationSorter;
     private readonly IEnumerable<ITestExtension> _testExtensions;
 
     public ControllerFactory (
+        object suite,
         IOperationSorter operationSorter,
         IEnumerable<ITestExtension> testExtensions)
     {
+      _suite = suite;
       _operationSorter = operationSorter;
       _testExtensions = testExtensions;
     }
 
-    public ISuiteController CreateClassSuiteController (object suite, Type subjectType, SuiteProvider provider)
+    public ISuiteController CreateClassSuiteController (Type subjectType, SuiteProvider provider)
     {
       var suiteControllerType = typeof (ClassSuiteController<>).MakeGenericType(subjectType);
-      return suiteControllerType.CreateInstance<ISuiteController>(provider, suite, _testExtensions, this, _operationSorter);
+      return suiteControllerType.CreateInstance<ISuiteController>(provider, _suite, _testExtensions, this, _operationSorter);
     }
 
     public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TSubject, TResult> (
@@ -111,7 +114,7 @@ namespace TestFx.SpecK.Implementation.Controllers
         TestProvider provider,
         TestContext<TSubject, TResult, TVars, TSequence> context)
     {
-      return new TestController<TSubject, TResult, TVars, TSequence>(suiteProvider, provider, context, _operationSorter, this);
+      return new TestController<TSubject, TResult, TVars, TSequence>(suiteProvider, _suite, provider, context, _operationSorter, this);
     }
 
     private Action GuardAction<TSubject, TResult, TVars, TSequence> (

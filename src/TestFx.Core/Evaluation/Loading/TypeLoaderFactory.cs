@@ -13,14 +13,9 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
-using TestFx.Extensibility.Providers;
-using TestFx.Utilities;
+using System.Linq;
 
 namespace TestFx.Evaluation.Loading
 {
-  public interface ITypeLoader
-  {
-    ISuiteProvider Load (object suite, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity);
-  }
+  public delegate ITypeLoader TypeLoaderFactory (object suite);
 }

@@ -30,6 +30,11 @@ namespace TestFx.Extensibility.Controllers
       _controllers = controllers.ToList();
     }
 
+    public object Suite
+    {
+      get { return _controllers.First().Suite; }
+    }
+
     public void AddSetupCleanup<TSetup, TCleanup> (
         string setupText,
         Action<ITestContext> setup,

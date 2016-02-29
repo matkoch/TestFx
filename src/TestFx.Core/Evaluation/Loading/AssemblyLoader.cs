@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using TestFx.Evaluation.Intents;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
@@ -46,7 +47,7 @@ namespace TestFx.Evaluation.Loading
       var assembly = Assembly.LoadFrom(assemblyIntent.Identity.Absolute);
       var provider = SuiteProvider.Create(assemblyIntent.Identity, assembly.GetName().Name, ignored: false);
       var controller = _suiteControllerFactory.Create(provider);
-
+      
       var explorationData = _assemblyExplorer.Explore(assembly);
 
       var assemblySetups = explorationData.AssemblySetupTypes.ToDictionary(
@@ -54,7 +55,7 @@ namespace TestFx.Evaluation.Loading
           x => new Lazy<IAssemblySetup>(() => x.CreateInstance<IAssemblySetup>()));
       var suiteTypes = Filter(assemblyIntent, explorationData.SuiteTypes);
 
-      provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaders, assemblySetups, provider.Identity));
+      provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaderFactories, assemblySetups, provider.Identity));
       assemblySetups.Values
           .Where(x => x.IsValueCreated)
           .Select(x => x.Value)
@@ -79,13 +80,14 @@ namespace TestFx.Evaluation.Loading
 
     private ISuiteProvider Load (
         Type suiteType,
-        IDictionary<Type, ITypeLoader> loaderDictionary,
+        IDictionary<Type, TypeLoaderFactory> typeLoaderFactories,
         IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups,
         IIdentity assemblyIdentity)
     {
-      // TODO: Move selection to AssemblyExplorer
-      var suiteTypeLoader = loaderDictionary.Single(x => x.Key == suiteType.GetAttribute<SuiteAttributeBase>().NotNull().GetType()).Value;
-      return suiteTypeLoader.Load(suiteType, assemblySetups, assemblyIdentity);
+      var uninitializedSuite = FormatterServices.GetUninitializedObject(suiteType);
+      var typeLoaderFactory = typeLoaderFactories.Single(x => x.Key == suiteType.GetAttribute<SuiteAttributeBase>().NotNull().GetType()).Value;
+      var suiteTypeLoader = typeLoaderFactory(uninitializedSuite);
+      return suiteTypeLoader.Load(uninitializedSuite, assemblySetups, assemblyIdentity);
     }
   }
 }

@@ -52,11 +52,12 @@ namespace TestFx.SpecK.Implementation.Controllers
 
     public TestController (
         SuiteProvider suiteProvider,
+        object suite,
         TestProvider provider,
         TestContext<TSubject, TResult, TVars, TSequence> context,
         IOperationSorter operationSorter,
         IControllerFactory controllerFactory)
-        : base(provider, context, operationSorter)
+        : base(suite, provider, context, operationSorter)
     {
       _suiteProvider = suiteProvider;
       _provider = provider;

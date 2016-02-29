@@ -44,7 +44,7 @@ namespace TestFx.SpecK.Implementation
       var closedSpeckType = suiteType.GetClosedTypeOf(typeof (ISuite<>)).NotNull();
       var subjectType = closedSpeckType.GetGenericArguments().Single();
 
-      var suiteController = _controllerFactory.CreateClassSuiteController(suite, subjectType, provider);
+      var suiteController = _controllerFactory.CreateClassSuiteController(subjectType, provider);
 
       suite.SetMemberValue("_classSuiteController", suiteController);
       suite.SetMemberValue("_subjectFactory", _subjectFactory);
