@@ -26,7 +26,7 @@ The output window offers a comprehensive summary for a particular test. It displ
 
 ## Acknowledgments
 
-Raise your hands for some special guys who helped me out a lot:
+Clap your hands for some important guys who helped me out a lot:
 
 - [@drauch](https://github.com/drauch), [@fschmied](https://github.com/fschmied), [@Inspyro](https://github.com/Inspyro), [@ulrichb](https://github.com/ulrichb) for having so many discussions about testing
 - [@citizenmatt](https://github.com/citizenmatt), [@kropp](https://github.com/kropp), [@kskrygan](https://github.com/kskrygan), [@nesteruk](https://github.com/nesteruk),  [@controlflow](https://github.com/controlflow) for plugin support
