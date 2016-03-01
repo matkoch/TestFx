@@ -35,7 +35,7 @@ namespace TestFx.Extensibility.Contexts
     public object this [string key]
     {
       get { return _data[key]; }
-      set { _data[key] = value; }
+      set { _data.Add(key, value); }
     }
   }
 }
