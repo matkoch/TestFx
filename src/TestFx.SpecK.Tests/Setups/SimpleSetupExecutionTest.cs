@@ -23,7 +23,7 @@ namespace TestFx.SpecK.Tests.Setups
 {
   internal class SimpleSetupExecutionTest : TestBase<SimpleSetupExecutionTest.DomainSpec>
   {
-    [Subject (typeof (SimpleSetupExecutionTest), "Test")]
+    [Subject (typeof (SimpleSetupExecutionTest))]
     internal class DomainSpec : Spec<object>
     {
       [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;

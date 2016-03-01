@@ -21,7 +21,7 @@ namespace TestFx.SpecK.Tests.Simple
 {
   internal class InconclusiveTest : TestBase<InconclusiveTest.DomainSpec>
   {
-    [Subject (typeof (InconclusiveTest), "Test")]
+    [Subject (typeof (InconclusiveTest))]
     internal class DomainSpec : Spec
     {
       DomainSpec ()

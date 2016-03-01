@@ -31,7 +31,7 @@ namespace TestFx.SpecK.Tests.Simple
       }
     }
 
-    [Subject (typeof (InheritanceTest), "Test")]
+    [Subject (typeof (InheritanceTest))]
     internal class DomainSpec : DomainSpecBase
     {
       public DomainSpec ()
@@ -46,7 +46,7 @@ namespace TestFx.SpecK.Tests.Simple
       }
     }
 
-    [Subject (typeof (InheritanceTest), "Test")]
+    [Subject (typeof (InheritanceTest))]
     internal class SpecializedDomainSpec : DomainSpec
     {
       [UsedImplicitly] object ResetableObject;

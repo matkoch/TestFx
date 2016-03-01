@@ -24,7 +24,7 @@ namespace TestFx.SpecK.Tests.FakeItEasy
 {
   internal class FakeCreationTest : TestBase<FakeCreationTest.DomainSpec>
   {
-    [Subject (typeof (FakeCreationTest), "Test")]
+    [Subject (typeof (FakeCreationTest))]
     internal class DomainSpec : Spec<DomainType>
     {
       [Faked] IFormatProvider FormatProvider;

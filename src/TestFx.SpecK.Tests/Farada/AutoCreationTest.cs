@@ -25,7 +25,7 @@ namespace TestFx.SpecK.Tests.Farada
 {
   internal class AutoCreationTest : TestBase<AutoCreationTest.DomainSpec>
   {
-    [Subject (typeof (AutoCreationTest), "Test")]
+    [Subject (typeof (AutoCreationTest))]
     [AutoDataSeed (1337)]
     internal class DomainSpec : Spec
     {

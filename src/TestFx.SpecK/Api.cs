@@ -83,6 +83,12 @@ namespace TestFx.SpecK
   public class SubjectAttribute : SuiteAttributeBase
   {
     [UsedImplicitly]
+    [DisplayFormat ("{0}")]
+    public SubjectAttribute (Type type)
+    {
+    }
+
+    [UsedImplicitly]
     [DisplayFormat ("{0}.{1}")]
     public SubjectAttribute (Type type, string method)
     {

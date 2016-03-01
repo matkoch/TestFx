@@ -22,7 +22,7 @@ namespace TestFx.SpecK.Tests
 {
   internal class ContextBehaviorTest : TestBase<ContextBehaviorTest.DomainSpec>
   {
-    [Subject (typeof (ContextBehaviorTest), "Test")]
+    [Subject (typeof (ContextBehaviorTest))]
     internal class DomainSpec : Spec<DomainType>
     {
       DomainSpec ()

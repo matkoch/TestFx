@@ -23,7 +23,7 @@ namespace TestFx.SpecK.Tests.Exceptions
 {
   internal class ExceptionAssertionTest : TestBase<ExceptionAssertionTest.DomainSpec>
   {
-    [Subject (typeof (ExceptionAssertionTest), "Test")]
+    [Subject (typeof (ExceptionAssertionTest))]
     internal class DomainSpec : Spec
     {
       string Message;

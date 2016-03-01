@@ -22,7 +22,7 @@ namespace TestFx.SpecK.Tests.Combinatorics
 {
   internal class PermutationsTest : TestBase<PermutationsTest.DomainSpec>
   {
-    [Subject (typeof (PermutationsTest), "Test")]
+    [Subject (typeof (PermutationsTest))]
     internal class DomainSpec : Spec
     {
       int A;

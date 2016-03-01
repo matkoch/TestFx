@@ -21,7 +21,7 @@ namespace TestFx.SpecK.Tests.Using
 {
   internal class NestingTest : TestBase<NestingTest.DomainSpec>
   {
-    [Subject (typeof (NestingTest), "Test")]
+    [Subject (typeof (NestingTest))]
     internal class DomainSpec : Spec
     {
       public DomainSpec ()

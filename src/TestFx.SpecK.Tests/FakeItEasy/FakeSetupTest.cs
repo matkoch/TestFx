@@ -23,7 +23,7 @@ namespace TestFx.SpecK.Tests.FakeItEasy
 {
   internal class FakeSetupTest : TestBase<FakeSetupTest.DomainSpec>
   {
-    [Subject (typeof (FakeSetupTest), "Test")]
+    [Subject (typeof (FakeSetupTest))]
     internal class DomainSpec : Spec<DomainType>
     {
       [Faked] IServiceProvider ServiceProvider;

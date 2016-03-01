@@ -22,7 +22,7 @@ namespace TestFx.SpecK.Tests.Simple
 {
   internal class IsolationTest : TestBase<IsolationTest.DomainSpec>
   {
-    [Subject (typeof (IsolationTest), "Test")]
+    [Subject (typeof (IsolationTest))]
     internal class DomainSpec : Spec
     {
       static object StaticObject;

@@ -22,7 +22,7 @@ namespace TestFx.SpecK.Tests.Generics
 {
   internal class GenericArgumentTest : TestBase<GenericArgumentTest.DomainSpec>
   {
-    [Subject(typeof(GenericArgumentTest), "Test")]
+    [Subject (typeof (GenericArgumentTest))]
     internal class DomainSpec : Spec
     {
       dynamic Argument;

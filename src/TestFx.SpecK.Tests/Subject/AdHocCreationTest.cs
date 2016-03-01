@@ -22,7 +22,7 @@ namespace TestFx.SpecK.Tests.Subject
 {
   internal class AdHocCreationTest : TestBase<AdHocCreationTest.DomainSpec>
   {
-    [Subject (typeof (AdHocCreationTest), "Test")]
+    [Subject (typeof (AdHocCreationTest))]
     internal class DomainSpec : Spec<DomainType>
     {
       [Injected] static string InjectedString = "MyString";

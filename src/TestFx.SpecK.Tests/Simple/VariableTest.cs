@@ -22,7 +22,7 @@ namespace TestFx.SpecK.Tests.Simple
 {
   internal class VariableTest : TestBase<VariableTest.DomainSpec>
   {
-    [Subject (typeof (VariableTest), "Test")]
+    [Subject (typeof (VariableTest))]
     internal class DomainSpec : Spec
     {
       int MyInteger;

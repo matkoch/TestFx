@@ -22,7 +22,7 @@ namespace TestFx.SpecK.Tests.Setups
 {
   internal class ThrowingSetupExecutionTest : TestBase<ThrowingSetupExecutionTest.DomainSpec>
   {
-    [Subject (typeof (ThrowingSetupExecutionTest), "Test")]
+    [Subject (typeof (ThrowingSetupExecutionTest))]
     internal class DomainSpec : Spec<object>
     {
       // TODO: Assert NotNull + Value Init

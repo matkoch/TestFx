@@ -22,7 +22,7 @@ namespace TestFx.SpecK.Tests.Subject
 {
   internal class MissingArgumentsTest : TestBase<MissingArgumentsTest.DomainSpec>
   {
-    [Subject (typeof (MissingArgumentsTest), "Test")]
+    [Subject (typeof (MissingArgumentsTest))]
     internal class DomainSpec : Spec<DomainType>
     {
       [Injected] static string MyString = "MyString";

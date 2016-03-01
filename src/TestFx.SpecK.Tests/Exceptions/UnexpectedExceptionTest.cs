@@ -23,7 +23,7 @@ namespace TestFx.SpecK.Tests.Exceptions
 {
   internal class UnexpectedExceptionTest : TestBase<UnexpectedExceptionTest.DomainSpec>
   {
-    [Subject (typeof (UnexpectedExceptionTest), "Test")]
+    [Subject (typeof (UnexpectedExceptionTest))]
     internal class DomainSpec : Spec
     {
       string Message;
