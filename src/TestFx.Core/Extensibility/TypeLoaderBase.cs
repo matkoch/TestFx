@@ -37,6 +37,19 @@ namespace TestFx.Extensibility
 
     public ISuiteProvider Load (object suite, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity)
     {
+      var provider = CreateSuiteProvider(suite, assemblyIdentity);
+
+      InitializeAssemblySetupFields(suite, assemblySetups);
+      InitializeTypeSpecificFields(suite, provider);
+      InvokeConstructor(suite);
+
+      return provider;
+    }
+
+    protected abstract void InitializeTypeSpecificFields (object suite, SuiteProvider provider);
+
+    private SuiteProvider CreateSuiteProvider (object suite, IIdentity assemblyIdentity)
+    {
       Trace.Assert(suite.GetType() != typeof (Type));
       var suiteType = suite.GetType();
 
@@ -46,17 +59,9 @@ namespace TestFx.Extensibility
       var text = _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), suiteType.ToCommon(), subjectAttribute.ToCommon());
       var identity = assemblyIdentity.CreateChildIdentity(suiteType.FullName);
       var resources = suiteType.GetAttribute<ResourcesAttribute>().GetValueOrDefault(x => x.Resources, () => new string[0]);
-      var provider = SuiteProvider.Create(identity, text, ignored: false, resources: resources);
 
-      InitializeAssemblySetupFields(suite, assemblySetups);
-      InitializeTypeSpecificFields(suite, provider);
-
-      InvokeConstructor(suite);
-
-      return provider;
+      return SuiteProvider.Create(identity, text, ignored: false, resources: resources);
     }
-
-    protected abstract void InitializeTypeSpecificFields (object suite, SuiteProvider provider);
 
     private void InitializeAssemblySetupFields (object suite, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups)
     {

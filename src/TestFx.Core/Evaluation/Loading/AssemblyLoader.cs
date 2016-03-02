@@ -47,7 +47,7 @@ namespace TestFx.Evaluation.Loading
       var assembly = Assembly.LoadFrom(assemblyIntent.Identity.Absolute);
       var provider = SuiteProvider.Create(assemblyIntent.Identity, assembly.GetName().Name, ignored: false);
       var controller = _suiteControllerFactory.Create(provider);
-      
+
       var explorationData = _assemblyExplorer.Explore(assembly);
 
       var assemblySetups = explorationData.AssemblySetupTypes.ToDictionary(
@@ -60,12 +60,11 @@ namespace TestFx.Evaluation.Loading
           .Where(x => x.IsValueCreated)
           .Select(x => x.Value)
           .ForEach(
-              x =>
-                  controller.AddSetupCleanup<SetupCommon, CleanupCommon>(
-                      x.GetType().Name + ".Setup",
-                      x.Setup,
-                      x.GetType().Name + ".Cleanup",
-                      x.Cleanup));
+              x => controller.AddSetupCleanup<SetupCommon, CleanupCommon>(
+                  x.GetType().Name + ".Setup",
+                  x.Setup,
+                  x.GetType().Name + ".Cleanup",
+                  x.Cleanup));
 
       return provider;
     }

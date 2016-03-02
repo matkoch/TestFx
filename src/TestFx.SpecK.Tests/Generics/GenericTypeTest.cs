@@ -16,16 +16,15 @@ using System;
 using System.Linq;
 using System.Reflection;
 using FakeItEasy.Core;
-using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Generics
 {
-  [Ignore]
+  [NUnit.Framework.Ignore]
   internal class GenericTypeTest : TestBase<GenericTypeTest.DomainSpec>
   {
-    [Subject(typeof(GenericTypeTest), "Test")]
+    [Subject (typeof (GenericTypeTest))]
     internal class DomainSpec : Spec
     {
       dynamic Argument;

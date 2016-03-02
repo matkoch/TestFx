@@ -42,7 +42,7 @@ namespace TestFx.MSpec.Implementation
 
       var setupOperationProviders = GetSetupOperationProviders(hierarchyTypes, behaviorTypes, suite, suiteType);
 
-      var assertionFields = Enumerable.Concat(GetFields<It>(suiteType), behaviorTypes.SelectMany(GetFields<It>));
+      var assertionFields = GetFields<It>(suiteType).Concat(behaviorTypes.SelectMany(GetFields<It>));
       var testProviders = assertionFields.Select(x => CreateTestProvider(provider.Identity, GetInstance(x.DeclaringType.NotNull(), suite), x));
 
       provider.ContextProviders = setupOperationProviders;
