@@ -45,7 +45,11 @@ namespace TestFx.Console.Tests
 
     private void RunTest (string goldFile, string[] assemblies, string additionalArguments = null)
     {
-      var output = GetOutput("--assemblies " + string.Join(";", assemblies) + " --teamCity " + additionalArguments);
+      var output = GetOutput(
+          $"--assemblies {string.Join(";", assemblies)} " +
+          $"--teamCity " +
+          $"{(Debugger.IsAttached ? "--debug" : string.Empty)} " +
+          $"{additionalArguments}");
 
       Compare(goldFile + ".standard.gold", output.StandardFileName);
       Compare(goldFile + ".error.gold", output.ErrorFileName);
