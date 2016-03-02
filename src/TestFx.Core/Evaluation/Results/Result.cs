@@ -28,30 +28,17 @@ namespace TestFx.Evaluation.Results
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
   internal abstract class Result : IResult
   {
-    private readonly IIdentity _identity;
-    private readonly string _text;
-    private readonly State _state;
-
     protected Result (IIdentity identity, string text, State state)
     {
-      _identity = identity;
-      _text = text;
-      _state = state;
+      Identity = identity;
+      Text = text;
+      State = state;
     }
 
-    public IIdentity Identity
-    {
-      get { return _identity; }
-    }
+    public IIdentity Identity { get; }
 
-    public string Text
-    {
-      get { return _text; }
-    }
+    public string Text { get; }
 
-    public State State
-    {
-      get { return _state; }
-    }
+    public State State { get; }
   }
 }

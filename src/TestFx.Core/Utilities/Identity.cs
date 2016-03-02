@@ -57,31 +57,22 @@ namespace TestFx.Utilities
       return identity;
     }
 
-    private readonly string _relative;
-    private readonly IIdentity _parent;
-
     private string _absolute;
 
     public Identity (string relative, [CanBeNull] IIdentity parent = null)
     {
-      _relative = relative;
-      _parent = parent;
+      Relative = relative;
+      Parent = parent;
     }
 
     [CanBeNull]
-    public IIdentity Parent
-    {
-      get { return _parent; }
-    }
+    public IIdentity Parent { get; }
 
-    public string Relative
-    {
-      get { return _relative; }
-    }
+    public string Relative { get; }
 
     public string Absolute
     {
-      get { return _absolute = _absolute ?? (Parent == null ? _relative : Concat(_parent.Absolute, _relative)); }
+      get { return _absolute = _absolute ?? (Parent == null ? Relative : Concat(Parent.Absolute, Relative)); }
     }
 
     private string Concat (string first, string second)

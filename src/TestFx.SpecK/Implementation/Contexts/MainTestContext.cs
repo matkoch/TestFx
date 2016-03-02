@@ -21,9 +21,6 @@ namespace TestFx.SpecK.Implementation.Contexts
 {
   internal class MainTestContext<TSubject, TResult, TVars, TSequence> : TestContext<TSubject, TResult, TVars, TSequence>
   {
-    private readonly ActionContainer<TSubject, TResult> _actionContainer;
-    private readonly Action<ITestController> _configurator;
-
     private TSubject _subject;
     private TResult _result;
     private Exception _exception;
@@ -33,19 +30,13 @@ namespace TestFx.SpecK.Implementation.Contexts
 
     public MainTestContext (ActionContainer<TSubject, TResult> actionContainer, Action<ITestController> configurator)
     {
-      _actionContainer = actionContainer;
-      _configurator = configurator;
+      ActionContainer = actionContainer;
+      Configurator = configurator;
     }
 
-    public ActionContainer<TSubject, TResult> ActionContainer
-    {
-      get { return _actionContainer; }
-    }
+    public ActionContainer<TSubject, TResult> ActionContainer { get; }
 
-    public Action<ITestController> Configurator
-    {
-      get { return _configurator; }
-    }
+    public Action<ITestController> Configurator { get; }
 
     public bool ActionExecuted { get; set; }
 

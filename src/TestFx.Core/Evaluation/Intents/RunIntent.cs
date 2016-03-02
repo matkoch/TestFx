@@ -45,46 +45,27 @@ namespace TestFx.Evaluation.Intents
       return new RunIntent(identity, useSeparateAppDomains, shadowCopyPath);
     }
 
-    private readonly IIdentity _identity;
-    private readonly bool _useSeparateAppDomains;
-    private readonly string _shadowCopyPath;
-    private readonly CancellationTokenSource _cancellationTokenSource;
     private readonly List<IIntent> _intents;
 
     private RunIntent (IIdentity identity, bool useSeparateAppDomains, [CanBeNull] string shadowCopyPath)
     {
-      _identity = identity;
-      _useSeparateAppDomains = useSeparateAppDomains;
-      _shadowCopyPath = shadowCopyPath;
-      _cancellationTokenSource = new CancellationTokenSource();
+      Identity = identity;
+      CreateSeparateAppDomains = useSeparateAppDomains;
+      ShadowCopyPath = shadowCopyPath;
+      CancellationTokenSource = new CancellationTokenSource();
       _intents = new List<IIntent>();
     }
 
-    public IIdentity Identity
-    {
-      get { return _identity; }
-    }
+    public IIdentity Identity { get; }
 
     [CanBeNull]
-    public string ShadowCopyPath
-    {
-      get { return _shadowCopyPath; }
-    }
+    public string ShadowCopyPath { get; }
 
-    public bool CreateSeparateAppDomains
-    {
-      get { return _useSeparateAppDomains; }
-    }
+    public bool CreateSeparateAppDomains { get; }
 
-    public CancellationTokenSource CancellationTokenSource
-    {
-      get { return _cancellationTokenSource; }
-    }
+    public CancellationTokenSource CancellationTokenSource { get; }
 
-    public IEnumerable<IIntent> Intents
-    {
-      get { return _intents; }
-    }
+    public IEnumerable<IIntent> Intents => _intents;
 
     public void AddIntent (IIntent intent)
     {

@@ -39,11 +39,6 @@ namespace TestFx.Extensibility.Providers
       return new OperationProvider(text, typeof (T), type, action, cleanupProvider);
     }
 
-    private readonly Type _descriptor;
-    private readonly OperationType _type;
-    private readonly Action _action;
-    private readonly IOperationProvider _cleanupProvider;
-
     private OperationProvider (
         string text,
         Type descriptor,
@@ -52,31 +47,19 @@ namespace TestFx.Extensibility.Providers
         [CanBeNull] IOperationProvider cleanupProvider)
         : base(s_identity, text, ignored: false)
     {
-      _descriptor = descriptor;
-      _type = type;
-      _action = action;
-      _cleanupProvider = cleanupProvider;
+      Descriptor = descriptor;
+      Type = type;
+      Action = action;
+      CleanupProvider = cleanupProvider;
     }
 
-    public Type Descriptor
-    {
-      get { return _descriptor; }
-    }
+    public Type Descriptor { get; }
 
-    public OperationType Type
-    {
-      get { return _type; }
-    }
+    public OperationType Type { get; }
 
-    public Action Action
-    {
-      get { return _action; }
-    }
+    public Action Action { get; }
 
     [CanBeNull]
-    public IOperationProvider CleanupProvider
-    {
-      get { return _cleanupProvider; }
-    }
+    public IOperationProvider CleanupProvider { get; }
   }
 }

@@ -35,24 +35,17 @@ namespace TestFx.Evaluation.Intents
       return new Intent(identity);
     }
 
-    private readonly IIdentity _identity;
     private readonly List<IIntent> _intents;
 
     private Intent (IIdentity identity)
     {
-      _identity = identity;
+      Identity = identity;
       _intents = new List<IIntent>();
     }
 
-    public IIdentity Identity
-    {
-      get { return _identity; }
-    }
+    public IIdentity Identity { get; }
 
-    public IEnumerable<IIntent> Intents
-    {
-      get { return _intents; }
-    }
+    public IEnumerable<IIntent> Intents => _intents;
 
     public void AddIntent (IIntent intent)
     {

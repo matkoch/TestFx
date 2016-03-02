@@ -32,25 +32,16 @@ namespace TestFx.Extensibility.Providers
       return new TestProvider(identity, text, ignored, filePath, lineNumber);
     }
 
-    private readonly string _filePath;
-    private readonly int _lineNumber;
-
     private TestProvider(IIdentity identity, string text, bool ignored, [CanBeNull] string filePath, int lineNumber)
         : base(identity, text, ignored)
     {
-      _filePath = filePath;
-      _lineNumber = lineNumber;
+      FilePath = filePath;
+      LineNumber = lineNumber;
     }
 
     [CanBeNull]
-    public string FilePath
-    {
-      get { return _filePath; }
-    }
+    public string FilePath { get; }
 
-    public int LineNumber
-    {
-      get { return _lineNumber; }
-    }
+    public int LineNumber { get; }
   }
 }

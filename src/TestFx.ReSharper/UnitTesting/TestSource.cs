@@ -69,9 +69,6 @@ namespace TestFx.ReSharper.UnitTesting
       observer.OnCompleted();
     }
 
-    public IUnitTestProvider Provider
-    {
-      get { return _testProvider; }
-    }
+    public IUnitTestProvider Provider => _testProvider;
   }
 }

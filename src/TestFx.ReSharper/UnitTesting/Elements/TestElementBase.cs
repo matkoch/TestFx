@@ -45,8 +45,6 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     private UnitTestElementState _state;
     private TestElementBase _parent;
     private string _text;
-    private string _explicitReason;
-    private IEnumerable<UnitTestElementCategory> _categories;
 
     protected TestElementBase (ITestIdentity identity, IList<Task> tasks)
     {
@@ -65,10 +63,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     internal abstract IEnumerable<ITestFile> GetTestFiles ();
 
-    public IIdentity Identity
-    {
-      get { return _identity; }
-    }
+    public IIdentity Identity => _identity;
 
     [CanBeNull]
     public IProject GetProject ()
@@ -76,45 +71,27 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return Id.Project;
     }
 
-    public string Kind
-    {
-      get { return "Test"; }
-    }
+    public string Kind => "Test";
 
-    public UnitTestElementKind ElementKind
-    {
-      get { return _children.Any() ? UnitTestElementKind.TestContainer : UnitTestElementKind.Test; }
-    }
+    public UnitTestElementKind ElementKind => _children.Any() ? UnitTestElementKind.TestContainer : UnitTestElementKind.Test;
 
-    public virtual string ShortName
-    {
-      get { return Identity.Relative; }
-    }
+    public virtual string ShortName => Identity.Relative;
 
     public void Update (string text, [CanBeNull] string explicitReason, IEnumerable<UnitTestElementCategory> categories)
     {
       _text = text;
-      _explicitReason = explicitReason;
+      ExplicitReason = explicitReason;
       
-      _categories = categories;
+      Categories = categories;
       _state = UnitTestElementState.Valid;
     }
 
-    public IEnumerable<UnitTestElementCategory> Categories
-    {
-      get { return _categories; }
-    }
+    public IEnumerable<UnitTestElementCategory> Categories { get; private set; }
 
-    public bool Explicit
-    {
-      get { return ExplicitReason != null; }
-    }
+    public bool Explicit => ExplicitReason != null;
 
     [CanBeNull]
-    public string ExplicitReason
-    {
-      get { return _explicitReason; }
-    }
+    public string ExplicitReason { get; private set; }
 
     public UnitTestElementState State
     {
@@ -161,10 +138,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       }
     }
 
-    public ICollection<IUnitTestElement> Children
-    {
-      get { return _children; }
-    }
+    public ICollection<IUnitTestElement> Children => _children;
 
     public IUnitTestRunStrategy GetRunStrategy ([NotNull] IHostProvider hostProvider)
     {

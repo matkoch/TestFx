@@ -19,16 +19,11 @@ namespace TestFx.Extensibility
   [AttributeUsage (AttributeTargets.Class)]
   public class TypeLoaderTypeAttribute : Attribute
   {
-    private readonly Type _typeLoaderType;
-
     public TypeLoaderTypeAttribute (Type typeLoaderType)
     {
-      _typeLoaderType = typeLoaderType;
+      TypeLoaderType = typeLoaderType;
     }
 
-    public Type TypeLoaderType
-    {
-      get { return _typeLoaderType; }
-    }
+    public Type TypeLoaderType { get; }
   }
 }

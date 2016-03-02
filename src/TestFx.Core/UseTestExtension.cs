@@ -19,16 +19,11 @@ namespace TestFx
   [AttributeUsage (AttributeTargets.Assembly, AllowMultiple = true)]
   public class UseTestExtension : Attribute
   {
-    private readonly Type _testExtensionType;
-
     public UseTestExtension (Type testExtensionType)
     {
-      _testExtensionType = testExtensionType;
+      TestExtensionType = testExtensionType;
     }
 
-    public Type TestExtensionType
-    {
-      get { return _testExtensionType; }
-    }
+    public Type TestExtensionType { get; }
   }
 }

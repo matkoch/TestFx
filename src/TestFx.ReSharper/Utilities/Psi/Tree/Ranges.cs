@@ -19,23 +19,14 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
 {
   public struct Ranges
   {
-    private readonly DocumentRange _navigationRange;
-    private readonly DocumentRange _containingRange;
-
     public Ranges (DocumentRange navigationRange, DocumentRange containingRange)
     {
-      _navigationRange = navigationRange;
-      _containingRange = containingRange;
+      NavigationRange = navigationRange;
+      ContainingRange = containingRange;
     }
 
-    public DocumentRange NavigationRange
-    {
-      get { return _navigationRange; }
-    }
+    public DocumentRange NavigationRange { get; }
 
-    public DocumentRange ContainingRange
-    {
-      get { return _containingRange; }
-    }
+    public DocumentRange ContainingRange { get; }
   }
 }

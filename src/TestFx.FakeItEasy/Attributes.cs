@@ -37,16 +37,11 @@ namespace TestFx.FakeItEasy
   [UsedImplicitly]
   public sealed class ReturnedFromAttribute : Attribute
   {
-    private readonly string _fakeField;
-
     public ReturnedFromAttribute (string fakeField)
     {
-      _fakeField = fakeField;
+      FakeField = fakeField;
     }
 
-    public string FakeField
-    {
-      get { return _fakeField; }
-    }
+    public string FakeField { get; }
   }
 }

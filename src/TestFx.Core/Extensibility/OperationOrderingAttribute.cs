@@ -19,16 +19,11 @@ namespace TestFx.Extensibility
   [AttributeUsage (AttributeTargets.Class)]
   public class OperationOrderingAttribute : Attribute
   {
-    private readonly Type[] _operationDescriptors;
-
     public OperationOrderingAttribute (params Type[] operationDescriptors)
     {
-      _operationDescriptors = operationDescriptors;
+      OperationDescriptors = operationDescriptors;
     }
 
-    public Type[] OperationDescriptors
-    {
-      get { return _operationDescriptors; }
-    }
+    public Type[] OperationDescriptors { get; }
   }
 }

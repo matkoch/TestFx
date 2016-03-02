@@ -18,30 +18,17 @@ namespace TestFx.Utilities.Introspection
 {
   public class CommonNamedArgument
   {
-    private readonly string _name;
-    private readonly CommonType _type;
-    private readonly object _value;
-
     public CommonNamedArgument (string name, CommonType type, object value)
     {
-      _name = name;
-      _type = type;
-      _value = value;
+      Name = name;
+      Type = type;
+      Value = value;
     }
 
-    public string Name
-    {
-      get { return _name; }
-    }
+    public string Name { get; }
 
-    public CommonType Type
-    {
-      get { return _type; }
-    }
+    public CommonType Type { get; }
 
-    public object Value
-    {
-      get { return _value; }
-    }
+    public object Value { get; }
   }
 }

@@ -25,10 +25,7 @@ namespace TestFx.FakeItEasy
 {
   public class FakeItEasyTestExtension : ITestExtension
   {
-    public int Priority
-    {
-      get { return 0; }
-    }
+    public int Priority => 0;
 
     public void Extend (ITestController testController, object suite)
     {

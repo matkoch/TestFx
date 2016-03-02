@@ -20,7 +20,6 @@ namespace TestFx.Utilities.Introspection
 {
   public class CommonAttribute
   {
-    private readonly CommonType _type;
     private readonly List<CommonPositionalArgument> _positionalArguments;
     private readonly List<CommonNamedArgument> _namedArguments;
 
@@ -29,24 +28,15 @@ namespace TestFx.Utilities.Introspection
         IEnumerable<CommonPositionalArgument> positionalArguments,
         IEnumerable<CommonNamedArgument> namedArguments)
     {
-      _type = type;
+      Type = type;
       _positionalArguments = positionalArguments.ToList();
       _namedArguments = namedArguments.ToList();
     }
 
-    public CommonType Type
-    {
-      get { return _type; }
-    }
+    public CommonType Type { get; }
 
-    public IEnumerable<CommonPositionalArgument> PositionalArguments
-    {
-      get { return _positionalArguments; }
-    }
+    public IEnumerable<CommonPositionalArgument> PositionalArguments => _positionalArguments;
 
-    public IEnumerable<CommonNamedArgument> NamedArguments
-    {
-      get { return _namedArguments; }
-    }
+    public IEnumerable<CommonNamedArgument> NamedArguments => _namedArguments;
   }
 }

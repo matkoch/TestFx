@@ -30,25 +30,16 @@ namespace TestFx.Evaluation.Results
   [Serializable]
   internal class OperationResult : Result, IOperationResult
   {
-    private readonly OperationType _type;
-    private readonly IExceptionDescriptor _exception;
-
     public OperationResult (IIdentity identity, string text, OperationType type, State state, [CanBeNull] IExceptionDescriptor exception)
         : base(identity, text, state)
     {
-      _type = type;
-      _exception = exception;
+      Type = type;
+      Exception = exception;
     }
 
-    public OperationType Type
-    {
-      get { return _type; }
-    }
+    public OperationType Type { get; }
 
     [CanBeNull]
-    public IExceptionDescriptor Exception
-    {
-      get { return _exception; }
-    }
+    public IExceptionDescriptor Exception { get; }
   }
 }

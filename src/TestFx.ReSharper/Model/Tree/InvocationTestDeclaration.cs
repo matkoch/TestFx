@@ -25,10 +25,6 @@ namespace TestFx.ReSharper.Model.Tree
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
   internal class InvocationTestDeclaration : InvocationExpressionBase, ITestDeclaration
   {
-    private readonly IIdentity _identity;
-    private readonly IProject _project;
-    private readonly string _text;
-
     public InvocationTestDeclaration (
         IIdentity identity,
         IProject project,
@@ -36,30 +32,21 @@ namespace TestFx.ReSharper.Model.Tree
         IInvocationExpression invocationExpression)
         : base(invocationExpression)
     {
-      _identity = identity;
-      _project = project;
-      _text = text;
+      Identity = identity;
+      Project = project;
+      Text = text;
     }
 
-    public IIdentity Identity
-    {
-      get { return _identity; }
-    }
+    public IIdentity Identity { get; }
 
-    public IProject Project
-    {
-      get { return _project; }
-    }
+    public IProject Project { get; }
 
     public IEnumerable<string> Categories
     {
       get { yield break; }
     }
 
-    public string Text
-    {
-      get { return _text; }
-    }
+    public string Text { get; }
 
     public IEnumerable<ITestEntity> TestEntities
     {

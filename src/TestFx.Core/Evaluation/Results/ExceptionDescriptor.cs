@@ -67,37 +67,20 @@ namespace TestFx.Evaluation.Results
       return !s_isFrameworkCode.IsMatch(line);
     }
 
-    private readonly string _name;
-    private readonly string _fullName;
-    private readonly string _message;
-    private readonly string _stackTrace;
-
     private ExceptionDescriptor (string name, string fullName, string message, string stackTrace)
     {
-      _name = name;
-      _fullName = fullName;
-      _message = message;
-      _stackTrace = stackTrace;
+      Name = name;
+      FullName = fullName;
+      Message = message;
+      StackTrace = stackTrace;
     }
 
-    public string Name
-    {
-      get { return _name; }
-    }
+    public string Name { get; }
 
-    public string FullName
-    {
-      get { return _fullName; }
-    }
+    public string FullName { get; }
 
-    public string Message
-    {
-      get { return _message; }
-    }
+    public string Message { get; }
 
-    public string StackTrace
-    {
-      get { return _stackTrace; }
-    }
+    public string StackTrace { get; }
   }
 }

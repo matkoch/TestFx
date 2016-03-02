@@ -56,23 +56,19 @@ namespace TestFx.Extensibility.Controllers
 
   public class TestController : ITestController
   {
-    private readonly object _suite;
     private readonly TestProvider _provider;
     private readonly TestContext _context;
     private readonly IOperationSorter _operationSorter;
 
     protected TestController (object suite, TestProvider provider, TestContext context, IOperationSorter operationSorter)
     {
-      _suite = suite;
+      Suite = suite;
       _provider = provider;
       _context = context;
       _operationSorter = operationSorter;
     }
 
-    public object Suite
-    {
-      get { return _suite; }
-    }
+    public object Suite { get; }
 
     public void AddAction<T> (string text, Action<ITestContext> action)
         where T : IActionDescriptor

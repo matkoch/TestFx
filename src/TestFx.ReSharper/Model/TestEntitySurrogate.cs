@@ -21,38 +21,21 @@ namespace TestFx.ReSharper.Model
 {
   internal class TestEntitySurrogate : ITestEntity
   {
-    private readonly IIdentity _identity;
-    private readonly IProject _project;
-    private readonly IEnumerable<string> _categories;
-    private readonly string _text;
-
     public TestEntitySurrogate (IIdentity identity, IProject project, IEnumerable<string> categories, string text)
     {
-      _identity = identity;
-      _project = project;
-      _categories = categories;
-      _text = text;
+      Identity = identity;
+      Project = project;
+      Categories = categories;
+      Text = text;
     }
 
-    public IIdentity Identity
-    {
-      get { return _identity; }
-    }
+    public IIdentity Identity { get; }
 
-    public IProject Project
-    {
-      get { return _project; }
-    }
+    public IProject Project { get; }
 
-    public IEnumerable<string> Categories
-    {
-      get { return _categories; }
-    }
+    public IEnumerable<string> Categories { get; }
 
-    public string Text
-    {
-      get { return _text; }
-    }
+    public string Text { get; }
 
     public IEnumerable<ITestEntity> TestEntities
     {

@@ -22,16 +22,11 @@ namespace TestFx
   [AttributeUsage (AttributeTargets.Class)]
   public sealed class CategoriesAttribute : Attribute
   {
-    private readonly string[] _categories;
-
     public CategoriesAttribute (params string[] categories)
     {
-      _categories = categories;
+      Categories = categories;
     }
 
-    public string[] Categories
-    {
-      get { return _categories; }
-    }
+    public string[] Categories { get; }
   }
 }

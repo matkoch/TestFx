@@ -31,8 +31,6 @@ namespace TestFx.Farada
   // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
   public class AutoDataAttribute : Attribute
   {
-    private object _currentSuite;
-
     public AutoDataAttribute ()
     {
       MaxRecursionDepth = 3;
@@ -40,16 +38,12 @@ namespace TestFx.Farada
 
     public int MaxRecursionDepth { get; set; }
 
-    public object CurrentSuite
-    {
-      get { return _currentSuite; }
-      internal set { _currentSuite = value; }
-    }
+    public object CurrentSuite { get; internal set; }
 
     [CanBeNull]
     public T GetValueFromSuiteMember<T> (string memberName)
     {
-      return _currentSuite.GetMemberValue<T>(memberName);
+      return CurrentSuite.GetMemberValue<T>(memberName);
     }
 
     [UsedImplicitly]
@@ -62,33 +56,23 @@ namespace TestFx.Farada
   [UsedImplicitly]
   public sealed class AutoDataConfigurationAttribute : Attribute
   {
-    private readonly Type _configurationType;
-
     public AutoDataConfigurationAttribute (Type configurationType)
     {
-      _configurationType = configurationType;
+      ConfigurationType = configurationType;
     }
 
-    public Type ConfigurationType
-    {
-      get { return _configurationType; }
-    }
+    public Type ConfigurationType { get; }
   }
 
   [AttributeUsage (AttributeTargets.Class)]
   [UsedImplicitly]
   public sealed class AutoDataSeedAttribute : Attribute
   {
-    private readonly int _seed;
-
     public AutoDataSeedAttribute (int seed)
     {
-      _seed = seed;
+      Seed = seed;
     }
 
-    public int Seed
-    {
-      get { return _seed; }
-    }
+    public int Seed { get; }
   }
 }

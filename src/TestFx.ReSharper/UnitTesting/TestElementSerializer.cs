@@ -82,9 +82,6 @@ namespace TestFx.ReSharper.UnitTesting
       return _testElementFactory.GetOrCreateTestElement(elementTypeFullName, entity, parentElement);
     }
 
-    public IUnitTestProvider Provider
-    {
-      get { return _testProvider; }
-    }
+    public IUnitTestProvider Provider => _testProvider;
   }
 }

@@ -25,39 +25,22 @@ namespace TestFx.ReSharper.Model.Metadata
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
   internal class TypeTestMetadata : MetadataTypeInfoBase, ITestMetadata
   {
-    private readonly IIdentity _identity;
-    private readonly IProject _project;
-    private readonly string _text;
-    private readonly IEnumerable<string> _categories;
-
     public TypeTestMetadata (IIdentity identity, IProject project, IEnumerable<string> categories, string text, IMetadataTypeInfo metadataTypeInfo)
         : base(metadataTypeInfo)
     {
-      _identity = identity;
-      _project = project;
-      _text = text;
-      _categories = categories;
+      Identity = identity;
+      Project = project;
+      Text = text;
+      Categories = categories;
     }
 
-    public IIdentity Identity
-    {
-      get { return _identity; }
-    }
+    public IIdentity Identity { get; }
 
-    public IProject Project
-    {
-      get { return _project; }
-    }
+    public IProject Project { get; }
 
-    public string Text
-    {
-      get { return _text; }
-    }
+    public string Text { get; }
 
-    public IEnumerable<string> Categories
-    {
-      get { return _categories; }
-    }
+    public IEnumerable<string> Categories { get; }
 
     public IEnumerable<ITestMetadata> TestMetadatas
     {

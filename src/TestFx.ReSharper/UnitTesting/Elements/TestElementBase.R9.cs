@@ -21,10 +21,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 {
   public abstract partial class TestElementBase
   {
-    public UnitTestElementId Id
-    {
-      get { return _identity.ElementId; }
-    }
+    public UnitTestElementId Id => _identity.ElementId;
 
     public string GetPresentation (IUnitTestElement parent = null, bool full = false)
     {

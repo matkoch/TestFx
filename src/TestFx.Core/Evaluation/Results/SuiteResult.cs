@@ -51,24 +51,12 @@ namespace TestFx.Evaluation.Results
       _testResults = testResults;
     }
 
-    public IEnumerable<IOperationResult> SetupResults
-    {
-      get { return _setupResults; }
-    }
+    public IEnumerable<IOperationResult> SetupResults => _setupResults;
 
-    public IEnumerable<IOperationResult> CleanupResults
-    {
-      get { return _cleanupResults; }
-    }
+    public IEnumerable<IOperationResult> CleanupResults => _cleanupResults;
 
-    public IEnumerable<ISuiteResult> SuiteResults
-    {
-      get { return _suiteResults; }
-    }
+    public IEnumerable<ISuiteResult> SuiteResults => _suiteResults;
 
-    public IEnumerable<ITestResult> TestResults
-    {
-      get { return _testResults; }
-    }
+    public IEnumerable<ITestResult> TestResults => _testResults;
   }
 }

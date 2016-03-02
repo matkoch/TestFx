@@ -46,9 +46,6 @@ namespace TestFx.Evaluation.Utilities
       _cancellationTokenSource.Dispose();
     }
 
-    CancellationToken ICancellationTokenSource.Token
-    {
-      get { return _cancellationTokenSource.Token; }
-    }
+    CancellationToken ICancellationTokenSource.Token => _cancellationTokenSource.Token;
   }
 }

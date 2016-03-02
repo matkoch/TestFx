@@ -26,35 +26,27 @@ namespace TestFx.ReSharper.Runner.Tasks
   {
     private const string c_visualStudioProcessId = "visualStudioProcessId";
 
-    private readonly int _visualStudioProcessId;
-
     [UsedImplicitly]
     public RunTask (XmlElement element)
         : base(element)
     {
-      _visualStudioProcessId = int.Parse(GetXmlAttribute(element, c_visualStudioProcessId));
+      VisualStudioProcessId = int.Parse(GetXmlAttribute(element, c_visualStudioProcessId));
     }
 
     public RunTask ()
         : base(new Identity("runTask"))
     {
-      _visualStudioProcessId = Process.GetCurrentProcess().Id;
+      VisualStudioProcessId = Process.GetCurrentProcess().Id;
     }
 
     public override void SaveXml (XmlElement element)
     {
       base.SaveXml(element);
-      SetXmlAttribute(element, c_visualStudioProcessId, _visualStudioProcessId.ToString(CultureInfo.InvariantCulture));
+      SetXmlAttribute(element, c_visualStudioProcessId, VisualStudioProcessId.ToString(CultureInfo.InvariantCulture));
     }
 
-    public override bool IsMeaningfulTask
-    {
-      get { return false; }
-    }
+    public override bool IsMeaningfulTask => false;
 
-    public int VisualStudioProcessId
-    {
-      get { return _visualStudioProcessId; }
-    }
+    public int VisualStudioProcessId { get; }
   }
 }

@@ -25,17 +25,12 @@ namespace TestFx.ReSharper.UnitTesting.Utilities
 
   public partial class TestIdentity
   {
-    private readonly UnitTestElementId _elementId;
-
     public TestIdentity (UnitTestElementId elementId, IIdentity wrappedIdentity)
         : this(wrappedIdentity)
     {
-      _elementId = elementId;
+      ElementId = elementId;
     }
 
-    public UnitTestElementId ElementId
-    {
-      get { return _elementId; }
-    }
+    public UnitTestElementId ElementId { get; }
   }
 }

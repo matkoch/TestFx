@@ -20,34 +20,21 @@ namespace TestFx.SpecK.Implementation.Utilities
 {
   public class ActionContainer<TSubject, TResult>
   {
-    private readonly string _text;
-    private readonly Action<TSubject> _voidAction;
-    private readonly Func<TSubject, TResult> _resultAction;
-
     public ActionContainer (string text, [CanBeNull] Action<TSubject> voidAction, [CanBeNull] Func<TSubject, TResult> resultAction)
     {
       Debug.Assert(voidAction != null || resultAction != null);
 
-      _text = text;
-      _voidAction = voidAction;
-      _resultAction = resultAction;
+      Text = text;
+      VoidAction = voidAction;
+      ResultAction = resultAction;
     }
 
-    public string Text
-    {
-      get { return _text; }
-    }
+    public string Text { get; }
 
     [CanBeNull]
-    public Action<TSubject> VoidAction
-    {
-      get { return _voidAction; }
-    }
+    public Action<TSubject> VoidAction { get; }
 
     [CanBeNull]
-    public Func<TSubject, TResult> ResultAction
-    {
-      get { return _resultAction; }
-    }
+    public Func<TSubject, TResult> ResultAction { get; }
   }
 }

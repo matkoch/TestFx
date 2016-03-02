@@ -21,16 +21,11 @@ namespace TestFx
   [UsedImplicitly]
   public sealed class ResourcesAttribute : Attribute
   {
-    private readonly string[] _resources;
-
     public ResourcesAttribute (params string[] resources)
     {
-      _resources = resources;
+      Resources = resources;
     }
 
-    public string[] Resources
-    {
-      get { return _resources; }
-    }
+    public string[] Resources { get; }
   }
 }

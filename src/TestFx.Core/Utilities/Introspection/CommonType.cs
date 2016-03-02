@@ -20,26 +20,18 @@ namespace TestFx.Utilities.Introspection
 {
   public class CommonType
   {
-    private readonly string _name;
-    private readonly string _fullname;
     private readonly IEnumerable<string> _implementedTypes;
 
     public CommonType (string name, string fullname, IEnumerable<string> implementedTypes)
     {
-      _name = name;
-      _fullname = fullname;
+      Name = name;
+      Fullname = fullname;
       _implementedTypes = implementedTypes.ToList();
     }
 
-    public string Name
-    {
-      get { return _name; }
-    }
+    public string Name { get; }
 
-    public string Fullname
-    {
-      get { return _fullname; }
-    }
+    public string Fullname { get; }
 
     public bool IsAssignableTo (string fullName)
     {
@@ -48,7 +40,7 @@ namespace TestFx.Utilities.Introspection
 
     public override string ToString ()
     {
-      return _name;
+      return Name;
     }
   }
 }

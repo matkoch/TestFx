@@ -30,19 +30,10 @@ namespace TestFx.ReSharper.UnitTesting.Utilities
       _wrappedIdentity = wrappedIdentity;
     }
 
-    public IIdentity Parent
-    {
-      get { return _wrappedIdentity.Parent; }
-    }
+    public IIdentity Parent => _wrappedIdentity.Parent;
 
-    public string Relative
-    {
-      get { return _wrappedIdentity.Relative; }
-    }
+    public string Relative => _wrappedIdentity.Relative;
 
-    public string Absolute
-    {
-      get { return _wrappedIdentity.Absolute; }
-    }
+    public string Absolute => _wrappedIdentity.Absolute;
   }
 }

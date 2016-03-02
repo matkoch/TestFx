@@ -42,10 +42,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       _testTypeName = new ClrTypeName(identity.Relative);
     }
 
-    public override string ShortName
-    {
-      get { return _testTypeName.ShortName; }
-    }
+    public override string ShortName => _testTypeName.ShortName;
 
     [CanBeNull]
     public override IEnumerable<IProjectFile> GetProjectFiles ()

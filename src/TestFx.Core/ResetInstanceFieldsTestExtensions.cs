@@ -22,10 +22,7 @@ namespace TestFx
 {
   public class ResetInstanceFieldsTestExtensions : ITestExtension
   {
-    public int Priority
-    {
-      get { return int.MaxValue; }
-    }
+    public int Priority => int.MaxValue;
 
     public void Extend (ITestController testController, object suite)
     {

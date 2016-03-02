@@ -52,10 +52,7 @@ namespace TestFx.ReSharper.Runner.Tasks
       SetXmlAttribute(element, c_absoluteIdField, _absoluteId);
     }
 
-    public IIdentity Identity
-    {
-      get { return Utilities.Identity.Parse(_absoluteId); }
-    }
+    public IIdentity Identity => Utilities.Identity.Parse(_absoluteId);
 
     public bool Equals ([CanBeNull] Task other)
     {

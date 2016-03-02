@@ -50,24 +50,12 @@ namespace TestFx.Console
       parser.ParseArgumentsStrict(args, s_options);
     }
 
-    public static IEnumerable<string> AssemblyPaths
-    {
-      get { return s_options.Assemblies ?? new List<string>(); }
-    }
+    public static IEnumerable<string> AssemblyPaths => s_options.Assemblies ?? new List<string>();
 
-    public static bool Pause
-    {
-      get { return s_options.Pause; }
-    }
+    public static bool Pause => s_options.Pause;
 
-    public static bool Debug
-    {
-      get { return s_options.Debug; }
-    }
+    public static bool Debug => s_options.Debug;
 
-    public static bool TeamCity
-    {
-      get { return s_options.TeamCity || Environment.GetEnvironmentVariable("TEAMCITY_VERSION") != null; }
-    }
+    public static bool TeamCity => s_options.TeamCity || Environment.GetEnvironmentVariable("TEAMCITY_VERSION") != null;
   }
 }

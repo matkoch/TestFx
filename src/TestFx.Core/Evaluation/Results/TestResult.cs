@@ -27,7 +27,6 @@ namespace TestFx.Evaluation.Results
   [Serializable]
   internal class TestResult : OutputResult, ITestResult
   {
-    private readonly TimeSpan _duration;
     private readonly ICollection<IOperationResult> _operationResults;
 
     public TestResult (
@@ -39,18 +38,12 @@ namespace TestFx.Evaluation.Results
         ICollection<IOperationResult> operationResults)
         : base(identity, text, state, outputEntries)
     {
-      _duration = duration;
+      Duration = duration;
       _operationResults = operationResults;
     }
 
-    public TimeSpan Duration
-    {
-      get { return _duration; }
-    }
+    public TimeSpan Duration { get; }
 
-    public IEnumerable<IOperationResult> OperationResults
-    {
-      get { return _operationResults; }
-    }
+    public IEnumerable<IOperationResult> OperationResults => _operationResults;
   }
 }

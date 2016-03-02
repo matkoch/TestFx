@@ -35,7 +35,6 @@ namespace TestFx.Evaluation.Runners
   {
     private sealed class ContextScope : IContextScope
     {
-      private readonly IEnumerable<IOperationResult> _setupResults;
       private readonly IOperationRunner _operationRunner;
       private readonly IList<IOperationProvider> _cleanupProviders;
 
@@ -43,7 +42,7 @@ namespace TestFx.Evaluation.Runners
 
       public ContextScope (IEnumerable<IOperationResult> setupResults, IOperationRunner operationRunner, IList<IOperationProvider> cleanupProviders)
       {
-        _setupResults = setupResults;
+        SetupResults = setupResults;
         _operationRunner = operationRunner;
         _cleanupProviders = cleanupProviders;
         _cleanupResults = new List<IOperationResult>();
@@ -54,15 +53,9 @@ namespace TestFx.Evaluation.Runners
         _cleanupResults.AddRange(_cleanupProviders.Select(x => _operationRunner.Run(x)));
       }
 
-      public IEnumerable<IOperationResult> SetupResults
-      {
-        get { return _setupResults; }
-      }
+      public IEnumerable<IOperationResult> SetupResults { get; }
 
-      public IEnumerable<IOperationResult> CleanupResults
-      {
-        get { return _cleanupResults; }
-      }
+      public IEnumerable<IOperationResult> CleanupResults => _cleanupResults;
     }
 
     private readonly IOperationRunner _operationRunner;

@@ -33,9 +33,6 @@ namespace TestFx.ReSharper.Runner.Tasks
     {
     }
 
-    public override bool IsMeaningfulTask
-    {
-      get { return false; }
-    }
+    public override bool IsMeaningfulTask => false;
   }
 }

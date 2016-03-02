@@ -24,17 +24,12 @@ namespace TestFx.Evaluation.Results
 
   internal class RunResult : Result, IRunResult
   {
-    private readonly IEnumerable<ISuiteResult> _suiteResults;
-
     public RunResult (IIdentity identity, string text, State state, IEnumerable<ISuiteResult> suiteResults)
         : base(identity, text, state)
     {
-      _suiteResults = suiteResults;
+      SuiteResults = suiteResults;
     }
 
-    public IEnumerable<ISuiteResult> SuiteResults
-    {
-      get { return _suiteResults; }
-    }
+    public IEnumerable<ISuiteResult> SuiteResults { get; }
   }
 }

@@ -25,12 +25,6 @@ namespace TestFx.ReSharper.Model.Tree
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
   internal class ClassTestDeclaration : ClassDeclarationBase, ITestDeclaration
   {
-    private readonly IIdentity _identity;
-    private readonly IProject _project;
-    private readonly IEnumerable<string> _categories;
-    private readonly string _text;
-    private readonly IEnumerable<ITestDeclaration> _testDeclarations;
-
     public ClassTestDeclaration (
         IIdentity identity,
         IProject project,
@@ -40,41 +34,23 @@ namespace TestFx.ReSharper.Model.Tree
         IClassDeclaration classDeclaration)
         : base(classDeclaration)
     {
-      _identity = identity;
-      _project = project;
-      _categories = categories;
-      _text = text;
-      _testDeclarations = testDeclarations;
+      Identity = identity;
+      Project = project;
+      Categories = categories;
+      Text = text;
+      TestDeclarations = testDeclarations;
     }
 
-    public IIdentity Identity
-    {
-      get { return _identity; }
-    }
+    public IIdentity Identity { get; }
 
-    public IProject Project
-    {
-      get { return _project; }
-    }
+    public IProject Project { get; }
 
-    public IEnumerable<string> Categories
-    {
-      get { return _categories; }
-    }
+    public IEnumerable<string> Categories { get; }
 
-    public string Text
-    {
-      get { return _text; }
-    }
+    public string Text { get; }
 
-    public IEnumerable<ITestDeclaration> TestDeclarations
-    {
-      get { return _testDeclarations; }
-    }
+    public IEnumerable<ITestDeclaration> TestDeclarations { get; }
 
-    public IEnumerable<ITestEntity> TestEntities
-    {
-      get { return _testDeclarations; }
-    }
+    public IEnumerable<ITestEntity> TestEntities => TestDeclarations;
   }
 }

@@ -27,30 +27,17 @@ namespace TestFx.Extensibility.Providers
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
   public abstract class Provider : IProvider
   {
-    private readonly IIdentity _identity;
-    private readonly string _text;
-    private readonly bool _ignored;
-
     protected Provider (IIdentity identity, string text, bool ignored)
     {
-      _identity = identity;
-      _text = text;
-      _ignored = ignored;
+      Identity = identity;
+      Text = text;
+      Ignored = ignored;
     }
 
-    public IIdentity Identity
-    {
-      get { return _identity; }
-    }
+    public IIdentity Identity { get; }
 
-    public string Text
-    {
-      get { return _text; }
-    }
+    public string Text { get; }
 
-    public bool Ignored
-    {
-      get { return _ignored; }
-    }
+    public bool Ignored { get; }
   }
 }

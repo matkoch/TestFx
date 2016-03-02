@@ -22,16 +22,11 @@ namespace TestFx.Extensibility
   [AttributeUsage (AttributeTargets.Constructor | AttributeTargets.Method)]
   public class DisplayFormatAttribute : Attribute
   {
-    private readonly string _format;
-
     public DisplayFormatAttribute (string format)
     {
-      _format = format;
+      Format = format;
     }
 
-    public string Format
-    {
-      get { return _format; }
-    }
+    public string Format { get; }
   }
 }

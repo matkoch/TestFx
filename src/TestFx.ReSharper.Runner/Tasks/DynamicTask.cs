@@ -25,44 +25,32 @@ namespace TestFx.ReSharper.Runner.Tasks
     private const string c_parentGuid = "parentAbsoluteId";
     private const string c_text = "text";
 
-    private readonly string _parentGuid;
-    private readonly string _text;
-
     [UsedImplicitly]
     public DynamicTask (XmlElement element)
         : base(element)
     {
-      _parentGuid = GetXmlAttribute(element, c_parentGuid);
-      _text = GetXmlAttribute(element, c_text);
+      ParentGuid = GetXmlAttribute(element, c_parentGuid);
+      Text = GetXmlAttribute(element, c_text);
     }
 
     public DynamicTask (string parentGuid, IIdentity identity, [CanBeNull] string text)
         : base(identity)
     {
-      _parentGuid = parentGuid;
-      _text = text;
+      ParentGuid = parentGuid;
+      Text = text;
     }
 
     public override void SaveXml (XmlElement element)
     {
       base.SaveXml(element);
-      SetXmlAttribute(element, c_parentGuid, _parentGuid);
-      SetXmlAttribute(element, c_text, _text);
+      SetXmlAttribute(element, c_parentGuid, ParentGuid);
+      SetXmlAttribute(element, c_text, Text);
     }
 
-    public override bool IsMeaningfulTask
-    {
-      get { return true; }
-    }
+    public override bool IsMeaningfulTask => true;
 
-    public string ParentGuid
-    {
-      get { return _parentGuid; }
-    }
+    public string ParentGuid { get; }
 
-    public string Text
-    {
-      get { return _text; }
-    }
+    public string Text { get; }
   }
 }

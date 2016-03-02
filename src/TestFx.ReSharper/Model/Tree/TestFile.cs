@@ -25,17 +25,12 @@ namespace TestFx.ReSharper.Model.Tree
 
   internal class TestFile : FileBase, ITestFile
   {
-    private readonly IEnumerable<ITestDeclaration> _testDeclarations;
-
     public TestFile (IEnumerable<ITestDeclaration> testDeclarations, ICSharpFile file)
         : base(file)
     {
-      _testDeclarations = testDeclarations;
+      TestDeclarations = testDeclarations;
     }
 
-    public IEnumerable<ITestDeclaration> TestDeclarations
-    {
-      get { return _testDeclarations; }
-    }
+    public IEnumerable<ITestDeclaration> TestDeclarations { get; }
   }
 }

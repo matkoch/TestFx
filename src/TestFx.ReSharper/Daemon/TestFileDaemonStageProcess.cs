@@ -8,13 +8,12 @@ namespace TestFx.ReSharper.Daemon
 {
   internal class TestFileDaemonStageProcess : IDaemonStageProcess
   {
-    private readonly IDaemonProcess _process;
     private readonly ITestFile _file;
     private readonly IEnumerable<ITestFileAnalyzer> _testFileAnalyzers;
 
     public TestFileDaemonStageProcess (IDaemonProcess process, ITestFile file, IEnumerable<ITestFileAnalyzer> testFileAnalyzers)
     {
-      _process = process;
+      DaemonProcess = process;
       _file = file;
       _testFileAnalyzers = testFileAnalyzers;
     }
@@ -26,9 +25,6 @@ namespace TestFx.ReSharper.Daemon
       committer(new DaemonStageResult(result));
     }
 
-    public IDaemonProcess DaemonProcess
-    {
-      get { return _process; }
-    }
+    public IDaemonProcess DaemonProcess { get; }
   }
 }

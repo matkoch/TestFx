@@ -24,28 +24,18 @@ namespace TestFx.ReSharper.Daemon
   public abstract class SimpleTestDeclarationHighlightingBase : IHighlighting
   {
     private readonly ITestDeclaration _treeNode;
-    private readonly string _toolTipText;
 
     protected SimpleTestDeclarationHighlightingBase(ITestDeclaration treeNode, [NotNull] string toolTipText)
     {
       _treeNode = treeNode;
-      _toolTipText = toolTipText;
+      ToolTip = toolTipText;
     }
 
-    public string ToolTip
-    {
-      get { return _toolTipText; }
-    }
+    public string ToolTip { get; }
 
-    public string ErrorStripeToolTip
-    {
-      get { return _toolTipText; }
-    }
+    public string ErrorStripeToolTip => ToolTip;
 
-    public int NavigationOffsetPatch
-    {
-      get { return 0; }
-    }
+    public int NavigationOffsetPatch => 0;
 
     public bool IsValid ()
     {

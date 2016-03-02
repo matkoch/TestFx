@@ -35,9 +35,6 @@ namespace TestFx.Evaluation.Results
       _outputEntries = outputEntries;
     }
 
-    public IEnumerable<OutputEntry> OutputEntries
-    {
-      get { return _outputEntries; }
-    }
+    public IEnumerable<OutputEntry> OutputEntries => _outputEntries;
   }
 }

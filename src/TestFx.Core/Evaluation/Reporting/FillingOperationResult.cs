@@ -43,9 +43,6 @@ namespace TestFx.Evaluation.Reporting
     }
 
     [CanBeNull]
-    public IExceptionDescriptor Exception
-    {
-      get { return null; }
-    }
+    public IExceptionDescriptor Exception => null;
   }
 }

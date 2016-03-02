@@ -43,15 +43,9 @@ namespace TestFx.ReSharper.UnitTesting
       _unitTestElementComparer = new UnitTestElementComparer(typeof (ClassTestElement), typeof (ChildTestElement));
     }
 
-    public string ID
-    {
-      get { return RecursiveRemoteTaskRunner.ID; }
-    }
+    public string ID => RecursiveRemoteTaskRunner.ID;
 
-    public string Name
-    {
-      get { return ID; }
-    }
+    public string Name => ID;
 
     public bool IsElementOfKind ([NotNull] IDeclaredElement declaredElement, UnitTestElementKind elementKind)
     {

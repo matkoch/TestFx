@@ -58,10 +58,7 @@ namespace TestFx.Extensibility.Providers
       _testProviders = new ITestProvider[0];
     }
 
-    public IEnumerable<string> Resources
-    {
-      get { return _resources; }
-    }
+    public IEnumerable<string> Resources => _resources;
 
     public IEnumerable<IOperationProvider> ContextProviders
     {

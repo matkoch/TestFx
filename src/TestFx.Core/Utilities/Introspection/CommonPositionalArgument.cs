@@ -18,30 +18,17 @@ namespace TestFx.Utilities.Introspection
 {
   public class CommonPositionalArgument
   {
-    private readonly int _position;
-    private readonly CommonType _type;
-    private readonly object _value;
-
     public CommonPositionalArgument (int position, CommonType type, object value)
     {
-      _position = position;
-      _type = type;
-      _value = value;
+      Position = position;
+      Type = type;
+      Value = value;
     }
 
-    public int Position
-    {
-      get { return _position; }
-    }
+    public int Position { get; }
 
-    public CommonType Type
-    {
-      get { return _type; }
-    }
+    public CommonType Type { get; }
 
-    public object Value
-    {
-      get { return _value; }
-    }
+    public object Value { get; }
   }
 }
