@@ -20,6 +20,7 @@ namespace TestFx.Utilities
 {
   public static partial class ObjectExtensions
   {
+    [CanBeNull]
     [DebuggerNonUserCode]
     [DebuggerStepThrough]
     public static TValue GetValueOrDefault<T, TValue> ([CanBeNull] this T obj, Func<T, TValue> valueSelector, Func<TValue> defaultSelector = null)
