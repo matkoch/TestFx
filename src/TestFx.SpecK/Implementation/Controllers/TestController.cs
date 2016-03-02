@@ -78,7 +78,7 @@ namespace TestFx.SpecK.Implementation.Controllers
       var configurator = mainContext.Configurator;
       var actionContainer = mainContext.ActionContainer;
 
-      var combinationSuiteProvider = SuiteProvider.Create(_provider.Identity, _provider.Text, _provider.Ignored);
+      var combinationSuiteProvider = SuiteProvider.Create(_provider.Identity, _provider.Text, _provider.IgnoreReason);
 
       _suiteProvider.SuiteProviders = _suiteProvider.SuiteProviders.Concat(new[] { combinationSuiteProvider });
       _suiteProvider.TestProviders = _suiteProvider.TestProviders.Except(new[] { _provider });
@@ -97,7 +97,7 @@ namespace TestFx.SpecK.Implementation.Controllers
         TNewSequence sequence)
     {
       var identity = _provider.Identity.CreateChildIdentity(text);
-      var testProvider = TestProvider.Create(identity, text, ignored: false, filePath: _provider.FilePath, lineNumber: _provider.LineNumber);
+      var testProvider = TestProvider.Create(identity, text, _provider.IgnoreReason, filePath: _provider.FilePath, lineNumber: _provider.LineNumber);
       suiteProvider.TestProviders = suiteProvider.TestProviders.Concat(new[] { testProvider });
       return _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, TNewSequence>(
           suiteProvider,

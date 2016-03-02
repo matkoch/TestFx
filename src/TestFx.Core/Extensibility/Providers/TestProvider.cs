@@ -26,14 +26,14 @@ namespace TestFx.Extensibility.Providers
   }
 
   public class TestProvider : OperationCollectionProvider, ITestProvider
-  {
-    public static TestProvider Create (IIdentity identity, string text, bool ignored, string filePath = null, int lineNumber = -1)
+  { 
+    public static TestProvider Create (IIdentity identity, string text, [CanBeNull] string ignoreReason, string filePath = null, int lineNumber = -1)
     {
-      return new TestProvider(identity, text, ignored, filePath, lineNumber);
+      return new TestProvider(identity, text, ignoreReason, filePath, lineNumber);
     }
 
-    private TestProvider(IIdentity identity, string text, bool ignored, [CanBeNull] string filePath, int lineNumber)
-        : base(identity, text, ignored)
+    private TestProvider (IIdentity identity, string text, [CanBeNull] string ignoreReason, [CanBeNull] string filePath, int lineNumber)
+        : base(identity, text, ignoreReason)
     {
       FilePath = filePath;
       LineNumber = lineNumber;

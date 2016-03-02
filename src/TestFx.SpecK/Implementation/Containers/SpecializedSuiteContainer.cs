@@ -33,7 +33,7 @@ namespace TestFx.SpecK.Implementation.Containers
 
     public ICase<TSubject, TResult> Skip (string reason)
     {
-      _controller.IgnoreNext();
+      _controller.IgnoreNext(reason);
       return this;
     }
 

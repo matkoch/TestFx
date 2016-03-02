@@ -24,7 +24,7 @@ namespace TestFx.SpecK.Implementation.Controllers
 {
   public interface ISpecializedSuiteController<TSubject, out TResult> : ISuiteController
   {
-    void IgnoreNext ();
+    void IgnoreNext (string reason);
 
     ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text, [CanBeNull] string filePath, int lineNumber);
   }
@@ -36,7 +36,7 @@ namespace TestFx.SpecK.Implementation.Controllers
     private readonly Action<ITestController> _testControllerConfigurator;
     private readonly IControllerFactory _controllerFactory;
 
-    private bool _ignoreNext;
+    private string _nextIgnoreReason;
 
     public SpecializedSuiteController (
         SuiteProvider provider,
@@ -52,14 +52,14 @@ namespace TestFx.SpecK.Implementation.Controllers
       _controllerFactory = controllerFactory;
     }
 
-    public void IgnoreNext ()
+    public void IgnoreNext (string reason)
     {
-      _ignoreNext = true;
+      _nextIgnoreReason = reason;
     }
 
     public ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text, string filePath, int lineNumber)
     {
-      var testProvider = CreateTestProvider(text, text, _ignoreNext, filePath, lineNumber);
+      var testProvider = CreateTestProvider(text, text, _nextIgnoreReason, filePath, lineNumber);
       var controller = _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, Dummy>(
           _provider,
           testProvider,
@@ -67,7 +67,7 @@ namespace TestFx.SpecK.Implementation.Controllers
           _actionContainer,
           new Dummy());
 
-      _ignoreNext = false;
+      _nextIgnoreReason = null;
       return controller;
     }
   }

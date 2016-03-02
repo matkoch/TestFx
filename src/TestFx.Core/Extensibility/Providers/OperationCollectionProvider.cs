@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Providers
@@ -28,8 +29,8 @@ namespace TestFx.Extensibility.Providers
   {
     private IEnumerable<IOperationProvider> _operationProviders;
 
-    public OperationCollectionProvider (IIdentity identity, string text, bool ignored)
-        : base(identity, text, ignored)
+    protected OperationCollectionProvider (IIdentity identity, string text, [CanBeNull] string ignoreReason)
+        : base(identity, text, ignoreReason)
     {
       _operationProviders = new IOperationProvider[0];
     }

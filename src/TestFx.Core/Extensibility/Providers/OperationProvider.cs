@@ -45,7 +45,7 @@ namespace TestFx.Extensibility.Providers
         OperationType type,
         Action action,
         [CanBeNull] IOperationProvider cleanupProvider)
-        : base(s_identity, text, ignored: false)
+        : base(s_identity, text, ignoreReason: null)
     {
       Descriptor = descriptor;
       Type = type;

@@ -136,7 +136,7 @@ namespace TestFx.MSpec.Implementation
     private TestProvider CreateTestProvider (IIdentity parentIdentity, object instance, FieldInfo actionField)
     {
       var text = actionField.Name.Replace("_", " ");
-      var testProvider = TestProvider.Create(parentIdentity.CreateChildIdentity(actionField.Name), text, ignored: false);
+      var testProvider = TestProvider.Create(parentIdentity.CreateChildIdentity(actionField.Name), text, ignoreReason: null);
       var action = CreateAction(actionField, instance);
       var assertion = OperationProvider.Create<Operation>(OperationType.Assertion, text, action);
       testProvider.OperationProviders = new[] { assertion };

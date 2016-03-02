@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Providers
@@ -33,11 +34,11 @@ namespace TestFx.Extensibility.Providers
     public static SuiteProvider Create (
         IIdentity identity,
         string text,
-        bool ignored,
+        [CanBeNull] string ignoreReason,
         IEnumerable<string> resources = null)
     {
       resources = resources ?? new string[0];
-      return new SuiteProvider(identity, text, ignored, resources.ToList());
+      return new SuiteProvider(identity, text, ignoreReason, resources.ToList());
     }
 
     private readonly IReadOnlyCollection<string> _resources;
@@ -48,9 +49,9 @@ namespace TestFx.Extensibility.Providers
     private SuiteProvider (
         IIdentity identity,
         string text,
-        bool ignored,
+        [CanBeNull] string ignoreReason,
         IReadOnlyCollection<string> resources)
-        : base(identity, text, ignored)
+        : base(identity, text, ignoreReason)
     {
       _resources = resources;
       _contextProviders = new IOperationProvider[0];

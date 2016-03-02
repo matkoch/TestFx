@@ -63,6 +63,7 @@
     <Compile Include="Evaluation\Runners\ContextRunnerBase.cs" />
     <Compile Include="Evaluation\Utilities\AutofacExtensions.cs" />
     <Compile Include="Extensibility\Controllers\CompositeTestController.cs" />
+    <Compile Include="IgnoreAttribute.cs" />
     <Compile Include="ResetInstanceFieldsTestExtensions.cs" />
     <Compile Include="Evaluation\Loading\SuiteControllerFactory.cs" />
     <Compile Include="Evaluation\RunIntentExtensions.cs" />

@@ -45,7 +45,7 @@ namespace TestFx.Evaluation.Loading
     public ISuiteProvider Load (IIntent assemblyIntent)
     {
       var assembly = Assembly.LoadFrom(assemblyIntent.Identity.Absolute);
-      var provider = SuiteProvider.Create(assemblyIntent.Identity, assembly.GetName().Name, ignored: false);
+      var provider = SuiteProvider.Create(assemblyIntent.Identity, assembly.GetName().Name, ignoreReason: null);
       var controller = _suiteControllerFactory.Create(provider);
 
       var explorationData = _assemblyExplorer.Explore(assembly);

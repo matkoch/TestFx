@@ -14,6 +14,7 @@
 
 using System;
 using System.Diagnostics;
+using JetBrains.Annotations;
 using TestFx.Utilities;
 
 namespace TestFx.Extensibility.Providers
@@ -21,17 +22,22 @@ namespace TestFx.Extensibility.Providers
   public interface IProvider : IIdentifiable
   {
     string Text { get; }
+
     bool Ignored { get; }
+
+    [CanBeNull]
+    string IgnoreReason { get; }
   }
 
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
   public abstract class Provider : IProvider
   {
-    protected Provider (IIdentity identity, string text, bool ignored)
+    protected Provider (IIdentity identity, string text, [CanBeNull] string ignoreReason)
     {
       Identity = identity;
       Text = text;
-      Ignored = ignored;
+      Ignored = ignoreReason != null;
+      IgnoreReason = ignoreReason;
     }
 
     public IIdentity Identity { get; }
@@ -39,5 +45,8 @@ namespace TestFx.Extensibility.Providers
     public string Text { get; }
 
     public bool Ignored { get; }
+
+    [CanBeNull]
+    public string IgnoreReason { get; }
   }
 }
