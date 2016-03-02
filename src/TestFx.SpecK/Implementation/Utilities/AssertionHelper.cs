@@ -30,8 +30,7 @@ namespace TestFx.SpecK.Implementation.Utilities
     public static void AssertInstanceOfType (string objectName, Type expectedType, [CanBeNull] object actualObject)
     {
       if (!expectedType.IsInstanceOfType(actualObject))
-        throw new Exception(
-            $"{objectName} must be assignable to '{expectedType}' but was '{(actualObject != null ? actualObject.GetType().Name : "null")}'.");
+        throw new Exception($"{objectName} must be assignable to '{expectedType}' but was '{actualObject?.GetType().Name ?? "null"}'.");
     }
 
     public static void AssertExceptionMessage (string expectedMessage, Exception exception)

@@ -65,9 +65,7 @@ namespace TestFx.Farada
     private int GetSeed (Type suiteType)
     {
       var attribute = suiteType.GetAttribute<AutoDataSeedAttribute>();
-      return attribute != null
-          ? attribute.Seed
-          : _seedGenerator.Next();
+      return attribute?.Seed ?? _seedGenerator.Next();
     }
 
     private Func<ITestDataConfigurator, ITestDataConfigurator> GetAutoDataConfiguration (Type suiteType)

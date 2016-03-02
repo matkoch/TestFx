@@ -48,7 +48,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     [CanBeNull]
     public override UnitTestElementNamespace GetNamespace()
     {
-      return Parent != null ? Parent.GetNamespace() : null;
+      return Parent?.GetNamespace();
     }
 
     internal override IEnumerable<ITestFile> GetTestFiles ()
