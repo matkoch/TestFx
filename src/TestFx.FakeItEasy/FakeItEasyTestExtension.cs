@@ -74,7 +74,7 @@ namespace TestFx.FakeItEasy
       if (attribute is DummyAttribute)
         return A.Dummy<T>();
 
-      throw new Exception(string.Format("Attribute {0} is not known for fake creation.", attribute.GetType().Name));
+      throw new Exception($"Attribute {attribute.GetType().Name} is not known for fake creation.");
     }
 
     [UsedImplicitly]

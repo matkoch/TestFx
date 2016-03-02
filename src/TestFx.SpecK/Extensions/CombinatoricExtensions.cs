@@ -138,7 +138,7 @@ namespace TestFx.SpecK
       return values.ToDictionary(
           GetText,
           x => x,
-          exceptionFactory: (ex, key) => new EvaluationException(string.Format("Sequence with key '{0}' is duplicated.", key)));
+          exceptionFactory: (ex, key) => new EvaluationException($"Sequence with key '{key}' is duplicated."));
     }
 
     private static string GetText<TSequence> (TSequence seq)

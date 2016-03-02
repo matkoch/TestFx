@@ -113,7 +113,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       if ((currentState == UnitTestElementState.Dynamic || currentState == UnitTestElementState.PendingDynamic) &&
           (newState == UnitTestElementState.Valid || newState == UnitTestElementState.Pending))
       {
-        throw new Exception(string.Format("Current state {0} unable to turn into {1}", currentState, newState));
+        throw new Exception($"Current state {currentState} unable to turn into {newState}");
       }
 
       return newState;

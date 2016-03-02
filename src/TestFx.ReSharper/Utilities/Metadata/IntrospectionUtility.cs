@@ -46,7 +46,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
       if (type is IMetadataClassType)
         return GetCommonType(((IMetadataClassType) type).Type);
 
-      Trace.Fail(string.Format("Instance of type {0} cannot be converted to CommonType", type));
+      Trace.Fail($"Instance of type {type} cannot be converted to CommonType");
       throw new Exception();
     }
 

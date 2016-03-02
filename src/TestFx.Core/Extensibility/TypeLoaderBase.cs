@@ -67,7 +67,7 @@ namespace TestFx.Extensibility
       {
         Lazy<IAssemblySetup> assemblySetup;
         if (!assemblySetups.TryGetValue(field.FieldType, out assemblySetup))
-          throw new EvaluationException(string.Format("Type {0} is not associated with an instance of IAssemblySetup.", field.FieldType));
+          throw new EvaluationException($"Type {field.FieldType} is not associated with an instance of IAssemblySetup.");
         field.SetValue(suite, assemblySetup.Value);
       }
     }
@@ -77,7 +77,7 @@ namespace TestFx.Extensibility
       var suiteType = suite.GetType();
       var constructor = suiteType.GetConstructor(MemberBindings.Instance, null, new Type[0], new ParameterModifier[0]);
       if (constructor == null)
-        throw new EvaluationException(string.Format("Suite '{0}' doesn't provide a default constructor.", suiteType.Name));
+        throw new EvaluationException($"Suite '{suiteType.Name}' doesn't provide a default constructor.");
 
       try
       {
@@ -86,7 +86,7 @@ namespace TestFx.Extensibility
       catch (TargetInvocationException exception)
       {
         throw new EvaluationException(
-            string.Format("Executing constructor for '{0}' has thrown an exception.", suiteType.Name),
+            $"Executing constructor for '{suiteType.Name}' has thrown an exception.",
             exception.InnerException);
       }
     }

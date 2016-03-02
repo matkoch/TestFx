@@ -58,7 +58,7 @@ namespace TestFx.Farada
 
       // TODO: add seed to data
       testController.AddAction<SetupExtension>(
-          string.Format("<Create_AutoData><{0}>", seed),
+          $"<Create_AutoData><{seed}>",
           x => fieldsWithAttribute.ForEach(t => CreateAndAssignAuto(suite, generator, t.Item2, t.Item1)));
     }
 

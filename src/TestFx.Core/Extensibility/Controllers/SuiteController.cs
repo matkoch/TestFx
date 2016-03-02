@@ -69,7 +69,7 @@ namespace TestFx.Extensibility.Controllers
     {
       if (existingProviders.Any(x => x.Identity.Equals(newProvider.Identity)))
         throw new Exception(
-            string.Format("Provider with id '{0}' was already added to suite '{1}'", newProvider.Identity.Relative, _provider.Identity.Relative));
+            $"Provider with id '{newProvider.Identity.Relative}' was already added to suite '{_provider.Identity.Relative}'");
     }
   }
 }

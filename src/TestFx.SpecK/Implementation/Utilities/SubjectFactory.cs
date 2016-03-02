@@ -42,7 +42,7 @@ namespace TestFx.SpecK.Implementation.Utilities
 
       var constructors = subjectType.GetConstructors(MemberBindings.Instance);
       if (constructors.Length != 1)
-        throw new EvaluationException(string.Format("Missing default constructor for subject type '{0}'.", subjectType.Name));
+        throw new EvaluationException($"Missing default constructor for subject type '{subjectType.Name}'.");
 
       var constructor = constructors.Single();
       var constructorParameters = constructor.GetParameters();
@@ -56,10 +56,7 @@ namespace TestFx.SpecK.Implementation.Utilities
             .Select(x => x.Item1.NotNull().Name);
 
         throw new EvaluationException(
-            string.Format(
-                "Missing constructor arguments for subject type '{0}': {1}",
-                subjectType.Name,
-                string.Join(", ", missingParameters.ToArray())));
+            $"Missing constructor arguments for subject type '{subjectType.Name}': {string.Join(", ", missingParameters.ToArray())}");
       }
 
       return (T) constructor.Invoke(arguments);

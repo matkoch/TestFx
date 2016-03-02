@@ -137,7 +137,7 @@ namespace TestFx.SpecK.Implementation.Controllers
     private void CheckDelegateCompatibility (Type delegateType, Type originalType)
     {
       if (delegateType != typeof (Dummy) && !delegateType.IsAssignableFrom(originalType))
-        throw new Exception(string.Format("Type {0} is not assignable from {1}.", delegateType.Name, originalType.Name));
+        throw new Exception($"Type {delegateType.Name} is not assignable from {originalType.Name}.");
     }
   }
 }

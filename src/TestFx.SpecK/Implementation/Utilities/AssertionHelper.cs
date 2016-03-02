@@ -24,24 +24,20 @@ namespace TestFx.SpecK.Implementation.Utilities
     {
       // TODO: own exception type / 
       if (!Equals(expectedObject, actualObject))
-        throw new Exception(string.Format("{0} must be equal to '{1}' but was '{2}'.", objectName, expectedObject ?? "null", actualObject ?? "null"));
+        throw new Exception($"{objectName} must be equal to '{expectedObject ?? "null"}' but was '{actualObject ?? "null"}'.");
     }
 
     public static void AssertInstanceOfType (string objectName, Type expectedType, [CanBeNull] object actualObject)
     {
       if (!expectedType.IsInstanceOfType(actualObject))
         throw new Exception(
-            string.Format(
-                "{0} must be assignable to '{1}' but was '{2}'.",
-                objectName,
-                expectedType,
-                actualObject != null ? actualObject.GetType().Name : "null"));
+            $"{objectName} must be assignable to '{expectedType}' but was '{(actualObject != null ? actualObject.GetType().Name : "null")}'.");
     }
 
     public static void AssertExceptionMessage (string expectedMessage, Exception exception)
     {
       if (exception.Message != expectedMessage)
-        throw new Exception(string.Format("Exception message must be '{0}' but was '{1}'.", expectedMessage, exception.Message));
+        throw new Exception($"Exception message must be '{expectedMessage}' but was '{exception.Message}'.");
     }
   }
 }

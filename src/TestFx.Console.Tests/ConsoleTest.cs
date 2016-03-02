@@ -55,7 +55,7 @@ namespace TestFx.Console.Tests
     {
       var copyBatch = GetRandomFile(extension: "cmd");
       var goldFileFullName = Path.Combine(Environment.CurrentDirectory, "..", "..", goldFileName);
-      File.WriteAllText(copyBatch, string.Format("copy {0} {1}", actualFileName, goldFileFullName));
+      File.WriteAllText(copyBatch, $"copy {actualFileName} {goldFileFullName}");
       var copyGoldText = "\r\n\r\nCopy gold: " + new Uri(copyBatch, UriKind.Absolute) + "\r\n\r\n";
 
       if (!File.Exists(goldFileFullName))

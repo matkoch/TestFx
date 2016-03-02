@@ -117,7 +117,7 @@ namespace TestFx.SpecK.Implementation.Contexts
     private void EnsureActionExecuted (string propertyName)
     {
       if (!ActionExecuted)
-        throw new Exception(string.Format("Action must be executed before accessing {0}.", propertyName));
+        throw new Exception($"Action must be executed before accessing {propertyName}.");
     }
   }
 }

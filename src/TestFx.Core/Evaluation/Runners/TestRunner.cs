@@ -61,7 +61,7 @@ namespace TestFx.Evaluation.Runners
         {
           Trace.Assert(
               !cleanupProviderStack.Contains(operationProvider) || operationProvider == cleanupProviderStack.Pop(),
-              string.Format("Cleanup ({0}) is not in order to setup.", operationProvider.Action));
+              $"Cleanup ({operationProvider.Action}) is not in order to setup.");
 
           var operationResult = _operationRunner.Run(operationProvider);
           operationResults.Add(operationResult);
