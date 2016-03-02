@@ -16,6 +16,7 @@ using System;
 using System.Linq;
 using FakeItEasy;
 using FakeItEasy.Core;
+using FluentAssertions;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
@@ -26,8 +27,8 @@ namespace TestFx.SpecK.Tests.Setups
     [Subject (typeof (SimpleSetupExecutionTest))]
     internal class DomainSpec : Spec<object>
     {
-      [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;
-
+      [AssemblySetup] public static readonly MyAssemblySetup MyAssemblySetup;
+      
       public DomainSpec ()
       {
         SetupOnce (SetupOnceMethod, CleanupOnceMethod);
@@ -36,18 +37,21 @@ namespace TestFx.SpecK.Tests.Setups
 
         Specify (x => 1)
             .DefaultCase (_ => _
-                .GivenSubject ("static subject1", x => Subject1))
+                .GivenSubject ("static subject1", x => Subject1)
+                .It ("has assembly setup", x => MyAssemblySetup.Should ().NotBeNull ()))
             .Case ("Case 2", _ => _
                 .GivenSubject ("static subject2", x => Subject2));
       }
 
       static void SetupOnceMethod ()
       {
+        MyAssemblySetup.Should ().NotBeNull ();
         SetupOnceAction1 ();
       }
 
       static void CleanupOnceMethod ()
       {
+        MyAssemblySetup.Should ().NotBeNull ();
         CleanupOnceAction1 ();
       }
     }
@@ -104,6 +108,10 @@ namespace TestFx.SpecK.Tests.Setups
       classResult.SetupResults.ElementAt (1).HasText ("<lambda method>");
       classResult.CleanupResults.ElementAt (0).HasText ("<lambda method>");
       classResult.CleanupResults.ElementAt (1).HasText ("CleanupOnceMethod");
+
+      runResult.GetTestResults ().First ().OperationResults
+          .Single (x => x.Text == "has assembly setup")
+          .HasPassed ();
     }
   }
 }
