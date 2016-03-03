@@ -69,6 +69,7 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="Async\AsyncTest.cs" />
     <Compile Include="Combinatorics\PermutationsTest.cs" />
     <Compile Include="Combinatorics\SequencesTest.cs" />
     <Compile Include="ContextBehaviorTest.cs" />

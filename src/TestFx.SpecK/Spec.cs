@@ -15,6 +15,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using TestFx.Extensibility;
 using TestFx.SpecK.Implementation.Containers;
 using TestFx.SpecK.Implementation.Controllers;
@@ -55,6 +57,16 @@ namespace TestFx.SpecK
     public IIgnoreOrCase<TSubject, IReadOnlyList<TItem>> Specify<TItem> (Func<TSubject, IEnumerable<TItem>> action)
     {
       return Specify(x => (IReadOnlyList<TItem>) action(x).ToList());
+    }
+
+    public IIgnoreOrCase<TSubject, Dummy> SpecifyAsync (Func<TSubject, Task> action)
+    {
+      return Specify(x => action(x).Wait());
+    }
+
+    public IIgnoreOrCase<TSubject, TResult> SpecifyAsync<TResult> (Func<TSubject, Task<TResult>> action)
+    {
+      return Specify(x => action(x).Result);
     }
 
     public virtual TSubject CreateSubject ()

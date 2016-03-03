@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Containers;
@@ -35,7 +36,11 @@ namespace TestFx.SpecK
 
     IIgnoreOrCase<TSubject, Dummy> Specify (Action<TSubject> action);
     IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Func<TSubject, TResult> action);
+
     IIgnoreOrCase<TSubject, IReadOnlyList<TItem>> Specify<TItem> (Func<TSubject, IEnumerable<TItem>> action);
+
+    IIgnoreOrCase<TSubject, Dummy> SpecifyAsync (Func<TSubject, Task> action);
+    IIgnoreOrCase<TSubject, TResult> SpecifyAsync<TResult> (Func<TSubject, Task<TResult>> action);
 
     TSubject CreateSubject ();
   }
