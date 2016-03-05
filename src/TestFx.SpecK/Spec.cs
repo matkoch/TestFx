@@ -44,8 +44,7 @@ namespace TestFx.SpecK
 
     public IIgnoreOrCase<TSubject, Dummy> Specify (Action<TSubject> action)
     {
-      var expressionSuiteController = _classSuiteController.CreateSpecializedSuiteController<Dummy>(action);
-      return new SpecializedSuiteContainer<TSubject, Dummy>(expressionSuiteController);
+      return Specify(x => CreateDummyFunc(x, action));
     }
 
     public IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Func<TSubject, TResult> action)
@@ -73,13 +72,19 @@ namespace TestFx.SpecK
     {
       return _subjectFactory.CreateFor(this);
     }
+
+    private Dummy CreateDummyFunc (TSubject subject, Action<TSubject> action)
+    {
+      action(subject);
+      return null;
+    }
   }
 
   public abstract class Spec : Spec<Dummy>
   {
     public sealed override Dummy CreateSubject ()
     {
-      throw new NotSupportedException();
+      throw new NotSupportedException("Non-generic Spec classes do not provide a subject instance.");
     }
   }
 }

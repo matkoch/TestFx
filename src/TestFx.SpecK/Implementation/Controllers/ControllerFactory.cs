@@ -23,6 +23,7 @@ using TestFx.Extensibility.Providers;
 using TestFx.Extensibility.Utilities;
 using TestFx.SpecK.Implementation.Contexts;
 using TestFx.SpecK.Implementation.Utilities;
+using TestFx.SpecK.InferredApi;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 
@@ -94,9 +95,7 @@ namespace TestFx.SpecK.Implementation.Controllers
       var context = new MainTestContext<TSubject, TResult, TVars, TSequence>(actionContainer, configurator) { Sequence = sequence };
       var controller = CreateTestController(suiteProvider, provider, context);
 
-      var wrappedAction = actionContainer.VoidAction != null
-          ? GuardAction(context, actionContainer.VoidAction)
-          : GuardAction(context, x => context.Result = actionContainer.ResultAction.NotNull()(x));
+      var wrappedAction = GuardAction(context, x => context.Result = actionContainer.Action.NotNull()(x));
       controller.AddAction<Act>(actionContainer.Text, x => wrappedAction());
       configurator(controller);
 
@@ -126,7 +125,8 @@ namespace TestFx.SpecK.Implementation.Controllers
         try
         {
           var stopwatch = Stopwatch.StartNew();
-          action(context.Subject);
+          var subject = typeof (TSubject) != typeof (Dummy) ? context.Subject : default(TSubject);
+          action(subject);
           context.Duration = stopwatch.Elapsed;
         }
         catch (Exception exception)

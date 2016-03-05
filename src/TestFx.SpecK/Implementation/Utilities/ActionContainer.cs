@@ -13,28 +13,19 @@
 // limitations under the License.
 
 using System;
-using System.Diagnostics;
-using JetBrains.Annotations;
 
 namespace TestFx.SpecK.Implementation.Utilities
 {
   public class ActionContainer<TSubject, TResult>
   {
-    public ActionContainer (string text, [CanBeNull] Action<TSubject> voidAction, [CanBeNull] Func<TSubject, TResult> resultAction)
+    public ActionContainer (string text, Func<TSubject, TResult> action)
     {
-      Debug.Assert(voidAction != null || resultAction != null);
-
       Text = text;
-      VoidAction = voidAction;
-      ResultAction = resultAction;
+      Action = action;
     }
 
     public string Text { get; }
 
-    [CanBeNull]
-    public Action<TSubject> VoidAction { get; }
-
-    [CanBeNull]
-    public Func<TSubject, TResult> ResultAction { get; }
+    public Func<TSubject, TResult> Action { get; }
   }
 }

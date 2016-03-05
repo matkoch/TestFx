@@ -30,8 +30,7 @@ namespace TestFx.SpecK.Implementation.Controllers
   {
     void AddTestSetupCleanup (Action<ITestContext<TSubject>> setup, [CanBeNull] Action<ITestContext<TSubject>> cleanup);
 
-    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Action<TSubject> voidExpression);
-    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Func<TSubject, TResult> resultExpression);
+    ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Func<TSubject, TResult> action);
   }
 
   internal class ClassSuiteController<TSubject> : ClassSuiteController, IClassSuiteController<TSubject>
@@ -64,14 +63,10 @@ namespace TestFx.SpecK.Implementation.Controllers
       _testSetupCleanupTuples.Add(Tuple.Create(setup, cleanup));
     }
 
-    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Action<TSubject> voidExpression)
+    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Func<TSubject, TResult> action)
     {
-      return CreateSpecializedSuiteController<TResult>(voidExpression, null);
-    }
-
-    public ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (Func<TSubject, TResult> resultExpression)
-    {
-      return CreateSpecializedSuiteController(null, resultExpression);
+      var actionContainer = new ActionContainer<TSubject, TResult>("<Action>", action);
+      return _controllerFactory.CreateSpecializedSuiteController(_provider, actionContainer, ConfigureTestController);
     }
 
     public override void ConfigureTestController (ITestController testController)
@@ -89,14 +84,6 @@ namespace TestFx.SpecK.Implementation.Controllers
           x => testControllerWithSubject.AddSetupCleanup<SetupCommon, CleanupCommon>(
               setup: ConvertToNonGeneric(x.Item1).NotNull(),
               cleanup: ConvertToNonGeneric(x.Item2)));
-    }
-
-    private ISpecializedSuiteController<TSubject, TResult> CreateSpecializedSuiteController<TResult> (
-        [CanBeNull] Action<TSubject> voidAction,
-        [CanBeNull] Func<TSubject, TResult> resultAction)
-    {
-      var actionContainer = new ActionContainer<TSubject, TResult>("<Action>", voidAction, resultAction);
-      return _controllerFactory.CreateSpecializedSuiteController(_provider, actionContainer, ConfigureTestController);
     }
 
     [CanBeNull]

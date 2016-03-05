@@ -44,7 +44,10 @@ namespace TestFx.SpecK.Implementation.Contexts
     {
       get
       {
-        if (typeof (TSubject) != typeof (Dummy) && typeof (TSubject).IsClass && ReferenceEquals(_subject, default(TSubject)))
+        if (typeof (TSubject) == typeof (Dummy))
+          throw new NotSupportedException("Non-generic Spec classes do not provide a subject instance.");
+
+        if (typeof (TSubject).IsClass && ReferenceEquals(_subject, default(TSubject)))
           throw new Exception("Subject instance is null.");
 
         return _subject;
@@ -59,7 +62,7 @@ namespace TestFx.SpecK.Implementation.Contexts
         EnsureActionExecuted("Result");
 
         if (typeof (TResult) == typeof (Dummy))
-          throw new Exception("Action does not have a result.");
+          throw new NotSupportedException("Void actions do not have a result.");
 
         return _result;
       }
