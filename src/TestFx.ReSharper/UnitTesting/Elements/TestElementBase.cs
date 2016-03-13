@@ -147,7 +147,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     public IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements, bool init)
     {
-      if (init && !explicitElements.Contains(this))
+      if (init && explicitElements.Count > 0 && !explicitElements.Contains(this))
         return new List<UnitTestTask>();
 
       var parentTasks = _parent != null ? _parent.GetTaskSequence(explicitElements, init: false) : new List<UnitTestTask>();
