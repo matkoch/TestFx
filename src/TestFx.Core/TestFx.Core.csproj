@@ -55,6 +55,8 @@
     </Compile>
     <Compile Include="AssemblySetupAttribute.cs" />
     <Compile Include="CategoriesAttribute.cs" />
+    <Compile Include="DefaultAttribute.cs" />
+    <Compile Include="DefaultValueTestExtensions.cs" />
     <Compile Include="Evaluation\EvaluationModule.cs" />
     <Compile Include="Evaluation\Loading\TypeLoaderFactory.cs" />
     <Compile Include="Evaluation\Reporting\DefaultSymbolProvider.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Evaluation\Utilities\AutofacExtensions.cs" />
     <Compile Include="Extensibility\Controllers\CompositeTestController.cs" />
     <Compile Include="IgnoreAttribute.cs" />
+    <Compile Include="NuGet\content\_TestExtensions\DefaultValueTestExtension.cs" />
     <Compile Include="ResetInstanceFieldsTestExtensions.cs" />
     <Compile Include="Evaluation\Loading\SuiteControllerFactory.cs" />
     <Compile Include="Evaluation\RunIntentExtensions.cs" />

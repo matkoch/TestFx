@@ -14,10 +14,5 @@
 
 using System;
 using TestFx;
-using TestFx.FakeItEasy;
-using TestFx.Farada;
 
-[assembly: UseTestExtension (typeof (ResetInstanceFieldsTestExtensions))]
 [assembly: UseTestExtension (typeof (DefaultValueTestExtensions))]
-[assembly: UseTestExtension (typeof (FakeItEasyTestExtension))]
-[assembly: UseTestExtension (typeof (FaradaTestExtension))]
