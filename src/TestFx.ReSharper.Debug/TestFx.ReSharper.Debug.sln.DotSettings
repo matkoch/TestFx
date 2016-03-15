@@ -1,4 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=1F82859767636C409EF0093BE4F0BECE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=1F82859767636C409EF0093BE4F0BECE/AbsolutePath/@EntryValue">C:\TestFx\src\TestFx.ReSharper\LiveTemplates.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=1F82859767636C409EF0093BE4F0BECE/RelativePath/@EntryValue">..\..\TestFx.ReSharper\LiveTemplates.DotSettings</s:String>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=23A66166FECDD246A6195204D2D16E76/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=23A66166FECDD246A6195204D2D16E76/AbsolutePath/@EntryValue">C:\Development\TestFx\shared\dotsettings\CodeEditing.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=23A66166FECDD246A6195204D2D16E76/RelativePath/@EntryValue">..\..\..\shared\dotsettings\CodeEditing.DotSettings</s:String>
@@ -11,12 +14,18 @@
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=F1536C7FB002C34D9ED0EB2DBA605020/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=F1536C7FB002C34D9ED0EB2DBA605020/AbsolutePath/@EntryValue">C:\Development\TestFx\shared\dotsettings\CodeStyle.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=F1536C7FB002C34D9ED0EB2DBA605020/RelativePath/@EntryValue">..\..\..\shared\dotsettings\CodeStyle.DotSettings</s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File1F82859767636C409EF0093BE4F0BECE/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File1F82859767636C409EF0093BE4F0BECE/RelativePriority/@EntryValue">5</s:Double>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File23A66166FECDD246A6195204D2D16E76/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File23A66166FECDD246A6195204D2D16E76/IsOn/@EntryValue">False</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File23A66166FECDD246A6195204D2D16E76/RelativePriority/@EntryValue">1</s:Double>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File5836E287CAC0B7478DC9D2564E4CFEDC/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File5836E287CAC0B7478DC9D2564E4CFEDC/IsOn/@EntryValue">False</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File5836E287CAC0B7478DC9D2564E4CFEDC/RelativePriority/@EntryValue">3</s:Double>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileA70E07ADCF64AE4CB809175E4CEE6A8F/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileA70E07ADCF64AE4CB809175E4CEE6A8F/IsOn/@EntryValue">False</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileA70E07ADCF64AE4CB809175E4CEE6A8F/RelativePriority/@EntryValue">2</s:Double>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileF1536C7FB002C34D9ED0EB2DBA605020/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileF1536C7FB002C34D9ED0EB2DBA605020/IsOn/@EntryValue">False</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileF1536C7FB002C34D9ED0EB2DBA605020/RelativePriority/@EntryValue">4</s:Double>
 	<s:Boolean x:Key="/Default/Environment/UnitTesting/DisabledProviders/=nUnit/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
