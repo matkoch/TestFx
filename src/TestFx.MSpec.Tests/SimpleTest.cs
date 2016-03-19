@@ -29,7 +29,7 @@ namespace TestFx.MSpec.Tests
 
     Because of = () => Result = 1 + 2;
     It returns_three = () => Result.Should().Be(3);
-    It returns_three_again = () => Result.Should().Be(3);
+    It returns_four = () => Result.Should().Be(4);
   }
 
   [TestFixture]
@@ -49,7 +49,7 @@ namespace TestFx.MSpec.Tests
 
       var testResults = runResult.GetTestResults();
       testResults[0].HasRelativeId("returns_three").HasText("returns three");
-      testResults[1].HasRelativeId("returns_three_again").HasText("returns three again");
+      testResults[1].HasRelativeId("returns_four").HasText("returns four");
     }
   }
 }
