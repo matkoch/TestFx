@@ -37,8 +37,6 @@ namespace TestFx.MSpec.Tests
   {
     protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
-      runResult.HasPassed();
-
       runResult.GetAssemblySuiteResult()
           .HasRelativeId(typeof (SimpleTest).Assembly.Location)
           .HasText(@"TestFx.MSpec.Tests");
@@ -48,8 +46,8 @@ namespace TestFx.MSpec.Tests
           .HasText("Int32, when_adding");
 
       var testResults = runResult.GetTestResults();
-      testResults[0].HasRelativeId("returns_three").HasText("returns three");
-      testResults[1].HasRelativeId("returns_four").HasText("returns four");
+      testResults[0].HasPassed().HasRelativeId("returns_three").HasText("returns three");
+      testResults[1].HasFailed().HasRelativeId("returns_four").HasText("returns four");
     }
   }
 }
