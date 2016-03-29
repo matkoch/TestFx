@@ -2,11 +2,11 @@
 
 ## TestFx
 
-[![Build](https://img.shields.io/teamcity/codebetter/Testfx_Ci.svg?label=master)](http://teamcity.codebetter.com/project.html?projectId=Testfx)
-[![Coverage](https://img.shields.io/teamcity/coverage/Testfx_Ci.svg)](http://teamcity.codebetter.com/viewLog.html?buildTypeId=Testfx_Ci&buildId=lastSuccessful&tab=coverage_dotnet)
-[![Latest Beta](https://img.shields.io/nuget/v/TestFx.Core.svg?label=latest beta)](http://nuget.org/packages/TestFx.Core)
-[![License](https://img.shields.io/badge/license-Apache License 2.0-blue.svg)](https://github.com/matkoch/TestFx/blob/master/LICENSE)
-[![Chat](https://img.shields.io/badge/gitter-join_chat-ff69b4.svg)](https://gitter.im/matkoch/TestFx)
+[![Build](https://img.shields.io/teamcity/codebetter/Testfx_Ci.svg?label=master&style=flat-square)](http://teamcity.codebetter.com/project.html?projectId=Testfx)
+[![Coverage](https://img.shields.io/teamcity/coverage/Testfx_Ci.svg?style=flat-square)](http://teamcity.codebetter.com/viewLog.html?buildTypeId=Testfx_Ci&buildId=lastSuccessful&tab=coverage_dotnet)
+[![Latest Beta](https://img.shields.io/nuget/v/TestFx.Core.svg?label=latest beta&style=flat-square)](http://nuget.org/packages/TestFx.Core)
+[![License](https://img.shields.io/badge/license-Apache License 2.0-blue.svg?style=flat-square)](https://github.com/matkoch/TestFx/blob/master/LICENSE)
+[![Chat](https://img.shields.io/badge/gitter-join_chat-ff69b4.svg?style=flat-square)](https://gitter.im/matkoch/TestFx)
 
 *Next Level Testing. It's [what you're waiting for](https://github.com/matkoch/TestFx/wiki/Motivation).*
 
