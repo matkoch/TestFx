@@ -40,6 +40,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FakeItEasy.1.25.3\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
+    <Reference Include="Farada.TestDataGeneration, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Farada.TestDataGeneration.0.2.2\lib\net45\Farada.TestDataGeneration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentAssertions.4.1.1\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +80,7 @@
     <Compile Include="ContextBehaviorTest.cs" />
     <Compile Include="Exceptions\UnexpectedExceptionTest.cs" />
     <Compile Include="Exceptions\ExceptionAssertionTest.cs" />
+    <Compile Include="Farada\AutoConfigurationTest.cs" />
     <Compile Include="Farada\AutoCreationTest.cs" />
     <Compile Include="Generics\GenericArgumentTest.cs" />
     <Compile Include="Generics\GenericTypeTest.cs" />

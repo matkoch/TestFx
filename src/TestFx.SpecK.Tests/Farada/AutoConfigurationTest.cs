@@ -14,7 +14,10 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using FakeItEasy.Core;
+using Farada.TestDataGeneration.BaseDomain.ValueProviders;
+using Farada.TestDataGeneration.Fluent;
 using FluentAssertions;
 using JetBrains.Annotations;
 using TestFx.Evaluation.Results;
@@ -23,51 +26,36 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Farada
 {
-  internal class AutoCreationTest : TestBase<AutoCreationTest.DomainSpec>
+  internal class AutoConfigurationTest : TestBase<AutoConfigurationTest.DomainSpec>
   {
     [Subject (typeof (AutoCreationTest))]
     [AutoDataSeed (1337)]
+    [AutoDataConfiguration (typeof (StringConfiguration))]
     internal class DomainSpec : Spec
     {
-      [AutoModelData (CopiedInteger = int.MaxValue)] DomainModel Model;
-      [AutoData] [Range (5, 7)] int Integer;
+      [AutoData] string String;
 
       public DomainSpec ()
       {
         Specify (x => 0)
             .DefaultCase (_ => _
-                .It ("Fills properties", x =>
-                {
-                  Model.Age.Should ().BeInRange (30, 33);
-                  Model.FirstName.Length.Should ().BeInRange (3, 10);
-                })
-                .It ("Fills fields", x => Integer.Should ().BeInRange (5, 7))
-                .It ("Executes AutoAttribute.Mutate", x => Model.IntegerFromAttribute.Should ().Be (int.MaxValue)));
+                .It ("Fills properties", x => String.Should().BeOneOf("1", "2", "3")));
       }
     }
 
-    [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
-    internal class DomainModel
+    public class StringConfiguration : ITestDataConfigurationProvider
     {
-      [Required]
-      [MinLength (3)]
-      [MaxLength (10)]
-      public string FirstName { get; set; }
-
-      [Range (30, 33)]
-      public int Age { get; set; }
-
-      public int IntegerFromAttribute { get; set; }
-    }
-
-    public class AutoModelDataAttribute : AutoDataAttribute
-    {
-      public int CopiedInteger { get; set; }
-
-      public override void Mutate (object autoData, object suite)
+      public Func<ITestDataConfigurator, ITestDataConfigurator> Configuration
       {
-        var model = (DomainModel) autoData;
-        model.IntegerFromAttribute = CopiedInteger;
+        get
+        {
+          return x =>
+          {
+            var values = new ChooseSingleItemValueProvider<int, string> (new[] { 1, 2, 3 }, i => i.ToString());
+            x.For<string> ().AddProvider (values);
+            return x;
+          };
+        }
       }
     }
 
@@ -79,9 +67,7 @@ namespace TestFx.SpecK.Tests.Farada
               Constants.Reset_Instance_Fields,
               Constants.Create_AutoData + "<1337>",
               Constants.Action,
-              "Fills properties",
-              "Fills fields",
-              "Executes AutoAttribute.Mutate");
+              "Fills properties");
     }
   }
 }
