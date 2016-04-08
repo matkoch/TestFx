@@ -38,16 +38,8 @@ namespace TestFx.Farada
 
     public int MaxRecursionDepth { get; set; }
 
-    public object CurrentSuite { get; internal set; }
-
-    [CanBeNull]
-    public T GetValueFromSuiteMember<T> (string memberName)
-    {
-      return CurrentSuite.GetMemberValue<T>(memberName);
-    }
-
     [UsedImplicitly]
-    public virtual void Mutate (object autoData)
+    public virtual void Mutate (object autoData, object suite)
     {
     }
   }

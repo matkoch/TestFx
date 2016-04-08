@@ -83,8 +83,7 @@ namespace TestFx.Farada
           new object[] { generator, field, attribute.MaxRecursionDepth },
           new[] { field.FieldType }).NotNull();
 
-      attribute.CurrentSuite = suite;
-      attribute.Mutate(autoData);
+      attribute.Mutate(autoData, suite);
 
       field.SetValue(suite, autoData);
     }
