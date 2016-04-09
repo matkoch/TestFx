@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 
@@ -21,6 +22,7 @@ namespace TestFx.Utilities.Reflection
 {
   [PublicAPI]
   [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
+  [ExcludeFromCodeCoverage]
   public static class AttributeDataExtensions
   {
     public static IEnumerable<CustomAttributeData> GetAttributeDatas<T> (this Assembly assembly) where T : Attribute

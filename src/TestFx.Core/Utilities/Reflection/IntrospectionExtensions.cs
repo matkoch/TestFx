@@ -13,11 +13,15 @@
 // limitations under the License.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using JetBrains.Annotations;
 using TestFx.Utilities.Introspection;
 
 namespace TestFx.Utilities.Reflection
 {
+  [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+  [ExcludeFromCodeCoverage]
   public static class IntrospectionExtensions
   {
     public static CommonType ToCommon (this Type type)

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -32,6 +33,7 @@ namespace TestFx.Utilities.Reflection
     bool IsExtensionMethod (MethodInfo methodInfo);
   }
 
+  [ExcludeFromCodeCoverage]
   internal class MemberInfoUtility : IMemberInfoUtility
   {
     public static IMemberInfoUtility Instance = new MemberInfoUtility();

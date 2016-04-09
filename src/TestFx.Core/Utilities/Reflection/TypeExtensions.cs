@@ -14,11 +14,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Reflection
 {
+  [PublicAPI]
+  [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+  [ExcludeFromCodeCoverage]
   public static class TypeExtensions
   {
     public static bool HasDefaultConstructor (this Type type)

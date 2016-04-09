@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
@@ -41,6 +42,7 @@ namespace TestFx.Utilities.Reflection
         where TAttribute : Attribute;
   }
 
+  [ExcludeFromCodeCoverage]
   internal class AttributeUtility : IAttributeUtility
   {
     public static IAttributeUtility Instance = new AttributeUtility();

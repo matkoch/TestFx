@@ -14,14 +14,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Reflection
 {
-  [PublicAPI ("Used by extensions")]
+  [PublicAPI]
   [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
+  [ExcludeFromCodeCoverage]
   public static class AttributeExtensions
   {
     public static IEnumerable<T> GetAttributes<T> (this Assembly assembly) where T : Attribute

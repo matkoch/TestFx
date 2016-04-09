@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
@@ -31,6 +32,7 @@ namespace TestFx.Utilities.Reflection
     void SetMemberValue (Type type, object instance, string memberName, object value, object[] args, BindingFlags bindingFlags);
   }
 
+  [ExcludeFromCodeCoverage]
   internal class PrivateInvokeUtility : IPrivateInvokeUtility
   {
     public static IPrivateInvokeUtility Instance = new PrivateInvokeUtility();

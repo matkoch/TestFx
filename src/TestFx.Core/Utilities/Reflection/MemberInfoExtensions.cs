@@ -13,13 +13,15 @@
 // limitations under the License.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 
 namespace TestFx.Utilities.Reflection
 {
-  [PublicAPI ("Used by extensions")]
+  [PublicAPI]
   [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
+  [ExcludeFromCodeCoverage]
   public static class MemberInfoExtensions
   {
     [CanBeNull]

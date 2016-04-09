@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using TestFx.Utilities.Collections;
@@ -28,6 +29,7 @@ namespace TestFx.Utilities.Reflection
     CommonAttribute GetCommonAttribute (CustomAttributeData customAttributeData);
   }
 
+  [ExcludeFromCodeCoverage]
   internal class IntrospectionUtility : IIntrospectionUtility
   {
     public static IIntrospectionUtility Instance = new IntrospectionUtility();

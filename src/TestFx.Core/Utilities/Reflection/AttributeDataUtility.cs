@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
@@ -37,6 +38,7 @@ namespace TestFx.Utilities.Reflection
     CustomAttributeData GetAttributeData<T> (MemberInfo memberInfo) where T : Attribute;
   }
 
+  [ExcludeFromCodeCoverage]
   internal class AttributeDataUtility : IAttributeDataUtility
   {
     public static IAttributeDataUtility Instance = new AttributeDataUtility();
