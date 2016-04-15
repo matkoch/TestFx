@@ -1,6 +1,4 @@
-<img src="http://matkoch.github.io/TestFx/gangsterscriptkiddie.gif" height="200px" alt="Scriptkiddie" />
-
-## TestFx
+# TestFx
 
 [![Build](https://img.shields.io/teamcity/codebetter/Testfx_Ci.svg?label=master&style=flat-square)](http://teamcity.codebetter.com/project.html?projectId=Testfx)
 [![Coverage](https://img.shields.io/teamcity/coverage/Testfx_Ci.svg?style=flat-square)](http://teamcity.codebetter.com/viewLog.html?buildTypeId=Testfx_Ci&buildId=lastSuccessful&tab=coverage_dotnet)
