@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/license-Apache License 2.0-blue.svg?style=flat-square)](https://github.com/matkoch/TestFx/blob/master/LICENSE)
 [![Chat](https://img.shields.io/badge/gitter-join_chat-ff69b4.svg?style=flat-square)](https://gitter.im/matkoch/TestFx)
 
-A brief summary of the [motivation for TestFx](https://github.com/matkoch/TestFx/wiki/Motivation) as well as a demonstration what was possible through the [SpecK extension](https://github.com/matkoch/TestFx/wiki/SpecK) was given at the JetBrains Night in Munich:
+A brief summary of the [motivation for TestFx](https://github.com/matkoch/TestFx/wiki/Motivation) as well as a demonstration what was achieved through its [SpecK extension](https://github.com/matkoch/TestFx/wiki/SpecK) was given at the [JetBrains Night in Munich](http://blog.jetbrains.com/dotnet/2016/04/08/rider-session-recordings-from-munich/):
 
 [<img src="http://matkoch.github.io/TestFx/jetbrains_night.png" width="600" />](https://www.youtube.com/watch?v=3prL9zytlAU)
 
