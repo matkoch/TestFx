@@ -22,7 +22,7 @@ using TestFx.ReSharper.Model.Tree.Aggregation;
 namespace TestFx.ReSharper.References
 {
   [ReferenceProviderFactory]
-  internal class MemberReferencesProviderFactory : IReferenceProviderFactory
+  internal class MemberReferenceProviderFactory : IReferenceProviderFactory
   {
     [CanBeNull]
     public IReferenceFactory CreateFactory (IPsiSourceFile sourceFile, IFile file)
