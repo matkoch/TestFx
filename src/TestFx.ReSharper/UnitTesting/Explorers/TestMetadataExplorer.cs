@@ -23,6 +23,7 @@ using TestFx.ReSharper.Model.Metadata.Aggregation;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities.Collections;
 using JetBrains.ReSharper.Resources.Shell;
+using TestFx.Evaluation.Runners;
 
 namespace TestFx.ReSharper.UnitTesting.Explorers
 {
@@ -43,7 +44,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
     {
       // TODO: ILMerge / embedded reference
       //if (!referencedAssemblies.Any(x => x.StartsWith("TestFx")))
-      var frameworkPrefix = typeof (SuiteAttributeBase).Assembly.GetName().Name;
+      var frameworkPrefix = typeof (IRootRunner).Assembly.GetName().Name;
       var referencedAssemblies = assembly.ReferencedAssembliesNames.Select(x => x.Name);
       if (!referencedAssemblies.Any(x => x.StartsWith(frameworkPrefix)))
         return;
@@ -54,7 +55,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
         var testElements = assemblyTest.TestMetadatas.Select(_testElementFactory.GetOrCreateClassTestElementRecursively);
         var allTestElements = testElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).ToList();
 
-        Debug.Assert(allTestElements.Count > 0, "Found no tests.");
+        Debug.Assert(allTestElements.Count > 0, "No tests found.");
         allTestElements.ForEach(consumer);
       }
     }
