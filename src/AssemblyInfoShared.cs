@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: AssemblyCompany ("Matthias Koch")]
 [assembly: AssemblyProduct ("TestFx")]
 [assembly: AssemblyDescription ("Next Level Testing")]
-[assembly: AssemblyCopyright ("Copyright © Matthias Koch, 2015 - Licensed under APACHE 2.0")]
+[assembly: AssemblyCopyright ("Copyright © Matthias Koch, 2016 - Licensed under APACHE 2.0")]
 [assembly: AssemblyTrademark ("")]
 
 [assembly: AssemblyConfiguration ("DEBUG")]
