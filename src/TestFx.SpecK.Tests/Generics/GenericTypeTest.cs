@@ -31,23 +31,23 @@ namespace TestFx.SpecK.Tests.Generics
 
       public DomainSpec ()
       {
-        Specify (x => GenericHelper.Create<T1, T2, T3> (Argument))
-            .Case ("Integer", _ => _
-                .WithPermutations (
-                    new { T1 = default(Type), T2 = default(Type), T3 = default(Type) },
-                    x => x.T1, Assembly.GetExecutingAssembly ().GetTypes (),
-                    x => x.T2, Assembly.GetExecutingAssembly ().GetTypes (),
-                    x => x.T3, Assembly.GetExecutingAssembly ().GetTypes ())
-                //.GivenGenericsFromSequence ()
-                //.GivenGenerics(x => x.Generics.T1 = x.Sequence.T1)
+        //Specify (x => GenericHelper.Create<T1, T2, T3> (Argument))
+        //    .Case ("Integer", _ => _
+        //        .WithPermutations (
+        //            new { T1 = default(Type), T2 = default(Type), T3 = default(Type) },
+        //            x => x.T1, Assembly.GetExecutingAssembly ().GetTypes (),
+        //            x => x.T2, Assembly.GetExecutingAssembly ().GetTypes (),
+        //            x => x.T3, Assembly.GetExecutingAssembly ().GetTypes ())
+        //        //.GivenGenericsFromSequence ()
+        //        //.GivenGenerics(x => x.Generics.T1 = x.Sequence.T1)
 
-                .GivenVars(x => new { T1 = typeof(int) })
-                //.GivenGenericsFromVars()
-                //.GivenGenerics(T1: typeof(int))
-                .ItThrows (typeof (InvalidOperationException)))
-            .Case ("Integer", _ => _
-                .Given ("DefaultDomain")
-                .It ("", x => x.Result.Should ().NotBe (0)));
+        //        .GivenVars(x => new { T1 = typeof(int) })
+        //        //.GivenGenericsFromVars()
+        //        //.GivenGenerics(T1: typeof(int))
+        //        .ItThrows (typeof (InvalidOperationException)))
+        //    .Case ("Integer", _ => _
+        //        .Given ("DefaultDomain")
+        //        .It ("", x => x.Result.Should ().NotBe (0)));
 
 
       }

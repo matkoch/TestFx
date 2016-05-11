@@ -24,7 +24,7 @@ namespace TestFx.SpecK.Tests.Subject
 {
   internal class DefaultCreationTest : TestBase<DefaultCreationTest.DomainSpec>
   {
-    [Subject (typeof (NoDefaultConstructorTest))]
+    [Subject (typeof (DefaultCreationTest))]
     internal class DomainSpec : Spec<DomainType>
     {
       [Injected] static string InjectedString = "MyString";
