@@ -27,7 +27,7 @@ namespace TestFx.ReSharper.Utilities.Psi
     IEnumerable<ITypeElement> GetImplementedTypes (IType type);
     IEnumerable<ITypeElement> GetImplementedTypes (ITypeElement type);
 
-    bool IsImplementingType (IDeclaredType type, Type implementedType);
+    bool IsImplementingType (IDeclaredType type, string implementedType);
   }
 
   internal class TypeUtility : ITypeUtility
@@ -44,9 +44,9 @@ namespace TestFx.ReSharper.Utilities.Psi
       return type.DescendantsAndSelf(x => x.GetSuperTypes().Select(y => y.GetTypeElement())).Distinct();
     }
 
-    public bool IsImplementingType (IDeclaredType type, Type implementedType)
+    public bool IsImplementingType (IDeclaredType type, string implementedType)
     {
-      return GetImplementedTypes(type).Any(x => x.GetClrName().FullName == implementedType.FullName);
+      return GetImplementedTypes(type).Any(x => x.GetClrName().FullName == implementedType);
     }
   }
 }

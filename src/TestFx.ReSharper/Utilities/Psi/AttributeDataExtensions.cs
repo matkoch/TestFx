@@ -23,13 +23,24 @@ namespace TestFx.ReSharper.Utilities.Psi
   {
     public static IEnumerable<IAttributeInstance> GetAttributeDatas<T> (this IAttributesSet attributeSet) where T : Attribute
     {
-      return AttributeDataUtility.Instance.GetAttributeDatas<T>(attributeSet);
+      return attributeSet.GetAttributeDatas(typeof(T).FullName);
+    }
+
+    public static IEnumerable<IAttributeInstance> GetAttributeDatas (this IAttributesSet attributeSet, string attributeType)
+    {
+      return AttributeDataUtility.Instance.GetAttributeDatas(attributeSet, attributeType);
     }
 
     [CanBeNull]
     public static IAttributeInstance GetAttributeData<T> (this IAttributesSet attributeSet) where T : Attribute
     {
-      return AttributeDataUtility.Instance.GetAttributeData<T>(attributeSet);
+      return attributeSet.GetAttributeData(typeof(T).FullName);
+    }
+
+    [CanBeNull]
+    public static IAttributeInstance GetAttributeData (this IAttributesSet attributeSet, string attributeType)
+    {
+      return AttributeDataUtility.Instance.GetAttributeData(attributeSet, attributeType);
     }
   }
 }

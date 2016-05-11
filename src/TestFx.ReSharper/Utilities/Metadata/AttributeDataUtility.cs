@@ -23,25 +23,25 @@ namespace TestFx.ReSharper.Utilities.Metadata
 {
   public interface IAttributeDataUtility
   {
-    IEnumerable<IMetadataCustomAttribute> GetAttributeDatas<T> (IMetadataEntity entity) where T : Attribute;
+    IEnumerable<IMetadataCustomAttribute> GetAttributeDatas (IMetadataEntity entity, string attributeType);
 
     [CanBeNull]
-    IMetadataCustomAttribute GetAttributeData<T> (IMetadataEntity entity) where T : Attribute;
+    IMetadataCustomAttribute GetAttributeData (IMetadataEntity entity, string attributeType);
   }
 
   internal class AttributeDataUtility : IAttributeDataUtility
   {
     public static IAttributeDataUtility Instance = new AttributeDataUtility();
 
-    public IEnumerable<IMetadataCustomAttribute> GetAttributeDatas<T> (IMetadataEntity entity) where T : Attribute
+    public IEnumerable<IMetadataCustomAttribute> GetAttributeDatas (IMetadataEntity entity, string attributeType)
     {
-      return entity.CustomAttributes.Where(x => x.UsedConstructor.NotNull().DeclaringType.Implements(typeof (T)));
+      return entity.CustomAttributes.Where(x => x.UsedConstructor.NotNull().DeclaringType.Implements(attributeType));
     }
 
     [CanBeNull]
-    public IMetadataCustomAttribute GetAttributeData<T> (IMetadataEntity entity) where T : Attribute
+    public IMetadataCustomAttribute GetAttributeData (IMetadataEntity entity, string attributeType)
     {
-      return GetAttributeDatas<T>(entity).SingleOrDefault();
+      return GetAttributeDatas(entity, attributeType).SingleOrDefault();
     }
   }
 }

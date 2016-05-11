@@ -48,7 +48,7 @@ namespace TestFx.ReSharper.SpecK
     [CanBeNull]
     public ITestDeclaration GetTestDeclaration (IClassDeclaration classDeclaration)
     {
-      var text = _treePresenter.Present(classDeclaration);
+      var text = _treePresenter.Present(classDeclaration, suiteAttributeType: "TestFx.SpecK.SubjectAttribute");
       if (text == null)
         return null;
 

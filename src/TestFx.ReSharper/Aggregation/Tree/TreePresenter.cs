@@ -27,7 +27,7 @@ namespace TestFx.ReSharper.Aggregation.Tree
   public interface ITreePresenter
   {
     [CanBeNull]
-    string Present (IClassDeclaration classDeclaration);
+    string Present (IClassDeclaration classDeclaration, string suiteAttributeType);
 
     [CanBeNull]
     string Present (IInvocationExpression invocationExpression);
@@ -44,10 +44,10 @@ namespace TestFx.ReSharper.Aggregation.Tree
     }
 
     [CanBeNull]
-    public string Present (IClassDeclaration classDeclaration)
+    public string Present (IClassDeclaration classDeclaration, string suiteAttributeType)
     {
       var clazz = (IClass) classDeclaration.DeclaredElement;
-      var subjectAttributeData = clazz?.GetAttributeData<SuiteAttributeBase>();
+      var subjectAttributeData = clazz?.GetAttributeData(suiteAttributeType);
       if (subjectAttributeData == null)
         return null;
 

@@ -44,7 +44,7 @@ namespace TestFx.ReSharper.SpecK
     [CanBeNull]
     public ITestMetadata GetTestMetadata (IMetadataTypeInfo type)
     {
-      var text = _metadataPresenter.Present(type);
+      var text = _metadataPresenter.Present(type, suiteAttributeType: "TestFx.SpecK.SubjectAttribute");
       if (text == null)
         return null;
 

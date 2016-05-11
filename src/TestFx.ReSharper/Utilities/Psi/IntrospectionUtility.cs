@@ -82,7 +82,7 @@ namespace TestFx.ReSharper.Utilities.Psi
 
       if (argument.IsArray)
         throw new Exception(); // Use GetScalarType
-      //return Tuple.Create(GetCommonType(argument.ArrayType), (object) argument.ArrayValue.Select(GetTypeAndValue).Select(x => x.Item2).ToArray());
+      //return Tuple.CreateTestDeclarationProvider(GetCommonType(argument.ArrayType), (object) argument.ArrayValue.Select(GetTypeAndValue).Select(x => x.Item2).ToArray());
 
       // TODO: ConvertToCommon required?
       return Tuple.Create(GetCommonType(argument.ConstantValue.Type.NotNull()), ConvertToCommon(argument, x => x.ConstantValue.Value));

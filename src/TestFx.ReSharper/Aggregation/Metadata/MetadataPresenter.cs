@@ -26,7 +26,7 @@ namespace TestFx.ReSharper.Aggregation.Metadata
   public interface IMetadataPresenter
   {
     [CanBeNull]
-    string Present (IMetadataTypeInfo type);
+    string Present (IMetadataTypeInfo type, string suiteAttributeType);
   }
 
   [PsiComponent]
@@ -40,9 +40,9 @@ namespace TestFx.ReSharper.Aggregation.Metadata
     }
 
     [CanBeNull]
-    public string Present (IMetadataTypeInfo type)
+    public string Present (IMetadataTypeInfo type, string suiteAttributeType)
     {
-      var subjectAttributeData = type.GetAttributeData<SuiteAttributeBase>();
+      var subjectAttributeData = type.GetAttributeData(suiteAttributeType);
       if (subjectAttributeData == null)
         return null;
 

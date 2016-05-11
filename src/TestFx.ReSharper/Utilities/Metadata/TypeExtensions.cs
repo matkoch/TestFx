@@ -25,7 +25,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
       return TypeUtility.Instance.GetImplementedTypes(type);
     }
 
-    public static bool Implements (this IMetadataTypeInfo type, Type implementedType)
+    public static bool Implements (this IMetadataTypeInfo type, string implementedType)
     {
       return TypeUtility.Instance.IsImplementingType(type, implementedType);
     }

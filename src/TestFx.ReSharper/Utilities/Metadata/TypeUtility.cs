@@ -25,7 +25,7 @@ namespace TestFx.ReSharper.Utilities.Metadata
   {
     IEnumerable<IMetadataTypeInfo> GetImplementedTypes (IMetadataTypeInfo type);
 
-    bool IsImplementingType (IMetadataTypeInfo type, Type implementedType);
+    bool IsImplementingType (IMetadataTypeInfo type, string implementedType);
   }
 
   internal class TypeUtility : ITypeUtility
@@ -37,9 +37,9 @@ namespace TestFx.ReSharper.Utilities.Metadata
       return type.DescendantsAndSelf(x => x.Base.NotNull().Type, x => x.Base != null).Concat(type.Interfaces.Select(x => x.Type));
     }
 
-    public bool IsImplementingType (IMetadataTypeInfo type, Type implementedType)
+    public bool IsImplementingType (IMetadataTypeInfo type, string implementedType)
     {
-      return GetImplementedTypes(type).Any(x => x.FullyQualifiedName == implementedType.FullName);
+      return GetImplementedTypes(type).Any(x => x.FullyQualifiedName == implementedType);
     }
   }
 }

@@ -30,7 +30,7 @@ namespace TestFx.ReSharper.Utilities.Psi
       return TypeUtility.Instance.GetImplementedTypes(type);
     }
 
-    public static bool Implements (this IDeclaredType type, Type implementedType)
+    public static bool Implements (this IDeclaredType type, string implementedType)
     {
       return TypeUtility.Instance.IsImplementingType(type, implementedType);
     }
