@@ -49,7 +49,7 @@ namespace TestFx.ReSharper.Aggregation.Metadata
       notInterrupted = notInterrupted ?? (() => true);
 
       var assemblyIdentity = new Identity(project.GetOutputFilePath().FullPath);
-      var testMetadataProviders = _testMetadataProviderFactories.Select(x => x.Create(assemblyIdentity, project, notInterrupted)).ToList();
+      var testMetadataProviders = _testMetadataProviderFactories.Select(x => x.CreateTestMetadataProvider(assemblyIdentity, project, notInterrupted)).ToList();
       var metadataTypeInfos = metadataAssembly.GetTypes();
       var testMetadata = GetTestMetadata(testMetadataProviders, metadataTypeInfos).WhereNotNull().ToList();
 

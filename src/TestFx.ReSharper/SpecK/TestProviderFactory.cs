@@ -17,23 +17,35 @@ using System.Linq;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using TestFx.ReSharper.Aggregation.Metadata;
+using TestFx.ReSharper.Aggregation.Tree;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.SpecK
 {
   [PsiComponent]
-  public class TestMetadataProviderFactory : ITestMetadataProviderFactory
+  public class TestProviderFactory : ITestDeclarationProviderFactory, ITestMetadataProviderFactory
   {
+    private readonly ITreePresenter _treePresenter;
     private readonly IMetadataPresenter _metadataPresenter;
 
-    public TestMetadataProviderFactory (IMetadataPresenter metadataPresenter)
+    public TestProviderFactory (ITreePresenter treePresenter, IMetadataPresenter metadataPresenter)
     {
+      _treePresenter = treePresenter;
       _metadataPresenter = metadataPresenter;
     }
 
+    #region ITestDeclarationProviderFactory
+
+    ITestDeclarationProvider ITestDeclarationProviderFactory.CreateTestDeclarationProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted)
+    {
+      return new TestDeclarationProvider(_treePresenter, project, assemblyIdentity, notInterrupted);
+    }
+
+    #endregion
+
     #region ITestMetadataProviderFactory
 
-    public ITestMetadataProvider Create (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted)
+    public ITestMetadataProvider CreateTestMetadataProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted)
     {
       return new TestMetadataProvider(_metadataPresenter, project, assemblyIdentity, notInterrupted);
     }

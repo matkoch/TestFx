@@ -21,6 +21,6 @@ namespace TestFx.ReSharper.Aggregation.Metadata
 {
   public interface ITestMetadataProviderFactory
   {
-    ITestMetadataProvider Create (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted);
+    ITestMetadataProvider CreateTestMetadataProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted);
   }
 }

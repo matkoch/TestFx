@@ -52,7 +52,7 @@ namespace TestFx.ReSharper.Aggregation.Tree
         return null;
 
       var assemblyIdentity = new Identity(project.GetOutputFilePath().FullPath);
-      var testDeclarationProviders = _testDeclarationProviderFactories.Select(x => x.Create(assemblyIdentity, project, notInterrupted)).ToList();
+      var testDeclarationProviders = _testDeclarationProviderFactories.Select(x => x.CreateTestDeclarationProvider(assemblyIdentity, project, notInterrupted)).ToList();
       var classDeclarations = GetClassDeclarations(file).ToList();
       var testDeclarations = GetTestDeclarations(testDeclarationProviders, classDeclarations).WhereNotNull().ToList();
 

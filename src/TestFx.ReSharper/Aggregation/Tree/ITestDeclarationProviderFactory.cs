@@ -21,6 +21,6 @@ namespace TestFx.ReSharper.Aggregation.Tree
 {
   public interface ITestDeclarationProviderFactory
   {
-    ITestDeclarationProvider Create (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted);
+    ITestDeclarationProvider CreateTestDeclarationProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted);
   }
 }

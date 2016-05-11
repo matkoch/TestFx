@@ -224,10 +224,9 @@
     <Compile Include="References\MemberReference.cs" />
     <Compile Include="References\MemberReferenceFactory.cs" />
     <Compile Include="References\MemberReferenceProviderFactory.cs" />
-    <Compile Include="SpecK\TestDeclarationProviderFactory.cs" />
+    <Compile Include="SpecK\TestProviderFactory.cs" />
     <Compile Include="Aggregation\Metadata\ITestMetadataProvider.cs" />
     <Compile Include="SpecK\TestMetadataProvider.cs" />
-    <Compile Include="SpecK\TestMetadataProviderFactory.cs" />
     <Compile Include="Utilities\Psi\Resolve\SymbolTableExtensions.cs" />
     <Compile Include="UnitTesting\Elements\ChildTestElement.cs" />
     <Compile Include="UnitTesting\Elements\ClassTestElement.cs" />
