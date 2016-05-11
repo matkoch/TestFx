@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ProjectModel;
@@ -38,13 +37,6 @@ namespace TestFx.ReSharper.UnitTesting
   [UnitTestProvider]
   public partial class TestProvider : ITestProvider
   {
-    private readonly UnitTestElementComparer _unitTestElementComparer;
-
-    public TestProvider ()
-    {
-      _unitTestElementComparer = new UnitTestElementComparer(typeof (ClassTestElement), typeof (ChildTestElement));
-    }
-
     public string ID => RecursiveRemoteTaskRunner.ID;
 
     public string Name => ID;
@@ -80,29 +72,27 @@ namespace TestFx.ReSharper.UnitTesting
       return true;
     }
 
-    public int CompareUnitTestElements ([NotNull] IUnitTestElement element1, [NotNull] IUnitTestElement element2)
+    public int CompareUnitTestElements ([NotNull] IUnitTestElement firstElement, [NotNull] IUnitTestElement secondElement)
     {
-      var classTestElement1 = element1 as ClassTestElement;
-      var classTestElement2 = element2 as ClassTestElement;
+      if (firstElement.State == UnitTestElementState.Dynamic || secondElement.State == UnitTestElementState.Dynamic)
+        return 0;
 
-      if (classTestElement1 != null && classTestElement2 != null)
-        return string.Compare(classTestElement1.ShortName, classTestElement2.ShortName, StringComparison.Ordinal);
+      if (firstElement is ClassTestElement && secondElement is ClassTestElement)
+        return string.Compare(firstElement.ShortName, secondElement.ShortName, StringComparison.Ordinal);
 
       // TODO: Performance critical. should cache test file
-      var firstLocation = element1.GetDisposition().Locations.SingleOrDefault();
-      var secondLocation = element2.GetDisposition().Locations.SingleOrDefault();
+      var firstLocation = firstElement.GetDisposition().Locations.SingleOrDefault();
+      var secondLocation = secondElement.GetDisposition().Locations.SingleOrDefault();
       if (firstLocation == null || secondLocation == null)
         return 0;
 
-      return firstLocation.NavigationRange.StartOffset
-          .CompareTo(secondLocation.NavigationRange.StartOffset);
+      return firstLocation.NavigationRange.StartOffset.CompareTo(secondLocation.NavigationRange.StartOffset);
     }
 
     public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, ITestElement> elementProvider)
     {
       var dynamicTask = (DynamicTask) remoteTask;
-      var parentElement = elementProvider(dynamicTask.ParentGuid);
-      Trace.Assert(parentElement != null, "parentElement != null");
+      var parentElement = elementProvider(dynamicTask.ParentGuid).NotNull("parentElement != null");
 
       var elementTypeFullName = typeof(ChildTestElement).FullName;
       var project = parentElement.GetProject().NotNull();
