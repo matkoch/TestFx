@@ -83,7 +83,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       ExplicitReason = explicitReason;
       
       Categories = categories;
-      _state = UnitTestElementState.Valid;
+      _state = UnitTestElementState.None;
     }
 
     public IEnumerable<UnitTestElementCategory> Categories { get; private set; }
@@ -98,26 +98,26 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       get { return _state; }
       set
       {
-        _state = GetState(_state, value);
+        _state = value;
 
         if (value == UnitTestElementState.Invalid)
           _children.ForEach(x => x.State = UnitTestElementState.Invalid);
       }
     }
 
-    private UnitTestElementState GetState (UnitTestElementState currentState, UnitTestElementState newState)
-    {
-      if (newState == UnitTestElementState.Valid && currentState == UnitTestElementState.PendingDynamic)
-        return UnitTestElementState.Dynamic;
+    //private UnitTestElementState GetState (UnitTestElementState currentState, UnitTestElementState newState)
+    //{
+    //  if (newState == UnitTestElementState.Valid && currentState == UnitTestElementState.PendingDynamic)
+    //    return UnitTestElementState.Dynamic;
 
-      if ((currentState == UnitTestElementState.Dynamic || currentState == UnitTestElementState.PendingDynamic) &&
-          (newState == UnitTestElementState.Valid || newState == UnitTestElementState.Pending))
-      {
-        throw new Exception($"Current state {currentState} unable to turn into {newState}");
-      }
+    //  if ((currentState == UnitTestElementState.Dynamic || currentState == UnitTestElementState.PendingDynamic) &&
+    //      (newState == UnitTestElementState.Valid || newState == UnitTestElementState.Pending))
+    //  {
+    //    throw new Exception($"Current state {currentState} unable to turn into {newState}");
+    //  }
 
-      return newState;
-    }
+    //  return newState;
+    //}
 
     [CanBeNull]
     public IUnitTestElement Parent
@@ -169,7 +169,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       if (locations.Count != 0)
         return new UnitTestElementDisposition(locations, this);
 
-      if (_state == UnitTestElementState.Dynamic || _state == UnitTestElementState.PendingDynamic)
+      if (_state == UnitTestElementState.Dynamic)
         return UnitTestElementDisposition.NotYetClear(this);
 
       _state = UnitTestElementState.Invalid;

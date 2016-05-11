@@ -620,6 +620,11 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
       return _classDeclaration.AddAttributeAfter(param, anchor);
     }
 
+    public IAttribute ReplaceAttribute (IAttribute attribute, IAttribute newAttribute)
+    {
+      return _classDeclaration.ReplaceAttribute(attribute, newAttribute);
+    }
+
     public void RemoveAttribute (IAttribute param)
     {
       _classDeclaration.RemoveAttribute(param);
@@ -684,6 +689,5 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
     {
       get { return _classDeclaration.PrimaryConstructorBodiesEnumerable; }
     }
-
   }
 }

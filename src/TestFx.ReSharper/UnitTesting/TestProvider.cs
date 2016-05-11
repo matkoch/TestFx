@@ -14,7 +14,9 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using JetBrains.Annotations;
+using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
@@ -73,9 +75,27 @@ namespace TestFx.ReSharper.UnitTesting
       return true;
     }
 
-    public int CompareUnitTestElements ([NotNull] IUnitTestElement x, [NotNull] IUnitTestElement y)
+    public bool IsSupported (IProject project)
     {
-      return _unitTestElementComparer.Compare(x, y);
+      return true;
+    }
+
+    public int CompareUnitTestElements ([NotNull] IUnitTestElement element1, [NotNull] IUnitTestElement element2)
+    {
+      var classTestElement1 = element1 as ClassTestElement;
+      var classTestElement2 = element2 as ClassTestElement;
+
+      if (classTestElement1 != null && classTestElement2 != null)
+        return string.Compare(classTestElement1.ShortName, classTestElement2.ShortName, StringComparison.Ordinal);
+
+      // TODO: Performance critical. should cache test file
+      var firstLocation = element1.GetDisposition().Locations.SingleOrDefault();
+      var secondLocation = element2.GetDisposition().Locations.SingleOrDefault();
+      if (firstLocation == null || secondLocation == null)
+        return 0;
+
+      return firstLocation.NavigationRange.StartOffset
+          .CompareTo(secondLocation.NavigationRange.StartOffset);
     }
 
     public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, ITestElement> elementProvider)

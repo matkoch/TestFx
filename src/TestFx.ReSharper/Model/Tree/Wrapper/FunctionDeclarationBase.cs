@@ -185,6 +185,11 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
       return _functionDeclaration.AddAttributeAfter(param, anchor);
     }
 
+    public IAttribute ReplaceAttribute (IAttribute attribute, IAttribute newAttribute)
+    {
+      return _functionDeclaration.ReplaceAttribute(attribute, newAttribute);
+    }
+
     public void RemoveAttribute (IAttribute param)
     {
       _functionDeclaration.RemoveAttribute(param);

@@ -35,7 +35,6 @@ namespace TestFx.ReSharper.SpecK
 
     public ITestMetadataProvider Create (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted)
     {
-      System.Diagnostics.Debugger.Launch();
       return new TestMetadataProvider(_metadataPresenter, project, assemblyIdentity, notInterrupted);
     }
 
