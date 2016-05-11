@@ -13,13 +13,15 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
+using JetBrains.ReSharper.Psi;
 using JetBrains.Util;
 using TestFx.Extensibility;
 using TestFx.ReSharper.Utilities.Metadata;
 
-namespace TestFx.ReSharper.Model.Metadata.Aggregation
+namespace TestFx.ReSharper.Aggregation.Metadata
 {
   public interface IMetadataPresenter
   {
@@ -27,6 +29,7 @@ namespace TestFx.ReSharper.Model.Metadata.Aggregation
     string Present (IMetadataTypeInfo type);
   }
 
+  [PsiComponent]
   internal class MetadataPresenter : IMetadataPresenter
   {
     private readonly IntrospectionPresenter _introspectionPresenter;

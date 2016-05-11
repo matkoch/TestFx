@@ -13,57 +13,66 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
-using TestFx.ReSharper.Utilities.Metadata;
+using JetBrains.ReSharper.Psi;
+using JetBrains.Util;
+using TestFx.ReSharper.Model.Metadata;
 using TestFx.Utilities;
-using TestFx.Utilities.Collections;
 
-namespace TestFx.ReSharper.Model.Metadata.Aggregation
+namespace TestFx.ReSharper.Aggregation.Metadata
 {
   public interface IAssemblyAggregator
   {
-    ITestAssembly GetTestAssembly (IMetadataAssembly assembly);
+    [CanBeNull]
+    ITestAssembly Aggregate (IMetadataAssembly metadataAssembly, IProject project, [CanBeNull] Func<bool> notInterrupted);
   }
 
-  internal class AssemblyAggregator : IAssemblyAggregator
+  [PsiComponent]
+  public class AssemblyAggregator : IAssemblyAggregator
   {
-    private readonly IMetadataPresenter _metadataPresenter;
-    private readonly IProject _project;
-    private readonly Func<bool> _notInterrupted;
+    private readonly List<ITestMetadataProviderFactory> _testMetadataProviderFactories;
 
-    public AssemblyAggregator (IMetadataPresenter metadataPresenter, IProject project, Func<bool> notInterrupted)
+    public AssemblyAggregator (IEnumerable<ITestMetadataProviderFactory> testMetadataProviderFactories)
     {
-      _metadataPresenter = metadataPresenter;
-      _project = project;
-      _notInterrupted = notInterrupted;
+      _testMetadataProviderFactories = testMetadataProviderFactories.ToList();
     }
 
-    public ITestAssembly GetTestAssembly (IMetadataAssembly assembly)
-    {
-      var identity = new Identity(_project.GetOutputFilePath().FullPath);
-      var testTypes = assembly.GetTypes()
-          .TakeWhile(_notInterrupted)
-          .Select(x => VisitType(x, identity))
-          .WhereNotNull();
-
-      return new TestAssembly(testTypes.ToList(), assembly);
-    }
+    #region IAssemblyAggregator
 
     [CanBeNull]
-    private ITestMetadata VisitType (IMetadataTypeInfo type, IIdentity parentIdentity)
+    public ITestAssembly Aggregate (IMetadataAssembly metadataAssembly, IProject project, [CanBeNull] Func<bool> notInterrupted)
     {
-      var text = _metadataPresenter.Present(type);
-      if (text == null)
+      notInterrupted = notInterrupted ?? (() => true);
+
+      var assemblyIdentity = new Identity(project.GetOutputFilePath().FullPath);
+      var testMetadataProviders = _testMetadataProviderFactories.Select(x => x.Create(assemblyIdentity, project, notInterrupted)).ToList();
+      var metadataTypeInfos = metadataAssembly.GetTypes();
+      var testMetadata = GetTestMetadata(testMetadataProviders, metadataTypeInfos).WhereNotNull().ToList();
+
+      if (testMetadata.Count == 0)
         return null;
 
-      var identity = parentIdentity.CreateChildIdentity(type.FullyQualifiedName);
-      var categories = type.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
-          x => x.ConstructorArguments[0].ValuesArray.Select(y => (string) y.Value),
-          () => new string[0]);
-      return new TypeTestMetadata(identity, _project, categories, text, type);
+      return new TestAssembly(testMetadata, metadataAssembly);
     }
+
+    #endregion
+
+    #region Privates
+
+    private IEnumerable<ITestMetadata> GetTestMetadata (
+        IList<ITestMetadataProvider> testMetadataProviders,
+        IList<IMetadataTypeInfo> metadataTypeInfos)
+    {
+      return
+          from testMetadataProvider in testMetadataProviders
+          from metadataTypeInfo in metadataTypeInfos
+          select testMetadataProvider.GetTestMetadata(metadataTypeInfo);
+    }
+
+    #endregion
   }
 }

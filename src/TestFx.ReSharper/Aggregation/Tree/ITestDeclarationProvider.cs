@@ -13,24 +13,16 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using JetBrains.Annotations;
-using JetBrains.ProjectModel;
+using JetBrains.ReSharper.Psi.CSharp.Tree;
+using TestFx.ReSharper.Model.Tree;
 
-namespace TestFx.ReSharper.Model.Tree.Aggregation
+namespace TestFx.ReSharper.Aggregation.Tree
 {
-  public interface IFileAggregatorFactory
+  public interface ITestDeclarationProvider
   {
-    IFileAggregator Aggregate (IProject project, [CanBeNull] Func<bool> notInterrupted);
-  }
-
-  internal class FileAggregatorFactory : IFileAggregatorFactory
-  {
-    public static IFileAggregatorFactory Instance = new FileAggregatorFactory();
-
-    public IFileAggregator Aggregate (IProject project, [CanBeNull] Func<bool> notInterrupted)
-    {
-      notInterrupted = notInterrupted ?? (() => true);
-      return new FileAggregator(new TreePresenter(), project, notInterrupted);
-    }
+    [CanBeNull]
+    ITestDeclaration GetTestDeclaration (IClassDeclaration classDeclaration);
   }
 }

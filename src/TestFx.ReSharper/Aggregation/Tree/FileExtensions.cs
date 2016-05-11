@@ -13,12 +13,14 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
+using TestFx.ReSharper.Model.Tree;
 
-namespace TestFx.ReSharper.Model.Tree.Aggregation
+namespace TestFx.ReSharper.Aggregation.Tree
 {
   public static class FileExtensions
   {
@@ -34,7 +36,8 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       var testFile = csharpFile.UserData.GetData(s_testFileKey);
       if (testFile == null)
       {
-        testFile = FileAggregatorFactory.Instance.Aggregate(file.GetProject().NotNull(), notInterrupted).GetTestFile(csharpFile);
+        var fileAggregator = file.GetPsiServices().GetComponent<IFileAggregator>();
+        testFile = fileAggregator.Aggregate(csharpFile, notInterrupted);
         csharpFile.UserData.PutData(s_testFileKey, testFile);
       }
 

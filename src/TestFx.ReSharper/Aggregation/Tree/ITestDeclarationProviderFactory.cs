@@ -1,4 +1,4 @@
-﻿// Copyright 2016, 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,20 +14,13 @@
 
 using System;
 using System.Linq;
-using JetBrains.Annotations;
-using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
-using TestFx.ReSharper.Model.Metadata;
+using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Aggregation.Metadata
+namespace TestFx.ReSharper.Aggregation.Tree
 {
-  public static class MetadataExtensions
+  public interface ITestDeclarationProviderFactory
   {
-    [CanBeNull]
-    public static ITestAssembly ToTestAssembly (this IMetadataAssembly assembly, IProject project, Func<bool> notInterrupted = null)
-    {
-      var assemblyAggregator = project.GetComponent<IAssemblyAggregator>();
-      return assemblyAggregator.Aggregate(assembly, project, notInterrupted);
-    }
+    ITestDeclarationProvider Create (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted);
   }
 }

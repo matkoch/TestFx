@@ -13,24 +13,16 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 using JetBrains.Annotations;
-using JetBrains.ProjectModel;
+using JetBrains.Metadata.Reader.API;
+using TestFx.ReSharper.Model.Metadata;
 
-namespace TestFx.ReSharper.Model.Metadata.Aggregation
+namespace TestFx.ReSharper.Aggregation.Metadata
 {
-  public interface IAssemblyAggregatorFactory
+  public interface ITestMetadataProvider
   {
-    IAssemblyAggregator Create (IProject project, [CanBeNull] Func<bool> notInterrupted);
-  }
-
-  internal class AssemblyAggregatorFactory : IAssemblyAggregatorFactory
-  {
-    public static IAssemblyAggregatorFactory Instance = new AssemblyAggregatorFactory();
-
-    public IAssemblyAggregator Create (IProject project, [CanBeNull] Func<bool> notInterrupted)
-    {
-      notInterrupted = notInterrupted ?? (() => true);
-      return new AssemblyAggregator(new MetadataPresenter(), project, notInterrupted);
-    }
+    [CanBeNull]
+    ITestMetadata GetTestMetadata (IMetadataTypeInfo type);
   }
 }

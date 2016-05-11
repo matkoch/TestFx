@@ -17,7 +17,7 @@ using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
-using TestFx.ReSharper.Model.Tree.Aggregation;
+using TestFx.ReSharper.Aggregation.Tree;
 
 namespace TestFx.ReSharper.References
 {

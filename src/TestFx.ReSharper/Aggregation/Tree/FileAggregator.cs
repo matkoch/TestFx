@@ -1,4 +1,4 @@
-﻿// Copyright 2016, 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,83 +20,49 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
-using TestFx.ReSharper.Utilities.Psi;
+using TestFx.ReSharper.Model.Tree;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
-namespace TestFx.ReSharper.Model.Tree.Aggregation
+namespace TestFx.ReSharper.Aggregation.Tree
 {
   public interface IFileAggregator
   {
-    ITestFile GetTestFile (ICSharpFile file);
+    [CanBeNull]
+    ITestFile Aggregate (ICSharpFile file, [CanBeNull] Func<bool> notInterrupted);
   }
 
+  [PsiComponent]
   internal class FileAggregator : IFileAggregator
   {
-    private readonly ITreePresenter _treePresenter;
-    private readonly IProject _project;
-    private readonly Func<bool> _notInterrupted;
+    private readonly List<ITestDeclarationProviderFactory> _testDeclarationProviderFactories;
 
-    public FileAggregator (ITreePresenter treePresenter, IProject project, Func<bool> notInterrupted)
+    public FileAggregator (IEnumerable<ITestDeclarationProviderFactory> testDeclarationProviderFactories)
     {
-      _treePresenter = treePresenter;
-      _project = project;
-      _notInterrupted = notInterrupted;
-    }
-
-    public ITestFile GetTestFile (ICSharpFile csharpFile)
-    {
-      var assemblyIdentity = new Identity(_project.GetOutputFilePath().FullPath);
-      var classTests = TreeNodeEnumerable.Create(
-          () =>
-          {
-            return GetClassDeclarations(csharpFile)
-                .TakeWhile(_notInterrupted)
-                .Select(x => GetClassTest(x, assemblyIdentity))
-                .WhereNotNull();
-          });
-
-      return new TestFile(classTests, csharpFile);
+      _testDeclarationProviderFactories = testDeclarationProviderFactories.ToList();
     }
 
     [CanBeNull]
-    private ITestDeclaration GetClassTest (IClassDeclaration classDeclaration, IIdentity parentIdentity)
+    public ITestFile Aggregate (ICSharpFile file, [CanBeNull] Func<bool> notInterrupted)
     {
-      var text = _treePresenter.Present(classDeclaration);
-      if (text == null)
+      notInterrupted = notInterrupted ?? (() => true);
+
+      var project = file.GetProject();
+      if (project == null)
         return null;
 
-      var identity = parentIdentity.CreateChildIdentity(classDeclaration.CLRName);
-      var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
-      var categories = clazz.GetAttributeData<CategoriesAttribute>()
-          .GetValueOrDefault(
-              x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
-              () => new string[0]);
-      var constructorDeclaration = classDeclaration.ConstructorDeclarations.SingleOrDefault(x => !x.IsStatic && x.ParameterDeclarations.Count == 0);
-      var expressionTests = TreeNodeEnumerable.Create(
-          () =>
-          {
-            return GetInvocationExpressions(constructorDeclaration)
-                .TakeWhile(_notInterrupted)
-                .Select(x => GetInvocationTest(x, identity))
-                .WhereNotNull();
-          });
+      var assemblyIdentity = new Identity(project.GetOutputFilePath().FullPath);
+      var testDeclarationProviders = _testDeclarationProviderFactories.Select(x => x.Create(assemblyIdentity, project, notInterrupted)).ToList();
+      var classDeclarations = GetClassDeclarations(file).ToList();
+      var testDeclarations = GetTestDeclarations(testDeclarationProviders, classDeclarations).WhereNotNull().ToList();
 
-      return new ClassTestDeclaration(identity, _project, categories, text, expressionTests, classDeclaration);
-    }
-
-    [CanBeNull]
-    private ITestDeclaration GetInvocationTest(IInvocationExpression invocationExpression, IIdentity parentIdentity)
-    {
-      var text = _treePresenter.Present(invocationExpression);
-      if (text == null)
+      if (testDeclarations.Count == 0)
         return null;
 
-      var identity = parentIdentity.CreateChildIdentity(text);
-      return new InvocationTestDeclaration(identity, _project, text, invocationExpression);
+      return new TestFile(testDeclarations, file);
     }
 
-    private IEnumerable<IClassDeclaration> GetClassDeclarations (ICSharpFile csharpFile)
+    private IEnumerable<IClassDeclaration> GetClassDeclarations(ICSharpFile csharpFile)
     {
       var namespaceDeclarations = csharpFile.NamespaceDeclarations.SelectMany(x => x.DescendantsAndSelf(y => y.NamespaceDeclarations));
       var classDeclarations = namespaceDeclarations.Cast<ITypeDeclarationHolder>().SelectMany(x => x.TypeDeclarations)
@@ -104,15 +70,14 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
       return classDeclarations;
     }
 
-    private IEnumerable<IInvocationExpression> GetInvocationExpressions ([CanBeNull] IConstructorDeclaration constructorDeclaration)
+    private IEnumerable<ITestDeclaration> GetTestDeclarations (
+        IList<ITestDeclarationProvider> testDeclarationProviders,
+        IList<IClassDeclaration> classDeclarations)
     {
-      if (constructorDeclaration == null)
-        return new IInvocationExpression[0];
-
-      var statementExpressions = constructorDeclaration.Body.Children<IExpressionStatement>().Select(x => x.Expression);
-      var invocationExpressions = statementExpressions.OfType<IInvocationExpression>()
-          .SelectMany(z => z.DescendantsAndSelf(x => x.InvokedExpression.FirstChild as IInvocationExpression).Reverse());
-      return invocationExpressions;
+      return
+        from testDeclarationProvider in testDeclarationProviders
+        from classDeclaration in classDeclarations
+        select testDeclarationProvider.GetTestDeclaration(classDeclaration);
     }
   }
 }

@@ -18,12 +18,11 @@ using System.Linq;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
-using TestFx.Extensibility;
-using TestFx.ReSharper.Model.Metadata.Aggregation;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities.Collections;
 using JetBrains.ReSharper.Resources.Shell;
 using TestFx.Evaluation.Runners;
+using TestFx.ReSharper.Aggregation.Metadata;
 
 namespace TestFx.ReSharper.UnitTesting.Explorers
 {
@@ -51,8 +50,11 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
 
       using (ReadLockCookie.Create())
       {
-        var assemblyTest = assembly.ToTestAssembly(project, notInterrupted);
-        var testElements = assemblyTest.TestMetadatas.Select(_testElementFactory.GetOrCreateClassTestElementRecursively);
+        var testAssembly = assembly.ToTestAssembly(project, notInterrupted);
+        if (testAssembly == null)
+          return;
+
+        var testElements = testAssembly.TestMetadatas.Select(_testElementFactory.GetOrCreateClassTestElementRecursively);
         var allTestElements = testElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).ToList();
 
         Debug.Assert(allTestElements.Count > 0, "No tests found.");

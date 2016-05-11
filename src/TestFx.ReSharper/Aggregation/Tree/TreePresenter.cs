@@ -22,7 +22,7 @@ using TestFx.Extensibility;
 using TestFx.ReSharper.Utilities.Psi;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Model.Tree.Aggregation
+namespace TestFx.ReSharper.Aggregation.Tree
 {
   public interface ITreePresenter
   {
@@ -33,6 +33,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     string Present (IInvocationExpression invocationExpression);
   }
 
+  [PsiComponent]
   internal class TreePresenter : ITreePresenter
   {
     private readonly IIntrospectionPresenter _introspectionPresenter;
@@ -45,9 +46,8 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     [CanBeNull]
     public string Present (IClassDeclaration classDeclaration)
     {
-      var clazz = (IClass) classDeclaration.DeclaredElement.NotNull();
-
-      var subjectAttributeData = clazz.GetAttributeData<SuiteAttributeBase>();
+      var clazz = (IClass) classDeclaration.DeclaredElement;
+      var subjectAttributeData = clazz?.GetAttributeData<SuiteAttributeBase>();
       if (subjectAttributeData == null)
         return null;
 
@@ -63,10 +63,7 @@ namespace TestFx.ReSharper.Model.Tree.Aggregation
     public string Present (IInvocationExpression invocationExpression)
     {
       var method = invocationExpression.Reference.NotNull().GetResolved<IMethod>();
-      if (method == null)
-        return null;
-
-      var displayFormatAttributeData = method.GetAttributeData<DisplayFormatAttribute>();
+      var displayFormatAttributeData = method?.GetAttributeData<DisplayFormatAttribute>();
       if (displayFormatAttributeData == null)
         return null;
 

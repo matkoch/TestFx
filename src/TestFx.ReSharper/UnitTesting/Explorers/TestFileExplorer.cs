@@ -16,7 +16,7 @@ using System;
 using System.Linq;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.UnitTestFramework;
-using TestFx.ReSharper.Model.Tree.Aggregation;
+using TestFx.ReSharper.Aggregation.Tree;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities.Collections;
 

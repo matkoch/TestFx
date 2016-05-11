@@ -22,13 +22,13 @@ using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.Model.Tree;
-using TestFx.ReSharper.Model.Tree.Aggregation;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Utilities;
 using TestFx.ReSharper.Utilities.ProjectModel;
 using TestFx.ReSharper.Utilities.Psi.Modules;
 using TestFx.Utilities;
 using JetBrains.Metadata.Reader.Impl;
+using TestFx.ReSharper.Aggregation.Tree;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
