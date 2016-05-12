@@ -19,14 +19,13 @@ using JetBrains.Annotations;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
-using JetBrains.ReSharper.Psi.Tree;
-using TestFx.ReSharper.Aggregation.Tree;
 using TestFx.ReSharper.Model.Tree;
+using TestFx.ReSharper.UnitTesting.Explorers.Tree;
 using TestFx.ReSharper.Utilities.Psi;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
-namespace TestFx.ReSharper.SpecK
+namespace TestFx.ReSharper.Extensions.MSpec
 {
   public class TestDeclarationProvider : ITestDeclarationProvider
   {
@@ -48,7 +47,7 @@ namespace TestFx.ReSharper.SpecK
     [CanBeNull]
     public ITestDeclaration GetTestDeclaration (IClassDeclaration classDeclaration)
     {
-      var text = _treePresenter.Present(classDeclaration, suiteAttributeType: "TestFx.SpecK.SubjectAttribute");
+      var text = _treePresenter.Present(classDeclaration, "Machine.Specifications.SubjectAttribute");
       if (text == null)
         return null;
 
@@ -58,43 +57,26 @@ namespace TestFx.ReSharper.SpecK
           .GetValueOrDefault(
               x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
               () => new string[0]);
-      var constructorDeclaration = classDeclaration.ConstructorDeclarations.SingleOrDefault(x => !x.IsStatic && x.ParameterDeclarations.Count == 0);
       var expressionTests = TreeNodeEnumerable.Create(
           () =>
           {
-            return GetInvocationExpressions(constructorDeclaration)
+            return GetFieldDeclarations(classDeclaration)
                 .TakeWhile(_notInterrupted)
-                .Select(x => GetInvocationTest(x, identity))
+                .Select(x => GetFieldTest(x, identity))
                 .WhereNotNull();
           });
 
       return new ClassTestDeclaration(identity, _project, categories, text, expressionTests, classDeclaration);
     }
 
-    #endregion
-
-    #region Privates
-
-    [CanBeNull]
-    private ITestDeclaration GetInvocationTest (IInvocationExpression invocationExpression, IIdentity parentIdentity)
+    private ITestDeclaration GetFieldTest (IFieldDeclaration fieldDeclaration, IIdentity parentIdentity)
     {
-      var text = _treePresenter.Present(invocationExpression);
-      if (text == null)
-        return null;
-
-      var identity = parentIdentity.CreateChildIdentity(text);
-      return new InvocationTestDeclaration(identity, _project, text, invocationExpression);
+      return null;
     }
 
-    private IEnumerable<IInvocationExpression> GetInvocationExpressions ([CanBeNull] IConstructorDeclaration constructorDeclaration)
+    private IEnumerable<IFieldDeclaration> GetFieldDeclarations (IClassDeclaration classDeclaration)
     {
-      if (constructorDeclaration == null)
-        return new IInvocationExpression[0];
-
-      var statementExpressions = constructorDeclaration.Body.Children<IExpressionStatement>().Select(x => x.Expression);
-      var invocationExpressions = statementExpressions.OfType<IInvocationExpression>()
-          .SelectMany(z => z.DescendantsAndSelf(x => x.InvokedExpression.FirstChild as IInvocationExpression).Reverse());
-      return invocationExpressions;
+      yield break;
     }
 
     #endregion

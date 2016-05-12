@@ -20,7 +20,7 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.Util;
 using TestFx.ReSharper.Model.Tree;
 
-namespace TestFx.ReSharper.Aggregation.Tree
+namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
 {
   public static class FileExtensions
   {

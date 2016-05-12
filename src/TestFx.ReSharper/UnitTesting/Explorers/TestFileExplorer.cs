@@ -16,8 +16,8 @@ using System;
 using System.Linq;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.UnitTestFramework;
-using TestFx.ReSharper.Aggregation.Tree;
 using TestFx.ReSharper.UnitTesting.Elements;
+using TestFx.ReSharper.UnitTesting.Explorers.Tree;
 using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.UnitTesting.Explorers

@@ -181,10 +181,13 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
-    <Compile Include="Aggregation\Metadata\ITestMetadataProviderFactory.cs" />
-    <Compile Include="Aggregation\Tree\ITestDeclarationProvider.cs" />
-    <Compile Include="Aggregation\Tree\ITestDeclarationProviderFactory.cs" />
-    <Compile Include="SpecK\TestDeclarationProvider.cs" />
+    <Compile Include="UnitTesting\Explorers\Metadata\ITestMetadataProviderFactory.cs" />
+    <Compile Include="UnitTesting\Explorers\Tree\ITestDeclarationProvider.cs" />
+    <Compile Include="UnitTesting\Explorers\Tree\ITestDeclarationProviderFactory.cs" />
+    <Compile Include="Extensions\MSpec\TestDeclarationProvider.cs" />
+    <Compile Include="Extensions\MSpec\TestMetadataProvider.cs" />
+    <Compile Include="Extensions\MSpec\TestProviderFactory.cs" />
+    <Compile Include="Extensions\SpecK\TestDeclarationProvider.cs" />
     <Compile Include="Daemon\ITestFileAnalyzer.cs" />
     <Compile Include="Daemon\DuplicatedTestHighlighting.cs" />
     <Compile Include="Daemon\DuplicatedTestAnalyzer.cs" />
@@ -194,9 +197,9 @@
     <Compile Include="Daemon\TestFileDaemonStageProcess.cs" />
     <Compile Include="Daemon\TestFileDaemonStage.cs" />
     <Compile Include="Model\ITestEntity.cs" />
-    <Compile Include="Aggregation\Metadata\AssemblyAggregator.cs" />
-    <Compile Include="Aggregation\Metadata\MetadataExtensions.cs" />
-    <Compile Include="Aggregation\Metadata\MetadataPresenter.cs" />
+    <Compile Include="UnitTesting\Explorers\Metadata\AssemblyAggregator.cs" />
+    <Compile Include="UnitTesting\Explorers\Metadata\MetadataExtensions.cs" />
+    <Compile Include="UnitTesting\Explorers\Metadata\MetadataPresenter.cs" />
     <Compile Include="Model\Metadata\TestAssembly.cs" />
     <Compile Include="Model\Metadata\ITestMetadata.cs" />
     <Compile Include="Model\Metadata\ITestMetadataHolder.cs" />
@@ -204,10 +207,10 @@
     <Compile Include="Model\Metadata\Wrapper\MetadataAssemblyBase.cs" />
     <Compile Include="Model\Metadata\Wrapper\MetadataTypeInfoBase.cs" />
     <Compile Include="Model\Metadata\Wrapper\MetadataEntityBase.cs" />
-    <Compile Include="Aggregation\Tree\FileAggregator.cs" />
-    <Compile Include="Aggregation\Tree\FileExtensions.cs" />
-    <Compile Include="Aggregation\Tree\TreeNodeEnumerable.cs" />
-    <Compile Include="Aggregation\Tree\TreePresenter.cs" />
+    <Compile Include="UnitTesting\Explorers\Tree\FileAggregator.cs" />
+    <Compile Include="UnitTesting\Explorers\Tree\FileExtensions.cs" />
+    <Compile Include="UnitTesting\Explorers\Tree\TreeNodeEnumerable.cs" />
+    <Compile Include="UnitTesting\Explorers\Tree\TreePresenter.cs" />
     <Compile Include="Model\Tree\ClassTestDeclaration.cs" />
     <Compile Include="Model\Tree\InvocationTestDeclaration.cs" />
     <Compile Include="Model\Tree\ITestDeclaration.cs" />
@@ -224,9 +227,9 @@
     <Compile Include="References\MemberReference.cs" />
     <Compile Include="References\MemberReferenceFactory.cs" />
     <Compile Include="References\MemberReferenceProviderFactory.cs" />
-    <Compile Include="SpecK\TestProviderFactory.cs" />
-    <Compile Include="Aggregation\Metadata\ITestMetadataProvider.cs" />
-    <Compile Include="SpecK\TestMetadataProvider.cs" />
+    <Compile Include="Extensions\SpecK\TestProviderFactory.cs" />
+    <Compile Include="UnitTesting\Explorers\Metadata\ITestMetadataProvider.cs" />
+    <Compile Include="Extensions\SpecK\TestMetadataProvider.cs" />
     <Compile Include="Utilities\Psi\Resolve\SymbolTableExtensions.cs" />
     <Compile Include="UnitTesting\Elements\ChildTestElement.cs" />
     <Compile Include="UnitTesting\Elements\ClassTestElement.cs" />

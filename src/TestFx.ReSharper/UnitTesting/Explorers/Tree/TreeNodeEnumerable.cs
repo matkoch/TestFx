@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.ReSharper.Psi.Tree;
 
-namespace TestFx.ReSharper.Aggregation.Tree
+namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
 {
   public static class TreeNodeEnumerable
   {

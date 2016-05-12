@@ -17,10 +17,10 @@ using System.Linq;
 using JetBrains.ProjectModel;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Aggregation.Metadata
+namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
 {
-  public interface ITestMetadataProviderFactory
+  public interface ITestDeclarationProviderFactory
   {
-    ITestMetadataProvider CreateTestMetadataProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted);
+    ITestDeclarationProvider CreateTestDeclarationProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted);
   }
 }

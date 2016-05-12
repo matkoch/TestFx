@@ -1,4 +1,4 @@
-// Copyright 2016, 2015, 2014 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,14 +15,14 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
-using JetBrains.ReSharper.Psi.CSharp.Tree;
-using TestFx.ReSharper.Model.Tree;
+using JetBrains.Metadata.Reader.API;
+using TestFx.ReSharper.Model.Metadata;
 
-namespace TestFx.ReSharper.Aggregation.Tree
+namespace TestFx.ReSharper.UnitTesting.Explorers.Metadata
 {
-  public interface ITestDeclarationProvider
+  public interface ITestMetadataProvider
   {
     [CanBeNull]
-    ITestDeclaration GetTestDeclaration (IClassDeclaration classDeclaration);
+    ITestMetadata GetTestMetadata (IMetadataTypeInfo type);
   }
 }

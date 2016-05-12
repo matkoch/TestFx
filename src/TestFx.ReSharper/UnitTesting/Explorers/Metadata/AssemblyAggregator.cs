@@ -19,11 +19,11 @@ using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
-using JetBrains.Util;
 using TestFx.ReSharper.Model.Metadata;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
-namespace TestFx.ReSharper.Aggregation.Metadata
+namespace TestFx.ReSharper.UnitTesting.Explorers.Metadata
 {
   public interface IAssemblyAggregator
   {
@@ -51,7 +51,7 @@ namespace TestFx.ReSharper.Aggregation.Metadata
       var assemblyIdentity = new Identity(project.GetOutputFilePath().FullPath);
       var testMetadataProviders = _testMetadataProviderFactories.Select(x => x.CreateTestMetadataProvider(assemblyIdentity, project, notInterrupted)).ToList();
       var metadataTypeInfos = metadataAssembly.GetTypes();
-      var testMetadata = GetTestMetadata(testMetadataProviders, metadataTypeInfos).WhereNotNull().ToList();
+      var testMetadata = GetTestMetadata(testMetadataProviders, metadataTypeInfos).TakeWhile(notInterrupted).WhereNotNull().ToList();
 
       if (testMetadata.Count == 0)
         return null;

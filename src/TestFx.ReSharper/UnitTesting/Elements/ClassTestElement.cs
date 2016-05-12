@@ -28,7 +28,7 @@ using TestFx.ReSharper.Utilities.ProjectModel;
 using TestFx.ReSharper.Utilities.Psi.Modules;
 using TestFx.Utilities;
 using JetBrains.Metadata.Reader.Impl;
-using TestFx.ReSharper.Aggregation.Tree;
+using TestFx.ReSharper.UnitTesting.Explorers.Tree;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {

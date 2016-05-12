@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
@@ -24,7 +23,7 @@ using TestFx.ReSharper.Model.Tree;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
-namespace TestFx.ReSharper.Aggregation.Tree
+namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
 {
   public interface IFileAggregator
   {
@@ -54,7 +53,7 @@ namespace TestFx.ReSharper.Aggregation.Tree
       var assemblyIdentity = new Identity(project.GetOutputFilePath().FullPath);
       var testDeclarationProviders = _testDeclarationProviderFactories.Select(x => x.CreateTestDeclarationProvider(assemblyIdentity, project, notInterrupted)).ToList();
       var classDeclarations = GetClassDeclarations(file).ToList();
-      var testDeclarations = GetTestDeclarations(testDeclarationProviders, classDeclarations).WhereNotNull().ToList();
+      var testDeclarations = GetTestDeclarations(testDeclarationProviders, classDeclarations).TakeWhile(notInterrupted).WhereNotNull().ToList();
 
       if (testDeclarations.Count == 0)
         return null;

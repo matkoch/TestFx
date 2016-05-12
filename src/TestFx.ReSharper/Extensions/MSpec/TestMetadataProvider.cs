@@ -17,12 +17,12 @@ using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
-using TestFx.ReSharper.Aggregation.Metadata;
 using TestFx.ReSharper.Model.Metadata;
+using TestFx.ReSharper.UnitTesting.Explorers.Metadata;
 using TestFx.ReSharper.Utilities.Metadata;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.SpecK
+namespace TestFx.ReSharper.Extensions.MSpec
 {
   public class TestMetadataProvider : ITestMetadataProvider
   {
@@ -44,7 +44,7 @@ namespace TestFx.ReSharper.SpecK
     [CanBeNull]
     public ITestMetadata GetTestMetadata (IMetadataTypeInfo type)
     {
-      var text = _metadataPresenter.Present(type, suiteAttributeType: "TestFx.SpecK.SubjectAttribute");
+      var text = _metadataPresenter.Present(type, "Machine.Specifications.SubjectAttribute");
       if (text == null)
         return null;
 

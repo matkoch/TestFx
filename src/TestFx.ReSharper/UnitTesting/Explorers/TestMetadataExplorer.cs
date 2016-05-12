@@ -22,7 +22,7 @@ using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.Utilities.Collections;
 using JetBrains.ReSharper.Resources.Shell;
 using TestFx.Evaluation.Runners;
-using TestFx.ReSharper.Aggregation.Metadata;
+using TestFx.ReSharper.UnitTesting.Explorers.Metadata;
 
 namespace TestFx.ReSharper.UnitTesting.Explorers
 {

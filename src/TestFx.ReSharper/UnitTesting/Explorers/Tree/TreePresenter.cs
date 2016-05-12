@@ -22,7 +22,7 @@ using TestFx.Extensibility;
 using TestFx.ReSharper.Utilities.Psi;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.Aggregation.Tree
+namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
 {
   public interface ITreePresenter
   {

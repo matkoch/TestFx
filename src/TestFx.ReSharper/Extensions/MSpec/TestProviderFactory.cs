@@ -16,11 +16,11 @@ using System;
 using System.Linq;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
-using TestFx.ReSharper.Aggregation.Metadata;
-using TestFx.ReSharper.Aggregation.Tree;
+using TestFx.ReSharper.UnitTesting.Explorers.Metadata;
+using TestFx.ReSharper.UnitTesting.Explorers.Tree;
 using TestFx.Utilities;
 
-namespace TestFx.ReSharper.SpecK
+namespace TestFx.ReSharper.Extensions.MSpec
 {
   [PsiComponent]
   public class TestProviderFactory : ITestDeclarationProviderFactory, ITestMetadataProviderFactory
@@ -36,7 +36,7 @@ namespace TestFx.ReSharper.SpecK
 
     #region ITestDeclarationProviderFactory
 
-    ITestDeclarationProvider ITestDeclarationProviderFactory.CreateTestDeclarationProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted)
+    public ITestDeclarationProvider CreateTestDeclarationProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted)
     {
       return new TestDeclarationProvider(_treePresenter, project, assemblyIdentity, notInterrupted);
     }

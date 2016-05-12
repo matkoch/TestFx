@@ -21,7 +21,7 @@ using JetBrains.Util;
 using TestFx.Extensibility;
 using TestFx.ReSharper.Utilities.Metadata;
 
-namespace TestFx.ReSharper.Aggregation.Metadata
+namespace TestFx.ReSharper.UnitTesting.Explorers.Metadata
 {
   public interface IMetadataPresenter
   {
