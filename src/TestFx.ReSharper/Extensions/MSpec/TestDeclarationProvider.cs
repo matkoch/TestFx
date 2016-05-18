@@ -60,7 +60,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       var expressionTests = TreeNodeEnumerable.Create(
           () =>
           {
-            return GetFieldDeclarations(classDeclaration)
+            return classDeclaration.FieldDeclarations
                 .TakeWhile(_notInterrupted)
                 .Select(x => GetFieldTest(x, identity))
                 .WhereNotNull();
@@ -71,12 +71,12 @@ namespace TestFx.ReSharper.Extensions.MSpec
 
     private ITestDeclaration GetFieldTest (IFieldDeclaration fieldDeclaration, IIdentity parentIdentity)
     {
-      return null;
-    }
+      var text = _treePresenter.Present(fieldDeclaration);
+      if (text == null)
+        return null;
 
-    private IEnumerable<IFieldDeclaration> GetFieldDeclarations (IClassDeclaration classDeclaration)
-    {
-      yield break;
+      var identity = parentIdentity.CreateChildIdentity(fieldDeclaration.DeclaredName);
+      return new FieldTestDeclaration(identity, _project, text, fieldDeclaration);
     }
 
     #endregion

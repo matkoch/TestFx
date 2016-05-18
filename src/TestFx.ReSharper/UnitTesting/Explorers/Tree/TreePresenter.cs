@@ -30,6 +30,9 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
     string Present (IClassDeclaration classDeclaration, string suiteAttributeType);
 
     [CanBeNull]
+    string Present (IFieldDeclaration fieldDeclaration);
+
+    [CanBeNull]
     string Present (IInvocationExpression invocationExpression);
   }
 
@@ -57,6 +60,16 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
       var displayFormatAttribute = subjectAttributeConstructor.GetAttributeData<DisplayFormatAttribute>().NotNull().ToCommon();
       
       return _introspectionPresenter.Present(displayFormatAttribute, clazz.ToCommon(), subjectAttribute);
+    }
+
+    public string Present (IFieldDeclaration fieldDeclaration)
+    {
+      var fieldType = fieldDeclaration.Type.GetScalarType()?.GetTypeElement();
+      var displayFormatAttribute = fieldType?.GetAttributeData<DisplayFormatAttribute>();
+      if (displayFormatAttribute == null)
+        return null;
+
+      return null;
     }
 
     [CanBeNull]
