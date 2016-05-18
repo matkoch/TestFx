@@ -181,6 +181,8 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="Model\Tree\FieldTestDeclaration.cs" />
+    <Compile Include="Model\Tree\Wrapper\FieldDeclarationBase.cs" />
     <Compile Include="UnitTesting\Explorers\Metadata\ITestMetadataProviderFactory.cs" />
     <Compile Include="UnitTesting\Explorers\Tree\ITestDeclarationProvider.cs" />
     <Compile Include="UnitTesting\Explorers\Tree\ITestDeclarationProviderFactory.cs" />
