@@ -15,7 +15,6 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
-using JetBrains.Metadata.Reader.Impl;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Resolve;
@@ -27,8 +26,6 @@ namespace TestFx.ReSharper.References
 {
   internal class MemberReferenceFactory : IReferenceFactory
   {
-    private static readonly ClrTypeName s_memberReferenceAttribute = new ClrTypeName("JetBrains.Annotations.MemberReferenceAttribute");
-
     public IReference[] GetReferences (ITreeNode element, [CanBeNull] IReference[] oldReferences)
     {
       var literalExpression = element as ICSharpLiteralExpression;
@@ -81,9 +78,6 @@ namespace TestFx.ReSharper.References
         return null;
 
       var parameter = argument.MatchingParameter.Element;
-      if (parameter.HasAttributeInstance(s_memberReferenceAttribute, false))
-        return null;
-
       var constructor = attribute.ConstructorReference.GetResolved<IConstructor>().NotNull();
       var literalArgumentIndex = constructor.Parameters.IndexOf(parameter);
       if (literalArgumentIndex == 0)
