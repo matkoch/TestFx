@@ -36,7 +36,7 @@ namespace TestFx.ReSharper.Extensions.SpecK
 
     #region ITestDeclarationProviderFactory
 
-    ITestDeclarationProvider ITestDeclarationProviderFactory.CreateTestDeclarationProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted)
+    public ITestDeclarationProvider CreateTestDeclarationProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted)
     {
       return new TestDeclarationProvider(_treePresenter, project, assemblyIdentity, notInterrupted);
     }
