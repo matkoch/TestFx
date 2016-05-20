@@ -73,7 +73,7 @@ namespace TestFx.ReSharper.UnitTesting
       var absoluteId = xmlElement.GetAttribute(c_absoluteId);
       var projectId = xmlElement.GetAttribute(c_projectId);
       var text = xmlElement.GetAttribute(c_text);
-      var categories = xmlElement.GetAttribute(c_categories).Split('|');
+      var categories = xmlElement.GetAttribute(c_categories).Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
       var identity = Identity.Parse(absoluteId);
       var project = ProjectUtil.FindProjectElementByPersistentID(_solution, projectId).GetProject().NotNull();
