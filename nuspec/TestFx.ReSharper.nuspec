@@ -2,11 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>TestFx.ReSharper</id>
-    <title>TestFx Tools for ReSharper</title>
+    <title>TestFx for ReSharper</title>
     <version>$version$</version>
     <authors>Matthias Koch</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>TestFx + ReSharper = &lt;3</description>
+    <description>TestFx + ReSharper = BigLove</description>
     <iconUrl>http://matkoch.github.io/TestFx/TestFx.ico</iconUrl>
     <projectUrl>https://github.com/matkoch/TestFx</projectUrl>
     <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
