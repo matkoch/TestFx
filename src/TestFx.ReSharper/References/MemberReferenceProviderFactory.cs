@@ -15,9 +15,9 @@
 using System;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
-using TestFx.ReSharper.UnitTesting.Explorers.Tree;
 
 namespace TestFx.ReSharper.References
 {
@@ -27,7 +27,7 @@ namespace TestFx.ReSharper.References
     [CanBeNull]
     public IReferenceFactory CreateFactory (IPsiSourceFile sourceFile, IFile file)
     {
-      return file.ToTestFile() != null ? new MemberReferenceFactory() : null;
+      return file is ICSharpFile ? new MemberReferenceFactory() : null;
     }
 
     public event Action OnChanged;
