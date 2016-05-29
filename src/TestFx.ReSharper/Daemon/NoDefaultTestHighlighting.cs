@@ -19,12 +19,12 @@ using TestFx.ReSharper.Model.Tree;
 
 [assembly: RegisterConfigurableSeverity (
     NoDefaultTestHighlighting.SeverityId,
-    null,
-    HighlightingGroupIds.CodeSmell,
-    NoDefaultTestHighlighting.Message,
-    NoDefaultTestHighlighting.Description,
-    Severity.WARNING,
-    /*SolutionAnalysisRequired:*/ false)]
+    CompoundItemName: null,
+    Group: HighlightingGroupIds.CodeSmell,
+    Title: NoDefaultTestHighlighting.Message,
+    Description: NoDefaultTestHighlighting.Description,
+    DefaultSeverity: Severity.WARNING,
+    /*SolutionAnalysisRequired:*/ SolutionAnalysisRequired: false)]
 
 namespace TestFx.ReSharper.Daemon
 {

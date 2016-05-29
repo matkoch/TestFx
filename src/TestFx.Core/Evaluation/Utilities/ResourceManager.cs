@@ -30,7 +30,7 @@ namespace TestFx.Evaluation.Utilities
 
     private static readonly IDisposable s_dummyDisposable = new CrossAppDomainDisposable(() => { });
 
-    private readonly AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
+    private readonly AutoResetEvent _autoResetEvent = new AutoResetEvent(initialState: false);
     private readonly List<string> _resourcesAllocated = new List<string>();
     private readonly object _lockObject = new object();
 

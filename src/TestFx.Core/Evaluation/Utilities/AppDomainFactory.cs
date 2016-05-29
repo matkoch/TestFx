@@ -49,7 +49,12 @@ namespace TestFx.Evaluation.Utilities
       var permissionSet = GetPermissionSet(permissions);
       var trustAssemblies = GetStrongNames(fullTrustAssemblies);
 
-      var appDomain = System.AppDomain.CreateDomain(baseAssembly.GetName().Name, null, appDomainSetup, permissionSet, trustAssemblies);
+      var appDomain = System.AppDomain.CreateDomain(
+          baseAssembly.GetName().Name,
+          securityInfo: null,
+          info: appDomainSetup,
+          grantSet: permissionSet,
+          fullTrustAssemblies: trustAssemblies);
       return new AppDomain(appDomain);
     }
 

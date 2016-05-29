@@ -115,12 +115,12 @@ namespace TestFx.MSpec.Implementation
       return () =>
       {
         var suiteFields = suiteType.GetFields(MemberBindings.Static);
-        var behaviorFields = behaviorTypes.ToList().SelectMany(x => GetFields<object>(x)).ToLookup(x => x.Name);
+        var behaviorFields = behaviorTypes.ToList().SelectMany(GetFields<object>).ToLookup(x => x.Name);
 
         foreach (var suiteField in suiteFields)
         {
           foreach (var behaviorField in behaviorFields[suiteField.Name])
-            behaviorField.SetValue(null, suiteField.GetValue(null));
+            behaviorField.SetValue(obj: null, value: suiteField.GetValue(obj: null));
         }
       };
     }

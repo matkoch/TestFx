@@ -45,7 +45,7 @@ namespace TestFx.Utilities.Reflection
 
     public bool HasDefaultConstructor (Type type)
     {
-      return type.GetConstructor(MemberBindings.Instance, null, new Type[0], new ParameterModifier[0]) != null;
+      return type.GetConstructor(MemberBindings.Instance, binder: null, types: new Type[0], modifiers: new ParameterModifier[0]) != null;
     }
 
     public bool IsInstantiatable (Type type, Type targetType)
@@ -58,7 +58,7 @@ namespace TestFx.Utilities.Reflection
 
     public object CreateInstance (Type type, object[] args)
     {
-      return Activator.CreateInstance(type, MemberBindings.Instance, null, args, null);
+      return Activator.CreateInstance(type, MemberBindings.Instance, binder: null, args: args, culture: null);
     }
 
     public IEnumerable<Type> GetImmediateInterfaces (Type type)

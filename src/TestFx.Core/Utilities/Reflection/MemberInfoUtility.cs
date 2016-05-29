@@ -48,9 +48,9 @@ namespace TestFx.Utilities.Reflection
       var types = methodInfo.DeclaringType.NotNull().DescendantsAndSelf(x => x.BaseType);
       var properties = types.SelectMany(x => x.GetProperties(MemberBindings.All)).Where(x => methodName.EndsWith(x.Name));
 
-      return
-          properties.FirstOrDefault(
-              x => EqualsBaseDefinition(methodInfo, x.GetGetMethod(true)) || EqualsBaseDefinition(methodInfo, x.GetSetMethod(true)));
+      return properties.FirstOrDefault(
+          x => EqualsBaseDefinition(methodInfo, x.GetGetMethod(nonPublic: true)) ||
+               EqualsBaseDefinition(methodInfo, x.GetSetMethod(nonPublic: true)));
     }
 
     [CanBeNull]
@@ -63,9 +63,9 @@ namespace TestFx.Utilities.Reflection
       var types = methodInfo.DeclaringType.NotNull().DescendantsAndSelf(x => x.BaseType);
       var events = types.SelectMany(x => x.GetEvents(MemberBindings.All)).Where(x => methodName.EndsWith(x.Name));
 
-      return
-          events.FirstOrDefault(
-              x => EqualsBaseDefinition(methodInfo, x.GetAddMethod(true)) || EqualsBaseDefinition(methodInfo, x.GetRemoveMethod(true)));
+      return events.FirstOrDefault(
+          x => EqualsBaseDefinition(methodInfo, x.GetAddMethod(nonPublic: true)) ||
+               EqualsBaseDefinition(methodInfo, x.GetRemoveMethod(nonPublic: true)));
     }
 
     public bool IsExtensionMethod (MethodInfo methodInfo)

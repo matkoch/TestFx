@@ -44,7 +44,7 @@ namespace TestFx.Utilities
       var lastSeparator = absoluteIdentity.LastIndexOf(c_separator, StringComparison.InvariantCulture);
       if (lastSeparator != -1)
       {
-        var parentIdentity = Parse(absoluteIdentity.Substring(0, lastSeparator));
+        var parentIdentity = Parse(absoluteIdentity.Substring(startIndex: 0, length: lastSeparator));
         var relativeIdentity = absoluteIdentity.Substring(lastSeparator + c_separator.Length);
         identity = new Identity(relativeIdentity, parentIdentity);
       }
@@ -82,7 +82,7 @@ namespace TestFx.Utilities
 
     public bool Equals ([CanBeNull] IIdentity other)
     {
-      if (ReferenceEquals(null, other))
+      if (ReferenceEquals(objA: null, objB: other))
         return false;
       if (ReferenceEquals(this, other))
         return true;

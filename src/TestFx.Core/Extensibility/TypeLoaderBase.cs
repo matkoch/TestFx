@@ -81,7 +81,7 @@ namespace TestFx.Extensibility
     private void InvokeConstructor (object suite)
     {
       var suiteType = suite.GetType();
-      var constructor = suiteType.GetConstructor(MemberBindings.Instance, null, new Type[0], new ParameterModifier[0]);
+      var constructor = suiteType.GetConstructor(MemberBindings.Instance, binder: null, types: new Type[0], modifiers: new ParameterModifier[0]);
       if (constructor == null)
         throw new EvaluationException($"Suite '{suiteType.Name}' doesn't provide a default constructor.");
 

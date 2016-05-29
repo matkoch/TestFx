@@ -38,7 +38,7 @@ namespace TestFx.Evaluation.Intents
   {
     public static IRunIntent Create (bool useSeparateAppDomains = true, bool shadowCopy = true, int visualStudioProcessId = -1)
     {
-      var runId = Guid.NewGuid().ToString("N").Substring(0, 8);
+      var runId = Guid.NewGuid().ToString("N").Substring(startIndex: 0, length: 8);
       var identity = new Identity(runId);
       var shadowCopyPath = shadowCopy ? Path.Combine(Path.GetTempPath(), runId) : null;
 

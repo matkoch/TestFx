@@ -78,7 +78,7 @@ namespace TestFx.Utilities.Reflection
     private MethodInfo GetMethod (Type type, string methodName, Type[] types, BindingFlags bindingFlags)
     {
       return GetMember(
-          t => t.GetMethod(methodName, bindingFlags, null, types, new ParameterModifier[0]),
+          t => t.GetMethod(methodName, bindingFlags, binder: null, types: types, modifiers: new ParameterModifier[0]),
           type,
           () => new MissingMethodException(type.FullName, methodName));
     }

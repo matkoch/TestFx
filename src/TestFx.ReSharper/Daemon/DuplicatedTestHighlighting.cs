@@ -19,12 +19,12 @@ using TestFx.ReSharper.Model.Tree;
 
 [assembly: RegisterConfigurableSeverity (
     DuplicatedTestHighlighting.SeverityId,
-    null,
-    HighlightingGroupIds.CompilerWarnings,
-    DuplicatedTestHighlighting.Message,
-    DuplicatedTestHighlighting.Description,
-    Severity.ERROR,
-    /*SolutionAnalysisRequired:*/ false)]
+    CompoundItemName: null,
+    Group: HighlightingGroupIds.CompilerWarnings,
+    Title: DuplicatedTestHighlighting.Message,
+    Description: DuplicatedTestHighlighting.Description,
+    DefaultSeverity: Severity.ERROR,
+    /*SolutionAnalysisRequired:*/ SolutionAnalysisRequired: false)]
 
 namespace TestFx.ReSharper.Daemon
 {

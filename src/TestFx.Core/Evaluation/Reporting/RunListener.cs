@@ -91,7 +91,7 @@ namespace TestFx.Evaluation.Reporting
       return exceptions.Count == 0
           ? operations.Count(x => !(x is FillingOperationResult)) + " Operations"
           : exceptions.Count == 1
-              ? exceptions[0].Name
+              ? exceptions.Single().Name
               : exceptions.Count + " Exceptions";
     }
 
