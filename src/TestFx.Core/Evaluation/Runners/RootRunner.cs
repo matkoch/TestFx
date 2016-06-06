@@ -74,8 +74,6 @@ namespace TestFx.Evaluation.Runners
       {
         var suiteResults = intent.Intents
             .Select(x => Tuple.Create(x, Assembly.LoadFrom(x.Identity.Relative)))
-            //.OrderBy(x => GetTestType(x.Item2))
-            //.Select(x => RunAssemblySuites(x.Item2, intent.ShadowCopyPath, intent.CancellationTokenSource, x.Item1)).ToList();
             .GroupBy(x => GetTestType(x.Item2))
             .OrderByDescending(x => x.Key)
             .SelectMany(
