@@ -18,6 +18,8 @@
     <RestorePackages>true</RestorePackages>
     <IntermediateOutputPath>obj\$(Configuration)\10.0</IntermediateOutputPath>
     <Hive>TestFx</Hive>
+    <Vs12Installation>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs12$(Hive)</Vs12Installation>
+    <Vs14Installation>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs14$(Hive)</Vs14Installation>
     <BaseInstallationPath>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs12$(Hive)</BaseInstallationPath>
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
@@ -297,9 +299,12 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if exist "$(BaseInstallationPath)"        xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)"
-if exist "$(BaseInstallationPath)_000" xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)_000"
-if exist "$(BaseInstallationPath)_001" xcopy /Y "$(TargetDir)TestFx.*" "$(BaseInstallationPath)_001"
+    <PostBuildEvent>if exist "$(Vs12Installation)"        xcopy /Y "$(TargetDir)TestFx.*" "$(Vs12Installation)"
+if exist "$(Vs12Installation)_000" xcopy /Y "$(TargetDir)TestFx.*" "$(Vs12Installation)_000"
+if exist "$(Vs12Installation)_001" xcopy /Y "$(TargetDir)TestFx.*" "$(Vs12Installation)_001"
+if exist "$(Vs14Installation)"        xcopy /Y "$(TargetDir)TestFx.*" "$(Vs14Installation)"
+if exist "$(Vs14Installation)_000" xcopy /Y "$(TargetDir)TestFx.*" "$(Vs14Installation)_000"
+if exist "$(Vs14Installation)_001" xcopy /Y "$(TargetDir)TestFx.*" "$(Vs14Installation)_001"
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
