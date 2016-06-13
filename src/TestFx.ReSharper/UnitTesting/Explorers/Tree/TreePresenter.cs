@@ -34,6 +34,9 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
 
     [CanBeNull]
     string Present (IInvocationExpression invocationExpression);
+
+    [CanBeNull]
+    string Present (string suiteAttributeType, IClass clazz);
   }
 
   [PsiComponent]
@@ -50,6 +53,12 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
     public string Present (IClassDeclaration classDeclaration, string suiteAttributeType)
     {
       var clazz = (IClass) classDeclaration.DeclaredElement;
+      return Present(suiteAttributeType, clazz);
+    }
+
+    [CanBeNull]
+    public string Present (string suiteAttributeType, IClass clazz)
+    {
       var subjectAttributeData = clazz?.GetAttributeData(suiteAttributeType);
       if (subjectAttributeData == null)
         return null;
@@ -58,7 +67,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
 
       var subjectAttributeConstructor = subjectAttributeData.Constructor.NotNull();
       var displayFormatAttribute = subjectAttributeConstructor.GetAttributeData<DisplayFormatAttribute>().NotNull().ToCommon();
-      
+
       return _introspectionPresenter.Present(displayFormatAttribute, clazz.ToCommon(), subjectAttribute);
     }
 
@@ -69,7 +78,8 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
       if (displayFormatAttribute == null)
         return null;
 
-      return null;
+      var commonMember = fieldDeclaration.DeclaredElement.ToCommon();
+      return _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), commonMember);
     }
 
     [CanBeNull]

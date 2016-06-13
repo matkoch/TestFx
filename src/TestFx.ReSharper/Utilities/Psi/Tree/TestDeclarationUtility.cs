@@ -31,8 +31,8 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
 
     public Ranges GetRanges(ITestDeclaration declaration)
     {
-      if (declaration is IClassDeclaration)
-        return GetUnitTestElementLocation((IClassDeclaration) declaration);
+      if (declaration is IDeclaration)
+        return GetUnitTestElementLocation((IDeclaration) declaration);
       if (declaration is IExpressionStatement)
         return GetUnitTestElementLocation((IExpressionStatement) declaration);
       if (declaration is IInvocationExpression)
@@ -41,7 +41,7 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
       throw new Exception();
     }
 
-    private Ranges GetUnitTestElementLocation(IClassDeclaration declaration)
+    private Ranges GetUnitTestElementLocation(IDeclaration declaration)
     {
       var navigationRange = declaration.GetNameDocumentRange();
       var containingRange = declaration.GetDocumentRange();

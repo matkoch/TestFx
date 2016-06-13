@@ -14,13 +14,15 @@
 
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TestFx.Extensibility.Providers;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Loading
 {
-  public interface ITypeLoader
+  public interface ITestLoader
   {
+    [CanBeNull]
     ISuiteProvider Load (object suite, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity);
   }
 }

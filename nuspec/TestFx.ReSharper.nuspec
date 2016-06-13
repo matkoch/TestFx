@@ -6,11 +6,11 @@
     <version>$version$</version>
     <authors>Matthias Koch</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>TestFx + ReSharper = BigLove</description>
+    <description>ReSharper runner for SpecK and MSpec</description>
     <iconUrl>http://matkoch.github.io/TestFx/TestFx.ico</iconUrl>
     <projectUrl>https://github.com/matkoch/TestFx</projectUrl>
     <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
-    <tags>testfx resharper</tags>
+    <tags>testfx resharper speck mspec</tags>
     <dependencies>
       <dependency id="Wave" version="[5.0]" />
     </dependencies>

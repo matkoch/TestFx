@@ -13,9 +13,7 @@
 // limitations under the License.
 
 using System;
-using System.Linq;
+using TestFx;
+using TestFx.SpecK;
 
-namespace TestFx.Evaluation.Loading
-{
-  public delegate ITestLoader TypeLoaderFactory (object suite);
-}
+[assembly: UseTestLoader (typeof(SpecKTestLoader))]

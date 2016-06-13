@@ -13,19 +13,24 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
+using TestFx.Extensibility;
 using TestFx.ReSharper.Model.Metadata;
 using TestFx.ReSharper.UnitTesting.Explorers.Metadata;
 using TestFx.ReSharper.Utilities.Metadata;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 
 namespace TestFx.ReSharper.Extensions.MSpec
 {
   public class TestMetadataProvider : ITestMetadataProvider
   {
+    private readonly IIntrospectionPresenter _introspectionPresenter;
     private readonly IMetadataPresenter _metadataPresenter;
     private readonly IProject _project;
     private readonly IIdentity _assemblyIdentity;
@@ -33,6 +38,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
 
     public TestMetadataProvider (IMetadataPresenter metadataPresenter, IProject project, IIdentity assemblyIdentity, Func<bool> notInterrupted)
     {
+      _introspectionPresenter = new IntrospectionPresenter();
       _metadataPresenter = metadataPresenter;
       _project = project;
       _assemblyIdentity = assemblyIdentity;
@@ -44,7 +50,34 @@ namespace TestFx.ReSharper.Extensions.MSpec
     [CanBeNull]
     public ITestMetadata GetTestMetadata (IMetadataTypeInfo type)
     {
-      var text = _metadataPresenter.Present(type, "Machine.Specifications.SubjectAttribute");
+      var isCompilerGenerated = type.GetAttributeData<CompilerGeneratedAttribute>() != null;
+      if (isCompilerGenerated)
+        return null;
+
+      var hasBecauseField = type.GetFields().Any(x =>
+      {
+        var metadataClassType = x.Type as IMetadataClassType;
+        if (metadataClassType == null)
+          return false;
+
+        var fullyQualifiedName = metadataClassType.Type.FullyQualifiedName;
+        return fullyQualifiedName == "Machine.Specifications.Because";
+      });
+      if (!hasBecauseField)
+        return null;
+
+      var text = type.DescendantsAndSelf(x => x.DeclaringType)
+          .Select(
+              x =>
+              {
+                var subjectAttributeData = x.GetAttributeData("Machine.Specifications.SubjectAttribute");
+                if (subjectAttributeData == null)
+                  return null;
+
+                var displayFormatAttribute =
+                    subjectAttributeData.UsedConstructor.NotNull().GetAttributeData<DisplayFormatAttribute>().NotNull().ToCommon();
+                return _introspectionPresenter.Present(displayFormatAttribute, type.ToCommon(), subjectAttributeData.ToCommon());
+              }).WhereNotNull().FirstOrDefault();
       if (text == null)
         return null;
 
@@ -52,7 +85,37 @@ namespace TestFx.ReSharper.Extensions.MSpec
       var categories = type.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
           x => x.ConstructorArguments[0].ValuesArray.Select(y => (string) y.Value),
           () => new string[0]).NotNull();
-      return new TypeTestMetadata(identity, _project, categories, text, type);
+      var fieldTests = type.GetFields().SelectMany(Flatten)
+          .TakeWhile(_notInterrupted)
+          .Select(x => GetFieldTest(x, identity))
+          .WhereNotNull();
+
+      return new TypeTestMetadata(identity, _project, categories, text, fieldTests, type);
+    }
+
+    private IEnumerable<IMetadataField> Flatten (IMetadataField field)
+    {
+      var metadataClassType = field.Type as IMetadataClassType;
+      var metadataTypeInfo = metadataClassType?.Type;
+      if (metadataTypeInfo == null || metadataTypeInfo.FullyQualifiedName != "Machine.Specifications.Behaves_like`1")
+      {
+        yield return field;
+        yield break;
+      }
+
+      var behaviorTypes = metadataClassType.Arguments.Cast<IMetadataClassType>();
+      foreach (var nestedField in behaviorTypes.SelectMany(x => x.Type.GetFields().SelectMany(Flatten)))
+        yield return nestedField;
+    }
+
+    [CanBeNull]
+    private ITestMetadata GetFieldTest (IMetadataField field, IIdentity identity)
+    {
+      var text = _metadataPresenter.Present(field);
+      if (text == null)
+        return null;
+
+      return new MemberTestMetadata(identity.CreateChildIdentity(text), _project, text.Replace("_", " "), field);
     }
 
     #endregion

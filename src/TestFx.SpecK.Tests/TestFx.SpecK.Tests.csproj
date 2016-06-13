@@ -96,6 +96,7 @@
     <Compile Include="FakeItEasy\FakeCreationTest.cs" />
     <Compile Include="Subject\CustomCreationTest.cs" />
     <Compile Include="Subject\AdHocCreationTest.cs" />
+    <Compile Include="TestLoader.cs" />
     <Compile Include="Using\FailingTest.cs" />
     <Compile Include="Using\NestingTest.cs" />
     <Compile Include="Subject\NoDefaultConstructorTest.cs" />

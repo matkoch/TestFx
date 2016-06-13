@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using TestFx.ReSharper.Model.Metadata.Wrapper;
@@ -23,28 +24,34 @@ using TestFx.Utilities;
 namespace TestFx.ReSharper.Model.Metadata
 {
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  internal class TypeTestMetadata : MetadataTypeInfoBase, ITestMetadata
+  internal class MemberTestMetadata : MetadataTypeMemberBase, ITestMetadata
   {
-    public TypeTestMetadata (IIdentity identity, IProject project, IEnumerable<string> categories, string text, IEnumerable<ITestMetadata> testMetadatas, IMetadataTypeInfo metadataTypeInfo)
-        : base(metadataTypeInfo)
+    public MemberTestMetadata (IIdentity identity, IProject project, string text, IMetadataTypeMember metadataTypeMember)
+        : base(metadataTypeMember)
     {
       Identity = identity;
       Project = project;
       Text = text;
-      Categories = categories;
-      TestMetadatas = testMetadatas;
     }
 
     public IIdentity Identity { get; }
-
     public IProject Project { get; }
+
+    public IEnumerable<string> Categories
+    {
+      get { yield break; }
+    }
 
     public string Text { get; }
 
-    public IEnumerable<string> Categories { get; }
+    public IEnumerable<ITestEntity> TestEntities
+    {
+      get { yield break; }
+    }
 
-    public IEnumerable<ITestMetadata> TestMetadatas { get; }
-
-    public IEnumerable<ITestEntity> TestEntities => TestMetadatas;
+    public IEnumerable<ITestMetadata> TestMetadatas
+    {
+      get { yield break; }
+    }
   }
 }

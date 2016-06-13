@@ -19,6 +19,8 @@ using JetBrains.Annotations;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Util;
+using TestFx.Extensibility;
 using TestFx.ReSharper.Model.Tree;
 using TestFx.ReSharper.UnitTesting.Explorers.Tree;
 using TestFx.ReSharper.Utilities.Psi;
@@ -29,6 +31,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
 {
   public class TestDeclarationProvider : ITestDeclarationProvider
   {
+    private readonly IntrospectionPresenter _introspectionPresenter;
     private readonly ITreePresenter _treePresenter;
     private readonly IProject _project;
     private readonly IIdentity _assemblyIdentity;
@@ -36,6 +39,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
 
     public TestDeclarationProvider (ITreePresenter treePresenter, IProject project, IIdentity assemblyIdentity, Func<bool> notInterrupted)
     {
+      _introspectionPresenter = new IntrospectionPresenter();
       _treePresenter = treePresenter;
       _project = project;
       _assemblyIdentity = assemblyIdentity;
@@ -47,26 +51,59 @@ namespace TestFx.ReSharper.Extensions.MSpec
     [CanBeNull]
     public ITestDeclaration GetTestDeclaration (IClassDeclaration classDeclaration)
     {
-      var text = _treePresenter.Present(classDeclaration, "Machine.Specifications.SubjectAttribute");
+      var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
+      var hasBecauseField = clazz.Fields.Any(x => x.Type.GetTypeElement().NotNull().GetClrName().FullName == "Machine.Specifications.Because");
+      if (!hasBecauseField)
+        return null;
+
+      var text = clazz.DescendantsAndSelf(x => x.GetContainingType() as IClass)
+          .Select(
+              x =>
+              {
+                var subjectAttributeData = x.GetAttributeData("Machine.Specifications.SubjectAttribute");
+                if (subjectAttributeData == null)
+                  return null;
+
+                var displayFormatAttribute =
+                    subjectAttributeData.Constructor.NotNull().GetAttributeData<DisplayFormatAttribute>().NotNull().ToCommon();
+                return _introspectionPresenter.Present(displayFormatAttribute, clazz.ToCommon(), subjectAttributeData.ToCommon());
+              })
+          .WhereNotNull().FirstOrDefault();
       if (text == null)
         return null;
 
       var identity = _assemblyIdentity.CreateChildIdentity(classDeclaration.CLRName);
-      var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
       var categories = clazz.GetAttributeData<CategoriesAttribute>()
           .GetValueOrDefault(
               x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
               () => new string[0]).NotNull();
-      var expressionTests = TreeNodeEnumerable.Create(
+      var fieldTests = TreeNodeEnumerable.Create(
           () =>
           {
-            return classDeclaration.FieldDeclarations
+            return classDeclaration.FieldDeclarations.SelectMany(Flatten)
                 .TakeWhile(_notInterrupted)
                 .Select(x => GetFieldTest(x, identity))
                 .WhereNotNull();
           });
 
-      return new ClassTestDeclaration(identity, _project, categories, text, expressionTests, classDeclaration);
+      return new ClassTestDeclaration(identity, _project, categories, text, fieldTests, classDeclaration);
+    }
+
+    private IEnumerable<IFieldDeclaration> Flatten (IFieldDeclaration fieldDeclaration)
+    {
+      var declaredType = (IDeclaredType) fieldDeclaration.DeclaredElement.Type;
+      var typeElement = declaredType.GetTypeElement().NotNull();
+      if (typeElement.GetClrName().FullName != "Machine.Specifications.Behaves_like`1")
+      {
+        yield return fieldDeclaration;
+        yield break;
+      }
+
+      var substitution = declaredType.GetSubstitution();
+      var typeArguments = substitution.Domain;
+      var behaviorTypes = typeArguments.SelectMany(x => substitution[x].GetTypeElement().NotNull().GetDeclarations()).OfType<IClassDeclaration>();
+      foreach (var nestedField in behaviorTypes.SelectMany(x => x.FieldDeclarations.SelectMany(Flatten)))
+        yield return nestedField;
     }
 
     [CanBeNull]

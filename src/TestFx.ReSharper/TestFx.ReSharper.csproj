@@ -183,6 +183,8 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="Model\Metadata\MemberTestMetadata.cs" />
+    <Compile Include="Model\Metadata\Wrapper\MetadataTypeMemberBase.cs" />
     <Compile Include="Model\Tree\FieldTestDeclaration.cs" />
     <Compile Include="Model\Tree\Wrapper\FieldDeclarationBase.cs" />
     <Compile Include="UnitTesting\Explorers\Metadata\ITestMetadataProviderFactory.cs" />

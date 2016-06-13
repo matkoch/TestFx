@@ -22,18 +22,22 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.MSpec.Tests
 {
-  [Subject (typeof (int))]
-  internal class when_adding
-  {
-    static int Result;
 
-    Because of = () => Result = 1 + 2;
-    It returns_three = () => Result.Should().Be(3);
-    It returns_four = () => Result.Should().Be(4);
+  [Subject (typeof(int))]
+  internal class simple_context
+  {
+    internal class when_adding
+    {
+      static int Result;
+
+      Because of = () => Result = 1 + 2;
+      It returns_three = () => Result.Should().Be(3);
+      It returns_four = () => Result.Should().Be(4);
+    }
   }
 
   [TestFixture]
-  internal class SimpleTest : TestBase<when_adding>
+  internal class SimpleTest : TestBase<simple_context.when_adding>
   {
     protected override void AssertResults (IRunResult runResult, IFakeScope scope)
     {
@@ -42,7 +46,7 @@ namespace TestFx.MSpec.Tests
           .HasText(@"TestFx.MSpec.Tests");
 
       runResult.GetClassSuiteResult()
-          .HasRelativeId("TestFx.MSpec.Tests.when_adding")
+          .HasRelativeId("TestFx.MSpec.Tests.simple_context+when_adding")
           .HasText("Int32, when_adding");
 
       var testResults = runResult.GetTestResults();

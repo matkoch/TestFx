@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
+using JetBrains.Annotations;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Loading;
 using TestFx.Extensibility.Providers;
@@ -26,42 +26,63 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx.Extensibility
 {
-  public abstract class TypeLoaderBase : ITypeLoader
+  public abstract class TestLoaderBase : ITestLoader
   {
     private readonly IIntrospectionPresenter _introspectionPresenter;
 
-    protected TypeLoaderBase (IIntrospectionPresenter introspectionPresenter)
+    protected TestLoaderBase (IIntrospectionPresenter introspectionPresenter)
     {
       _introspectionPresenter = introspectionPresenter;
     }
 
+    [CanBeNull]
     public ISuiteProvider Load (object suite, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups, IIdentity assemblyIdentity)
     {
-      var provider = CreateSuiteProvider(suite, assemblyIdentity);
+      var suiteType = suite.GetType();
+      Trace.Assert(suiteType != typeof (Type));
 
+      var provider = CreateSuiteProvider(suiteType, assemblyIdentity);
+      if (provider == null)
+        return null;
+      
       InitializeAssemblySetupFields(suite, assemblySetups);
-      InitializeTypeSpecificFields(suite, provider);
+      Initialize(suiteType, suite, provider);
       InvokeConstructor(suite);
 
       return provider;
     }
 
-    protected abstract void InitializeTypeSpecificFields (object suite, SuiteProvider provider);
+    protected abstract void Initialize (Type suiteType, object suite, SuiteProvider provider);
 
-    private SuiteProvider CreateSuiteProvider (object suite, IIdentity assemblyIdentity)
+    [CanBeNull]
+    private SuiteProvider CreateSuiteProvider (Type suiteType, IIdentity assemblyIdentity)
     {
-      Trace.Assert(suite.GetType() != typeof (Type));
-      var suiteType = suite.GetType();
+      var text = GetText(suiteType);
+      if (text == null)
+        return null;
 
-      var subjectAttribute = suiteType.GetAttributeData<SuiteAttributeBase>().NotNull();
-      var displayFormatAttribute = subjectAttribute.Constructor.GetAttributeData<DisplayFormatAttribute>().NotNull();
-
-      var text = _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), suiteType.ToCommon(), subjectAttribute.ToCommon());
       var identity = assemblyIdentity.CreateChildIdentity(suiteType.FullName);
       var ignoreReason = suiteType.GetAttribute<IgnoreAttribute>().GetValueOrDefault(x => x.Reason);
       var resources = suiteType.GetAttribute<ResourcesAttribute>().GetValueOrDefault(x => x.Resources);
 
       return SuiteProvider.Create(identity, text, ignoreReason, resources: resources);
+    }
+
+    [CanBeNull]
+    protected virtual string GetText (Type suiteType)
+    {
+      var subjectAttribute = GetDisplayAttribute(suiteType);
+      var displayFormatAttribute = subjectAttribute?.Constructor.GetAttributeData<DisplayFormatAttribute>().NotNull();
+      if (displayFormatAttribute == null)
+        return null;
+
+      return _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), suiteType.ToCommon(), subjectAttribute.ToCommon());
+    }
+
+    [CanBeNull]
+    protected virtual CustomAttributeData GetDisplayAttribute (Type suiteType)
+    {
+      return suiteType.GetAttributeData<SuiteAttributeBase>();
     }
 
     private void InitializeAssemblySetupFields (object suite, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups)
@@ -78,7 +99,7 @@ namespace TestFx.Extensibility
       }
     }
 
-    private void InvokeConstructor (object suite)
+    protected void InvokeConstructor (object suite)
     {
       var suiteType = suite.GetType();
       var constructor = suiteType.GetConstructor(MemberBindings.Instance, binder: null, types: new Type[0], modifiers: new ParameterModifier[0]);

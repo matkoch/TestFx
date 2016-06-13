@@ -21,22 +21,29 @@ using JetBrains.Annotations;
 using Machine.Specifications;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
+using TestFx.MSpec.Implementation;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 using TestFx.Utilities.Reflection;
 
-namespace TestFx.MSpec.Implementation
+namespace TestFx.MSpec
 {
-  internal class TypeLoader : TypeLoaderBase
+  [OperationOrdering (typeof (Operation))]
+  public class MSpecTestLoader : TestLoaderBase
   {
-    public TypeLoader (IIntrospectionPresenter introspectionPresenter)
+    public MSpecTestLoader (IIntrospectionPresenter introspectionPresenter)
         : base(introspectionPresenter)
     {
     }
 
-    protected override void InitializeTypeSpecificFields (object suite, SuiteProvider provider)
+    protected override CustomAttributeData GetDisplayAttribute (Type suiteType)
     {
-      var suiteType = suite.GetType();
+      return suiteType.DescendantsAndSelf(x => x.DeclaringType).Select(x => x.GetAttributeData<SuiteAttributeBase>())
+          .WhereNotNull().FirstOrDefault();
+    }
+
+    protected override void Initialize (Type suiteType, object suite, SuiteProvider provider)
+    {
       var hierarchyTypes = HierarchyLoader.GetExecutionHierarchy(suiteType).ToList();
       var behaviorTypes = suiteType.Descendants(x => GetBehaviorTypes(x)).ToList();
 

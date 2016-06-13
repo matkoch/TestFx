@@ -22,9 +22,9 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.MSpec.Tests
 {
+  [Subject (typeof(int))]
   internal class outer_context : outer_context_base
   {
-    [Subject (typeof (int))]
     internal class when_actioning : base_context
     {
       Establish ctx = () => ContextTestBase.Establish();

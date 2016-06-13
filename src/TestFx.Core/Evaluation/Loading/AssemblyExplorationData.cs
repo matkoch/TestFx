@@ -19,27 +19,29 @@ namespace TestFx.Evaluation.Loading
 {
   public interface IAssemblyExplorationData
   {
-    IDictionary<Type, TypeLoaderFactory> TypeLoaderFactories { get; }
-    IEnumerable<Type> SuiteTypes { get; }
-    IEnumerable<Type> AssemblySetupTypes { get; }
+    IEnumerable<TypeLoaderFactory> TestLoaderFactories { get; }
+
+    IEnumerable<Type> PotentialSuiteTypes { get; }
+
+    IDictionary<Type, Lazy<IAssemblySetup>> AssemblySetupTypes { get; }
   }
 
   internal class AssemblyExplorationData : IAssemblyExplorationData
   {
     public AssemblyExplorationData (
-        IDictionary<Type, TypeLoaderFactory> typeLoaderFactories,
-        IEnumerable<Type> suiteTypes,
-        IEnumerable<Type> assemblySetupTypes)
+        IEnumerable<TypeLoaderFactory> testLoaderFactories,
+        IEnumerable<Type> potentialSuiteTypes,
+        IDictionary<Type, Lazy<IAssemblySetup>> assemblySetupTypes)
     {
-      TypeLoaderFactories = typeLoaderFactories;
-      SuiteTypes = suiteTypes;
+      TestLoaderFactories = testLoaderFactories;
+      PotentialSuiteTypes = potentialSuiteTypes;
       AssemblySetupTypes = assemblySetupTypes;
     }
 
-    public IDictionary<Type, TypeLoaderFactory> TypeLoaderFactories { get; }
+    public IEnumerable<TypeLoaderFactory> TestLoaderFactories { get; }
 
-    public IEnumerable<Type> SuiteTypes { get; }
+    public IEnumerable<Type> PotentialSuiteTypes { get; }
 
-    public IEnumerable<Type> AssemblySetupTypes { get; }
+    public IDictionary<Type, Lazy<IAssemblySetup>> AssemblySetupTypes { get; }
   }
 }

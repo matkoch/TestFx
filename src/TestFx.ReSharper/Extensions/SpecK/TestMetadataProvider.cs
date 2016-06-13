@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
@@ -52,7 +53,7 @@ namespace TestFx.ReSharper.Extensions.SpecK
       var categories = type.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
           x => x.ConstructorArguments[0].ValuesArray.Select(y => (string) y.Value),
           () => new string[0]).NotNull();
-      return new TypeTestMetadata(identity, _project, categories, text, type);
+      return new TypeTestMetadata(identity, _project, categories, text, new ITestMetadata[0], type);
     }
 
     #endregion

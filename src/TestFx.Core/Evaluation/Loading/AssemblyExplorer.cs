@@ -35,33 +35,34 @@ namespace TestFx.Evaluation.Loading
   {
     public IAssemblyExplorationData Explore(Assembly assembly)
     {
-      var assemblySetupTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<IAssemblySetup>());
-
-      var suiteTypes = assembly.GetTypes().Where(x => x.GetAttribute<SuiteAttributeBase>() != null).ToList();
-      var suiteAttributes = suiteTypes.Select(x => x.GetAttribute<SuiteAttributeBase>().NotNull().GetType()).Distinct();
-      //var suiteBaseTypes = suiteTypes.Select(x => x.GetImmediateDerivedTypesOf<ISuite>().Single()).Distinct();
-      var testExtensions = assembly.GetAttributes<UseTestExtension>()
+      var testExtensions = assembly.GetAttributes<UseTestExtensionAttribute>()
           .Select(x => x.TestExtensionType.CreateInstance<ITestExtension>())
-          .OrderByDescending(x => x.Priority);
-      var typeLoaderFactories = suiteAttributes.ToDictionary(x => x, x => BuildTypeLoaderFactory(x, testExtensions));
+          .OrderByDescending(x => x.Priority).ToList();
+      var testLoaderTypes = assembly.GetAttributes<UseTestLoaderAttribute>().Select(x => x.TestLoaderType);
+      var testLoaderFactories = testLoaderTypes.Select(x => BuildTestLoaderFactory(x, testExtensions)).ToList();
 
-      return new AssemblyExplorationData(typeLoaderFactories, suiteTypes, assemblySetupTypes);
+      var potentialSuiteTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<object>()).ToList();
+
+      var assemblySetupTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<IAssemblySetup>()).ToDictionary(
+          x => x,
+          x => new Lazy<IAssemblySetup>(() => x.CreateInstance<IAssemblySetup>()));
+
+      return new AssemblyExplorationData(testLoaderFactories, potentialSuiteTypes, assemblySetupTypes);
     }
 
-    private TypeLoaderFactory BuildTypeLoaderFactory (Type suiteAttribute, IEnumerable<ITestExtension> testExtensions)
+    private TypeLoaderFactory BuildTestLoaderFactory (Type testLoaderType, IEnumerable<ITestExtension> testExtensions)
     {
-      var typeLoaderType = suiteAttribute.GetAttribute<TypeLoaderTypeAttribute>().NotNull().TypeLoaderType;
-      var operationOrdering = suiteAttribute.GetAttribute<OperationOrderingAttribute>().NotNull().OperationDescriptors;
+      var operationOrdering = testLoaderType.GetAttribute<OperationOrderingAttribute>().NotNull().OperationDescriptors;
 
       var builder = new ContainerBuilder();
       builder.RegisterModule<UtilitiesModule>();
-      builder.RegisterModule(new ExtensibilityModule(typeLoaderType, operationOrdering)) ;
+      builder.RegisterModule(new ExtensibilityModule(testLoaderType, operationOrdering)) ;
       builder.RegisterInstance(testExtensions).As<IEnumerable<ITestExtension>>();
       builder.Register<TypeLoaderFactory>(
           ctx =>
           {
             var innerCtx = ctx.Resolve<IComponentContext>();
-            return suite => innerCtx.Resolve<ITypeLoader>(new NamedParameter("suite", suite));
+            return suite => innerCtx.Resolve<ITestLoader>(new NamedParameter("suite", suite));
           });
       var container = builder.Build();
 

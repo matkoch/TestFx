@@ -20,9 +20,7 @@ using System.Runtime.Serialization;
 using TestFx.Evaluation.Intents;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
-using TestFx.Utilities;
 using TestFx.Utilities.Collections;
-using TestFx.Utilities.Reflection;
 
 namespace TestFx.Evaluation.Loading
 {
@@ -50,13 +48,14 @@ namespace TestFx.Evaluation.Loading
 
       var explorationData = _assemblyExplorer.Explore(assembly);
 
-      var assemblySetups = explorationData.AssemblySetupTypes.ToDictionary(
-          x => x,
-          x => new Lazy<IAssemblySetup>(() => x.CreateInstance<IAssemblySetup>()));
-      var suiteTypes = Filter(assemblyIntent, explorationData.SuiteTypes);
+      var suiteProviders = LoadSuiteProviders(
+          assemblyIntent,
+          explorationData.TestLoaderFactories.ToList(),
+          explorationData.PotentialSuiteTypes.ToList(),
+          explorationData.AssemblySetupTypes);
 
-      provider.SuiteProviders = suiteTypes.Select(x => Load(x, explorationData.TypeLoaderFactories, assemblySetups, provider.Identity));
-      assemblySetups.Values
+      provider.SuiteProviders = suiteProviders;
+      explorationData.AssemblySetupTypes.Values
           .Where(x => x.IsValueCreated)
           .Select(x => x.Value)
           .ForEach(
@@ -69,24 +68,22 @@ namespace TestFx.Evaluation.Loading
       return provider;
     }
 
-    private IEnumerable<Type> Filter (IIntent assemblyIntent, IEnumerable<Type> suiteTypes)
+    private IEnumerable<ISuiteProvider> LoadSuiteProviders (IIntent assemblyIntent, List<TypeLoaderFactory> testLoaderFactories, List<Type> potentialSuiteTypes, IDictionary<Type, Lazy<IAssemblySetup>> assemblySetupTypes)
     {
-      if (!assemblyIntent.Intents.Any())
-        return suiteTypes;
-      else
-        return suiteTypes.Where(x => assemblyIntent.Intents.Any(y => y.Identity.Relative == x.FullName));
-    }
+      foreach (var potentialSuiteType in potentialSuiteTypes)
+      {
+        if (assemblyIntent.Intents.Any() && assemblyIntent.Intents.All(y => y.Identity.Relative != potentialSuiteType.FullName))
+          continue;
 
-    private ISuiteProvider Load (
-        Type suiteType,
-        IDictionary<Type, TypeLoaderFactory> typeLoaderFactories,
-        IDictionary<Type, Lazy<IAssemblySetup>> assemblySetups,
-        IIdentity assemblyIdentity)
-    {
-      var uninitializedSuite = FormatterServices.GetUninitializedObject(suiteType);
-      var typeLoaderFactory = typeLoaderFactories.Single(x => x.Key == suiteType.GetAttribute<SuiteAttributeBase>().NotNull().GetType()).Value;
-      var suiteTypeLoader = typeLoaderFactory(uninitializedSuite);
-      return suiteTypeLoader.Load(uninitializedSuite, assemblySetups, assemblyIdentity);
+        foreach (var testLoaderFactory in testLoaderFactories)
+        {
+          var suite = FormatterServices.GetUninitializedObject(potentialSuiteType);
+          var testLoader = testLoaderFactory(suite);
+          var suiteProvider = testLoader.Load(suite, assemblySetupTypes, assemblyIntent.Identity);
+          if (suiteProvider != null)
+            yield return suiteProvider;
+        }
+      }
     }
   }
 }

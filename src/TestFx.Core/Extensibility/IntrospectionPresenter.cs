@@ -23,6 +23,7 @@ namespace TestFx.Extensibility
   public interface IIntrospectionPresenter
   {
     string Present (CommonAttribute displayAttribute, CommonType declaringType, CommonAttribute subjectAttribute);
+    string Present (CommonAttribute displayAttribute, CommonMember member);
     string Present (CommonAttribute displayAttribute, IDictionary<string, object> arguments);
   }
 
@@ -36,6 +37,12 @@ namespace TestFx.Extensibility
           .Concat(subjectAttribute.PositionalArguments.Select(x => Tuple.Create(x.Position.ToString(), x.Value)))
           .Concat(subjectAttribute.NamedArguments.Select(x => Tuple.Create(x.Name, x.Value)))
           .ToDictionary(x => x.Item1, x => x.Item2);
+      return Present(GetDisplayFormat(displayAttribute), dictionary);
+    }
+
+    public string Present (CommonAttribute displayAttribute, CommonMember member)
+    {
+      var dictionary = new Dictionary<string, object> { { "member", member } };
       return Present(GetDisplayFormat(displayAttribute), dictionary);
     }
 

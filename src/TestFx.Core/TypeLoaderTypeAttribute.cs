@@ -13,9 +13,17 @@
 // limitations under the License.
 
 using System;
-using System.Linq;
 
-namespace TestFx.Evaluation.Loading
+namespace TestFx
 {
-  public delegate ITestLoader TypeLoaderFactory (object suite);
+  [AttributeUsage (AttributeTargets.Assembly, AllowMultiple = true)]
+  public class UseTestLoaderAttribute : Attribute
+  {
+    public UseTestLoaderAttribute (Type testLoaderType)
+    {
+      TestLoaderType = testLoaderType;
+    }
+
+    public Type TestLoaderType { get; }
+  }
 }

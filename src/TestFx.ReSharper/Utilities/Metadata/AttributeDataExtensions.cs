@@ -26,15 +26,15 @@ namespace TestFx.ReSharper.Utilities.Metadata
       return entity.GetAttributeDatas(typeof(T).FullName);
     }
 
+    public static IEnumerable<IMetadataCustomAttribute> GetAttributeDatas (this IMetadataEntity entity, string attributeType)
+    {
+      return AttributeDataUtility.Instance.GetAttributeDatas(entity, attributeType);
+    }
+
     [CanBeNull]
     public static IMetadataCustomAttribute GetAttributeData<T> (this IMetadataEntity entity) where T : Attribute
     {
       return entity.GetAttributeData(typeof(T).FullName);
-    }
-
-    public static IEnumerable<IMetadataCustomAttribute> GetAttributeDatas (this IMetadataEntity entity, string attributeType)
-    {
-      return AttributeDataUtility.Instance.GetAttributeDatas(entity, attributeType);
     }
 
     [CanBeNull]

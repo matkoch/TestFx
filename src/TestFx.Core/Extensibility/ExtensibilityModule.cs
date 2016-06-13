@@ -24,21 +24,21 @@ namespace TestFx.Extensibility
 {
   internal class ExtensibilityModule : Module
   {
-    private readonly Type _typeLoaderType;
+    private readonly Type _testLoaderType;
     private readonly Type[] _operationOrdering;
 
-    public ExtensibilityModule (Type typeLoaderType, Type[] operationOrdering)
+    public ExtensibilityModule (Type testLoaderType, Type[] operationOrdering)
     {
-      _typeLoaderType = typeLoaderType;
+      _testLoaderType = testLoaderType;
       _operationOrdering = operationOrdering;
     }
 
     protected override void Load ([NotNull] ContainerBuilder builder)
     {
-      builder.RegisterAssemblyTypes(_typeLoaderType.Assembly)
+      builder.RegisterAssemblyTypes(_testLoaderType.Assembly)
           .AsImplementedInterfaces()
           .OnPreparing(AutofacExtensions.ForwardFactoryParameters);
-      builder.RegisterType(_typeLoaderType).As<ITypeLoader>();
+      builder.RegisterType(_testLoaderType).As<ITestLoader>();
       builder.Register(ctx => new OperationSorter(_operationOrdering)).As<IOperationSorter>();
       builder.RegisterType<IntrospectionPresenter>().As<IIntrospectionPresenter>();
     }

@@ -14,16 +14,16 @@
 
 using System;
 
-namespace TestFx.Extensibility
+namespace TestFx
 {
-  [AttributeUsage (AttributeTargets.Class)]
-  public class TypeLoaderTypeAttribute : Attribute
+  [AttributeUsage (AttributeTargets.Assembly, AllowMultiple = true)]
+  public class UseTestExtensionAttribute : Attribute
   {
-    public TypeLoaderTypeAttribute (Type typeLoaderType)
+    public UseTestExtensionAttribute (Type testExtensionType)
     {
-      TypeLoaderType = typeLoaderType;
+      TestExtensionType = testExtensionType;
     }
 
-    public Type TypeLoaderType { get; }
+    public Type TestExtensionType { get; }
   }
 }

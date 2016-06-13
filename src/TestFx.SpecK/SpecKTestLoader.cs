@@ -16,19 +16,31 @@ using System;
 using System.Linq;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Providers;
+using TestFx.SpecK.Implementation;
 using TestFx.SpecK.Implementation.Controllers;
 using TestFx.SpecK.Implementation.Utilities;
 using TestFx.Utilities;
 using TestFx.Utilities.Reflection;
 
-namespace TestFx.SpecK.Implementation
+namespace TestFx.SpecK
 {
-  internal class TypeLoader : TypeLoaderBase
+  [OperationOrdering (
+      typeof (SetupExtension),
+      typeof (SetupCommon),
+      typeof (SetupSubject),
+      typeof (Arrange),
+      typeof (BeforeAct),
+      typeof (Act),
+      typeof (AfterAct),
+      typeof (Assert),
+      typeof (CleanupCommon),
+      typeof (CleanupExtension))]
+  public class SpecKTestLoader : TestLoaderBase
   {
     private readonly IControllerFactory _controllerFactory;
     private readonly ISubjectFactory _subjectFactory;
 
-    public TypeLoader (
+    public SpecKTestLoader (
         IControllerFactory controllerFactory,
         ISubjectFactory subjectFactory,
         IIntrospectionPresenter introspectionPresenter)
@@ -38,9 +50,8 @@ namespace TestFx.SpecK.Implementation
       _subjectFactory = subjectFactory;
     }
 
-    protected override void InitializeTypeSpecificFields (object suite, SuiteProvider provider)
+    protected override void Initialize (Type suiteType, object suite, SuiteProvider provider)
     {
-      var suiteType = suite.GetType();
       var closedSpeckType = suiteType.GetClosedTypeOf(typeof (ISuite<>)).NotNull();
       var subjectType = closedSpeckType.GetGenericArguments().Single();
 

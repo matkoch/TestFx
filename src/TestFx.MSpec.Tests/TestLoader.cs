@@ -13,17 +13,7 @@
 // limitations under the License.
 
 using System;
+using TestFx;
+using TestFx.MSpec;
 
-namespace TestFx
-{
-  [AttributeUsage (AttributeTargets.Assembly, AllowMultiple = true)]
-  public class UseTestExtension : Attribute
-  {
-    public UseTestExtension (Type testExtensionType)
-    {
-      TestExtensionType = testExtensionType;
-    }
-
-    public Type TestExtensionType { get; }
-  }
-}
+[assembly: UseTestLoader (typeof(MSpecTestLoader))]

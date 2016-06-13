@@ -73,18 +73,6 @@ namespace TestFx.SpecK
 
   [MeansImplicitUse]
   [BaseTypeRequired (typeof (ISuite<>))]
-  [TypeLoaderType (typeof (TypeLoader))]
-  [OperationOrdering (
-      typeof (SetupExtension),
-      typeof (SetupCommon),
-      typeof (SetupSubject),
-      typeof (Arrange),
-      typeof (BeforeAct),
-      typeof (Act),
-      typeof (AfterAct),
-      typeof (Assert),
-      typeof (CleanupCommon),
-      typeof (CleanupExtension))]
   public class SubjectAttribute : SuiteAttributeBase
   {
     [UsedImplicitly]

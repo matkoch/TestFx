@@ -16,7 +16,6 @@ using System;
 using JetBrains.Annotations;
 using TestFx;
 using TestFx.Extensibility;
-using TestFx.MSpec.Implementation;
 
 // ReSharper disable once CheckNamespace
 
@@ -25,8 +24,6 @@ namespace Machine.Specifications
 
   #region SuiteAttribute
 
-  [TypeLoaderType (typeof (TypeLoader))]
-  [OperationOrdering (typeof (Operation))]
   public class SubjectAttribute : SuiteAttributeBase
   {
     [UsedImplicitly]
@@ -56,7 +53,7 @@ namespace Machine.Specifications
 
   public delegate void Because ();
 
-  [DisplayFormat("It {field}")]
+  [DisplayFormat("{member}")]
   public delegate void It ();
 
   public delegate void Cleanup ();
@@ -64,6 +61,18 @@ namespace Machine.Specifications
   // ReSharper disable once InconsistentNaming
   // ReSharper disable once UnusedTypeParameter
   public delegate void Behaves_like<T> ();
+
+  // ReSharper disable once InconsistentNaming
+  // ReSharper disable once UnusedTypeParameter
+  public delegate void Behaves_like<T1, T2> ();
+
+  // ReSharper disable once InconsistentNaming
+  // ReSharper disable once UnusedTypeParameter
+  public delegate void Behaves_like<T1, T2, T3> ();
+
+  // ReSharper disable once InconsistentNaming
+  // ReSharper disable once UnusedTypeParameter
+  public delegate void Behaves_like<T1, T2, T3, T4> ();
 
   #endregion
 

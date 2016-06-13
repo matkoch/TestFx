@@ -25,7 +25,9 @@ namespace TestFx.SpecK.Tests.Subject
     [Subject (typeof (AdHocCreationTest))]
     internal class DomainSpec : Spec<DomainType>
     {
+      // ReSharper disable once ConvertToConstant.Local
       [Injected] static string InjectedString = "MyString";
+
       string OtherString;
 
       DomainSpec ()

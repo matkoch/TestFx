@@ -26,6 +26,7 @@ namespace TestFx.Utilities.Introspection
     }
 
     public string Name { get; }
+
     public CommonType Type { get; }
     
     public override string ToString ()

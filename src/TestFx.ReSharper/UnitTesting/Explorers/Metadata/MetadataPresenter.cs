@@ -27,6 +27,9 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Metadata
   {
     [CanBeNull]
     string Present (IMetadataTypeInfo type, string suiteAttributeType);
+
+    [CanBeNull]
+    string Present (IMetadataField field);
   }
 
   [PsiComponent]
@@ -49,6 +52,17 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Metadata
       var subjectAttribute = subjectAttributeData.ToCommon();
       var displayFormatAttribute = subjectAttributeData.UsedConstructor.NotNull().GetAttributeData<DisplayFormatAttribute>().NotNull().ToCommon();
       return _introspectionPresenter.Present(displayFormatAttribute, type.ToCommon(), subjectAttribute);
+    }
+
+    [CanBeNull]
+    public string Present (IMetadataField field)
+    {
+      var metadataType = (field.Type as IMetadataClassType)?.Type;
+      var displayFormatAttribute = metadataType?.GetAttributeData<DisplayFormatAttribute>();
+      if (displayFormatAttribute == null)
+        return null;
+
+      return _introspectionPresenter.Present(displayFormatAttribute.ToCommon(), field.ToCommon());
     }
   }
 }

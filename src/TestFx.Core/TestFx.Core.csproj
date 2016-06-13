@@ -80,7 +80,7 @@
     <Compile Include="Extensibility\Providers\OperationCollectionProvider.cs" />
     <Compile Include="NuGet\content\_TestExtensions\ResetInstanceFieldsTestExtension.cs" />
     <Compile Include="ResourcesAttribute.cs" />
-    <Compile Include="UseTestExtension.cs" />
+    <Compile Include="UseTestExtensionAttribute.cs" />
     <Compile Include="Extensibility\Containers\Container.cs" />
     <Compile Include="Extensibility\DisplayFormatAttribute.cs" />
     <Compile Include="IAssemblySetup.cs" />
@@ -91,9 +91,9 @@
     <Compile Include="Evaluation\Results\OutputResult.cs" />
     <Compile Include="Evaluation\Loading\AssemblyExplorationData.cs" />
     <Compile Include="Evaluation\Loading\AssemblyLoader.cs" />
-    <Compile Include="Evaluation\Loading\ITypeLoader.cs" />
+    <Compile Include="Evaluation\Loading\ITestLoader.cs" />
     <Compile Include="Extensibility\SuiteAttributeBase.cs" />
-    <Compile Include="Extensibility\TypeLoaderBase.cs" />
+    <Compile Include="Extensibility\TestLoaderBase.cs" />
     <Compile Include="Evaluation\Runners\AssemblyRunnerFactory.cs" />
     <Compile Include="Extensibility\ITestExtension.cs" />
     <Compile Include="Extensibility\Controllers\SuiteController.cs" />
@@ -138,7 +138,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Evaluation\Utilities\AppDomainFactory.cs" />
     <Compile Include="Evaluation\Utilities\AppDomain.cs" />
-    <Compile Include="Extensibility\TypeLoaderTypeAttribute.cs" />
+    <Compile Include="TypeLoaderTypeAttribute.cs" />
     <Compile Include="Utilities\Collections\Enumerable.ToDictionary.cs" />
     <Compile Include="Utilities\Collections\Enumerable.WhereNotNull.cs" />
     <Compile Include="Utilities\Collections\Enumerable.Concat.cs" />
