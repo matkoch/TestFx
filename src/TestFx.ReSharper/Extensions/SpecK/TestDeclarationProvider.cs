@@ -56,8 +56,8 @@ namespace TestFx.ReSharper.Extensions.SpecK
       var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
       var categories = clazz.GetAttributeData<CategoriesAttribute>()
           .GetValueOrDefault(
-              x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
-              () => new string[0]);
+              x => x.PositionParameter(paramIndex: 0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
+              () => new string[0]).NotNull();
       var constructorDeclaration = classDeclaration.ConstructorDeclarations.SingleOrDefault(x => !x.IsStatic && x.ParameterDeclarations.Count == 0);
       var expressionTests = TreeNodeEnumerable.Create(
           () =>

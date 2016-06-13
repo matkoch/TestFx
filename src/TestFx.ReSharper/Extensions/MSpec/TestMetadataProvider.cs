@@ -51,7 +51,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       var identity = _assemblyIdentity.CreateChildIdentity(type.FullyQualifiedName);
       var categories = type.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
           x => x.ConstructorArguments[0].ValuesArray.Select(y => (string) y.Value),
-          () => new string[0]);
+          () => new string[0]).NotNull();
       return new TypeTestMetadata(identity, _project, categories, text, type);
     }
 

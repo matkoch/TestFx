@@ -56,7 +56,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       var categories = clazz.GetAttributeData<CategoriesAttribute>()
           .GetValueOrDefault(
               x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
-              () => new string[0]);
+              () => new string[0]).NotNull();
       var expressionTests = TreeNodeEnumerable.Create(
           () =>
           {
@@ -69,6 +69,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       return new ClassTestDeclaration(identity, _project, categories, text, expressionTests, classDeclaration);
     }
 
+    [CanBeNull]
     private ITestDeclaration GetFieldTest (IFieldDeclaration fieldDeclaration, IIdentity parentIdentity)
     {
       var text = _treePresenter.Present(fieldDeclaration);
