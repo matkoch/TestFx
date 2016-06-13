@@ -56,6 +56,7 @@ namespace Machine.Specifications
 
   public delegate void Because ();
 
+  [DisplayFormat("It {field}")]
   public delegate void It ();
 
   public delegate void Cleanup ();

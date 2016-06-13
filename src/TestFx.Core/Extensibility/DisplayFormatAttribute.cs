@@ -19,7 +19,7 @@ namespace TestFx.Extensibility
 {
   [PublicAPI]
   [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
-  [AttributeUsage (AttributeTargets.Constructor | AttributeTargets.Method)]
+  [AttributeUsage (AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Delegate)]
   public class DisplayFormatAttribute : Attribute
   {
     public DisplayFormatAttribute (string format)
