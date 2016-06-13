@@ -152,6 +152,7 @@
     <Compile Include="Utilities\IdentityExtensions.cs" />
     <Compile Include="Utilities\IIdentifiable.cs" />
     <Compile Include="Utilities\Introspection\CommonAttribute.cs" />
+    <Compile Include="Utilities\Introspection\CommonMember.cs" />
     <Compile Include="Utilities\Introspection\CommonNamedArgument.cs" />
     <Compile Include="Utilities\Introspection\CommonPositionalArgument.cs" />
     <Compile Include="Utilities\Introspection\CommonType.cs" />

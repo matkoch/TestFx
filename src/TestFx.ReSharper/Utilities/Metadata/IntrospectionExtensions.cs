@@ -30,6 +30,16 @@ namespace TestFx.ReSharper.Utilities.Metadata
       return IntrospectionUtility.Instance.GetCommonType(type);
     }
 
+    public static CommonMember ToCommon (this IMetadataField member)
+    {
+      return IntrospectionUtility.Instance.GetCommonMember(member);
+    }
+
+    public static CommonMember ToCommon (this IMetadataMethod member)
+    {
+      return IntrospectionUtility.Instance.GetCommonMember(member);
+    }
+
     public static CommonAttribute ToCommon (this IMetadataCustomAttribute metadataCustomAttribute)
     {
       return IntrospectionUtility.Instance.GetCommonAttribute(metadataCustomAttribute);

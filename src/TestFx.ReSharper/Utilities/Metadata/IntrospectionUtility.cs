@@ -27,6 +27,9 @@ namespace TestFx.ReSharper.Utilities.Metadata
     CommonType GetCommonType (IMetadataTypeInfo type);
     CommonType GetCommonType (IMetadataType type);
 
+    CommonMember GetCommonMember (IMetadataField member);
+    CommonMember GetCommonMember (IMetadataMethod member);
+
     CommonAttribute GetCommonAttribute (IMetadataCustomAttribute metadataCustomAttribute);
   }
 
@@ -48,6 +51,21 @@ namespace TestFx.ReSharper.Utilities.Metadata
 
       Trace.Fail($"Instance of type {type} cannot be converted to CommonType");
       throw new Exception();
+    }
+
+    public CommonMember GetCommonMember (IMetadataField member)
+    {
+      return GetCommonMember(member, member.Type.NotNull());
+    }
+
+    public CommonMember GetCommonMember (IMetadataMethod member)
+    {
+      return GetCommonMember(member, member.ReturnValue.Type);
+    }
+
+    private CommonMember GetCommonMember(IMetadataTypeMember member, IMetadataType type)
+    {
+      return new CommonMember(member.Name, type.ToCommon());
     }
 
     public CommonAttribute GetCommonAttribute (IMetadataCustomAttribute metadataCustomAttribute)

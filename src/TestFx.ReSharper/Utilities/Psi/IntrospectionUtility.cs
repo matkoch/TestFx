@@ -16,6 +16,7 @@ using System;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.Util;
 using JetBrains.Util;
 using TestFx.Utilities.Introspection;
 using TestFx.Utilities.Reflection;
@@ -26,6 +27,9 @@ namespace TestFx.ReSharper.Utilities.Psi
   {
     CommonType GetCommonType (IType type);
     CommonType GetCommonType (ITypeElement type);
+
+    CommonMember GetCommonMember (ITypeOwner member);
+    CommonMember GetCommonMember (IParametersOwner member);
 
     CommonAttribute GetCommonAttribute (IAttributeInstance attributeInstance);
   }
@@ -44,6 +48,16 @@ namespace TestFx.ReSharper.Utilities.Psi
     {
       var clrTypeName = type.GetClrName();
       return new CommonType(clrTypeName.ShortName, clrTypeName.FullName, type.GetImplementedTypes().Select(x => x.GetClrName().FullName));
+    }
+
+    public CommonMember GetCommonMember (ITypeOwner member)
+    {
+      return new CommonMember(member.ShortName, member.Type.ToCommon());
+    }
+
+    public CommonMember GetCommonMember (IParametersOwner member)
+    {
+      return new CommonMember(member.ShortName, member.ReturnType.ToCommon());
     }
 
     public CommonAttribute GetCommonAttribute (IAttributeInstance attributeInstance)
