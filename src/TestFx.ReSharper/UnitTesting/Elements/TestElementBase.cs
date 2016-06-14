@@ -22,6 +22,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.ReSharper.UnitTestFramework.Strategy;
+using JetBrains.UI.BindableLinq.Interfaces;
 using JetBrains.Util;
 using TestFx.ReSharper.Model.Tree;
 using TestFx.ReSharper.Runner.Tasks;
@@ -40,7 +41,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     private readonly ITestIdentity _identity;
     private readonly IList<Task> _tasks;
-    private readonly HashSet<IUnitTestElement> _children;
+    private readonly BindableCollection<IUnitTestElement> _children;
 
     private UnitTestElementState _state;
     private TestElementBase _parent;
@@ -50,7 +51,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
       _identity = identity;
       _tasks = tasks;
-      _children = new HashSet<IUnitTestElement>();
+      _children = new BindableCollection<IUnitTestElement>(UT.Locks.ReadLock);
     }
 
     [CanBeNull]
