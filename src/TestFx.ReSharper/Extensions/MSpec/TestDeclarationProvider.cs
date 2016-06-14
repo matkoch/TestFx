@@ -52,7 +52,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
     public ITestDeclaration GetTestDeclaration (IClassDeclaration classDeclaration)
     {
       var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
-      var hasBecauseField = clazz.Fields.Any(x => x.Type.GetTypeElement().NotNull().GetClrName().FullName == "Machine.Specifications.Because");
+      var hasBecauseField = clazz.Fields.Any(x => x.Type.GetTypeElement()?.GetClrName().FullName == "Machine.Specifications.Because");
       if (!hasBecauseField)
         return null;
 
@@ -91,7 +91,10 @@ namespace TestFx.ReSharper.Extensions.MSpec
 
     private IEnumerable<IFieldDeclaration> Flatten (IFieldDeclaration fieldDeclaration)
     {
-      var declaredType = (IDeclaredType) fieldDeclaration.DeclaredElement.Type;
+      var declaredType = fieldDeclaration.DeclaredElement.Type as IDeclaredType;
+      if (declaredType == null)
+        yield break;
+
       var typeElement = declaredType.GetTypeElement().NotNull();
       if (typeElement.GetClrName().FullName != "Machine.Specifications.Behaves_like`1")
       {
