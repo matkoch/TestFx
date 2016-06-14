@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using JetBrains.Annotations;
 using Machine.Specifications;
 using TestFx.Extensibility;
@@ -167,7 +168,7 @@ namespace TestFx.MSpec
         }
         catch (TargetInvocationException ex)
         {
-          throw ex.InnerException;
+          ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
         }
       };
     }
