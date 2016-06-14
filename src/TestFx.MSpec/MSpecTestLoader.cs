@@ -74,7 +74,7 @@ namespace TestFx.MSpec
 
       var becauseFields = GetFields<Because>(suiteType).ToList();
       Trace.Assert(becauseFields.Count == 1, "No single 'Because' field provided.");
-      var becauseOperationProvider = OperationProvider.Create<Operation>(OperationType.Action, "Because", CreateAction(becauseFields.Single(), suite));
+      var becauseOperationProvider = OperationProvider.Create<Operation>(OperationType.Action, "Because", CreateUnwrappingAction(becauseFields.Single(), suite));
 
       IOperationProvider fieldsCopyingOperationProvider = null;
       var behaviorTypeList = behaviorTypes.ToList();
@@ -94,6 +94,13 @@ namespace TestFx.MSpec
 
     private object GetInstance (Type declaringType, object suite)
     {
+      if (declaringType.IsAbstract)
+      {
+        var message = $"Type '{declaringType}' is contained in execution hierarchy of suite type '{suite.GetType()}' " +
+                      $"but cannot be instantiated because it is marked as abstract.";
+        throw new Exception(message);
+      }
+
       return declaringType.IsInstanceOfType(suite) ? suite : declaringType.CreateInstance<object>();
     }
 
@@ -109,11 +116,11 @@ namespace TestFx.MSpec
       IOperationProvider cleanupProvider = null;
       if (cleanupField != null)
       {
-        var cleanupAction = CreateAction(cleanupField, instance);
+        var cleanupAction = CreateUnwrappingAction(cleanupField, instance);
         cleanupProvider = OperationProvider.Create<Operation>(OperationType.Action, "Cleanup " + type.Name, cleanupAction);
       }
 
-      var setupAction = setupField != null ? CreateAction(setupField, instance) : () => { };
+      var setupAction = setupField != null ? CreateUnwrappingAction(setupField, instance) : () => { };
       return OperationProvider.Create<Operation>(OperationType.Action, "Establish " + type.Name, setupAction, cleanupProvider);
     }
 
@@ -144,15 +151,25 @@ namespace TestFx.MSpec
     {
       var text = actionField.Name.Replace("_", " ");
       var testProvider = TestProvider.Create(parentIdentity.CreateChildIdentity(actionField.Name), text, ignoreReason: null);
-      var action = CreateAction(actionField, instance);
+      var action = CreateUnwrappingAction(actionField, instance);
       var assertion = OperationProvider.Create<Operation>(OperationType.Assertion, text, action);
       testProvider.OperationProviders = new[] { assertion };
       return testProvider;
     }
 
-    private Action CreateAction (FieldInfo fieldInfo, object instance)
+    private Action CreateUnwrappingAction (FieldInfo fieldInfo, object instance)
     {
-      return () => ((Delegate) fieldInfo.GetValue(instance)).DynamicInvoke();
+      return () =>
+      {
+        try
+        {
+          ((Delegate) fieldInfo.GetValue(instance)).DynamicInvoke();
+        }
+        catch (TargetInvocationException ex)
+        {
+          throw ex.InnerException;
+        }
+      };
     }
   }
 }
