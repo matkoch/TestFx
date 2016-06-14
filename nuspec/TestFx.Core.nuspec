@@ -16,7 +16,7 @@
     <file target="src\TestFx.Core" src="TestFx.Core\**\*.cs" exclude="obj\**\*" />
     <file target="content" src="TestFx.Core\NuGet\content\**\*" />
     <file target="tools" src="TestFx.Console\bin\$configuration$\TestFx.exe" />
-    <file target="build\net40" src="TestFx.VisualStudio.TestAdapter\bin\$configuration$\TestFx.VisualStudio.*" />
+    <!--<file target="build\net40" src="TestFx.VisualStudio.TestAdapter\bin\$configuration$\TestFx.VisualStudio.*" />-->
     <file target="build\net40" src="TestFx.Core\NuGet\build\**\*" />
   </files>
 </package>
