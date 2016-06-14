@@ -17,6 +17,7 @@
   <files>
     <file src="TestFx.MSpec\bin\$configuration$\TestFx.MSpec.*" target="lib\net40" />
     <file src="TestFx.MSpec\**\*.cs" exclude="obj\**\*" target="src\TestFx.MSpec" />
+    <file src="TestFx.MSpec\NuGet\content\**\*" target="content" />
     <file src="TestFx.MSpec\NuGet\tools\**\*" target="tools" />
   </files>
 </package>
