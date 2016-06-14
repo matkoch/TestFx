@@ -52,6 +52,7 @@
     <Compile Include="Implementation\HierarchyLoader.cs" />
     <Compile Include="Implementation\Operation.cs" />
     <Compile Include="Api.cs" />
+    <None Include="NuGet\content\_TestLoaders\MSpecTestLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MSpecTestLoader.cs" />
   </ItemGroup>
