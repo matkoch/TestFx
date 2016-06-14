@@ -64,7 +64,6 @@
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
     <Compile Include="BehaviorTest.cs" />
-    <Compile Include="ContextTestBase.cs" />
     <Compile Include="HierarchyLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleContextExecutionTest.cs" />
