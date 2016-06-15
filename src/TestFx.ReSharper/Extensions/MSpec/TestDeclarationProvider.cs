@@ -31,7 +31,6 @@ namespace TestFx.ReSharper.Extensions.MSpec
 {
   public class TestDeclarationProvider : ITestDeclarationProvider
   {
-    private readonly IntrospectionPresenter _introspectionPresenter;
     private readonly ITreePresenter _treePresenter;
     private readonly IProject _project;
     private readonly IIdentity _assemblyIdentity;
@@ -39,7 +38,6 @@ namespace TestFx.ReSharper.Extensions.MSpec
 
     public TestDeclarationProvider (ITreePresenter treePresenter, IProject project, IIdentity assemblyIdentity, Func<bool> notInterrupted)
     {
-      _introspectionPresenter = new IntrospectionPresenter();
       _treePresenter = treePresenter;
       _project = project;
       _assemblyIdentity = assemblyIdentity;
@@ -64,9 +62,9 @@ namespace TestFx.ReSharper.Extensions.MSpec
                 if (subjectAttributeData == null)
                   return null;
 
-                var displayFormatAttribute =
-                    subjectAttributeData.Constructor.NotNull().GetAttributeData<DisplayFormatAttribute>().NotNull().ToCommon();
-                return _introspectionPresenter.Present(displayFormatAttribute, clazz.ToCommon(), subjectAttributeData.ToCommon());
+                var subjectType = subjectAttributeData.PositionParameter(paramIndex: 0).TypeValue.NotNull().ToCommon();
+
+                return subjectType.Name + ", " + clazz.ToCommon().Name.Replace(oldChar: '_', newChar: ' ');
               })
           .WhereNotNull().FirstOrDefault();
       if (text == null)
@@ -112,10 +110,10 @@ namespace TestFx.ReSharper.Extensions.MSpec
     [CanBeNull]
     private ITestDeclaration GetFieldTest (IFieldDeclaration fieldDeclaration, IIdentity parentIdentity)
     {
-      var text = _treePresenter.Present(fieldDeclaration);
-      if (text == null)
+      if (fieldDeclaration.Type.GetTypeElement().NotNull().GetClrName().FullName != "Machine.Specifications.It")
         return null;
 
+      var text = fieldDeclaration.DeclaredName.Replace(oldChar: '_', newChar: ' ');
       var identity = parentIdentity.CreateChildIdentity(fieldDeclaration.DeclaredName);
       return new FieldTestDeclaration(identity, _project, text, fieldDeclaration);
     }

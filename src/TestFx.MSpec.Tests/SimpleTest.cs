@@ -22,7 +22,6 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.MSpec.Tests
 {
-
   [Subject (typeof(int))]
   internal class simple_context
   {
@@ -47,7 +46,7 @@ namespace TestFx.MSpec.Tests
 
       runResult.GetClassSuiteResult()
           .HasRelativeId("TestFx.MSpec.Tests.simple_context+when_adding")
-          .HasText("Int32, when_adding");
+          .HasText("Int32, when adding");
 
       var testResults = runResult.GetTestResults();
       testResults[0].HasPassed().HasRelativeId("returns_three").HasText("returns three");

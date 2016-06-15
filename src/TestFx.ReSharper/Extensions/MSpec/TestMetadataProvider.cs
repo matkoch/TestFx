@@ -74,9 +74,9 @@ namespace TestFx.ReSharper.Extensions.MSpec
                 if (subjectAttributeData == null)
                   return null;
 
-                var displayFormatAttribute =
-                    subjectAttributeData.UsedConstructor.NotNull().GetAttributeData<DisplayFormatAttribute>().NotNull().ToCommon();
-                return _introspectionPresenter.Present(displayFormatAttribute, type.ToCommon(), subjectAttributeData.ToCommon());
+                var subjectType = subjectAttributeData.ConstructorArguments.First().Type.NotNull().ToCommon();
+
+                return subjectType.Name + ", " + type.ToCommon().Name.Replace(oldChar: '_', newChar: ' ');
               }).WhereNotNull().FirstOrDefault();
       if (text == null)
         return null;
@@ -111,10 +111,10 @@ namespace TestFx.ReSharper.Extensions.MSpec
     [CanBeNull]
     private ITestMetadata GetFieldTest (IMetadataField field, IIdentity identity)
     {
-      var text = _metadataPresenter.Present(field);
-      if (text == null)
+      if (field.Type.NotNull().FullName != "Machine.Specifications.It")
         return null;
 
+      var text = field.Name.Replace(oldChar: '_', newChar: ' ');
       return new MemberTestMetadata(identity.CreateChildIdentity(text), _project, text.Replace("_", " "), field);
     }
 

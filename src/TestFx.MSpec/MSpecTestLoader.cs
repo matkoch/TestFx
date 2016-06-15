@@ -37,10 +37,15 @@ namespace TestFx.MSpec
     {
     }
 
-    protected override CustomAttributeData GetDisplayAttribute (Type suiteType)
+    protected override string GetText (Type suiteType)
     {
-      return suiteType.DescendantsAndSelf(x => x.DeclaringType).Select(x => x.GetAttributeData<SuiteAttributeBase>())
+      var subjectAttribute = suiteType.DescendantsAndSelf(x => x.DeclaringType).Select(x => x.GetAttribute<SubjectAttribute>())
           .WhereNotNull().FirstOrDefault();
+
+      if (subjectAttribute == null)
+        return null;
+
+      return subjectAttribute.CreateSubject().Type.Name + ", " + suiteType.Name.Replace(oldChar: '_', newChar: ' ');
     }
 
     protected override void Initialize (Type suiteType, object suite, SuiteProvider provider)

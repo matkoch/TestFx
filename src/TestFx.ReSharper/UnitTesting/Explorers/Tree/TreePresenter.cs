@@ -97,7 +97,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
       return _introspectionPresenter.Present(displayFormatAttribute, commonExpressions);
     }
 
-    private object GetConstantValue (ICSharpArgument argument)
+    public static object GetConstantValue (ICSharpArgument argument)
     {
       if (argument.Kind == ParameterKind.UNKNOWN)
         return IntrospectionPresenter.UnknownValue;

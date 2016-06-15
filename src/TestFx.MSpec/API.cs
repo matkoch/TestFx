@@ -1,155 +1,155 @@
-﻿// Copyright 2016, 2015, 2014 Matthias Koch
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-// http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+﻿//// Copyright 2016, 2015, 2014 Matthias Koch
+//// 
+//// Licensed under the Apache License, Version 2.0 (the "License");
+//// you may not use this file except in compliance with the License.
+//// You may obtain a copy of the License at
+//// 
+//// http://www.apache.org/licenses/LICENSE-2.0
+//// 
+//// Unless required by applicable law or agreed to in writing, software
+//// distributed under the License is distributed on an "AS IS" BASIS,
+//// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//// See the License for the specific language governing permissions and
+//// limitations under the License.
 
-using System;
-using JetBrains.Annotations;
-using TestFx;
-using TestFx.Extensibility;
+//using System;
+//using JetBrains.Annotations;
+//using TestFx;
+//using TestFx.Extensibility;
 
-// ReSharper disable once CheckNamespace
+//// ReSharper disable once CheckNamespace
 
-namespace Machine.Specifications
-{
+//namespace Machine.Specifications
+//{
 
-  #region SuiteAttribute
+//  #region SuiteAttribute
 
-  public class SubjectAttribute : SuiteAttributeBase
-  {
-    [UsedImplicitly]
-    [DisplayFormat ("{0}, {type}")]
-    public SubjectAttribute (Type type)
-    {
-    }
+//  public class SubjectAttribute : SuiteAttributeBase
+//  {
+//    [UsedImplicitly]
+//    [DisplayFormat ("{0}, {type}")]
+//    public SubjectAttribute (Type type)
+//    {
+//    }
 
-    [UsedImplicitly]
-    [DisplayFormat ("{0}")]
-    public SubjectAttribute (string text)
-    {
-    }
+//    [UsedImplicitly]
+//    [DisplayFormat ("{0}")]
+//    public SubjectAttribute (string text)
+//    {
+//    }
 
-    [UsedImplicitly]
-    [DisplayFormat ("{0}, {1}")]
-    public SubjectAttribute (Type type, string text)
-    {
-    }
-  }
+//    [UsedImplicitly]
+//    [DisplayFormat ("{0}, {1}")]
+//    public SubjectAttribute (Type type, string text)
+//    {
+//    }
+//  }
 
-  #endregion
+//  #endregion
 
-  #region Delegates
+//  #region Delegates
 
-  public delegate void Establish ();
+//  public delegate void Establish ();
 
-  public delegate void Because ();
+//  public delegate void Because ();
 
-  [DisplayFormat("{member}")]
-  public delegate void It ();
+//  [DisplayFormat("{member}")]
+//  public delegate void It ();
 
-  public delegate void Cleanup ();
+//  public delegate void Cleanup ();
 
-  // ReSharper disable once InconsistentNaming
-  // ReSharper disable once UnusedTypeParameter
-  public delegate void Behaves_like<T> ();
+//  // ReSharper disable once InconsistentNaming
+//  // ReSharper disable once UnusedTypeParameter
+//  public delegate void Behaves_like<T> ();
 
-  // ReSharper disable once InconsistentNaming
-  // ReSharper disable once UnusedTypeParameter
-  public delegate void Behaves_like<T1, T2> ();
+//  // ReSharper disable once InconsistentNaming
+//  // ReSharper disable once UnusedTypeParameter
+//  public delegate void Behaves_like<T1, T2> ();
 
-  // ReSharper disable once InconsistentNaming
-  // ReSharper disable once UnusedTypeParameter
-  public delegate void Behaves_like<T1, T2, T3> ();
+//  // ReSharper disable once InconsistentNaming
+//  // ReSharper disable once UnusedTypeParameter
+//  public delegate void Behaves_like<T1, T2, T3> ();
 
-  // ReSharper disable once InconsistentNaming
-  // ReSharper disable once UnusedTypeParameter
-  public delegate void Behaves_like<T1, T2, T3, T4> ();
+//  // ReSharper disable once InconsistentNaming
+//  // ReSharper disable once UnusedTypeParameter
+//  public delegate void Behaves_like<T1, T2, T3, T4> ();
 
-  #endregion
+//  #endregion
 
-  #region AssemblyContext
+//  #region AssemblyContext
 
-  [UsedImplicitly]
-  // ReSharper disable once InconsistentNaming
-  public abstract class IAssemblyContext : IAssemblySetup
-  {
-    public void Setup ()
-    {
-      OnAssemblyStart();
-    }
+//  [UsedImplicitly]
+//  // ReSharper disable once InconsistentNaming
+//  public abstract class IAssemblyContext : IAssemblySetup
+//  {
+//    public void Setup ()
+//    {
+//      OnAssemblyStart();
+//    }
 
-    public void Cleanup ()
-    {
-      OnAssemblyComplete();
-    }
+//    public void Cleanup ()
+//    {
+//      OnAssemblyComplete();
+//    }
 
-    public abstract void OnAssemblyStart ();
-    public abstract void OnAssemblyComplete ();
-  }
+//    public abstract void OnAssemblyStart ();
+//    public abstract void OnAssemblyComplete ();
+//  }
 
-  #endregion
+//  #endregion
 
-  #region BehaviorsAttribute
+//  #region BehaviorsAttribute
 
-  [AttributeUsage (AttributeTargets.Class)]
-  public class BehaviorsAttribute : Attribute
-  {
-  }
+//  [AttributeUsage (AttributeTargets.Class)]
+//  public class BehaviorsAttribute : Attribute
+//  {
+//  }
 
-  #endregion
+//  #endregion
 
-  #region Catch
+//  #region Catch
 
-  [PublicAPI]
-  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
-  public static class Catch
-  {
-    [CanBeNull]
-    public static Exception Exception (Action throwingAction)
-    {
-      return Only<Exception>(throwingAction);
-    }
+//  [PublicAPI]
+//  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
+//  public static class Catch
+//  {
+//    [CanBeNull]
+//    public static Exception Exception (Action throwingAction)
+//    {
+//      return Only<Exception>(throwingAction);
+//    }
 
-    [CanBeNull]
-    public static Exception Exception<T> (Func<T> throwingFunc)
-    {
-      try
-      {
-        throwingFunc();
-      }
-      catch (Exception exception)
-      {
-        return exception;
-      }
+//    [CanBeNull]
+//    public static Exception Exception<T> (Func<T> throwingFunc)
+//    {
+//      try
+//      {
+//        throwingFunc();
+//      }
+//      catch (Exception exception)
+//      {
+//        return exception;
+//      }
 
-      return null;
-    }
+//      return null;
+//    }
 
-    [CanBeNull]
-    public static TException Only<TException> (Action throwingAction)
-        where TException : Exception
-    {
-      try
-      {
-        throwingAction();
-      }
-      catch (TException exception)
-      {
-        return exception;
-      }
+//    [CanBeNull]
+//    public static TException Only<TException> (Action throwingAction)
+//        where TException : Exception
+//    {
+//      try
+//      {
+//        throwingAction();
+//      }
+//      catch (TException exception)
+//      {
+//        return exception;
+//      }
 
-      return null;
-    }
-  }
+//      return null;
+//    }
+//  }
 
-  #endregion
-}
+//  #endregion
+//}
