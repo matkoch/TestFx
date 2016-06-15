@@ -12,6 +12,7 @@
     <tags>testfx specifications tdd bdd unit-testing mspec</tags>
     <dependencies>
       <dependency id="TestFx.Core" version="$version$" />
+      <dependency id="Machine.Specifications" version="[0.9, 1.0)" />
     </dependencies>
   </metadata>
   <files>
