@@ -59,6 +59,8 @@ namespace TestFx.SpecK
 
       suite.SetMemberValue("_classSuiteController", suiteController);
       suite.SetMemberValue("_subjectFactory", _subjectFactory);
+
+      InvokeConstructor(suite);
     }
   }
 }

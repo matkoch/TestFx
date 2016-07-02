@@ -50,6 +50,8 @@ namespace TestFx.MSpec
 
     protected override void Initialize (Type suiteType, object suite, SuiteProvider provider)
     {
+      InvokeConstructor(suite);
+
       var hierarchyTypes = HierarchyLoader.GetExecutionHierarchy(suiteType).ToList();
       var behaviorTypes = suiteType.Descendants(x => GetBehaviorTypes(x)).ToList();
 

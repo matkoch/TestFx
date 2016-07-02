@@ -47,7 +47,6 @@ namespace TestFx.Extensibility
       
       InitializeAssemblySetupFields(suite, assemblySetups);
       Initialize(suiteType, suite, provider);
-      InvokeConstructor(suite);
 
       return provider;
     }
