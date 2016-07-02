@@ -78,6 +78,9 @@ namespace TestFx.ReSharper.References
         return null;
 
       var parameter = argument.MatchingParameter.Element;
+      if (parameter.ShortName != "member")
+        return null;
+
       var constructor = attribute.ConstructorReference.GetResolved<IConstructor>().NotNull();
       var literalArgumentIndex = constructor.Parameters.IndexOf(parameter);
       if (literalArgumentIndex == 0)

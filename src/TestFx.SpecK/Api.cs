@@ -83,7 +83,7 @@ namespace TestFx.SpecK
 
     [UsedImplicitly]
     [DisplayFormat ("{0}.{1}")]
-    public SubjectAttribute (Type type, string method)
+    public SubjectAttribute (Type type, string member)
     {
     }
   }
