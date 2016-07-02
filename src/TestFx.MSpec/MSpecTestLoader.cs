@@ -67,14 +67,6 @@ namespace TestFx.MSpec
       provider.TestProviders = testProviders;
     }
 
-    private IEnumerable<Type> GetBehaviorTypes (Type typeWithBehavior)
-    {
-      return typeWithBehavior.GetFields(MemberBindings.All)
-          .Where(x => x.FieldType.IsGenericType && x.FieldType.GetGenericTypeDefinition() == typeof (Behaves_like<>))
-          .Where(x => !x.IsCompilerGenerated())
-          .Select(x => x.FieldType.GetGenericArguments().Single());
-    }
-
     private IEnumerable<IOperationProvider> GetSetupOperationProviders (
         IEnumerable<Type> hierarchyTypes,
         IEnumerable<Type> behaviorTypes,
@@ -104,18 +96,6 @@ namespace TestFx.MSpec
           .WhereNotNull();
     }
 
-    private object GetInstance (Type declaringType, object suite)
-    {
-      if (declaringType.IsAbstract)
-      {
-        var message = $"Type '{declaringType}' is contained in execution hierarchy of suite type '{suite.GetType()}' " +
-                      $"but cannot be instantiated because it is marked as abstract.";
-        throw new Exception(message);
-      }
-
-      return declaringType.IsInstanceOfType(suite) ? suite : declaringType.CreateInstance<object>();
-    }
-
     [CanBeNull]
     private IOperationProvider GetEstablishOperationProviderOrNull (Type type, object instance)
     {
@@ -136,6 +116,22 @@ namespace TestFx.MSpec
       return OperationProvider.Create<Operation>(OperationType.Action, "Establish " + type.Name, setupAction, cleanupProvider);
     }
 
+    private IEnumerable<Type> GetBehaviorTypes (Type typeWithBehavior)
+    {
+      return typeWithBehavior.GetFields(MemberBindings.All)
+          .Where(x => x.FieldType.IsGenericType && x.FieldType.GetGenericTypeDefinition() == typeof (Behaves_like<>))
+          .Where(x => !x.IsCompilerGenerated())
+          .Select(x => x.FieldType.GetGenericArguments().Single());
+    }
+
+    private IEnumerable<FieldInfo> GetFields<T> (Type type)
+    {
+      return type
+          .GetFields(MemberBindings.All | BindingFlags.DeclaredOnly)
+          .Where(x => typeof (T).IsAssignableFrom(x.FieldType))
+          .Where(x => !x.IsCompilerGenerated());
+    }
+
     private Action GetFieldsCopyingAction (Type suiteType, IEnumerable<Type> behaviorTypes)
     {
       return () =>
@@ -149,14 +145,6 @@ namespace TestFx.MSpec
             behaviorField.SetValue(obj: null, value: suiteField.GetValue(obj: null));
         }
       };
-    }
-
-    private IEnumerable<FieldInfo> GetFields<T> (Type type)
-    {
-      return type
-          .GetFields(MemberBindings.All | BindingFlags.DeclaredOnly)
-          .Where(x => typeof (T).IsAssignableFrom(x.FieldType))
-          .Where(x => !x.IsCompilerGenerated());
     }
 
     private TestProvider CreateTestProvider (IIdentity parentIdentity, object instance, FieldInfo actionField)
@@ -186,6 +174,18 @@ namespace TestFx.MSpec
           ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
         }
       };
+    }
+
+    private object GetInstance (Type declaringType, object suite)
+    {
+      if (declaringType.IsAbstract)
+      {
+        var message = $"Type '{declaringType}' is contained in execution hierarchy of suite type '{suite.GetType()}' " +
+                      $"but cannot be instantiated because it is marked as abstract.";
+        throw new Exception(message);
+      }
+
+      return declaringType.IsInstanceOfType(suite) ? suite : declaringType.CreateInstance<object>();
     }
   }
 }
