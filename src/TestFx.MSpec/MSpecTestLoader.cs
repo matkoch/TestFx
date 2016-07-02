@@ -167,11 +167,15 @@ namespace TestFx.MSpec
 
     private Action CreateUnwrappingAction (FieldInfo fieldInfo, object instance)
     {
+      var action = (Delegate) fieldInfo.GetValue(instance);
+      if (action == null)
+        return OperationProvider.NotImplemented;
+
       return () =>
       {
         try
         {
-          ((Delegate) fieldInfo.GetValue(instance)).DynamicInvoke();
+          action.DynamicInvoke();
         }
         catch (TargetInvocationException ex)
         {
