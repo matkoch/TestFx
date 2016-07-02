@@ -17,6 +17,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using RazorEngine.Compilation;
+using TestFx.Console.HtmlReport;
+using TestFx.Console.TeamCity;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Reporting;
 
@@ -38,7 +41,7 @@ namespace TestFx.Console
       if (Pause)
       {
         System.Console.WriteLine("Press any key to terminate...");
-        System.Console.ReadKey(true);
+        System.Console.ReadKey(intercept: true);
       }
 
       var exitCode = -1 * (int) result.State;
@@ -47,6 +50,9 @@ namespace TestFx.Console
 
     private static IEnumerable<IRunListener> CreateListener ()
     {
+      if (!string.IsNullOrWhiteSpace(HtmlReport))
+        yield return new HtmlReportRunListener(HtmlReport, Output);
+
       if (TeamCity)
         yield return new TeamCityRunListener(new TeamCityServiceMessageWriter(System.Console.WriteLine));
     }

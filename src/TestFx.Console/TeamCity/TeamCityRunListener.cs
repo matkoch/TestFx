@@ -18,7 +18,7 @@ using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 
-namespace TestFx.Console
+namespace TestFx.Console.TeamCity
 {
   internal class TeamCityRunListener : RunListener
   {

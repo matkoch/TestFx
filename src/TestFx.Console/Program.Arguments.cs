@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using CommandLine;
+using JetBrains.Annotations;
 
 namespace TestFx.Console
 {
@@ -34,6 +35,12 @@ namespace TestFx.Console
 
       [Option ("teamCity", HelpText = "Forces output for JetBrains TeamCity server. Disables standard output.")]
       public bool TeamCity { get; set; }
+      
+      [Option("htmlReport", HelpText = "Enables generation of a HTML report. Specify 'default' or a custom ZIP archive with a 'template.cshtml' razor template.")]
+      public string HtmlReport { get; set; }
+
+      [Option("output", HelpText = "Specifies the output directory for the HTML report and DotCover analysis.")]
+      public string Output { get; set; }
     }
 
     private static Options s_options;
@@ -57,5 +64,10 @@ namespace TestFx.Console
     public static bool Debug => s_options.Debug;
 
     public static bool TeamCity => s_options.TeamCity || Environment.GetEnvironmentVariable("TEAMCITY_VERSION") != null;
+
+    [CanBeNull]
+    public static string HtmlReport => s_options.HtmlReport;
+
+    public static string Output => s_options.Output ?? Environment.CurrentDirectory;
   }
 }

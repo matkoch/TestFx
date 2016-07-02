@@ -14,10 +14,12 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
+
 // ReSharper disable All
 
-namespace TestFx.Console
+namespace TestFx.Console.TeamCity
 {
   /// <summary>
   /// Writes specially formatted service messages for TeamCity.
