@@ -77,7 +77,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       var categories = type.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
           x => x.ConstructorArguments[0].ValuesArray.Select(y => (string) y.Value),
           () => new string[0]).NotNull();
-      var fieldTests = type.GetFields().SelectMany(Flatten)
+      var fieldTests = type.GetFields()
           .TakeWhile(_notInterrupted)
           .Select(x => GetFieldTest(x, identity))
           .WhereNotNull();
@@ -103,21 +103,6 @@ namespace TestFx.ReSharper.Extensions.MSpec
       }
 
       return false;
-    }
-
-    private IEnumerable<IMetadataField> Flatten (IMetadataField field)
-    {
-      var metadataClassType = field.Type as IMetadataClassType;
-      var metadataTypeInfo = metadataClassType?.Type;
-      if (metadataTypeInfo == null || metadataTypeInfo.FullyQualifiedName != "Machine.Specifications.Behaves_like`1")
-      {
-        yield return field;
-        yield break;
-      }
-
-      var behaviorTypes = metadataClassType.Arguments.Cast<IMetadataClassType>();
-      foreach (var nestedField in behaviorTypes.SelectMany(x => x.Type.GetFields().SelectMany(Flatten)))
-        yield return nestedField;
     }
 
     [CanBeNull]

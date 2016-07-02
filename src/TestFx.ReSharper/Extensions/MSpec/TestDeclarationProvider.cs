@@ -77,7 +77,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       var fieldTests = TreeNodeEnumerable.Create(
           () =>
           {
-            return classDeclaration.FieldDeclarations.SelectMany(Flatten)
+            return classDeclaration.FieldDeclarations
                 .TakeWhile(_notInterrupted)
                 .Select(x => GetFieldTest(x, identity))
                 .WhereNotNull();
@@ -104,26 +104,6 @@ namespace TestFx.ReSharper.Extensions.MSpec
           return true;
       }
       return false;
-    }
-
-    private IEnumerable<IFieldDeclaration> Flatten (IFieldDeclaration fieldDeclaration)
-    {
-      var declaredType = fieldDeclaration.DeclaredElement.Type as IDeclaredType;
-      if (declaredType == null)
-        yield break;
-
-      var typeElement = declaredType.GetTypeElement().NotNull();
-      if (typeElement.GetClrName().FullName != "Machine.Specifications.Behaves_like`1")
-      {
-        yield return fieldDeclaration;
-        yield break;
-      }
-
-      var substitution = declaredType.GetSubstitution();
-      var typeArguments = substitution.Domain;
-      var behaviorTypes = typeArguments.SelectMany(x => substitution[x].GetTypeElement().NotNull().GetDeclarations()).OfType<IClassDeclaration>();
-      foreach (var nestedField in behaviorTypes.SelectMany(x => x.FieldDeclarations.SelectMany(Flatten)))
-        yield return nestedField;
     }
 
     [CanBeNull]
