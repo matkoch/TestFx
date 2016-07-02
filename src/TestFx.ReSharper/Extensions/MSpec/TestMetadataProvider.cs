@@ -54,16 +54,16 @@ namespace TestFx.ReSharper.Extensions.MSpec
       if (isCompilerGenerated)
         return null;
 
-      var hasBecauseField = type.GetFields().Any(x =>
+      var hasItField = type.GetFields().Any(x =>
       {
         var metadataClassType = x.Type as IMetadataClassType;
         if (metadataClassType == null)
           return false;
 
         var fullyQualifiedName = metadataClassType.Type.FullyQualifiedName;
-        return fullyQualifiedName == "Machine.Specifications.Because";
+        return fullyQualifiedName == "Machine.Specifications.It";
       });
-      if (!hasBecauseField)
+      if (!hasItField)
         return null;
 
       var text = type.DescendantsAndSelf(x => x.DeclaringType)

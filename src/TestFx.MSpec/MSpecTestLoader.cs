@@ -81,8 +81,9 @@ namespace TestFx.MSpec
       var establishAndCleanupOperationProviders = hierarchyTypes.Select(x => GetEstablishOperationProviderOrNull(x, GetInstance(x, suite)));
 
       var becauseFields = GetFields<Because>(suiteType).ToList();
-      Trace.Assert(becauseFields.Count == 1, "No single 'Because' field provided.");
-      var becauseOperationProvider = OperationProvider.Create<Operation>(OperationType.Action, "Because", CreateUnwrappingAction(becauseFields.Single(), suite));
+      Trace.Assert(becauseFields.Count <= 1, "Multiple 'Because' fields provided.");
+      var becauseOperationProvider =
+          becauseFields.Select(x => OperationProvider.Create<Operation>(OperationType.Action, "Because", CreateUnwrappingAction(x, suite)));
 
       IOperationProvider fieldsCopyingOperationProvider = null;
       var behaviorTypeList = behaviorTypes.ToList();

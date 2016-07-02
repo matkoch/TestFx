@@ -50,8 +50,8 @@ namespace TestFx.ReSharper.Extensions.MSpec
     public ITestDeclaration GetTestDeclaration (IClassDeclaration classDeclaration)
     {
       var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
-      var hasBecauseField = clazz.Fields.Any(x => x.Type.GetTypeElement()?.GetClrName().FullName == "Machine.Specifications.Because");
-      if (!hasBecauseField)
+      var hasItField = clazz.Fields.Any(x => x.Type.GetTypeElement()?.GetClrName().FullName == "Machine.Specifications.It");
+      if (!hasItField)
         return null;
 
       var text = clazz.DescendantsAndSelf(x => x.GetContainingType() as IClass)

@@ -25,8 +25,6 @@ namespace TestFx.MSpec.Tests
   [Subject (typeof(int))]
   internal class when_inconclusive
   {
-    Because of = () => { };
-
     It is_inconclusive;
   }
 
