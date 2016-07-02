@@ -20,7 +20,6 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Util;
-using TestFx.Extensibility;
 using TestFx.ReSharper.Model.Tree;
 using TestFx.ReSharper.UnitTesting.Explorers.Tree;
 using TestFx.ReSharper.Utilities.Psi;
@@ -50,8 +49,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
     public ITestDeclaration GetTestDeclaration (IClassDeclaration classDeclaration)
     {
       var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
-      var hasItField = clazz.Fields.Any(x => x.Type.GetTypeElement()?.GetClrName().FullName == "Machine.Specifications.It");
-      if (!hasItField)
+      if (!IsSuite(clazz))
         return null;
 
       var subjectType = clazz.DescendantsAndSelf(x => x.GetContainingType() as IClass)
@@ -86,6 +84,26 @@ namespace TestFx.ReSharper.Extensions.MSpec
           });
 
       return new ClassTestDeclaration(identity, _project, categories, text, fieldTests, classDeclaration);
+    }
+
+    private static bool IsSuite (IClass clazz)
+    {
+      if (clazz.GetAttributeData("Machine.Specifications.BehaviorsAttribute") != null)
+        return false;
+
+      var fields = clazz.Fields;
+      foreach (var field in fields)
+      {
+        var typeElement = field.Type.GetTypeElement();
+        if (typeElement == null)
+          continue;
+
+        var fullName = typeElement.GetClrName().FullName;
+        if (fullName == "Machine.Specifications.It" ||
+            fullName == "Machine.Specifications.Behaves_like`1")
+          return true;
+      }
+      return false;
     }
 
     private IEnumerable<IFieldDeclaration> Flatten (IFieldDeclaration fieldDeclaration)

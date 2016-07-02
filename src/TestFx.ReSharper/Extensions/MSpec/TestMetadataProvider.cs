@@ -54,16 +54,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       if (isCompilerGenerated)
         return null;
 
-      var hasItField = type.GetFields().Any(x =>
-      {
-        var metadataClassType = x.Type as IMetadataClassType;
-        if (metadataClassType == null)
-          return false;
-
-        var fullyQualifiedName = metadataClassType.Type.FullyQualifiedName;
-        return fullyQualifiedName == "Machine.Specifications.It";
-      });
-      if (!hasItField)
+      if (!IsSuite(type))
         return null;
 
       var subjectType = type.DescendantsAndSelf(x => x.DeclaringType)
@@ -92,6 +83,26 @@ namespace TestFx.ReSharper.Extensions.MSpec
           .WhereNotNull();
 
       return new TypeTestMetadata(identity, _project, categories, text, fieldTests, type);
+    }
+
+    private static bool IsSuite (IMetadataTypeInfo type)
+    {
+      if (type.GetAttributeData("Machine.Specifications.BehaviorsAttribute") != null)
+        return false;
+
+      var fields = type.GetFields();
+      foreach (var field in fields)
+      {
+        var metadataClassType = field.Type as IMetadataClassType;
+        if (metadataClassType == null)
+          continue;
+
+        if (metadataClassType.Type.FullyQualifiedName == "Machine.Specifications.It" ||
+            metadataClassType.Type.FullyQualifiedName == "Machine.Specifications.Behaves_like`1")
+          return true;
+      }
+
+      return false;
     }
 
     private IEnumerable<IMetadataField> Flatten (IMetadataField field)

@@ -39,7 +39,7 @@ namespace TestFx.MSpec
 
     protected override string GetText (Type suiteType)
     {
-      if (!GetFields<It>(suiteType).Any())
+      if (suiteType.GetAttribute<BehaviorsAttribute>() != null || (!GetFields<It>(suiteType).Any() && !GetBehaviorTypes(suiteType).Any()))
         return null;
 
       var concern = suiteType.Name.Replace(oldChar: '_', newChar: ' ');
