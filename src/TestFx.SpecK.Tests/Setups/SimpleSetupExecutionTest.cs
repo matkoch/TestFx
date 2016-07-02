@@ -27,7 +27,7 @@ namespace TestFx.SpecK.Tests.Setups
     [Subject (typeof (SimpleSetupExecutionTest))]
     internal class DomainSpec : Spec<object>
     {
-      [AssemblySetup] public static readonly MyAssemblySetup MyAssemblySetup;
+      [AssemblySetup] public static MyAssemblySetup MyAssemblySetup;
       
       public DomainSpec ()
       {
@@ -43,13 +43,13 @@ namespace TestFx.SpecK.Tests.Setups
                 .GivenSubject ("static subject2", x => Subject2));
       }
 
-      static void SetupOnceMethod ()
+      void SetupOnceMethod ()
       {
         MyAssemblySetup.Should ().NotBeNull ();
         SetupOnceAction1 ();
       }
 
-      static void CleanupOnceMethod ()
+      void CleanupOnceMethod ()
       {
         MyAssemblySetup.Should ().NotBeNull ();
         CleanupOnceAction1 ();
