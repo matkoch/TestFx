@@ -66,7 +66,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       if (!hasItField)
         return null;
 
-      var text = type.DescendantsAndSelf(x => x.DeclaringType)
+      var subjectType = type.DescendantsAndSelf(x => x.DeclaringType)
           .Select(
               x =>
               {
@@ -74,12 +74,13 @@ namespace TestFx.ReSharper.Extensions.MSpec
                 if (subjectAttributeData == null)
                   return null;
 
-                var subjectType = subjectAttributeData.ConstructorArguments.First().Type.NotNull().ToCommon();
-
-                return subjectType.Name + ", " + type.ToCommon().Name.Replace(oldChar: '_', newChar: ' ');
+                return subjectAttributeData.ConstructorArguments.First().Type.NotNull().ToCommon();
               }).WhereNotNull().FirstOrDefault();
-      if (text == null)
-        return null;
+      
+      var concern = type.ToCommon().Name.Replace(oldChar: '_', newChar: ' ');
+      var text = subjectType == null
+          ? concern
+          : subjectType.Name + ", " + concern;
 
       var identity = _assemblyIdentity.CreateChildIdentity(type.FullyQualifiedName);
       var categories = type.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(

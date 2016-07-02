@@ -39,13 +39,16 @@ namespace TestFx.MSpec
 
     protected override string GetText (Type suiteType)
     {
+      if (!GetFields<It>(suiteType).Any())
+        return null;
+
+      var concern = suiteType.Name.Replace(oldChar: '_', newChar: ' ');
       var subjectAttribute = suiteType.DescendantsAndSelf(x => x.DeclaringType).Select(x => x.GetAttribute<SubjectAttribute>())
           .WhereNotNull().FirstOrDefault();
 
-      if (subjectAttribute == null)
-        return null;
-
-      return subjectAttribute.CreateSubject().Type.Name + ", " + suiteType.Name.Replace(oldChar: '_', newChar: ' ');
+      return subjectAttribute == null
+          ? concern
+          : subjectAttribute.CreateSubject().Type.Name + ", " + concern;
     }
 
     protected override void Initialize (Type suiteType, object suite, SuiteProvider provider)

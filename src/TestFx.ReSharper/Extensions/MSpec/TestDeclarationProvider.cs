@@ -54,7 +54,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       if (!hasItField)
         return null;
 
-      var text = clazz.DescendantsAndSelf(x => x.GetContainingType() as IClass)
+      var subjectType = clazz.DescendantsAndSelf(x => x.GetContainingType() as IClass)
           .Select(
               x =>
               {
@@ -62,13 +62,14 @@ namespace TestFx.ReSharper.Extensions.MSpec
                 if (subjectAttributeData == null)
                   return null;
 
-                var subjectType = subjectAttributeData.PositionParameter(paramIndex: 0).TypeValue.NotNull().ToCommon();
-
-                return subjectType.Name + ", " + clazz.ToCommon().Name.Replace(oldChar: '_', newChar: ' ');
+                return subjectAttributeData.PositionParameter(paramIndex: 0).TypeValue.NotNull().ToCommon();
               })
           .WhereNotNull().FirstOrDefault();
-      if (text == null)
-        return null;
+      
+      var concern = clazz.ToCommon().Name.Replace(oldChar: '_', newChar: ' ');
+      var text = subjectType == null
+          ? concern
+          : subjectType.Name + ", " + concern;
 
       var identity = _assemblyIdentity.CreateChildIdentity(classDeclaration.CLRName);
       var categories = clazz.GetAttributeData<CategoriesAttribute>()
