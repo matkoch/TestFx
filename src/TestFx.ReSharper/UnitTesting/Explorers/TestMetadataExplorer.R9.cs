@@ -49,6 +49,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
             observer.OnUnitTestElementChanged(x);
           },
           notInterrupted: () => !cancellationToken.IsCancellationRequested);
+      observer.OnCompleted();
     }
   }
 }

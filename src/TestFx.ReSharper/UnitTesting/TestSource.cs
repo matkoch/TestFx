@@ -65,7 +65,15 @@ namespace TestFx.ReSharper.UnitTesting
 
     public void ExploreFile ([NotNull] IFile psiFile, [NotNull] IUnitTestElementsObserver observer, [NotNull] Func<bool> interrupted)
     {
-      _testFileExplorer.Explore(psiFile, observer.OnUnitTestElementDisposition, () => !interrupted());
+      _testFileExplorer.Explore(
+          psiFile,
+          x =>
+          {
+            // TODO: ask Jenya
+            observer.OnUnitTestElementDisposition(x);
+            observer.OnUnitTestElementChanged(x.UnitTestElement);
+          },
+          () => !interrupted());
       observer.OnCompleted();
     }
 
