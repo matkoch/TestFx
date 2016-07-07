@@ -42,6 +42,9 @@ namespace TestFx.MSpec
       if (suiteType.GetAttribute<BehaviorsAttribute>() != null || (!GetFields<It>(suiteType).Any() && !GetBehaviorTypes(suiteType).Any()))
         return null;
 
+      if (suiteType.IsCompilerGenerated())
+        return null;
+
       var concern = suiteType.Name.Replace(oldChar: '_', newChar: ' ');
       var subjectAttribute = suiteType.DescendantsAndSelf(x => x.DeclaringType).Select(x => x.GetAttribute<SubjectAttribute>())
           .WhereNotNull().FirstOrDefault();
