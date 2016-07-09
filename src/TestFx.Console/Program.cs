@@ -17,11 +17,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using RazorEngine.Compilation;
 using TestFx.Console.HtmlReport;
 using TestFx.Console.TeamCity;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Reporting;
+using TestFx.Evaluation.Utilities;
 
 namespace TestFx.Console
 {
@@ -35,8 +35,10 @@ namespace TestFx.Console
         Debugger.Launch();
 
       var assemblies = AssemblyPaths.Select(Assembly.LoadFrom);
-      var listeners = CreateListener().ToArray();
+      var appDomain = AppDomain.CreateDomain("External");
+      var listeners = CreateListener(appDomain).ToArray();
       var result = Evaluator.Run(assemblies, listeners);
+      AppDomain.Unload(appDomain);
 
       if (Pause)
       {
@@ -48,10 +50,10 @@ namespace TestFx.Console
       Environment.Exit(exitCode);
     }
 
-    private static IEnumerable<IRunListener> CreateListener ()
+    private static IEnumerable<IRunListener> CreateListener (AppDomain domain)
     {
       if (!string.IsNullOrWhiteSpace(HtmlReport))
-        yield return new HtmlReportRunListener(HtmlReport, Output);
+        yield return domain.CreateProxy<IRunListener>(typeof(HtmlReportRunListener), HtmlReport, Output);
 
       if (TeamCity)
         yield return new TeamCityRunListener(new TeamCityServiceMessageWriter(System.Console.WriteLine));
