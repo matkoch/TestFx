@@ -13,8 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.Globalization;
-using System.Reflection;
 
 namespace TestFx.Evaluation.Utilities
 {
@@ -25,8 +23,6 @@ namespace TestFx.Evaluation.Utilities
 
   internal sealed class AppDomain : IAppDomain
   {
-    private const BindingFlags c_bindingFlags = BindingFlags.CreateInstance | BindingFlags.Public | BindingFlags.Instance;
-
     private readonly System.AppDomain _appDomain;
     private readonly bool _unloadOnDispose;
 
@@ -38,17 +34,7 @@ namespace TestFx.Evaluation.Utilities
 
     public T CreateProxy<T> (Type proxyType, params object[] proxyArgs)
     {
-      var instance = _appDomain.CreateInstanceAndUnwrap(
-          proxyType.Assembly.GetName().Name,
-          proxyType.FullName,
-          ignoreCase: false,
-          bindingAttr: c_bindingFlags,
-          binder: null,
-          args: proxyArgs,
-          culture: CultureInfo.InvariantCulture,
-          activationAttributes: null);
-
-      return (T) instance;
+      return _appDomain.CreateProxy<T>(proxyType, proxyArgs);
     }
 
     public void Dispose ()
