@@ -21,6 +21,7 @@ using JetBrains.ReSharper.TaskRunnerFramework;
 using mscorlib::System.Threading;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Intents;
+using TestFx.Evaluation.Utilities;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.Utilities;
 using TestFx.Utilities.Collections;
@@ -31,7 +32,7 @@ namespace TestFx.ReSharper.Runner
   {
     public static readonly string ID = typeof (RecursiveRemoteTaskRunner).FullName;
 
-    private CancellationTokenSource _cancellationTokenSource;
+    private ICancellation _cancellation;
 
     public RecursiveRemoteTaskRunner (IRemoteTaskServer server)
         : base(server)
@@ -43,7 +44,7 @@ namespace TestFx.ReSharper.Runner
       var taskDictionary = CreateTaskDictionary(node);
       var listener = new ReSharperRunListener(Server, taskDictionary);
       var runIntent = CreateRunIntent(node);
-      _cancellationTokenSource = runIntent.CancellationTokenSource;
+      _cancellation = runIntent.CancellationTokenSource;
 
       try
       {
@@ -58,7 +59,7 @@ namespace TestFx.ReSharper.Runner
 
     public override void Abort ()
     {
-      _cancellationTokenSource.Cancel();
+      _cancellation.Cancel();
     }
 
     private static Dictionary<IIdentity, Task> CreateTaskDictionary (TaskExecutionNode node)

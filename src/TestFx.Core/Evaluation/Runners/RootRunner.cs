@@ -100,7 +100,7 @@ namespace TestFx.Evaluation.Runners
     private ISuiteResult RunAssemblySuites (
         Assembly assembly,
         [CanBeNull] string cachePath,
-        CancellationTokenSource cancellationTokenSource,
+        ICancellationTokenSource cancellationTokenSource,
         IIntent assemblyIntent)
     {
       using (var appDomain = _appDomainFactory.Create(assembly, cachePath))

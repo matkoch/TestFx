@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using JetBrains.Annotations;
+using TestFx.Evaluation.Utilities;
 using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Intents
@@ -29,7 +30,7 @@ namespace TestFx.Evaluation.Intents
 
     bool CreateSeparateAppDomains { get; }
 
-    CancellationTokenSource CancellationTokenSource { get; }
+    ICancellation CancellationTokenSource { get; }
   }
 
   [Serializable]
@@ -52,7 +53,7 @@ namespace TestFx.Evaluation.Intents
       Identity = identity;
       CreateSeparateAppDomains = useSeparateAppDomains;
       ShadowCopyPath = shadowCopyPath;
-      CancellationTokenSource = new CancellationTokenSource();
+      CancellationTokenSource = new CrossAppDomainCancellation();
       _intents = new List<IIntent>();
     }
 
@@ -63,7 +64,7 @@ namespace TestFx.Evaluation.Intents
 
     public bool CreateSeparateAppDomains { get; }
 
-    public CancellationTokenSource CancellationTokenSource { get; }
+    public ICancellation CancellationTokenSource { get; }
 
     public IEnumerable<IIntent> Intents => _intents;
 

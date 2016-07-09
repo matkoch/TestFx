@@ -86,14 +86,15 @@ namespace TestFx.Evaluation.Runners
         {
           if (contextScope.SetupResults.All(x => x.State == State.Passed))
           {
-            suiteResults = suitePairs
-#if PARALLEL
-                .AsParallel()
+            suiteResults = suitePairs.AsParallel()
+                .WithDegreeOfParallelism(degreeOfParallelism: 1)
                 .WithCancellation(_cancellationTokenSource.Token)
-#endif
                 .Select(x => Run(x.Item1, x.Item2)).ToList();
 
-            testResults = testPairs.Select(x => _testRunner.Run(x.Item1, x.Item2)).ToList();
+            testResults = testPairs.AsParallel()
+                .WithDegreeOfParallelism(degreeOfParallelism: 1)
+                .WithCancellation(_cancellationTokenSource.Token)
+                .Select(x => _testRunner.Run(x.Item1, x.Item2)).ToList();
           }
         }
       }

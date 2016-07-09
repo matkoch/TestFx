@@ -22,6 +22,7 @@ namespace TestFx.Evaluation.Results
   {
   }
 
+  [Serializable]
   internal class RunResult : Result, IRunResult
   {
     public RunResult (IIdentity identity, string text, State state, IEnumerable<ISuiteResult> suiteResults)
