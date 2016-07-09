@@ -39,7 +39,7 @@ namespace TestFx.Evaluation.Reporting
     void OnError (IExceptionDescriptor exception);
   }
 
-  public class RunListener : IRunListener
+  public class RunListener : MarshalByRefObject, IRunListener
   {
     private readonly ISymbolProvider _symbolProvider;
 

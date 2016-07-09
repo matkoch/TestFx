@@ -20,7 +20,7 @@ using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation.Reporting
 {
-  internal class CompositeRunListener : IRunListener
+  internal class CompositeRunListener : RunListener
   {
     private readonly ICollection<IRunListener> _listeners;
 
@@ -29,37 +29,37 @@ namespace TestFx.Evaluation.Reporting
       _listeners = listeners;
     }
 
-    public void OnRunStarted (IRunIntent intent)
+    public override void OnRunStarted (IRunIntent intent)
     {
       _listeners.ForEach(x => x.OnRunStarted(intent));
     }
 
-    public void OnRunFinished (IRunResult result)
+    public override void OnRunFinished (IRunResult result)
     {
       _listeners.ForEach(x => x.OnRunFinished(result));
     }
 
-    public void OnSuiteStarted (IIntent intent, string text)
+    public override void OnSuiteStarted (IIntent intent, string text)
     {
       _listeners.ForEach(x => x.OnSuiteStarted(intent, text));
     }
 
-    public void OnSuiteFinished (ISuiteResult result)
+    public override void OnSuiteFinished (ISuiteResult result)
     {
       _listeners.ForEach(x => x.OnSuiteFinished(result));
     }
 
-    public void OnTestStarted (IIntent intent, string text)
+    public override void OnTestStarted (IIntent intent, string text)
     {
       _listeners.ForEach(x => x.OnTestStarted(intent, text));
     }
 
-    public void OnTestFinished (ITestResult result)
+    public override void OnTestFinished (ITestResult result)
     {
       _listeners.ForEach(x => x.OnTestFinished(result));
     }
 
-    public void OnError (IExceptionDescriptor exception)
+    public override void OnError (IExceptionDescriptor exception)
     {
       _listeners.ForEach(x => x.OnError(exception));
     }

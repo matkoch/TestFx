@@ -29,7 +29,7 @@ namespace TestFx.Evaluation
   {
     public static IRunResult Run (IRunIntent runIntent, params IRunListener[] listeners)
     {
-      var listener = CrossAppDomainRunListener.Create(listeners);
+      var listener = new CompositeRunListener(listeners);
 
       var builder = new ContainerBuilder();
       var evaluationModule = new EvaluationModule(listener, runIntent.CreateSeparateAppDomains);

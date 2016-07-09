@@ -86,7 +86,6 @@
     <Compile Include="IAssemblySetup.cs" />
     <Compile Include="Evaluation\EvaluationException.cs" />
     <Compile Include="Evaluation\Reporting\CompositeRunListener.cs" />
-    <Compile Include="Evaluation\Reporting\CrossAppDomainRunListener.cs" />
     <Compile Include="Evaluation\Reporting\RunListener.cs" />
     <Compile Include="Evaluation\Results\OutputResult.cs" />
     <Compile Include="Evaluation\Loading\AssemblyExplorationData.cs" />
