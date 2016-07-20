@@ -1,4 +1,4 @@
-﻿// Copyright 2016, 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,17 +13,12 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
 
-namespace TestFx
+namespace TestFx.SpecK.Tests
 {
-  [AttributeUsage (AttributeTargets.Assembly, AllowMultiple = true)]
-  public class UseTestExtensionAttribute : Attribute
+  [TestMarker]
+  public class UseDefaultValueTestExtension : IUseTestExtension<DefaultValueTestExtension>
   {
-    public UseTestExtensionAttribute (Type testExtensionType)
-    {
-      TestExtensionType = testExtensionType;
-    }
-
-    public Type TestExtensionType { get; }
   }
 }

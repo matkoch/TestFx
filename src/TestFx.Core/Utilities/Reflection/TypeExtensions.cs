@@ -50,9 +50,14 @@ namespace TestFx.Utilities.Reflection
       return TypeUtility.Instance.GetImmediateInterfaces(type);
     }
 
-    public static IEnumerable<Type> GetImmediateDerivedTypesOf<T> (this Type type)
+    public static IEnumerable<Type> GetImmediateDerivedTypesOf<T>(this Type type)
     {
-      return TypeUtility.Instance.GetImmediateDerivedTypes(type, typeof (T));
+      return TypeUtility.Instance.GetImmediateDerivedTypes(type, typeof(T));
+    }
+
+    public static IEnumerable<Type> GetImmediateDerivedTypesOf(this Type type, Type baseType)
+    {
+      return TypeUtility.Instance.GetImmediateDerivedTypes(type, baseType);
     }
 
     [CanBeNull]

@@ -13,7 +13,13 @@
 // limitations under the License.
 
 using System;
-using TestFx;
-using TestFx.MSpec;
+using System.Linq;
+using TestFx.FakeItEasy;
 
-[assembly: UseTestLoader (typeof(MSpecTestLoader))]
+namespace TestFx.SpecK.Tests
+{
+  [TestMarker]
+  public class UseFakeItEasyTestExtension : IUseTestExtension<FakeItEasyTestExtension>
+  {
+  }
+}

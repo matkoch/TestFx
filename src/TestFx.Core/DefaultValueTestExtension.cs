@@ -21,7 +21,7 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx
 {
-  public class DefaultValueTestExtensions : ITestExtension
+  public class DefaultValueTestExtension : ITestExtension
   {
     public int Priority => 0;
 

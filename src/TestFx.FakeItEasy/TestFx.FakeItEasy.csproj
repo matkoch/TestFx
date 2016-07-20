@@ -56,7 +56,7 @@
     </Compile>
     <Compile Include="AssertionExtensions.cs" />
     <Compile Include="Attributes.cs" />
-    <None Include="NuGet\content\_TestExtensions\FakeItEasyTestExtensions.cs" />
+    <None Include="NuGet\content\Properties\UseFakeItEasyTestExtension.cs.pp" />
     <Compile Include="FakeItEasyTestExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />

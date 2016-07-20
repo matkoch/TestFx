@@ -57,7 +57,7 @@
     <Compile Include="AssemblySetupAttribute.cs" />
     <Compile Include="CategoriesAttribute.cs" />
     <Compile Include="DefaultAttribute.cs" />
-    <Compile Include="DefaultValueTestExtensions.cs" />
+    <Compile Include="DefaultValueTestExtension.cs" />
     <Compile Include="Evaluation\EvaluationModule.cs" />
     <Compile Include="Evaluation\Loading\TypeLoaderFactory.cs" />
     <Compile Include="Evaluation\Reporting\DefaultSymbolProvider.cs" />
@@ -68,8 +68,8 @@
     <Compile Include="Evaluation\Utilities\AutofacExtensions.cs" />
     <Compile Include="Extensibility\Controllers\CompositeTestController.cs" />
     <Compile Include="IgnoreAttribute.cs" />
-    <Compile Include="NuGet\content\_TestExtensions\DefaultValueTestExtension.cs" />
-    <Compile Include="ResetInstanceFieldsTestExtensions.cs" />
+    <None Include="NuGet\content\Properties\UseDefaultValueTestExtension.cs.pp" />
+    <Compile Include="ResetInstanceFieldsTestExtension.cs" />
     <Compile Include="Evaluation\Loading\SuiteControllerFactory.cs" />
     <Compile Include="Evaluation\RunIntentExtensions.cs" />
     <Compile Include="Evaluation\Utilities\FakeAppDomainFactory.cs" />
@@ -79,9 +79,9 @@
     <Compile Include="Extensibility\IntrospectionPresenter.cs" />
     <Compile Include="Extensibility\Utilities\OperationSorter.cs" />
     <Compile Include="Extensibility\Providers\OperationCollectionProvider.cs" />
-    <Compile Include="NuGet\content\_TestExtensions\ResetInstanceFieldsTestExtension.cs" />
+    <None Include="NuGet\content\Properties\UseResetInstanceFieldsTestExtension.cs.pp" />
     <Compile Include="ResourcesAttribute.cs" />
-    <Compile Include="UseTestExtensionAttribute.cs" />
+    <Compile Include="IUseTestExtension.cs" />
     <Compile Include="Extensibility\Containers\Container.cs" />
     <Compile Include="Extensibility\DisplayFormatAttribute.cs" />
     <Compile Include="IAssemblySetup.cs" />
@@ -138,7 +138,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Evaluation\Utilities\AppDomainFactory.cs" />
     <Compile Include="Evaluation\Utilities\AppDomainExtensions.cs" />
-    <Compile Include="TypeLoaderTypeAttribute.cs" />
+    <Compile Include="IUseTestLoader.cs" />
+    <Compile Include="TestMarkerAttribute.cs" />
     <Compile Include="Utilities\Collections\Enumerable.ToDictionary.cs" />
     <Compile Include="Utilities\Collections\Enumerable.WhereNotNull.cs" />
     <Compile Include="Utilities\Collections\Enumerable.Concat.cs" />

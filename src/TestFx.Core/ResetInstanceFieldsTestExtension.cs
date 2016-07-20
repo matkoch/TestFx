@@ -20,7 +20,7 @@ using TestFx.Utilities.Reflection;
 
 namespace TestFx
 {
-  public class ResetInstanceFieldsTestExtensions : ITestExtension
+  public class ResetInstanceFieldsTestExtension : ITestExtension
   {
     public int Priority => int.MaxValue;
 

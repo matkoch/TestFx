@@ -55,7 +55,7 @@
     </Compile>
     <Compile Include="Attributes.cs" />
     <Compile Include="FaradaTestExtension.cs" />
-    <None Include="NuGet\content\_TestExtensions\FaradaTestExtensions.cs" />
+    <None Include="NuGet\content\Properties\UseFaradaTestExtension.cs.pp" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>

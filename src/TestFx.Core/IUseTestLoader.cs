@@ -13,11 +13,17 @@
 // limitations under the License.
 
 using System;
-using TestFx;
-using TestFx.FakeItEasy;
-using TestFx.Farada;
+using JetBrains.Annotations;
+using TestFx.Evaluation.Loading;
 
-[assembly: UseTestExtension (typeof (ResetInstanceFieldsTestExtensions))]
-[assembly: UseTestExtension (typeof (DefaultValueTestExtensions))]
-[assembly: UseTestExtension (typeof (FakeItEasyTestExtension))]
-[assembly: UseTestExtension (typeof (FaradaTestExtension))]
+namespace TestFx
+{
+  /// <summary>
+  /// Marker interface for including a specific <see cref="ITestLoader"/> in a test assembly.
+  /// </summary>
+  [PublicAPI]
+  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
+  public interface IUseTestLoader<[UsedImplicitly] T> where T : ITestLoader
+  {
+  }
+}

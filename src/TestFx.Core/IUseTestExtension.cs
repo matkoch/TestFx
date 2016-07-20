@@ -13,6 +13,17 @@
 // limitations under the License.
 
 using System;
-using TestFx;
+using JetBrains.Annotations;
+using TestFx.Extensibility;
 
-[assembly: UseTestExtension (typeof (DefaultValueTestExtensions))]
+namespace TestFx
+{
+  /// <summary>
+  /// Marker interface for including a specific <see cref="ITestExtension"/> in a test assembly.
+  /// </summary>
+  ///  [PublicAPI]
+  ///  [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
+  public interface IUseTestExtension<[UsedImplicitly] T> where T : ITestExtension
+  {
+  }
+}

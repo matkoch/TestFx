@@ -17,11 +17,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac;
-using Autofac.Builder;
-using Autofac.Core;
-using Autofac.Core.Resolving;
 using TestFx.Extensibility;
 using TestFx.Utilities;
+using TestFx.Utilities.Collections;
 using TestFx.Utilities.Reflection;
 
 namespace TestFx.Evaluation.Loading
@@ -35,15 +33,22 @@ namespace TestFx.Evaluation.Loading
   {
     public IAssemblyExplorationData Explore(Assembly assembly)
     {
-      var testExtensions = assembly.GetAttributes<UseTestExtensionAttribute>()
-          .Select(x => x.TestExtensionType.CreateInstance<ITestExtension>())
+      var allTypes = assembly.GetTypes();
+      var markedTypes = allTypes.Where(x => x.GetAttribute<TestMarkerAttribute>() != null).ToList();
+
+      var testExtensions = markedTypes
+          .Select(x => x.GetClosedTypeOf(typeof(IUseTestExtension<>))).WhereNotNull()
+          .Select(x => x.GetGenericArguments().Single().CreateInstance<ITestExtension>())
           .OrderByDescending(x => x.Priority).ToList();
-      var testLoaderTypes = assembly.GetAttributes<UseTestLoaderAttribute>().Select(x => x.TestLoaderType);
+
+      var testLoaderTypes = markedTypes
+          .Select(x => x.GetClosedTypeOf(typeof(IUseTestLoader<>))).WhereNotNull()
+          .Select(x => x.GetGenericArguments().Single());
       var testLoaderFactories = testLoaderTypes.Select(x => BuildTestLoaderFactory(x, testExtensions)).ToList();
 
-      var potentialSuiteTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<object>()).ToList();
+      var potentialSuiteTypes = allTypes.Where(x => x.IsInstantiatable<object>()).ToList();
 
-      var assemblySetupTypes = assembly.GetTypes().Where(x => x.IsInstantiatable<IAssemblySetup>()).ToDictionary(
+      var assemblySetupTypes = allTypes.Where(x => x.IsInstantiatable<IAssemblySetup>()).ToDictionary(
           x => x,
           x => new Lazy<IAssemblySetup>(() => x.CreateInstance<IAssemblySetup>()));
 

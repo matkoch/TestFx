@@ -1,4 +1,4 @@
-﻿// Copyright 2014, 2013 Matthias Koch
+﻿// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,7 +13,12 @@
 // limitations under the License.
 
 using System;
-using TestFx;
-using TestFx.FakeItEasy;
+using System.Linq;
 
-[assembly: UseTestExtension (typeof (FakeItEasyTestExtension))]
+namespace TestFx.SpecK.Tests
+{
+  [TestMarker]
+  public class UseSpecKTestLoader : IUseTestLoader<SpecKTestLoader>
+  {
+  }
+}
