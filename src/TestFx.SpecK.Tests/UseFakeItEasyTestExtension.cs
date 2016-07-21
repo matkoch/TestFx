@@ -18,7 +18,7 @@ using TestFx.FakeItEasy;
 
 namespace TestFx.SpecK.Tests
 {
-  [TestMarker]
+  [TestConfiguration]
   public class UseFakeItEasyTestExtension : IUseTestExtension<FakeItEasyTestExtension>
   {
   }

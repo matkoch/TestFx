@@ -17,7 +17,7 @@ using System.Linq;
 
 namespace TestFx.MSpec.Tests
 {
-  [TestMarker]
+  [TestConfiguration]
   public class UseMSpecTestLoader : IUseTestLoader<MSpecTestLoader>
   {
   }

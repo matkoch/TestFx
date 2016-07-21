@@ -18,7 +18,7 @@ using TestFx.Farada;
 
 namespace TestFx.SpecK.Tests
 {
-  [TestMarker]
+  [TestConfiguration]
   public class UseFaradaTestExtension : IUseTestExtension<FaradaTestExtension>
   {
   }

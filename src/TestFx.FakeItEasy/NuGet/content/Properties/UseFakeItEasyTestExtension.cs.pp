@@ -5,7 +5,7 @@ using TestFx.FakeItEasy;
 
 namespace $rootnamespace$.Properties
 {
-  [TestMarker]
+  [TestConfiguration]
   public class UseFakeItEasyTestExtension : IUseTestExtension<FakeItEasyTestExtension>
   {
   }

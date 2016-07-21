@@ -34,7 +34,7 @@ namespace TestFx.Evaluation.Loading
     public IAssemblyExplorationData Explore(Assembly assembly)
     {
       var allTypes = assembly.GetTypes();
-      var markedTypes = allTypes.Where(x => x.GetAttribute<TestMarkerAttribute>() != null).ToList();
+      var markedTypes = allTypes.Where(x => x.GetAttribute<TestConfigurationAttribute>() != null).ToList();
 
       var testExtensions = markedTypes
           .Select(x => x.GetClosedTypeOf(typeof(IUseTestExtension<>))).WhereNotNull()

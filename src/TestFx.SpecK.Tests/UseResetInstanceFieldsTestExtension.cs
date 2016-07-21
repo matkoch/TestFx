@@ -17,7 +17,7 @@ using System.Linq;
 
 namespace TestFx.SpecK.Tests
 {
-  [TestMarker]
+  [TestConfiguration]
   public class UseResetInstanceFieldsTestExtension : IUseTestExtension<ResetInstanceFieldsTestExtension>
   {
   }

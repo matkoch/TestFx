@@ -5,7 +5,7 @@ using TestFx.Farada;
 
 namespace $rootnamespace$.Properties
 {
-  [TestMarker]
+  [TestConfiguration]
   public class UseFaradaTestExtension : IUseTestExtension<FaradaTestExtension>
   {
   }

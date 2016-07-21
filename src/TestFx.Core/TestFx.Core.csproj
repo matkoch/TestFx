@@ -139,7 +139,7 @@
     <Compile Include="Evaluation\Utilities\AppDomainFactory.cs" />
     <Compile Include="Evaluation\Utilities\AppDomainExtensions.cs" />
     <Compile Include="IUseTestLoader.cs" />
-    <Compile Include="TestMarkerAttribute.cs" />
+    <Compile Include="TestConfigurationAttribute.cs" />
     <Compile Include="Utilities\Collections\Enumerable.ToDictionary.cs" />
     <Compile Include="Utilities\Collections\Enumerable.WhereNotNull.cs" />
     <Compile Include="Utilities\Collections\Enumerable.Concat.cs" />

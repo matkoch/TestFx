@@ -20,7 +20,7 @@ namespace TestFx
 {
   [AttributeUsage (AttributeTargets.Class)]
   [MeansImplicitUse]
-  public class TestMarkerAttribute : Attribute
+  public class TestConfigurationAttribute : Attribute
   {
   }
 }

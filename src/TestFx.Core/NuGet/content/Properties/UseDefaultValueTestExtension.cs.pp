@@ -4,7 +4,7 @@ using TestFx;
 
 namespace $rootnamespace$.Properties
 {
-  [TestMarker]
+  [TestConfiguration]
   public class UseDefaultValueTestExtension : IUseTestExtension<DefaultValueTestExtension>
   {
   }

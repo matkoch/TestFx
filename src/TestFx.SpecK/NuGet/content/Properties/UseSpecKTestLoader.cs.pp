@@ -5,7 +5,7 @@ using TestFx.SpecK;
 
 namespace $rootnamespace$.Properties
 {
-  [TestMarker]
+  [TestConfiguration]
   public class UseSpecKTestLoader : IUseTestLoader<SpecKTestLoader>
   {
   }
