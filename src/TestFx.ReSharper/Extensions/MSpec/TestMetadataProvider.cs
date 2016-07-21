@@ -111,6 +111,9 @@ namespace TestFx.ReSharper.Extensions.MSpec
       if (field.Type.NotNull().FullName != "Machine.Specifications.It")
         return null;
 
+      if (field.GetAttributeData<CompilerGeneratedAttribute>() != null)
+        return null;
+
       var text = field.Name.Replace(oldChar: '_', newChar: ' ');
       return new MemberTestMetadata(identity.CreateChildIdentity(text), _project, text.Replace("_", " "), field);
     }
