@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using TestFx;
-using TestFx.Farada;
+﻿using TestFx.Farada;
 
-namespace $rootnamespace$.Properties
+// ReSharper disable once CheckNamespace
+namespace TestFx.Configuration
 {
   [TestConfiguration]
   public class UseFaradaTestExtension : IUseTestExtension<FaradaTestExtension>

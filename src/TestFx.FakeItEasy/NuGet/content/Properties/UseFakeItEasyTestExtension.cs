@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using TestFx;
-using TestFx.FakeItEasy;
+﻿using TestFx.FakeItEasy;
 
-namespace $rootnamespace$.Properties
+// ReSharper disable once CheckNamespace
+namespace TestFx.Configuration
 {
   [TestConfiguration]
   public class UseFakeItEasyTestExtension : IUseTestExtension<FakeItEasyTestExtension>

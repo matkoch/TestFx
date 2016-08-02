@@ -68,7 +68,7 @@
     <Compile Include="Evaluation\Utilities\AutofacExtensions.cs" />
     <Compile Include="Extensibility\Controllers\CompositeTestController.cs" />
     <Compile Include="IgnoreAttribute.cs" />
-    <None Include="NuGet\content\Properties\UseDefaultValueTestExtension.cs.pp" />
+    <None Include="NuGet\content\Properties\UseDefaultValueTestExtension.cs" />
     <Compile Include="ResetInstanceFieldsTestExtension.cs" />
     <Compile Include="Evaluation\Loading\SuiteControllerFactory.cs" />
     <Compile Include="Evaluation\RunIntentExtensions.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="Extensibility\IntrospectionPresenter.cs" />
     <Compile Include="Extensibility\Utilities\OperationSorter.cs" />
     <Compile Include="Extensibility\Providers\OperationCollectionProvider.cs" />
-    <None Include="NuGet\content\Properties\UseResetInstanceFieldsTestExtension.cs.pp" />
+    <None Include="NuGet\content\Properties\UseResetInstanceFieldsTestExtension.cs" />
     <Compile Include="ResourcesAttribute.cs" />
     <Compile Include="IUseTestExtension.cs" />
     <Compile Include="Extensibility\Containers\Container.cs" />
