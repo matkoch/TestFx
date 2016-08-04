@@ -21,57 +21,57 @@ using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Generics
 {
-  [NUnit.Framework.Ignore]
-  internal class GenericTypeTest : TestBase<GenericTypeTest.DomainSpec>
-  {
-    [Subject (typeof (GenericTypeTest))]
-    internal class DomainSpec : Spec
-    {
-      dynamic Argument;
+  //[NUnit.Framework.Ignore]
+  //internal class GenericTypeTest : TestBase<GenericTypeTest.DomainSpec>
+  //{
+  //  [Subject (typeof (GenericTypeTest))]
+  //  internal class DomainSpec : Spec
+  //  {
+  //    dynamic Argument;
 
-      public DomainSpec ()
-      {
-        //Specify (x => GenericHelper.Create<T1, T2, T3> (Argument))
-        //    .Case ("Integer", _ => _
-        //        .WithPermutations (
-        //            new { T1 = default(Type), T2 = default(Type), T3 = default(Type) },
-        //            x => x.T1, Assembly.GetExecutingAssembly ().GetTypes (),
-        //            x => x.T2, Assembly.GetExecutingAssembly ().GetTypes (),
-        //            x => x.T3, Assembly.GetExecutingAssembly ().GetTypes ())
-        //        //.GivenGenericsFromSequence ()
-        //        //.GivenGenerics(x => x.Generics.T1 = x.Sequence.T1)
+  //    public DomainSpec ()
+  //    {
+  //      //Specify (x => GenericHelper.Create<T1, T2, T3> (Argument))
+  //      //    .Case ("Integer", _ => _
+  //      //        .WithPermutations (
+  //      //            new { T1 = default(Type), T2 = default(Type), T3 = default(Type) },
+  //      //            x => x.T1, Assembly.GetExecutingAssembly ().GetTypes (),
+  //      //            x => x.T2, Assembly.GetExecutingAssembly ().GetTypes (),
+  //      //            x => x.T3, Assembly.GetExecutingAssembly ().GetTypes ())
+  //      //        //.GivenGenericsFromSequence ()
+  //      //        //.GivenGenerics(x => x.Generics.T1 = x.Sequence.T1)
 
-        //        .GivenVars(x => new { T1 = typeof(int) })
-        //        //.GivenGenericsFromVars()
-        //        //.GivenGenerics(T1: typeof(int))
-        //        .ItThrows (typeof (InvalidOperationException)))
-        //    .Case ("Integer", _ => _
-        //        .Given ("DefaultDomain")
-        //        .It ("", x => x.Result.Should ().NotBe (0)));
+  //      //        .GivenVars(x => new { T1 = typeof(int) })
+  //      //        //.GivenGenericsFromVars()
+  //      //        //.GivenGenerics(T1: typeof(int))
+  //      //        .ItThrows (typeof (InvalidOperationException)))
+  //      //    .Case ("Integer", _ => _
+  //      //        .Given ("DefaultDomain")
+  //      //        .It ("", x => x.Result.Should ().NotBe (0)));
 
 
-      }
-    }
+  //    }
+  //  }
 
-    protected override void AssertResults(IRunResult runResult, IFakeScope scope)
-    {
-      var testResults = runResult.GetTestResults();
-      testResults[0].HasPassed();
-      testResults[1].HasFailed();
-      testResults[2].HasFailed();
-    }
+  //  protected override void AssertResults(IRunResult runResult, IFakeScope scope)
+  //  {
+  //    var testResults = runResult.GetTestResults();
+  //    testResults[0].HasPassed();
+  //    testResults[1].HasFailed();
+  //    testResults[2].HasFailed();
+  //  }
 
-    private static class GenericHelper
-    {
-      public static T1 Create<T1, T2, T3>(T3 arg)
-        where T1 : new()
-      {
-        return new T1();
-      }
-    }
+  //  private static class GenericHelper
+  //  {
+  //    public static T1 Create<T1, T2, T3>(T3 arg)
+  //      where T1 : new()
+  //    {
+  //      return new T1();
+  //    }
+  //  }
 
-    class T1 { }
-    class T2 { }
-    class T3 { }
-  }
+  //  class T1 { }
+  //  class T2 { }
+  //  class T3 { }
+  //}
 }
