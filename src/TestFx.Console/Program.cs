@@ -70,12 +70,4 @@ namespace TestFx.Console
         yield return new TeamCityRunListener(new TeamCityServiceMessageWriter(System.Console.WriteLine));
     }
   }
-
-  public class Factory : MarshalByRefObject
-  {
-    public T Create<T>(Type type, params object[] args)
-    {
-      return type.CreateInstance<T>(args);
-    }
-  }
 }

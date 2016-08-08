@@ -17,8 +17,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
-using RazorEngine;
-using RazorEngine.Templating;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 using TestFx.Utilities;
@@ -28,7 +26,6 @@ namespace TestFx.Console.HtmlReport
   public class HtmlReportRunListener : RunListener
   {
     private const string c_defaultTemplateName = "default-report.zip";
-    private const string c_templateKey = "templateKey";
 
     private readonly string _templateFile;
     private readonly string _reportFile;
@@ -59,9 +56,9 @@ namespace TestFx.Console.HtmlReport
 
     public override void OnRunFinished (IRunResult result)
     {
-      var template = File.ReadAllText(_templateFile);
-      var reportContent = Engine.Razor.RunCompile(template, c_templateKey, typeof(IRunResult), result);
-      File.WriteAllText(_reportFile, reportContent);
+      //var template = File.ReadAllText(_templateFile);
+
+      //File.WriteAllText(_reportFile, reportContent);
     }
   }
 }

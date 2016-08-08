@@ -38,46 +38,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="NullGuard, Version=1.4.5.0, Culture=neutral, PublicKeyToken=1958ac8092168428, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NullGuard.Fody.1.4.5\Lib\portable-net4+sl5+wpa81+wp8+win8+MonoAndroid16+MonoTouch40\NullGuard.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="RazorEngine, Version=3.8.2.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\RazorEngine.3.8.2\lib\net45\RazorEngine.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Annotations.cs">
@@ -97,72 +65,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <EmbeddedResource Include="HtmlReport\default-report.zip" />
-    <None Include="HtmlReport\default-report\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="HtmlReport\default-report\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="HtmlReport\default-report\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="HtmlReport\default-report\less\alerts.less" />
-    <None Include="HtmlReport\default-report\less\badges.less" />
-    <None Include="HtmlReport\default-report\less\bootstrap.less" />
-    <None Include="HtmlReport\default-report\less\breadcrumbs.less" />
-    <None Include="HtmlReport\default-report\less\button-groups.less" />
-    <None Include="HtmlReport\default-report\less\buttons.less" />
-    <None Include="HtmlReport\default-report\less\carousel.less" />
-    <None Include="HtmlReport\default-report\less\close.less" />
-    <None Include="HtmlReport\default-report\less\code.less" />
-    <None Include="HtmlReport\default-report\less\component-animations.less" />
-    <None Include="HtmlReport\default-report\less\dropdowns.less" />
-    <None Include="HtmlReport\default-report\less\forms.less" />
-    <None Include="HtmlReport\default-report\less\glyphicons.less" />
-    <None Include="HtmlReport\default-report\less\grid.less" />
-    <None Include="HtmlReport\default-report\less\input-groups.less" />
-    <None Include="HtmlReport\default-report\less\jumbotron.less" />
-    <None Include="HtmlReport\default-report\less\labels.less" />
-    <None Include="HtmlReport\default-report\less\list-group.less" />
-    <None Include="HtmlReport\default-report\less\media.less" />
-    <None Include="HtmlReport\default-report\less\mixins.less" />
-    <None Include="HtmlReport\default-report\less\modals.less" />
-    <None Include="HtmlReport\default-report\less\navbar.less" />
-    <None Include="HtmlReport\default-report\less\navs.less" />
-    <None Include="HtmlReport\default-report\less\normalize.less" />
-    <None Include="HtmlReport\default-report\less\pager.less" />
-    <None Include="HtmlReport\default-report\less\pagination.less" />
-    <None Include="HtmlReport\default-report\less\panels.less" />
-    <None Include="HtmlReport\default-report\less\popovers.less" />
-    <None Include="HtmlReport\default-report\less\print.less" />
-    <None Include="HtmlReport\default-report\less\progress-bars.less" />
-    <None Include="HtmlReport\default-report\less\responsive-utilities.less" />
-    <None Include="HtmlReport\default-report\less\scaffolding.less" />
-    <None Include="HtmlReport\default-report\less\tables.less" />
-    <None Include="HtmlReport\default-report\less\theme.less" />
-    <None Include="HtmlReport\default-report\less\thumbnails.less" />
-    <None Include="HtmlReport\default-report\less\tooltip.less" />
-    <None Include="HtmlReport\default-report\less\type.less" />
-    <None Include="HtmlReport\default-report\less\utilities.less" />
-    <None Include="HtmlReport\default-report\less\variables.less" />
-    <None Include="HtmlReport\default-report\less\wells.less" />
-    <None Include="HtmlReport\default-report\template.cshtml" />
     <None Include="packages.config" />
-    <Content Include="HtmlReport\default-report\css\bootstrap-theme.css" />
-    <Content Include="HtmlReport\default-report\css\bootstrap-theme.min.css" />
-    <Content Include="HtmlReport\default-report\css\bootstrap.css" />
-    <Content Include="HtmlReport\default-report\css\bootstrap.min.css" />
-    <Content Include="HtmlReport\default-report\css\style.css" />
-    <Content Include="HtmlReport\default-report\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="HtmlReport\default-report\img\apple-touch-icon-114-precomposed.png" />
-    <Content Include="HtmlReport\default-report\img\apple-touch-icon-144-precomposed.png" />
-    <Content Include="HtmlReport\default-report\img\apple-touch-icon-57-precomposed.png" />
-    <Content Include="HtmlReport\default-report\img\apple-touch-icon-72-precomposed.png" />
-    <Content Include="HtmlReport\default-report\img\favicon.png" />
-    <Content Include="HtmlReport\default-report\img\glyphicons-halflings-white.png" />
-    <Content Include="HtmlReport\default-report\img\glyphicons-halflings.png" />
-    <Content Include="HtmlReport\default-report\js\bootstrap.min.js" />
-    <Content Include="HtmlReport\default-report\js\html5shiv.js" />
-    <Content Include="HtmlReport\default-report\js\jquery.min.js" />
-    <Content Include="HtmlReport\default-report\js\less-1.3.3.min.js" />
-    <Content Include="HtmlReport\default-report\js\scripts.js" />
-    <Content Include="HtmlReport\default-report\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestFx.Core\TestFx.Core.csproj">
