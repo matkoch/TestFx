@@ -22,6 +22,8 @@ namespace TestFx.Console
 {
   internal class TextSymbolProvider : ISymbolProvider
   {
+    public static ISymbolProvider Instance = new TextSymbolProvider();
+
     private readonly Dictionary<State, string> _stateSymbols;
     private readonly Dictionary<OutputType, string> _outputTypeSymbols;
 

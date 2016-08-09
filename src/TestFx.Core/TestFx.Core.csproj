@@ -63,6 +63,7 @@
     <Compile Include="Evaluation\Reporting\DefaultSymbolProvider.cs" />
     <Compile Include="Evaluation\Reporting\FillingOperationResult.cs" />
     <Compile Include="Evaluation\Reporting\ISymbolProvider.cs" />
+    <Compile Include="Evaluation\Reporting\ReportingUtility.cs" />
     <Compile Include="Evaluation\Runners\ContextRunnerBase.cs" />
     <Compile Include="Evaluation\Utilities\AppDomain.cs" />
     <Compile Include="Evaluation\Utilities\AutofacExtensions.cs" />

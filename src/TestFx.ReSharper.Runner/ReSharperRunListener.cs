@@ -47,12 +47,12 @@ namespace TestFx.ReSharper.Runner
 
     public override void OnTestFinished (ITestResult result)
     {
-      Finished(result, result.OperationResults, result.OutputEntries);
+      Finished(result);
     }
 
     public override void OnSuiteFinished (ISuiteResult result)
     {
-      Finished(result, MergeSetupsAndCleanups(result), result.OutputEntries);
+      Finished(result);
     }
 
     private void Started (IIntent intent, string text)
@@ -64,7 +64,7 @@ namespace TestFx.ReSharper.Runner
       _server.TaskStarting(task);
     }
 
-    private void Finished (IResult result, IEnumerable<IOperationResult> operationResults, IEnumerable<OutputEntry> entries)
+    private void Finished (IOutputResult result)
     {
       var task = _taskDictionary[result.Identity];
 
@@ -72,15 +72,9 @@ namespace TestFx.ReSharper.Runner
       if (!task.IsMeaningfulTask)
         return;
 
-      var operations = operationResults.ToList();
-      var exceptions = GetExceptions(operations).ToList();
-
-      var message = GetGeneralMessage(exceptions, operations);
-      var details = GetDetails(operations, entries);
-
-      _server.TaskOutput(task, details, TaskOutputType.STDOUT);
-      _server.TaskException(task, exceptions.Select(x => x.ToTaskException()).ToArray());
-      _server.TaskFinished(task, message, result.GetTaskResult());
+      _server.TaskOutput(task, result.GetDetailedSummary(includeExceptions: false), TaskOutputType.STDOUT);
+      _server.TaskException(task, result.GetExceptions().ToList().Select(x => x.ToTaskException()).ToArray());
+      _server.TaskFinished(task, result.GetBriefSummary(), result.GetTaskResult());
     }
 
     private Task CreateDynamicTask (IIntent intent, string text)
