@@ -2,3 +2,7 @@
 	path = shared
 	url = https://github.com/matkoch/shared.git
 	branch = master
+[submodule "src/TestFx.Console/HtmlReport/bootstrap-treeview"]
+	path = src/TestFx.Console/HtmlReport/bootstrap-treeview
+	url = https://github.com/matkoch/bootstrap-treeview.git
+	branch = master
