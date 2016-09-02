@@ -25,7 +25,6 @@ namespace TestFx.Console.TeamCity
     private readonly TeamCityServiceMessageWriter _writer;
 
     public TeamCityRunListener (TeamCityServiceMessageWriter writer)
-        : base(new TextSymbolProvider())
     {
       _writer = writer;
     }
@@ -38,15 +37,7 @@ namespace TestFx.Console.TeamCity
     public override void OnSuiteFinished (ISuiteResult result)
     {
       if (result.State == State.Failed && !result.SuiteResults.Any() && !result.TestResults.Any())
-      {
-        var operations = MergeSetupsAndCleanups(result).ToList();
-        var exceptions = GetExceptions(operations).ToList();
-
-        var message = GetGeneralMessage(exceptions, operations);
-        var details = GetDetails(operations, result.OutputEntries);
-
-        _writer.WriteTestFailed(result.Text, message, details);
-      }
+        _writer.WriteTestFailed(result.Text, result.GetBriefSummary(), result.GetDetailedSummary(TextSymbolProvider.Instance));
 
       _writer.WriteTestSuiteFinished(result.Text);
     }
@@ -64,13 +55,7 @@ namespace TestFx.Console.TeamCity
           _writer.WriteTestFinished(result.Text, result.Duration);
           break;
         case State.Failed:
-          var operations = result.OperationResults.ToList();
-          var exceptions = GetExceptions(operations).ToList();
-
-          var message = GetGeneralMessage(exceptions, operations);
-          var details = GetDetails(operations, result.OutputEntries, exceptions);
-
-          _writer.WriteTestFailed(result.Text, message, details);
+          _writer.WriteTestFailed(result.Text, result.GetBriefSummary(), result.GetDetailedSummary(TextSymbolProvider.Instance));
           _writer.WriteTestFinished(result.Text, result.Duration);
           break;
         case State.Ignored:
