@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using JetBrains.Annotations;
 using TestFx.Evaluation.Utilities;
 using TestFx.Utilities;

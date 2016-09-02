@@ -14,13 +14,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Containers;
-using TestFx.SpecK.Implementation;
 using TestFx.SpecK.InferredApi;
 
 namespace TestFx.SpecK

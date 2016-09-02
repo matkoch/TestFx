@@ -13,12 +13,10 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Results;
-using TestFx.Utilities.Collections;
 
 namespace TestFx.Evaluation.Reporting
 {

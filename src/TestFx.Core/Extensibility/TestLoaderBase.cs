@@ -64,7 +64,7 @@ namespace TestFx.Extensibility
       var ignoreReason = suiteType.GetAttribute<IgnoreAttribute>().GetValueOrDefault(x => x.Reason);
       var resources = suiteType.GetAttribute<ResourcesAttribute>().GetValueOrDefault(x => x.Resources);
 
-      return SuiteProvider.Create(identity, text, ignoreReason, resources: resources);
+      return SuiteProvider.Create(identity, text, ignoreReason, resources);
     }
 
     [CanBeNull]

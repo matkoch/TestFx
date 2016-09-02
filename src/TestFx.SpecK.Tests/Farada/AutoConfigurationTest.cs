@@ -13,13 +13,11 @@
 // limitations under the License.
 
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using FakeItEasy.Core;
 using Farada.TestDataGeneration.BaseDomain.ValueProviders;
 using Farada.TestDataGeneration.Fluent;
 using FluentAssertions;
-using JetBrains.Annotations;
 using TestFx.Evaluation.Results;
 using TestFx.Farada;
 using TestFx.TestInfrastructure;

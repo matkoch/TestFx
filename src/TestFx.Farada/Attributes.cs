@@ -15,7 +15,6 @@
 using System;
 using Farada.TestDataGeneration.Fluent;
 using JetBrains.Annotations;
-using TestFx.Utilities.Reflection;
 
 namespace TestFx.Farada
 {

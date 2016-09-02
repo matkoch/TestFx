@@ -14,10 +14,6 @@
 
 using System;
 using System.Linq;
-using System.Reflection;
-using FakeItEasy.Core;
-using TestFx.Evaluation.Results;
-using TestFx.TestInfrastructure;
 
 namespace TestFx.SpecK.Tests.Generics
 {

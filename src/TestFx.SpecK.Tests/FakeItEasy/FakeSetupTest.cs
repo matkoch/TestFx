@@ -33,7 +33,8 @@ namespace TestFx.SpecK.Tests.FakeItEasy
       {
         Specify (x => 0)
             .DefaultCase (_ => _
-                .It ("retrieves Service from ServiceProvider", x => x.Subject.ServiceProvider.GetService (null).Should ().BeSameAs (Service)));
+                .It ("retrieves Service from ServiceProvider",
+                  x => x.Subject.ServiceProvider.GetService (serviceType: null).Should ().BeSameAs (Service)));
       }
 
       public override DomainType CreateSubject ()
