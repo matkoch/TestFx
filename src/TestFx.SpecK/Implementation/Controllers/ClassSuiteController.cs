@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using TestFx.Extensibility;
 using TestFx.Extensibility.Controllers;
@@ -87,6 +88,7 @@ namespace TestFx.SpecK.Implementation.Controllers
     }
 
     [CanBeNull]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private Action<Extensibility.Contexts.ITestContext> ConvertToNonGeneric ([CanBeNull] Action<ITestContext<TSubject>> action)
     {
       return action != null ? (x => action((ITestContext<TSubject>) x)) : (Action<Extensibility.Contexts.ITestContext>) null;
