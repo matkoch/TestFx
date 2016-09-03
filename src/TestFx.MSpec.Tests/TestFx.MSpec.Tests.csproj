@@ -72,7 +72,7 @@
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
     <Compile Include="BehaviorTest.cs" />
-    <Compile Include="HierarchyLoader.cs" />
+    <Compile Include="HierarchyLoaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleContextExecutionTest.cs" />
     <Compile Include="SimpleTest.cs" />

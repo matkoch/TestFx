@@ -25,16 +25,16 @@ namespace TestFx.MSpec.Tests
     [Test]
     public void Test ()
     {
-      var hierarchy = HierarchyLoader.GetExecutionHierarchy(typeof (U3.U6)).ToList();
+      var hierarchy = HierarchyLoader.GetExecutionHierarchy(typeof(U3.U6)).ToList();
 
       var expectedHierarchy = new[]
                               {
-                                  typeof (U1),
-                                  typeof (X1.U2),
-                                  typeof (U3),
-                                  typeof (U4),
-                                  typeof (X2.U5),
-                                  typeof (U3.U6)
+                                typeof(U1),
+                                typeof(X1.U2),
+                                typeof(U3),
+                                typeof(U4),
+                                typeof(X2.U5),
+                                typeof(U3.U6)
                               };
       Assert.That(hierarchy, Is.EqualTo(expectedHierarchy));
     }
