@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>TestFx.ReSharper</id>
+    <id>TestFx.TestFx</id>
     <title>TestFx for ReSharper</title>
     <version>$version$</version>
     <authors>Matthias Koch</authors>
@@ -18,7 +18,7 @@
   <files>
     <file src="TestFx.ReSharper\bin\$configuration$\Autofac.*" target="DotFiles" />
     <file src="TestFx.ReSharper\bin\$configuration$\TestFx.*" target="DotFiles" />
-    <file src="TestFx.ReSharper\bin\$configuration$\Microsoft.VisualStudio.ExtensionManager.*" target="DotFiles" />
+    <!--<file src="TestFx.ReSharper\bin\$configuration$\Microsoft.VisualStudio.ExtensionManager.*" target="DotFiles" />-->
     <file src="TestFx.ReSharper\*.DotSettings" target="DotFiles\Extensions\TestFx.ReSharper\settings" />
   </files>
 </package>
