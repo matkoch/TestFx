@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>TestFx.TestFx</id>
-    <title>TestFx for ReSharper</title>
+    <id>ReSharper.TestFx</id>
+    <title>TestFx Runner</title>
     <version>$version$</version>
     <authors>Matthias Koch</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,7 +12,7 @@
     <licenseUrl>https://raw.github.com/matkoch/TestFx/master/LICENSE</licenseUrl>
     <tags>testfx resharper speck mspec</tags>
     <dependencies>
-      <dependency id="Wave" version="[5.0]" />
+      <dependency id="Wave" version="[6.0]" />
     </dependencies>
   </metadata>
   <files>
