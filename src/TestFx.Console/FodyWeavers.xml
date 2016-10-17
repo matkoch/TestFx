@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Weavers>
-	<Costura CreateTemporaryAssemblies="True" />
+	<!--<Costura CreateTemporaryAssemblies="True" />-->
   <NullGuard IncludeDebugAssert="False" />
 </Weavers>
