@@ -19,10 +19,11 @@ using Machine.Specifications;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
+using TestFx.Utilities;
 
 namespace TestFx.MSpec.Tests
 {
-  [Subject (typeof(int))]
+  [Subject (typeof(int), "is great")]
   internal class simple_context
   {
     internal class when_adding
@@ -46,7 +47,7 @@ namespace TestFx.MSpec.Tests
 
       runResult.GetClassSuiteResult()
           .HasRelativeId("TestFx.MSpec.Tests.simple_context+when_adding")
-          .HasText("Int32, when adding");
+          .HasText("Int32 is great, when adding");
 
       var testResults = runResult.GetTestResults();
       testResults[0].HasPassed().HasRelativeId("returns_three").HasText("returns three");
