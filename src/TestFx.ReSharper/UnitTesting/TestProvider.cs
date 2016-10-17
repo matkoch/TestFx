@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ProjectModel;
@@ -29,13 +30,8 @@ using RecursiveRemoteTaskRunner = TestFx.ReSharper.Runner.RecursiveRemoteTaskRun
 
 namespace TestFx.ReSharper.UnitTesting
 {
-  public interface ITestProvider : IUnitTestProvider, IDynamicUnitTestProvider
-  {
-    IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, ITestElement> elementProvider);
-  }
-
   [UnitTestProvider]
-  public partial class TestProvider : ITestProvider
+  public partial class TestProvider : IUnitTestProvider, IDynamicUnitTestProvider
   {
     public string ID => RecursiveRemoteTaskRunner.ID;
 
@@ -105,6 +101,17 @@ namespace TestFx.ReSharper.UnitTesting
       element.State = UnitTestElementState.Dynamic;
 
       return element;
+    }
+
+    public IUnitTestElement GetDynamicElement ([NotNull] RemoteTask remoteTask, [NotNull] Dictionary<string, IUnitTestElement> elements)
+    {
+      return GetDynamicElement(
+        remoteTask,
+          absoluteId =>
+          {
+            IUnitTestElement element;
+            return elements.TryGetValue(absoluteId, out element) ? (ITestElement) element : null;
+          });
     }
   }
 }

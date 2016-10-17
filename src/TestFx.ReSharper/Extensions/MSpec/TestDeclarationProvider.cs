@@ -48,31 +48,16 @@ namespace TestFx.ReSharper.Extensions.MSpec
     public ITestDeclaration GetTestDeclaration (IClassDeclaration classDeclaration)
     {
       var clazz = classDeclaration.DeclaredElement.NotNull<IClass>();
+
       if (!IsSuite(clazz))
         return null;
-
-      var subjectType = clazz.DescendantsAndSelf(x => x.GetContainingType() as IClass)
-          .Select(
-              x =>
-              {
-                var subjectAttributeData = x.GetAttributeData("Machine.Specifications.SubjectAttribute");
-                if (subjectAttributeData == null)
-                  return null;
-
-                return subjectAttributeData.PositionParameter(paramIndex: 0).TypeValue.NotNull().ToCommon();
-              })
-          .WhereNotNull().FirstOrDefault();
-      
-      var concern = clazz.ToCommon().Name.Replace(oldChar: '_', newChar: ' ');
-      var text = subjectType == null
-          ? concern
-          : subjectType.Name + ", " + concern;
 
       var identity = _assemblyIdentity.CreateChildIdentity(classDeclaration.CLRName);
       var categories = clazz.GetAttributeData<CategoriesAttribute>()
           .GetValueOrDefault(
               x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
               () => new string[0]).NotNull();
+      var text = GetText(clazz);
       var fieldTests = TreeNodeEnumerable.Create(
           () =>
           {
@@ -85,34 +70,34 @@ namespace TestFx.ReSharper.Extensions.MSpec
       return new ClassTestDeclaration(identity, _project, categories, text, fieldTests, classDeclaration);
     }
 
-    private static bool IsSuite (IClass clazz)
+    private bool IsSuite (IClass clazz)
     {
-      if (clazz.GetAttributeData("Machine.Specifications.BehaviorsAttribute") != null)
+      if (clazz.GetAttributeData(MSpecUtility.BehaviorsAttributeFullName) != null)
         return false;
 
-      var fields = clazz.Fields;
-      foreach (var field in fields)
-      {
-        var typeElement = field.Type.GetTypeElement();
-        if (typeElement == null)
-          continue;
+      return clazz.Fields.Select(x => x.Type.GetTypeElement()).WhereNotNull().Select(x => x.GetClrName().FullName)
+          .Any(x => x == MSpecUtility.ItDelegateFullName || x == MSpecUtility.BehavesLikeDelegateFullName);
+    }
 
-        var fullName = typeElement.GetClrName().FullName;
-        if (fullName == "Machine.Specifications.It" ||
-            fullName == "Machine.Specifications.Behaves_like`1")
-          return true;
-      }
-      return false;
+    private string GetText (IClass clazz)
+    {
+      var subjectAttribute = clazz.DescendantsAndSelf(x => x.GetContainingType() as IClass)
+          .Select(x => x.GetAttributeData(MSpecUtility.SubjectAttributeFullName)).WhereNotNull().First();
+
+      var subjectTypes = subjectAttribute.PositionParameters().Select(x => x.TypeValue).WhereNotNull();
+      var subjectText = subjectAttribute.PositionParameters().Select(x => x.ConstantValue.Value as string).WhereNotNull().FirstOrDefault();
+
+      return MSpecUtility.CreateText(clazz.ToCommon(), subjectTypes.SingleOrDefault()?.ToCommon(), subjectText);
     }
 
     [CanBeNull]
     private ITestDeclaration GetFieldTest (IFieldDeclaration fieldDeclaration, IIdentity parentIdentity)
     {
-      if (fieldDeclaration.Type.GetTypeElement().NotNull().GetClrName().FullName != "Machine.Specifications.It")
+      if (fieldDeclaration.Type.GetTypeElement().NotNull().GetClrName().FullName != MSpecUtility.ItDelegateFullName)
         return null;
 
-      var text = fieldDeclaration.DeclaredName.Replace(oldChar: '_', newChar: ' ');
       var identity = parentIdentity.CreateChildIdentity(fieldDeclaration.DeclaredName);
+      var text = fieldDeclaration.DeclaredName.Replace(oldChar: '_', newChar: ' ');
       return new FieldTestDeclaration(identity, _project, text, fieldDeclaration);
     }
 

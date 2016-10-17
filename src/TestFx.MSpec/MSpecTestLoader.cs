@@ -51,7 +51,7 @@ namespace TestFx.MSpec
 
       return subjectAttribute == null
           ? concern
-          : subjectAttribute.CreateSubject().Type.Name + ", " + concern;
+          : subjectAttribute.CreateSubject().FullConcern + ", " + concern;
     }
 
     protected override void Initialize (Type suiteType, object suite, SuiteProvider provider)

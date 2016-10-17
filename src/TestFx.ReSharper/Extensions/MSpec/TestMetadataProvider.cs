@@ -18,7 +18,6 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
-using TestFx.Extensibility;
 using TestFx.ReSharper.Model.Metadata;
 using TestFx.ReSharper.UnitTesting.Explorers.Metadata;
 using TestFx.ReSharper.Utilities.Metadata;
@@ -29,16 +28,12 @@ namespace TestFx.ReSharper.Extensions.MSpec
 {
   public class TestMetadataProvider : ITestMetadataProvider
   {
-    private readonly IIntrospectionPresenter _introspectionPresenter;
-    private readonly IMetadataPresenter _metadataPresenter;
     private readonly IProject _project;
     private readonly IIdentity _assemblyIdentity;
     private readonly Func<bool> _notInterrupted;
 
-    public TestMetadataProvider (IMetadataPresenter metadataPresenter, IProject project, IIdentity assemblyIdentity, Func<bool> notInterrupted)
+    public TestMetadataProvider (IProject project, IIdentity assemblyIdentity, Func<bool> notInterrupted)
     {
-      _introspectionPresenter = new IntrospectionPresenter();
-      _metadataPresenter = metadataPresenter;
       _project = project;
       _assemblyIdentity = assemblyIdentity;
       _notInterrupted = notInterrupted;
@@ -56,26 +51,12 @@ namespace TestFx.ReSharper.Extensions.MSpec
       if (!IsSuite(type))
         return null;
 
-      var subjectType = type.DescendantsAndSelf(x => x.DeclaringType)
-          .Select(
-              x =>
-              {
-                var subjectAttributeData = x.GetAttributeData("Machine.Specifications.SubjectAttribute");
-                if (subjectAttributeData == null)
-                  return null;
-
-                return subjectAttributeData.ConstructorArguments.First().Type.NotNull().ToCommon();
-              }).WhereNotNull().FirstOrDefault();
-      
-      var concern = type.ToCommon().Name.Replace(oldChar: '_', newChar: ' ');
-      var text = subjectType == null
-          ? concern
-          : subjectType.Name + ", " + concern;
 
       var identity = _assemblyIdentity.CreateChildIdentity(type.FullyQualifiedName);
       var categories = type.GetAttributeData<CategoriesAttribute>().GetValueOrDefault(
           x => x.ConstructorArguments[0].ValuesArray.Select(y => (string) y.Value),
           () => new string[0]).NotNull();
+      var text = GetText(type);
       var fieldTests = type.GetFields()
           .TakeWhile(_notInterrupted)
           .Select(x => GetFieldTest(x, identity))
@@ -84,37 +65,38 @@ namespace TestFx.ReSharper.Extensions.MSpec
       return new TypeTestMetadata(identity, _project, categories, text, fieldTests, type);
     }
 
-    private static bool IsSuite (IMetadataTypeInfo type)
+    private bool IsSuite (IMetadataTypeInfo type)
     {
-      if (type.GetAttributeData("Machine.Specifications.BehaviorsAttribute") != null)
+      if (type.GetAttributeData(MSpecUtility.BehaviorsAttributeFullName) != null)
         return false;
 
-      var fields = type.GetFields();
-      foreach (var field in fields)
-      {
-        var metadataClassType = field.Type as IMetadataClassType;
-        if (metadataClassType == null)
-          continue;
+      return type.GetFields().Select(x => x.Type).OfType<IMetadataClassType>().Select(x => x.Type.FullyQualifiedName)
+          .Any(x => x == MSpecUtility.ItDelegateFullName || x == MSpecUtility.BehavesLikeDelegateFullName);
+    }
 
-        if (metadataClassType.Type.FullyQualifiedName == "Machine.Specifications.It" ||
-            metadataClassType.Type.FullyQualifiedName == "Machine.Specifications.Behaves_like`1")
-          return true;
-      }
+    private string GetText (IMetadataTypeInfo type)
+    {
+      var subjectAttribute = type.DescendantsAndSelf(x => x.DeclaringType)
+          .Select(x => x.GetAttributeData(MSpecUtility.SubjectAttributeFullName)).WhereNotNull().First();
 
-      return false;
+      var subjectTypes = subjectAttribute.ConstructorArguments.Select(x => x.Value as IMetadataType).WhereNotNull();
+      var subjectText = subjectAttribute.ConstructorArguments.Select(x => x.Value as string).WhereNotNull().FirstOrDefault();
+
+      return MSpecUtility.CreateText(type.ToCommon(), subjectTypes.SingleOrDefault()?.ToCommon(), subjectText);
     }
 
     [CanBeNull]
-    private ITestMetadata GetFieldTest (IMetadataField field, IIdentity identity)
+    private ITestMetadata GetFieldTest (IMetadataField field, IIdentity parentIdentity)
     {
-      if (field.Type.NotNull().FullName != "Machine.Specifications.It")
+      if (field.Type.NotNull().FullName != MSpecUtility.ItDelegateFullName)
         return null;
 
       if (field.GetAttributeData<CompilerGeneratedAttribute>() != null)
         return null;
 
+      var identity = parentIdentity.CreateChildIdentity(field.Name);
       var text = field.Name.Replace(oldChar: '_', newChar: ' ');
-      return new MemberTestMetadata(identity.CreateChildIdentity(text), _project, text.Replace("_", " "), field);
+      return new MemberTestMetadata(identity, _project, text, field);
     }
 
     #endregion

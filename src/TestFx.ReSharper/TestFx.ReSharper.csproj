@@ -17,7 +17,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <IntermediateOutputPath>obj\$(Configuration)\10.0</IntermediateOutputPath>
-    <Hive>TestFx</Hive>
+    <Hive>Exp</Hive>
     <Vs12Installation>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs12$(Hive)</Vs12Installation>
     <Vs14Installation>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs14$(Hive)</Vs14Installation>
     <BaseInstallationPath>$(LocalAppData)\JetBrains\Installations\ReSharperPlatformVs12$(Hive)</BaseInstallationPath>
@@ -292,6 +292,7 @@
     <Compile Include="..\AssemblyInfoShared.cs">
       <Link>Properties\AssemblyInfoShared.cs</Link>
     </Compile>
+    <Compile Include="Extensions\MSpec\MSpecUtility.cs" />
     <Compile Include="Model\Metadata\MemberTestMetadata.cs" />
     <Compile Include="Model\Metadata\Wrapper\MetadataTypeMemberBase.cs" />
     <Compile Include="Model\Tree\FieldTestDeclaration.cs" />
@@ -360,7 +361,6 @@
     <Compile Include="UnitTesting\TestElementSerializer.cs" />
     <Compile Include="Model\TestEntitySurrogate.cs" />
     <Compile Include="UnitTesting\TestProvider.cs" />
-    <Compile Include="UnitTesting\TestProvider.R9.cs" />
     <Compile Include="UnitTesting\TestSource.cs" />
     <Compile Include="UnitTesting\Utilities\UnitTestElementManagerExtensions.R9.cs" />
     <Compile Include="UnitTesting\Utilities\TestIdentity.cs" />

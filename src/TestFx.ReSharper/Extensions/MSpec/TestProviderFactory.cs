@@ -47,7 +47,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
 
     public ITestMetadataProvider CreateTestMetadataProvider (IIdentity assemblyIdentity, IProject project, Func<bool> notInterrupted)
     {
-      return new TestMetadataProvider(_metadataPresenter, project, assemblyIdentity, notInterrupted);
+      return new TestMetadataProvider(project, assemblyIdentity, notInterrupted);
     }
 
     #endregion
