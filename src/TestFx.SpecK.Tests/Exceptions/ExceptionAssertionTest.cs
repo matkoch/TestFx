@@ -35,17 +35,17 @@ namespace TestFx.SpecK.Tests.Exceptions
             .DefaultCase (_ => _
                 .Given ("a message", x => Message = "Message")
                 .Given ("an inner exception", x => InnerException = new Exception ())
-                .ItThrows (typeof (ArgumentException), x => Message, x => InnerException))
+                .ItThrows (typeof (ArgumentException), messageProvider: x => Message, innerExceptionProvider: x => InnerException))
             .Case ("Wrong exception type", _ => _
                 .ItThrows (typeof (InvalidOperationException)))
             .Case ("Wrong message", _ => _
                 .ItThrows (typeof (ArgumentException), "Wrong message"))
             .Case ("Wrong message provider", _ => _
                 .Given ("a message", x => Message = "Message")
-                .ItThrows (typeof (ArgumentException), x => "Wrong message"))
+                .ItThrows (typeof (ArgumentException), messageProvider: x => "Wrong message"))
             .Case ("Wrong inner exception provider", _ => _
                 .Given ("a message", x => Message = "Message")
-                .ItThrows (typeof (ArgumentException), x => "Message", x => new Exception ()))
+                .ItThrows (typeof (ArgumentException), messageProvider: x => "Message", innerExceptionProvider: x => new Exception ()))
             .Case ("Custom failing assertion", _ => _
                 .ItThrows ("exception with special properties", x => x.Exception.InnerException.Should ().NotBeNull ()))
             .Case ("Custom passing assertion", _ => _

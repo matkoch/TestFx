@@ -32,11 +32,5 @@ namespace TestFx.SpecK.Implementation.Utilities
       if (!expectedType.IsInstanceOfType(actualObject))
         throw new Exception($"{objectName} must be assignable to '{expectedType}' but was '{actualObject?.GetType().Name ?? "null"}'.");
     }
-
-    public static void AssertExceptionMessage (string expectedMessage, Exception exception)
-    {
-      if (exception.Message != expectedMessage)
-        throw new Exception($"Exception message must be '{expectedMessage}' but was '{exception.Message}'.");
-    }
   }
 }

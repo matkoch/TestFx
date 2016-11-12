@@ -23,7 +23,7 @@ namespace TestFx.TestInfrastructure
   [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class ResultExtensions
   {
-    public static T HasRelativeId<T> (this T result, string relativeId)
+    public static T HasRelativeId<T> (this T result, [CanBeNull] string relativeId)
         where T : IResult
     {
       result.Identity.Relative.Should().Be(relativeId);

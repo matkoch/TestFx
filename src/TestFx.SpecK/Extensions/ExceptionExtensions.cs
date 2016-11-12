@@ -14,6 +14,7 @@
 
 using System;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using TestFx.SpecK.Implementation.Containers;
 using TestFx.SpecK.Implementation.Utilities;
@@ -33,14 +34,8 @@ namespace TestFx.SpecK
     public static IAssert<TSubject, TResult, TVars, TSequence> ItThrows<TSubject, TResult, TVars, TSequence> (
         this IAssert<TSubject, TResult, TVars, TSequence> assert,
         Type exceptionType,
-        string message)
-    {
-      return assert.ItThrows(exceptionType, x => message);
-    }
-
-    public static IAssert<TSubject, TResult, TVars, TSequence> ItThrows<TSubject, TResult, TVars, TSequence> (
-        this IAssert<TSubject, TResult, TVars, TSequence> assert,
-        Type exceptionType,
+        [CanBeNull] string message = null,
+        [CanBeNull] [RegexPattern] string messagePattern = null,
         [CanBeNull] Func<TVars, string> messageProvider = null,
         [CanBeNull] Func<TVars, Exception> innerExceptionProvider = null)
     {
@@ -50,8 +45,14 @@ namespace TestFx.SpecK
           x =>
           {
             AssertionHelper.AssertInstanceOfType("Exception", exceptionType, x.Exception);
-            if (messageProvider != null)
-              AssertionHelper.AssertExceptionMessage(messageProvider(x.Vars), x.Exception);
+
+            if (message == null && messageProvider != null)
+              message = messageProvider(x.Vars);
+            if (message != null && x.Exception.Message != message)
+              throw new Exception($"Exception message must be '{message}' but was '{x.Exception.Message}'.");
+            if (messagePattern != null && Regex.IsMatch(x.Exception.Message, messagePattern))
+              throw new Exception($"Exception message must match '{messagePattern}' but was '{x.Exception.Message}'.");
+
             if (innerExceptionProvider != null)
               AssertionHelper.AssertObjectEquals("InnerException", innerExceptionProvider(x.Vars), x.Exception.NotNull().InnerException);
           },

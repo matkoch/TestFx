@@ -25,11 +25,7 @@ namespace TestFx.Evaluation.Reporting
   {
     public static IEnumerable<IExceptionDescriptor> GetExceptions (this IOutputResult result)
     {
-      return (result is ITestResult
-          ? ((ITestResult) result).OperationResults
-          : ((ISuiteResult) result).GetOperationResults())
-          .Select(x => x.Exception)
-          .WhereNotNull();
+      return result.GetOperationResults().Select(x => x.Exception).WhereNotNull();
     }
 
     public static IEnumerable<IOperationResult> GetOperationResults (this IOutputResult result)
@@ -41,12 +37,13 @@ namespace TestFx.Evaluation.Reporting
 
     public static string GetBriefSummary (this IOutputResult result)
     {
+      var operationsCount = result.GetOperationResults().Count(x => !(x is FillingOperationResult));
       var exceptions = result.GetExceptions().ToList();
       return exceptions.Count == 0
-          ? result.GetOperationResults().Count(x => !(x is FillingOperationResult)) + " Operations"
+          ? $"{operationsCount} {(operationsCount > 1 ? "operations" : "operation")} run"
           : exceptions.Count == 1
               ? exceptions.Single().Name
-              : exceptions.Count + " Exceptions";
+              : $"exceptions.Count {(exceptions.Count > 1 ? "exceptions" : "exception")} thrown";
     }
 
     public static string GetDetailedSummary (this IOutputResult result, ISymbolProvider symbolProvider = null, bool includeExceptions = true)
