@@ -24,23 +24,23 @@ namespace TestFx.Console
     private class Options
     {
       [OptionList ("assemblies", Required = true, Separator = ';', HelpText = "List of assemblies separated by semicolons.")]
-      public IList<string> Assemblies { get; set; }
+      public IList<string> Assemblies { get; [UsedImplicitly] set; }
 
       [Option ("pause", HelpText = "Enables pausing before the process is terminated.")]
-      public bool Pause { get; set; }
+      public bool Pause { get; [UsedImplicitly] set; }
 
       [Option ("debug",
           HelpText = "Enables debugging by calling Debugger.Launch().")]
-      public bool Debug { get; set; }
+      public bool Debug { get; [UsedImplicitly] set; }
 
       [Option ("teamCity", HelpText = "Forces output for JetBrains TeamCity server. Disables standard output.")]
-      public bool TeamCity { get; set; }
+      public bool TeamCity { get; [UsedImplicitly] set; }
       
       [Option("htmlReport", HelpText = "Enables generation of a HTML report. Specify 'default' or a custom ZIP archive with a 'template.cshtml' razor template.")]
-      public string HtmlReport { get; set; }
+      public string HtmlReport { get; [UsedImplicitly] set; }
 
       [Option("output", HelpText = "Specifies the output directory for the HTML report and DotCover analysis.")]
-      public string Output { get; set; }
+      public string Output { get; [UsedImplicitly] set; }
     }
 
     private static Options s_options;
