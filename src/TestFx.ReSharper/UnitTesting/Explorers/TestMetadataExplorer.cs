@@ -15,6 +15,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
@@ -26,20 +27,26 @@ using TestFx.ReSharper.UnitTesting.Explorers.Metadata;
 
 namespace TestFx.ReSharper.UnitTesting.Explorers
 {
-  public partial interface ITestMetadataExplorer
+  public interface ITestMetadataExplorer
   {
     void Explore (
-        IProject project,
-        IMetadataAssembly assembly,
-        Action<IUnitTestElement> consumer,
-        Func<bool> notInterrupted);
+      IProject project,
+      IMetadataAssembly assembly,
+      IUnitTestElementsObserver observer,
+      CancellationToken cancellationToken);
   }
 
-  public partial class TestMetadataExplorer : ITestMetadataExplorer
+  [SolutionComponent]
+  public class TestMetadataExplorer : ITestMetadataExplorer
   {
     private readonly ITestElementFactory _testElementFactory;
+    
+    public TestMetadataExplorer (ITestElementFactory testElementFactory)
+    {
+      _testElementFactory = testElementFactory;
+    }
 
-    public void Explore (IProject project, IMetadataAssembly assembly, Action<IUnitTestElement> consumer, Func<bool> notInterrupted)
+    public void Explore (IProject project, IMetadataAssembly assembly, IUnitTestElementsObserver observer, CancellationToken cancellationToken)
     {
       // TODO: ILMerge / embedded reference
       //if (!referencedAssemblies.Any(x => x.StartsWith("TestFx")))
@@ -50,15 +57,18 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
 
       using (ReadLockCookie.Create())
       {
-        var testAssembly = assembly.ToTestAssembly(project, notInterrupted);
+        var testAssembly = assembly.ToTestAssembly(project, notInterrupted: () => !cancellationToken.IsCancellationRequested);
         if (testAssembly == null)
           return;
 
         var testElements = testAssembly.TestMetadatas.Select(_testElementFactory.GetOrCreateClassTestElementRecursively);
         var allTestElements = testElements.SelectMany(x => x.DescendantsAndSelf(y => y.Children)).ToList();
-
-        Debug.Assert(allTestElements.Count > 0, "No tests found.");
-        allTestElements.ForEach(consumer);
+        foreach (var testElement in allTestElements)
+        {
+          observer.OnUnitTestElement(testElement);
+          observer.OnUnitTestElementChanged(testElement);
+        }
+        observer.OnCompleted();
       }
     }
   }

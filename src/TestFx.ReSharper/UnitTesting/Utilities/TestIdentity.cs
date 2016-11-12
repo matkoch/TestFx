@@ -13,22 +13,29 @@
 // limitations under the License.
 
 using System;
+using System.Linq;
+using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Utilities
 {
-  public partial interface ITestIdentity : IIdentity
+  public interface ITestIdentity : IIdentity
   {
+    UnitTestElementId ElementId { get; }
   }
 
-  public partial class TestIdentity : ITestIdentity
+  public class TestIdentity : ITestIdentity
   {
     private readonly IIdentity _wrappedIdentity;
 
-    private TestIdentity (IIdentity wrappedIdentity)
+    public TestIdentity (UnitTestElementId elementId, IIdentity wrappedIdentity)
     {
       _wrappedIdentity = wrappedIdentity;
+
+      ElementId = elementId;
     }
+
+    public UnitTestElementId ElementId { get; }
 
     public IIdentity Parent => _wrappedIdentity.Parent;
 

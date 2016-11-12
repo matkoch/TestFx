@@ -21,6 +21,7 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
+using JetBrains.ReSharper.UnitTestFramework.Launch;
 using JetBrains.ReSharper.UnitTestFramework.Strategy;
 using JetBrains.UI.BindableLinq.Interfaces;
 using JetBrains.Util;
@@ -34,7 +35,7 @@ using RecursiveRemoteTaskRunner = TestFx.ReSharper.Runner.RecursiveRemoteTaskRun
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
   [DebuggerDisplay (Identifiable.DebuggerDisplay)]
-  public abstract partial class TestElementBase : ITestElement
+  public abstract class TestElementBase : ITestElement
   {
     private static readonly IUnitTestRunStrategy RunStrategy =
         new OutOfProcessUnitTestRunStrategy(new RemoteTaskRunnerInfo(RecursiveRemoteTaskRunner.ID, typeof (RecursiveRemoteTaskRunner)));
@@ -63,6 +64,8 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     public abstract IDeclaredElement GetDeclaredElement ();
 
     internal abstract IEnumerable<ITestFile> GetTestFiles ();
+
+    public UnitTestElementId Id => _identity.ElementId;
 
     public IIdentity Identity => _identity;
 
@@ -141,24 +144,23 @@ namespace TestFx.ReSharper.UnitTesting.Elements
 
     public ICollection<IUnitTestElement> Children => _children;
 
-    public IUnitTestRunStrategy GetRunStrategy ([NotNull] IHostProvider hostProvider)
-    {
-      return RunStrategy;
-    }
+    public IUnitTestRunStrategy GetRunStrategy ([NotNull] IHostProvider hostProvider) => RunStrategy;
 
-    public IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements, bool init)
+    public string GetPresentation (IUnitTestElement parent = null, bool full = false) => _text;
+
+    public IList<UnitTestTask> GetTaskSequence ([NotNull] ICollection<IUnitTestElement> explicitElements, [NotNull] IUnitTestRun run)
+        => GetTaskSequence(explicitElements, init: true);
+
+    private IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements, bool init)
     {
       if (init && explicitElements.Count > 0 && !explicitElements.Contains(this))
         return new List<UnitTestTask>();
 
-      var parentTasks = _parent != null ? _parent.GetTaskSequence(explicitElements, init: false) : new List<UnitTestTask>();
+      var parentTasks = _parent?.GetTaskSequence(explicitElements, init: false) ?? new List<UnitTestTask>();
       return parentTasks.Concat(_tasks.Select(x => new UnitTestTask(this, x))).ToList();
     }
 
-    public UnitTestElementDisposition GetDisposition ()
-    {
-      return GetDispositionFromFiles(GetTestFiles().ToArray());
-    }
+    public UnitTestElementDisposition GetDisposition () => GetDispositionFromFiles(GetTestFiles().ToArray());
 
     public UnitTestElementDisposition GetDispositionFromFiles (params ITestFile[] testFiles)
     {

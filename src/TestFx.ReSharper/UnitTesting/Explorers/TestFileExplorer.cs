@@ -14,6 +14,7 @@
 
 using System;
 using System.Linq;
+using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.UnitTesting.Elements;
@@ -26,10 +27,16 @@ namespace TestFx.ReSharper.UnitTesting.Explorers
   {
     void Explore (IFile psiFile, Action<UnitTestElementDisposition> consumer, Func<bool> notInterrupted);
   }
-
-  public partial class TestFileExplorer : ITestFileExplorer
+  
+  [SolutionComponent]
+  public class TestFileExplorer : ITestFileExplorer
   {
     private readonly ITestElementFactory _testElementFactory;
+    
+    public TestFileExplorer (ITestElementFactory testElementFactory)
+    {
+      _testElementFactory = testElementFactory;
+    }
 
     public void Explore (IFile psiFile, Action<UnitTestElementDisposition> consumer, Func<bool> notInterrupted)
     {

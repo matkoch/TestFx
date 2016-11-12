@@ -13,8 +13,11 @@
 // limitations under the License.
 
 using System;
+using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
+using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Modules;
+using JetBrains.Util;
 
 namespace TestFx.ReSharper.Utilities.ProjectModel
 {
@@ -22,7 +25,10 @@ namespace TestFx.ReSharper.Utilities.ProjectModel
   {
     public static IPsiModule GetPrimaryPsiModule (this IProject project)
     {
-      return ProjectUtility.Instance.GetPrimaryPsiModule(project);
+      var solution = project.GetSolution();
+      var psiServices = solution.GetPsiServices();
+      var modules = psiServices.Modules;
+      return modules.GetPrimaryPsiModule(project, TargetFrameworkId.Default).NotNull();
     }
   }
 }

@@ -20,20 +20,23 @@ using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
 using JetBrains.ReSharper.UnitTestFramework;
+using JetBrains.Util;
 using TestFx.Extensibility;
 using TestFx.ReSharper.Model;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Elements;
 using TestFx.ReSharper.Utilities.Psi;
-using TestFx.Utilities;
-using RecursiveRemoteTaskRunner = TestFx.ReSharper.Runner.RecursiveRemoteTaskRunner;
 
 namespace TestFx.ReSharper.UnitTesting
 {
-  [UnitTestProvider]
-  public partial class TestProvider : IUnitTestProvider, IDynamicUnitTestProvider
+  public interface ITestProvider : IUnitTestProvider, IDynamicUnitTestProvider
   {
-    public string ID => RecursiveRemoteTaskRunner.ID;
+  }
+
+  [UnitTestProvider]
+  public class TestProvider : ITestProvider
+  {
+    public string ID => Runner.RecursiveRemoteTaskRunner.ID;
 
     public string Name => ID;
 
@@ -85,10 +88,10 @@ namespace TestFx.ReSharper.UnitTesting
       return firstLocation.NavigationRange.StartOffset.CompareTo(secondLocation.NavigationRange.StartOffset);
     }
 
-    public IUnitTestElement GetDynamicElement (RemoteTask remoteTask, Func<string, ITestElement> elementProvider)
+    public IUnitTestElement GetDynamicElement ([NotNull] RemoteTask remoteTask, [NotNull] Dictionary<string, IUnitTestElement> elements)
     {
       var dynamicTask = (DynamicTask) remoteTask;
-      var parentElement = elementProvider(dynamicTask.ParentGuid).NotNull("parentElement != null");
+      var parentElement = (ITestElement) elements.TryGetValue(dynamicTask.ParentGuid).NotNull("parentElement != null");
 
       var elementTypeFullName = typeof(ChildTestElement).FullName;
       var project = parentElement.GetProject().NotNull();
@@ -101,17 +104,6 @@ namespace TestFx.ReSharper.UnitTesting
       element.State = UnitTestElementState.Dynamic;
 
       return element;
-    }
-
-    public IUnitTestElement GetDynamicElement ([NotNull] RemoteTask remoteTask, [NotNull] Dictionary<string, IUnitTestElement> elements)
-    {
-      return GetDynamicElement(
-        remoteTask,
-          absoluteId =>
-          {
-            IUnitTestElement element;
-            return elements.TryGetValue(absoluteId, out element) ? (ITestElement) element : null;
-          });
     }
   }
 }

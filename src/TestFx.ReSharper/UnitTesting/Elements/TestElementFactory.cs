@@ -86,7 +86,7 @@ namespace TestFx.ReSharper.UnitTesting.Elements
     {
       var elementId = _unitTestElementIdFactory.Create(_testProvider, testEntity.Project, testEntity.Identity.Absolute);
       var identity = new TestIdentity(elementId, testEntity.Identity);
-      var element = _unitTestElementManager.GetElementByIdentity(identity) ?? factory(identity);
+      var element = _unitTestElementManager.GetElementById(identity.ElementId) as ITestElement ?? factory(identity);
 
       element.Update(testEntity.Text, explicitReason: null, categories: testEntity.Categories.Select(x => _unitTestElementCategoryFactory.Create(x)));
 

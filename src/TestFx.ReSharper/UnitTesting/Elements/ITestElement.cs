@@ -15,19 +15,22 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
 using TestFx.ReSharper.Model.Tree;
 using TestFx.Utilities;
 
 namespace TestFx.ReSharper.UnitTesting.Elements
 {
-  public partial interface ITestElement : IUnitTestElement, IIdentifiable
+  public interface ITestElement : IUnitTestElement, IIdentifiable
   {
+    [CanBeNull]
+    IProject GetProject ();
+
     UnitTestElementKind ElementKind { get; }
 
     void Update (string text, [CanBeNull] string explicitReason, IEnumerable<UnitTestElementCategory> categories);
 
     UnitTestElementDisposition GetDispositionFromFiles (params ITestFile[] testFiles);
-    IList<UnitTestTask> GetTaskSequence (ICollection<IUnitTestElement> explicitElements, bool init);
   }
 }
