@@ -67,7 +67,7 @@ namespace TestFx.ReSharper.UnitTesting
       return true;
     }
 
-    public bool IsSupported (IProject project)
+    public bool IsSupported ([NotNull] IProject project)
     {
       return true;
     }

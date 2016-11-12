@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using JetBrains.Metadata.Reader.API;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
@@ -50,7 +51,8 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
       if (project == null)
         return null;
 
-      var assemblyIdentity = new Identity(project.GetOutputFilePath().FullPath);
+      // TODO Jenya
+      var assemblyIdentity = new Identity(project.GetOutputFilePath(TargetFrameworkId.Default).FullPath);
       var testDeclarationProviders = _testDeclarationProviderFactories.Select(x => x.CreateTestDeclarationProvider(assemblyIdentity, project, notInterrupted)).ToList();
       var classDeclarations = GetClassDeclarations(file).ToList();
       var testDeclarations = GetTestDeclarations(testDeclarationProviders, classDeclarations).TakeWhile(notInterrupted).WhereNotNull().ToList();

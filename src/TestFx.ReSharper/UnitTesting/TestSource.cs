@@ -13,57 +13,59 @@
 // limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using JetBrains.Annotations;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
+using JetBrains.ProjectModel.Assemblies.AssemblyToAssemblyResolvers;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.UnitTestFramework;
+using JetBrains.ReSharper.UnitTestFramework.Exploration;
 using JetBrains.Util;
 using TestFx.ReSharper.UnitTesting.Explorers;
 
 namespace TestFx.ReSharper.UnitTesting
 {
-  public interface ITestSource : IUnitTestElementsSource
-  {
-  }
-
   [SolutionComponent]
-  internal class TestSource : ITestSource
+  internal class TestSource : UnitTestExplorerFrom.DotNetArtefacts, IUnitTestExplorerFromFile
   {
     private readonly ITestMetadataExplorer _testMetadataExplorer;
     private readonly ITestFileExplorer _testFileExplorer;
-    private readonly IMetadataElementsSource _metadataElementsSource;
-    private readonly ITestProvider _testProvider;
+    private readonly ILogger _logger;
 
     public TestSource (
-        ITestMetadataExplorer testMetadataExplorer,
-        ITestFileExplorer testFileExplorer,
-        IMetadataElementsSource metadataElementsSource,
-        ITestProvider testProvider)
+      ITestMetadataExplorer testMetadataExplorer,
+      ITestFileExplorer testFileExplorer,
+      ISolution solution,
+      IUnitTestProvider provider,
+      AssemblyToAssemblyReferencesResolveManager resolveManager,
+      ILogger logger)
+      : base(solution, provider, resolveManager, logger)
     {
       _testMetadataExplorer = testMetadataExplorer;
       _testFileExplorer = testFileExplorer;
-      _metadataElementsSource = metadataElementsSource;
-      _testProvider = testProvider;
+      _logger = logger;
     }
 
-    public void ExploreSolution ([NotNull] IUnitTestElementsObserver observer)
+    public override void ProcessProject (
+      [NotNull] IProject project,
+      [NotNull] FileSystemPath assemblyPath,
+      [NotNull] MetadataLoader loader,
+      [NotNull] IUnitTestElementsObserver observer,
+      CancellationToken token)
     {
-    }
-
-    public void ExploreProjects (
-        [NotNull] IDictionary<IProject, FileSystemPath> projects,
-        [NotNull] MetadataLoader loader,
-        [NotNull] IUnitTestElementsObserver observer,
-        CancellationToken cancellationToken)
-    {
-      _metadataElementsSource.ExploreProjects(projects, loader, observer, _testMetadataExplorer.Explore, cancellationToken);
+      MetadataElementsSource.ExploreProject(
+        project,
+        assemblyPath,
+        loader,
+        observer,
+        _logger,
+        token,
+        metadataAssembly => _testMetadataExplorer.Explore(project, metadataAssembly, observer, token));
       observer.OnCompleted();
     }
 
-    public void ExploreFile ([NotNull] IFile psiFile, [NotNull] IUnitTestElementsObserver observer, [NotNull] Func<bool> interrupted)
+    public void ProcessFile (IFile psiFile, IUnitTestElementsObserver observer, Func<bool> interrupted)
     {
       _testFileExplorer.Explore(
           psiFile,
@@ -76,7 +78,5 @@ namespace TestFx.ReSharper.UnitTesting
           () => !interrupted());
       observer.OnCompleted();
     }
-
-    public IUnitTestProvider Provider => _testProvider;
   }
 }
