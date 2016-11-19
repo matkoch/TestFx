@@ -74,7 +74,7 @@ namespace TestFx.Utilities.Reflection
     }
 
     // TODO: better EqualsWithoutReflectedType
-    private bool EqualsBaseDefinition (MethodInfo method1, MethodInfo method2)
+    private bool EqualsBaseDefinition ([CanBeNull] MethodInfo method1, [CanBeNull] MethodInfo method2)
     {
       return method1 != null && method2 != null && method1.GetBaseDefinition() == method2.GetBaseDefinition();
     }

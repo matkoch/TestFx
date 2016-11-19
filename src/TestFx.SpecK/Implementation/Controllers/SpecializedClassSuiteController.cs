@@ -57,7 +57,7 @@ namespace TestFx.SpecK.Implementation.Controllers
       _nextIgnoreReason = reason;
     }
 
-    public ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text, string filePath, int lineNumber)
+    public ITestController<TSubject, TResult, Dummy, Dummy> CreateTestController (string text, [CanBeNull] string filePath, int lineNumber)
     {
       var testProvider = CreateTestProvider(text, text, _nextIgnoreReason, filePath, lineNumber);
       var controller = _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, Dummy>(

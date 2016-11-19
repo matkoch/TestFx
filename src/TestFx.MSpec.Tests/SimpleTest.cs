@@ -19,7 +19,10 @@ using Machine.Specifications;
 using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
-using TestFx.Utilities;
+
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable UnusedMember.Local
+// ReSharper disable ArgumentsStyleLiteral
 
 namespace TestFx.MSpec.Tests
 {

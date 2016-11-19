@@ -15,6 +15,7 @@
 using System;
 using System.Runtime.Serialization;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace TestFx.Evaluation
 {
@@ -31,7 +32,7 @@ namespace TestFx.Evaluation
     {
     }
 
-    private static string FormatMessage (string message, string detailMessage)
+    private static string FormatMessage (string message, [CanBeNull] string detailMessage)
     {
       var stringBuilder = new StringBuilder();
 

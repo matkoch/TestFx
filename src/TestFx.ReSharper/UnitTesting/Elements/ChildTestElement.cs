@@ -19,6 +19,7 @@ using JetBrains.Annotations;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.UnitTestFramework;
+using JetBrains.Util;
 using TestFx.ReSharper.Model.Tree;
 using TestFx.ReSharper.Runner.Tasks;
 using TestFx.ReSharper.UnitTesting.Utilities;
@@ -44,11 +45,9 @@ namespace TestFx.ReSharper.UnitTesting.Elements
       return Parent != null ? Parent.GetProjectFiles() : Enumerable.Empty<IProjectFile>();
     }
 
-    // TODO: introduced invariance!
-    [CanBeNull]
     public override UnitTestElementNamespace GetNamespace()
     {
-      return Parent?.GetNamespace();
+      return Parent.NotNull().GetNamespace();
     }
 
     internal override IEnumerable<ITestFile> GetTestFiles ()

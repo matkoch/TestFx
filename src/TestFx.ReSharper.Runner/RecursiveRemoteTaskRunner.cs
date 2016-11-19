@@ -18,7 +18,6 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.TaskRunnerFramework;
-using mscorlib::System.Threading;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Intents;
 using TestFx.Evaluation.Utilities;

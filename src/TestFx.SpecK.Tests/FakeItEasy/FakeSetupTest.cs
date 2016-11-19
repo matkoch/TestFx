@@ -63,7 +63,7 @@ namespace TestFx.SpecK.Tests.FakeItEasy
         ServiceProvider = serviceProvider;
       }
 
-      public IServiceProvider ServiceProvider { get; private set; }
+      public IServiceProvider ServiceProvider { get; }
     }
   }
 }

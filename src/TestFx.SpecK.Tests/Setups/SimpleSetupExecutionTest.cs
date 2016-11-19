@@ -20,6 +20,8 @@ using FluentAssertions;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
+// ReSharper disable ArgumentsStyleLiteral
+
 namespace TestFx.SpecK.Tests.Setups
 {
   internal class SimpleSetupExecutionTest : TestBase<SimpleSetupExecutionTest.DomainSpec>

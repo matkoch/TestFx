@@ -69,7 +69,7 @@ namespace TestFx.SpecK.Implementation.Utilities
       if (argumentField == null)
         return null;
 
-      return argumentField.IsStatic ? argumentField.GetValue(null) : suiteInstance.GetMemberValue<object>(argumentField.Name);
+      return argumentField.IsStatic ? argumentField.GetValue(obj: null) : suiteInstance.GetMemberValue<object>(argumentField.Name);
     }
   }
 }

@@ -69,7 +69,7 @@ namespace TestFx.SpecK.Implementation.Controllers
         where T : SubjectFactory
     {
       RemoveAll<SubjectFactory>();
-      AddAction<T>(text, x => _context.Subject = subjectFactory(null));
+      AddAction<T>(text, x => _context.Subject = subjectFactory(arg: null));
     }
 
     public ITestController<TSubject, TResult, Dummy, TNewSequence> SetSequences<TNewSequence> (IDictionary<string, TNewSequence> sequences)
@@ -97,7 +97,7 @@ namespace TestFx.SpecK.Implementation.Controllers
         TNewSequence sequence)
     {
       var identity = _provider.Identity.CreateChildIdentity(text);
-      var testProvider = TestProvider.Create(identity, text, _provider.IgnoreReason, filePath: _provider.FilePath, lineNumber: _provider.LineNumber);
+      var testProvider = TestProvider.Create(identity, text, _provider.IgnoreReason, _provider.FilePath, _provider.LineNumber);
       suiteProvider.TestProviders = suiteProvider.TestProviders.Concat(new[] { testProvider });
       return _controllerFactory.CreateMainTestController<TSubject, TResult, Dummy, TNewSequence>(
           suiteProvider,
@@ -109,7 +109,7 @@ namespace TestFx.SpecK.Implementation.Controllers
 
     public ITestController<TSubject, TResult, TNewVars, TSequence> SetVariables<TNewVars> (Func<Dummy, TNewVars> variablesProvider)
     {
-      AddAction<Arrange>("<Set_Variables>", x => _context.VarsObject = variablesProvider(null));
+      AddAction<Arrange>("<Set_Variables>", x => _context.VarsObject = variablesProvider(arg: null));
       return CreateDelegate<TSubject, TResult, TNewVars, TSequence>();
     }
 

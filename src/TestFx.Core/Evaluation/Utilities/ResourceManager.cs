@@ -16,6 +16,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using JetBrains.Annotations;
+using TestFx.Utilities;
 
 namespace TestFx.Evaluation.Utilities
 {
@@ -44,10 +46,10 @@ namespace TestFx.Evaluation.Utilities
       while (!TryAllocateResources(resourcesList, out resourceAllocation))
         _autoResetEvent.WaitOne(c_retryTimeout);
 
-      return resourceAllocation;
+      return resourceAllocation.NotNull();
     }
 
-    private bool TryAllocateResources (ICollection<string> resourcesList, out IDisposable resourceAllocation)
+    private bool TryAllocateResources (ICollection<string> resourcesList, [CanBeNull] out IDisposable resourceAllocation)
     {
       resourceAllocation = null;
 

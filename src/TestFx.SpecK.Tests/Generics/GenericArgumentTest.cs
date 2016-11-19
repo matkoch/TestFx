@@ -50,7 +50,7 @@ namespace TestFx.SpecK.Tests.Generics
       testResults[2].HasFailed ();
     }
 
-    private static class GenericHelper
+    static class GenericHelper
     {
       public static T GetObject<T>(T obj)
       {

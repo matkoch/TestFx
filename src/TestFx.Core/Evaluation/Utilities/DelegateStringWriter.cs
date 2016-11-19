@@ -15,6 +15,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using JetBrains.Annotations;
 
 namespace TestFx.Evaluation.Utilities
 {
@@ -27,7 +28,7 @@ namespace TestFx.Evaluation.Utilities
       _write = write;
     }
 
-    public override void Write (string value)
+    public override void Write ([CanBeNull] string value)
     {
       _write(value);
     }

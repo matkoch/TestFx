@@ -63,7 +63,7 @@ namespace TestFx.SpecK.Tests.FakeItEasy
         FormatProvider = formatProvider;
       }
 
-      public IFormatProvider FormatProvider { get; private set; }
+      public IFormatProvider FormatProvider { get; }
     }
   }
 }

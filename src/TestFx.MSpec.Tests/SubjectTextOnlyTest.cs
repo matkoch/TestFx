@@ -20,6 +20,9 @@ using NUnit.Framework;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable UnusedMember.Local
+
 namespace TestFx.MSpec.Tests
 {
   [Subject ("Foo")]

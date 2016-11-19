@@ -55,7 +55,7 @@ namespace TestFx.ReSharper.Extensions.MSpec
       var identity = _assemblyIdentity.CreateChildIdentity(classDeclaration.CLRName);
       var categories = clazz.GetAttributeData<CategoriesAttribute>()
           .GetValueOrDefault(
-              x => x.PositionParameter(0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
+              x => x.PositionParameter(paramIndex: 0).ArrayValue.NotNull().Select(y => (string) y.ConstantValue.Value),
               () => new string[0]).NotNull();
       var text = GetText(clazz);
       var fieldTests = TreeNodeEnumerable.Create(

@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using JetBrains.Annotations;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging;
@@ -32,12 +33,11 @@ namespace TestFx.VisualStudio.TestAdapter
 
     #region ITestDiscoverer
 
-
     public void DiscoverTests (
-        IEnumerable<string> sources,
-        IDiscoveryContext discoveryContext,
-        IMessageLogger logger,
-        ITestCaseDiscoverySink discoverySink)
+      [NotNull] IEnumerable<string> sources,
+      [NotNull] IDiscoveryContext discoveryContext,
+      [NotNull] IMessageLogger logger,
+      [NotNull] ITestCaseDiscoverySink discoverySink)
     {
       Debugger.Launch();
     }
@@ -46,12 +46,12 @@ namespace TestFx.VisualStudio.TestAdapter
 
     #region ITestExecutor
 
-    public void RunTests (IEnumerable<TestCase> tests, IRunContext runContext, IFrameworkHandle frameworkHandle)
+    public void RunTests ([NotNull] IEnumerable<TestCase> tests, [NotNull] IRunContext runContext, [NotNull] IFrameworkHandle frameworkHandle)
     {
       Debugger.Launch();
     }
 
-    public void RunTests (IEnumerable<string> sources, IRunContext runContext, IFrameworkHandle frameworkHandle)
+    public void RunTests ([NotNull] IEnumerable<string> sources, [NotNull] IRunContext runContext, [NotNull] IFrameworkHandle frameworkHandle)
     {
       Debugger.Launch();
     }

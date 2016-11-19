@@ -6,7 +6,7 @@
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable IntroduceOptionalParameters.Global
 // ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable InconsistentNaming
+// ReSharper disable ArgumentsStyleLiteral
 
 namespace JetBrains.Annotations
 {

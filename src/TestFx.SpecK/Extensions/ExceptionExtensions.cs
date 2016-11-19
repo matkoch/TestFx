@@ -29,8 +29,6 @@ namespace TestFx.SpecK
   [UsedImplicitly (ImplicitUseTargetFlags.WithMembers)]
   public static class ExceptionExtensions
   {
-    private const bool c_expectException = true;
-
     public static IAssert<TSubject, TResult, TVars, TSequence> ItThrows<TSubject, TResult, TVars, TSequence> (
         this IAssert<TSubject, TResult, TVars, TSequence> assert,
         Type exceptionType,
@@ -56,7 +54,7 @@ namespace TestFx.SpecK
             if (innerExceptionProvider != null)
               AssertionHelper.AssertObjectEquals("InnerException", innerExceptionProvider(x.Vars), x.Exception.NotNull().InnerException);
           },
-          c_expectException);
+          expectException: true);
       return assert;
     }
 
@@ -69,7 +67,7 @@ namespace TestFx.SpecK
       controller.AddAssertion(
           "Throws " + typeof (TException).Name,
           x => exceptionAssertion(x.Exception as TException),
-          c_expectException);
+          expectException: true);
       return assert;
     }
 
@@ -82,7 +80,7 @@ namespace TestFx.SpecK
       controller.AddAssertion(
           "Throws " + exceptionProvider,
           x => AssertionHelper.AssertObjectEquals("Exception", exceptionProvider.Compile()(x.Vars), x.Exception),
-          c_expectException);
+          expectException: true);
       return assert;
     }
 
@@ -92,7 +90,7 @@ namespace TestFx.SpecK
         Assertion<TSubject, TResult, TVars, TSequence> assertion)
     {
       var controller = assert.GetTestController();
-      controller.AddAssertion("Throws " + text, assertion, c_expectException);
+      controller.AddAssertion("Throws " + text, assertion, expectException: true);
       return assert;
     }
   }

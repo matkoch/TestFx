@@ -57,7 +57,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
     }
 
     [CanBeNull]
-    public string Present (string suiteAttributeType, IClass clazz)
+    public string Present (string suiteAttributeType, [CanBeNull] IClass clazz)
     {
       var subjectAttributeData = clazz?.GetAttributeData(suiteAttributeType);
       if (subjectAttributeData == null)

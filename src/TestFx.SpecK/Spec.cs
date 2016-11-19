@@ -26,10 +26,8 @@ namespace TestFx.SpecK
 {
   public abstract class Spec<TSubject> : ISuite<TSubject>
   {
-    // ReSharper disable UnassignedField.Compiler
     private IClassSuiteController<TSubject> _classSuiteController;
     private ISubjectFactory _subjectFactory;
-    // ReSharper restore UnassignedField.Compiler
 
     public void SetupOnce (Action setup, Action cleanup = null)
     {
@@ -43,7 +41,11 @@ namespace TestFx.SpecK
 
     public IIgnoreOrCase<TSubject, Dummy> Specify (Action<TSubject> action)
     {
-      return Specify(x => CreateDummyFunc(x, action));
+      return Specify(x =>
+      {
+        action(x);
+        return (Dummy) null;
+      });
     }
 
     public IIgnoreOrCase<TSubject, TResult> Specify<TResult> (Func<TSubject, TResult> action)
@@ -70,12 +72,6 @@ namespace TestFx.SpecK
     public virtual TSubject CreateSubject ()
     {
       return _subjectFactory.CreateFor(this);
-    }
-
-    private Dummy CreateDummyFunc (TSubject subject, Action<TSubject> action)
-    {
-      action(subject);
-      return null;
     }
   }
 

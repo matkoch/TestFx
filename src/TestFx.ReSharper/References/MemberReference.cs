@@ -39,7 +39,7 @@ namespace TestFx.ReSharper.References
 
     public override ResolveResultWithInfo ResolveWithoutCache ()
     {
-      return GetReferenceSymbolTable(true).GetResolveResult(GetName());
+      return GetReferenceSymbolTable(useReferenceName: true).GetResolveResult(GetName());
     }
 
     public override string GetName ()
@@ -62,7 +62,7 @@ namespace TestFx.ReSharper.References
     {
       var typeMember = symbol.GetDeclaredElement() as ITypeMember;
       return typeMember != null && !typeMember.GetContainingType().IsObjectClass()
-             && !typeMember.HasAttributeInstance(PredefinedType.COMPILER_GENERATED_ATTRIBUTE_CLASS, false);
+             && !typeMember.HasAttributeInstance(PredefinedType.COMPILER_GENERATED_ATTRIBUTE_CLASS, inherit: false);
     }
 
     public override TreeTextRange GetTreeTextRange ()
@@ -94,7 +94,7 @@ namespace TestFx.ReSharper.References
 
     public ISymbolTable GetCompletionSymbolTable ()
     {
-      return GetReferenceSymbolTable(false);
+      return GetReferenceSymbolTable(useReferenceName: false);
     }
 
     public IEnumerable<DeclaredElementType> ExpecteDeclaredElementTypes

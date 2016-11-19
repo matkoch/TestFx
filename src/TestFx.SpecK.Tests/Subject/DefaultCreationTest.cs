@@ -20,6 +20,8 @@ using FluentAssertions;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
+// ReSharper disable ArgumentsStyleLiteral
+
 namespace TestFx.SpecK.Tests.Subject
 {
   internal class DefaultCreationTest : TestBase<DefaultCreationTest.DomainSpec>
@@ -59,7 +61,7 @@ namespace TestFx.SpecK.Tests.Subject
         InjectedString = new string (injectedString.ToArray ());
       }
 
-      public string InjectedString { set; get; }
+      public string InjectedString { get; }
     }
   }
 }

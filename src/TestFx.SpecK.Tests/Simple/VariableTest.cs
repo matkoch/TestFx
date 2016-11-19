@@ -18,6 +18,8 @@ using FluentAssertions;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
+// ReSharper disable ArgumentsStyleLiteral
+
 namespace TestFx.SpecK.Tests.Simple
 {
   internal class VariableTest : TestBase<VariableTest.DomainSpec>

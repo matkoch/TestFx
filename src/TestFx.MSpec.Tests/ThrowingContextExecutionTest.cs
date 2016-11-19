@@ -20,6 +20,10 @@ using Machine.Specifications;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable UnusedMember.Local
+// ReSharper disable FieldCanBeMadeReadOnly.Global
+
 namespace TestFx.MSpec.Tests
 {
   internal class ThrowingContext
