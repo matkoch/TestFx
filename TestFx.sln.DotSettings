@@ -49,14 +49,14 @@ limitations under the License.</s:String>
 
 	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">E1D62D10D8E2E24085EF1F6A4CFB691A</s:String>
 	<s:Boolean x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Arguments/@EntryValue">/rootSuffix TestFx /ReSharper.Internal .\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Arguments/@EntryValue">/rootSuffix Exp /ReSharper.Internal .\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Exe/Executable/@EntryValue">C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Name/@EntryValue">VS2013</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/Type/@EntryValue">exe</s:String>
 
 	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">B6C85E8D675C584CB5A176B1A6BAFBE4</s:String>
 	<s:Boolean x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/@KeyIndexDefined">True</s:Boolean>
-	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Exe/Arguments/@EntryValue">/rootSuffix TestFx /ReSharper.Internal .\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</s:String>
+	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Exe/Arguments/@EntryValue">/rootSuffix Exp /ReSharper.Internal .\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Exe/Executable/@EntryValue">C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Name/@EntryValue">VS2015</s:String>
 	<s:String x:Key="/Default/RunConfigs/Config/=B6C85E8D675C584CB5A176B1A6BAFBE4/Type/@EntryValue">exe</s:String></wpf:ResourceDictionary>
