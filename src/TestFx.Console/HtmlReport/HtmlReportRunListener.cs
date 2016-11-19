@@ -13,10 +13,12 @@
 // limitations under the License.
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using Newtonsoft.Json;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 using TestFx.Utilities;
@@ -27,38 +29,66 @@ namespace TestFx.Console.HtmlReport
   {
     private const string c_defaultTemplateName = "default-report.zip";
 
-    private readonly string _templateFile;
-    private readonly string _reportFile;
+    private readonly ReportMode _reportMode;
+    private readonly Browser _browser;
+    private readonly string _output;
 
-    public HtmlReportRunListener (string htmlTemplate, string output)
+    public HtmlReportRunListener (ReportMode reportMode, Browser browser, string output)
+    {
+      _reportMode = reportMode;
+      _browser = browser;
+      _output = output;
+    }
+
+    public override void OnRunFinished (IRunResult result)
+    {
+      if (_reportMode == ReportMode.None)
+        return;
+
+      ExtractTemplate();
+      GenerateReport(result);
+
+      if (_reportMode != ReportMode.OpenAlways && (_reportMode != ReportMode.OpenOnFail || result.State != State.Passed))
+        return;
+
+      OpenReportInBrowser();
+    }
+
+    private void ExtractTemplate ()
     {
       try
       {
-        var source = new ZipArchive(GetHtmlTemplateStream(htmlTemplate));
-        source.ExtractToDirectory(output);
+        var resourceName = typeof(HtmlReportRunListener).Namespace + "." + c_defaultTemplateName;
+        var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+        var archive = new ZipArchive(stream.NotNull());
+        archive.ExtractToDirectory(_output);
       }
       catch
       {
         // TODO: Maybe warn / delete files?
       }
-
-      _templateFile = Path.Combine(output, "template.cshtml");
-      _reportFile = Path.Combine(output, "index.html");
     }
 
-    private static Stream GetHtmlTemplateStream (string htmlTemplate)
+    private void GenerateReport (IRunResult result)
     {
-      if (htmlTemplate == "default")
-        return Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(HtmlReportRunListener).Namespace + ".default-report.zip").NotNull();
-
-      return File.OpenRead(htmlTemplate);
+      var content = JsonConvert.SerializeObject(result, Formatting.Indented, new ResultConverter());
+      Directory.CreateDirectory(_output);
+      File.WriteAllText(Path.Combine(_output, "report.json"), content);
     }
 
-    public override void OnRunFinished (IRunResult result)
+    private void OpenReportInBrowser ()
     {
-      //var template = File.ReadAllText(_templateFile);
+      switch (_browser)
+      {
+        case Browser.Chrome:
+          Process.Start(
+              @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+              $@"--disable-web-security --user-data-dir=""C:\temp-chrome-testfx"" --app=""file:///{_output}""");
+          break;
 
-      //File.WriteAllText(_reportFile, reportContent);
+        default:
+          throw new NotSupportedException();
+      }
     }
   }
 }

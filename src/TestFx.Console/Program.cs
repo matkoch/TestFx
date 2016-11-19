@@ -15,15 +15,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using TestFx.Console.HtmlReport;
 using TestFx.Console.TeamCity;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Reporting;
-using TestFx.Evaluation.Utilities;
-using TestFx.Utilities.Reflection;
 
 namespace TestFx.Console
 {
@@ -31,16 +28,20 @@ namespace TestFx.Console
   {
     private static void Main (string[] args)
     {
+      System.Console.WriteLine(@" ____  ____  ____  ____  ____  _  _ ");
+      System.Console.WriteLine(@"(_  _)(  __)/ ___)(_  _)(  __)( \/ )");
+      System.Console.WriteLine(@"  )(   ) _) \___ \  )(   ) _)  )  ( ");
+      System.Console.WriteLine(@" (__) (____)(____/ (__) (__)  (_/\_)");
+      System.Console.WriteLine();
+
       InitializeOptions(args);
 
       if (Debug)
         Debugger.Launch();
 
       var assemblies = AssemblyPaths.Select(Assembly.LoadFrom);
-      var appDomain = CreateAppDomain();
-      var listeners = CreateListener(appDomain).ToArray();
+      var listeners = CreateListener().ToArray();
       var result = Evaluator.Run(assemblies, listeners);
-      AppDomain.Unload(appDomain);
 
       if (Pause)
       {
@@ -52,19 +53,9 @@ namespace TestFx.Console
       Environment.Exit(exitCode);
     }
 
-    private static AppDomain CreateAppDomain ()
+    private static IEnumerable<IRunListener> CreateListener ()
     {
-      var binPath1 = Path.GetDirectoryName(typeof(Program).Assembly.Location);
-      var binPath2 = Path.GetDirectoryName(typeof(IRunListener).Assembly.Location);
-      return AppDomain.CreateDomain("External", AppDomain.CurrentDomain.Evidence, new AppDomainSetup { ApplicationBase = binPath1, PrivateBinPath = binPath2 });
-    }
-
-    private static IEnumerable<IRunListener> CreateListener (AppDomain domain)
-    {
-      if (!string.IsNullOrWhiteSpace(HtmlReport))
-        yield return domain.CreateProxy<Factory>(typeof(Factory)).Create<IRunListener>(typeof(HtmlReportRunListener), HtmlReport, Output);
-      //  yield return domain.CreateProxy<IRunListener>(typeof(HtmlReportRunListener), HtmlReport, Output);
-      //  yield return new HtmlReportRunListener(HtmlReport, Output);
+      yield return new HtmlReportRunListener(ReportMode, Browser, Output);
 
       if (TeamCity)
         yield return new TeamCityRunListener(new TeamCityServiceMessageWriter(System.Console.WriteLine));

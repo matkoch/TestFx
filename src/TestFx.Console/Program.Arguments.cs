@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using CommandLine;
 using JetBrains.Annotations;
+using TestFx.Console.HtmlReport;
 
 namespace TestFx.Console
 {
@@ -36,8 +37,11 @@ namespace TestFx.Console
       [Option ("teamCity", HelpText = "Forces output for JetBrains TeamCity server. Disables standard output.")]
       public bool TeamCity { get; [UsedImplicitly] set; }
       
-      [Option("htmlReport", HelpText = "Enables generation of a HTML report. Specify 'default' or a custom ZIP archive with a 'template.cshtml' razor template.")]
-      public string HtmlReport { get; [UsedImplicitly] set; }
+      [Option("reportMode", HelpText = "Specifies the HTML report mode. Allowed options are: None, Silent, OpenOnFail, OpenAlways.")]
+      public ReportMode ReportMode { get; [UsedImplicitly] set; }
+
+      [Option("brower", HelpText = "Specifies the browser that is used to show the report. Allowed options: Chrome.")]
+      public Browser Browser { get; [UsedImplicitly] set; }
 
       [Option("output", HelpText = "Specifies the output directory for the HTML report and DotCover analysis.")]
       public string Output { get; [UsedImplicitly] set; }
@@ -54,7 +58,7 @@ namespace TestFx.Console
             x.MutuallyExclusive = true;
             x.HelpWriter = System.Console.Error;
           });
-      parser.ParseArgumentsStrict(args, s_options);
+      parser.ParseArgumentsStrict(args, s_options, () => System.Console.ReadKey());
     }
 
     public static IEnumerable<string> AssemblyPaths => s_options.Assemblies ?? new List<string>();
@@ -65,8 +69,9 @@ namespace TestFx.Console
 
     public static bool TeamCity => s_options.TeamCity || Environment.GetEnvironmentVariable("TEAMCITY_VERSION") != null;
 
-    [CanBeNull]
-    public static string HtmlReport => s_options.HtmlReport;
+    public static ReportMode ReportMode => s_options.ReportMode;
+
+    public static Browser Browser => s_options.Browser;
 
     public static string Output => s_options.Output ?? Environment.CurrentDirectory;
   }
