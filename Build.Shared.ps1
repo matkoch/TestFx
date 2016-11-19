@@ -12,7 +12,7 @@ $TestAssemblies   = @("TestFx.SpecK.Tests",
 
 [array] `
 $NuSpecFiles      = @("TestFx.Core.nuspec",
-                      "TestFx.ReSharper.nuspec",
+                      "ReSharper.TestFx.nuspec",
 
                       "TestFx.SpecK.nuspec",
                       "TestFx.MSpec.nuspec",

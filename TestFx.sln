@@ -13,11 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E1B03E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{38E0FF06-BB58-4322-97AE-ABAC49317E3B}"
 	ProjectSection(SolutionItems) = preProject
+		nuspec\ReSharper.TestFx.nuspec = nuspec\ReSharper.TestFx.nuspec
 		nuspec\TestFx.Core.nuspec = nuspec\TestFx.Core.nuspec
 		nuspec\TestFx.FakeItEasy.nuspec = nuspec\TestFx.FakeItEasy.nuspec
 		nuspec\TestFx.Farada.nuspec = nuspec\TestFx.Farada.nuspec
 		nuspec\TestFx.MSpec.nuspec = nuspec\TestFx.MSpec.nuspec
-		nuspec\TestFx.ReSharper.nuspec = nuspec\TestFx.ReSharper.nuspec
 		nuspec\TestFx.SpecK.nuspec = nuspec\TestFx.SpecK.nuspec
 	EndProjectSection
 EndProject
