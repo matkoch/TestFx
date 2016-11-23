@@ -71,6 +71,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
       return _introspectionPresenter.Present(displayFormatAttribute, clazz.ToCommon(), subjectAttribute);
     }
 
+    [CanBeNull]
     public string Present (IFieldDeclaration fieldDeclaration)
     {
       var fieldType = fieldDeclaration.Type.GetScalarType()?.GetTypeElement();

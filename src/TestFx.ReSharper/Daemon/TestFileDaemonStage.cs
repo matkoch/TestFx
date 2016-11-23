@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.Application.Settings;
 using JetBrains.ReSharper.Feature.Services.CSharp.Daemon;
 using JetBrains.ReSharper.Feature.Services.Daemon;
@@ -33,6 +34,7 @@ namespace TestFx.ReSharper.Daemon
       _testFileAnalyzers = testFileAnalyzers.ToList();
     }
 
+    [CanBeNull]
     protected override IDaemonStageProcess CreateProcess (
         IDaemonProcess process,
         IContextBoundSettingsStore settings,

@@ -39,11 +39,11 @@ namespace TestFx.Evaluation.Runners
       Unknown
     }
 
-    private readonly Dictionary<string, TestType> s_testTypes =
+    private readonly Dictionary<string, TestType> _testTypes =
         new Dictionary<string, TestType>
         {
             { "Unit", TestType.WhiteBox },
-            { "Specs", TestType.WhiteBox },
+            { "Spec", TestType.WhiteBox },
             { "Integration", TestType.GrayBox },
             { "Component", TestType.GrayBox },
             { "Web", TestType.BlackBox },
@@ -116,7 +116,7 @@ namespace TestFx.Evaluation.Runners
 
     private TestType GetTestType (Assembly assembly)
     {
-      foreach (var association in s_testTypes)
+      foreach (var association in _testTypes)
         if (assembly.GetName().Name.Contains(association.Key))
           return association.Value;
 

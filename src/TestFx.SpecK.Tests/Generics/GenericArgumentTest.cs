@@ -18,6 +18,8 @@ using FakeItEasy.Core;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
+// ReSharper disable ArgumentsStyleLiteral
+
 namespace TestFx.SpecK.Tests.Generics
 {
   internal class GenericArgumentTest : TestBase<GenericArgumentTest.DomainSpec>

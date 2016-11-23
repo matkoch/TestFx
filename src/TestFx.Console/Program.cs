@@ -24,8 +24,24 @@ using TestFx.Evaluation.Reporting;
 
 namespace TestFx.Console
 {
-  public partial class Program
+  public class Program
   {
+    private static Options s_options;
+
+    public static IEnumerable<string> AssemblyPaths => s_options.Assemblies ?? new List<string>();
+
+    public static bool Pause => s_options.Pause;
+
+    public static bool Debug => s_options.Debug;
+
+    public static bool TeamCity => s_options.TeamCity || Environment.GetEnvironmentVariable("TEAMCITY_VERSION") != null;
+
+    public static ReportMode ReportMode => s_options.ReportMode;
+
+    public static Browser Browser => s_options.Browser;
+
+    public static string Output => s_options.Output ?? Environment.CurrentDirectory;
+
     private static void Main (string[] args)
     {
       System.Console.WriteLine(@" ____  ____  ____  ____  ____  _  _ ");
@@ -34,7 +50,7 @@ namespace TestFx.Console
       System.Console.WriteLine(@" (__) (____)(____/ (__) (__)  (_/\_)");
       System.Console.WriteLine();
 
-      InitializeOptions(args);
+      s_options = Options.Load(args);
 
       if (Debug)
         Debugger.Launch();

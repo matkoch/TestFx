@@ -21,6 +21,8 @@ using TestFx.Evaluation.Results;
 using TestFx.Farada;
 using TestFx.TestInfrastructure;
 
+// ReSharper disable ArgumentsStyleLiteral
+
 namespace TestFx.SpecK.Tests.Farada
 {
   internal class AutoCreationTest : TestBase<AutoCreationTest.DomainSpec>

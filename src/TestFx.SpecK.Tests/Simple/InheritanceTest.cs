@@ -18,6 +18,8 @@ using JetBrains.Annotations;
 using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 
+// ReSharper disable ArgumentsStyleLiteral
+
 namespace TestFx.SpecK.Tests.Simple
 {
   internal class InheritanceTest : TestBase<InheritanceTest.SpecializedDomainSpec>

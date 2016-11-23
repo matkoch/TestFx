@@ -62,7 +62,7 @@
     <Compile Include="HtmlReport\HtmlReportRunListener.cs" />
     <Compile Include="HtmlReport\ReportMode.cs" />
     <Compile Include="HtmlReport\ResultConverter.cs" />
-    <Compile Include="Program.Arguments.cs" />
+    <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TeamCity\TeamCityRunListener.cs" />

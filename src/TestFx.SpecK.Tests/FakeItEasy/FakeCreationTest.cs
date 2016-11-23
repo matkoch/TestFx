@@ -20,6 +20,8 @@ using TestFx.Evaluation.Results;
 using TestFx.FakeItEasy;
 using TestFx.TestInfrastructure;
 
+// ReSharper disable ArgumentsStyleLiteral
+
 namespace TestFx.SpecK.Tests.FakeItEasy
 {
   internal class FakeCreationTest : TestBase<FakeCreationTest.DomainSpec>

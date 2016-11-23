@@ -19,6 +19,8 @@ using TestFx.Evaluation.Results;
 using TestFx.TestInfrastructure;
 using UserNamespace;
 
+// ReSharper disable ArgumentsStyleLiteral
+
 namespace TestFx.SpecK.Tests.Exceptions
 {
   internal class ExceptionAssertionTest : TestBase<ExceptionAssertionTest.DomainSpec>
