@@ -51,6 +51,7 @@ Param(
     [switch]$WhatIf,
     [switch]$Mono,
     [switch]$SkipToolPackageRestore,
+    [string]$NuGetDir,
     [Parameter(Position=0,Mandatory=$false,ValueFromRemainingArguments=$true)]
     [string[]]$ScriptArgs
 )
@@ -87,7 +88,8 @@ if(!$PSScriptRoot){
 }
 
 $TOOLS_DIR = Join-Path $PSScriptRoot "tools"
-$NUGET_EXE = Join-Path $TOOLS_DIR "nuget.exe"
+$NUGET_DIR = if ($NuGetDir -eq "") { $TOOLS_DIR } else { $NuGetDir }
+$NUGET_EXE = Join-Path $NUGET_DIR "nuget.exe"
 $CAKE_EXE = Join-Path $TOOLS_DIR "Cake/Cake.exe"
 $NUGET_URL = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 $PACKAGES_CONFIG = Join-Path $TOOLS_DIR "packages.config"
