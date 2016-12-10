@@ -143,6 +143,8 @@ if (!(Test-Path $NUGET_EXE)) {
     }
 }
 
+Write-Host $NUGET_EXE
+
 # Try download NuGet.exe if not exists
 if (!(Test-Path $NUGET_EXE)) {
     Write-Verbose -Message "Downloading NuGet.exe..."
