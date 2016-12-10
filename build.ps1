@@ -87,6 +87,7 @@ if(!$PSScriptRoot){
 }
 
 $TOOLS_DIR = Join-Path $PSScriptRoot "tools"
+$NUGET_EXE = Join-Path $TOOLS_DIR "nuget.exe"
 $CAKE_EXE = Join-Path $TOOLS_DIR "Cake/Cake.exe"
 $NUGET_URL = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 $PACKAGES_CONFIG = Join-Path $TOOLS_DIR "packages.config"
@@ -125,6 +126,17 @@ if (!(Test-Path $PACKAGES_CONFIG)) {
         Throw "Could not download packages.config."
     }
 }
+
+# Try find NuGet.exe in path if not exists
+#if (!(Test-Path $NUGET_EXE)) {
+#    Write-Verbose -Message "Trying to find nuget.exe in PATH..."
+#    $existingPaths = $Env:Path -Split ';' | Where-Object { (![string]::IsNullOrEmpty($_)) -and (Test-Path $_) }
+#    $NUGET_EXE_IN_PATH = Get-ChildItem -Path $existingPaths -Filter "nuget.exe" | Select -First 1
+#    if ($NUGET_EXE_IN_PATH -ne $null -and (Test-Path $NUGET_EXE_IN_PATH.FullName)) {
+#        Write-Verbose -Message "Found in PATH at $($NUGET_EXE_IN_PATH.FullName)."
+#        $NUGET_EXE = $NUGET_EXE_IN_PATH.FullName
+#    }
+#}
 
 # Try download NuGet.exe if not exists
 if (!(Test-Path $NUGET_EXE)) {
