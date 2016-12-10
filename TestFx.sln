@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.FakeItEasy", "src\TestFx.FakeItEasy\TestFx.FakeItEasy.csproj", "{C7F266E7-F9D5-4882-9F0F-D0C142535BCA}"
 EndProject
@@ -27,6 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{1439387A
 		.gitignore = .gitignore
 		src\Annotations.cs = src\Annotations.cs
 		src\AssemblyInfoShared.cs = src\AssemblyInfoShared.cs
+		build.cake = build.cake
+		build.ps1 = build.ps1
+		cake.config = cake.config
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
@@ -65,6 +68,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VisualStudio", "VisualStudio", "{F0CA1965-CBC6-431D-B505-1AAA89D27767}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.VisualStudio.TestAdapter", "src\TestFx.VisualStudio.TestAdapter\TestFx.VisualStudio.TestAdapter.csproj", "{669F447A-15FC-4762-9AD3-636C28E3DBA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28DF2E4E-D933-4B09-9AEA-AA55A99F65F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

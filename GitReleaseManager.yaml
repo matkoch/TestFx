@@ -1,0 +1,17 @@
+issue-labels-include:
+- BreakingChange
+- Feature
+- Bug
+- Improvement
+- Documentation
+issue-labels-exclude:
+- Build
+- ReSharper
+- Core
+- Console
+- SPecK
+- MSpec
+issue-labels-alias:
+    - name:    Documentation
+      header:  Documentation
+      plural:  Documentation

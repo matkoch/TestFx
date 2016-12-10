@@ -13,6 +13,7 @@
 
 # Build results
 output
+tools
 [Dd]ebug/
 [Rr]elease/
 x64/
