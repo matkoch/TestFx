@@ -1,1 +1,0 @@
-powershell.exe /file .\shared\build\FullBuild.ps1

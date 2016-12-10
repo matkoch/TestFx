@@ -44,18 +44,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.Core", "src\TestFx.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.Farada", "src\TestFx.Farada\TestFx.Farada.csproj", "{D829BE92-9835-4B84-B6BA-6FE6AD8A3CCF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{6B28D570-67CE-4E55-840F-979DCC5B553E}"
-	ProjectSection(SolutionItems) = preProject
-		Build.Shared.ps1 = Build.Shared.ps1
-		Build.User.ps1 = Build.User.ps1
-		shared\build\CleanOutput.ps1 = shared\build\CleanOutput.ps1
-		shared\build\Compile.ps1 = shared\build\Compile.ps1
-		shared\build\FullBuild.ps1 = shared\build\FullBuild.ps1
-		shared\build\Inspect.ps1 = shared\build\Inspect.ps1
-		shared\build\Package.ps1 = shared\build\Package.ps1
-		shared\build\TestAndCover.ps1 = shared\build\TestAndCover.ps1
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.SpecK", "src\TestFx.SpecK\TestFx.SpecK.csproj", "{805BDCC2-3399-49AA-8443-D189AC477899}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.ReSharper", "src\TestFx.ReSharper\TestFx.ReSharper.csproj", "{340CA0B3-563A-47DA-858D-2CF4FEAF12B3}"
