@@ -88,8 +88,11 @@ if(!$PSScriptRoot){
 }
 
 $TOOLS_DIR = Join-Path $PSScriptRoot "tools"
+Write-Host $NuGetDir
 $NUGET_DIR = if ($NuGetDir -eq "") { $TOOLS_DIR } else { $NuGetDir }
+Write-Host $NUGET_DIR
 $NUGET_EXE = Join-Path $NUGET_DIR "nuget.exe"
+Write-Host $NUGET_EXE
 $CAKE_EXE = Join-Path $TOOLS_DIR "Cake/Cake.exe"
 $NUGET_URL = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 $PACKAGES_CONFIG = Join-Path $TOOLS_DIR "packages.config"
