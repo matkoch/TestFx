@@ -241,7 +241,6 @@ Task("Test")
 
 });
 
-
 Task("CodeAnalysis")
     .IsDependentOn("InspectCode")
     .IsDependentOn("FxCop");
