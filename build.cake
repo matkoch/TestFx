@@ -236,6 +236,9 @@ Task("Test")
     foreach (var x in dict)
       Information(x.Key + " = " + x.Value);
 
+    var key = EnvironmentVariable("NuGetKey");
+    Information(key.Substring(3));
+
 });
 
 Task("CodeAnalysis")
