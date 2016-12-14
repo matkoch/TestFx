@@ -1,5 +1,5 @@
 issue-labels-include:
-- BreakingChange
+- Breaking Change
 - Feature
 - Bug
 - Improvement
@@ -8,9 +8,7 @@ issue-labels-exclude:
 - Build
 - ReSharper
 - Core
-- Console
-- SPecK
-- MSpec
+- Extension
 issue-labels-alias:
     - name:    Documentation
       header:  Documentation
