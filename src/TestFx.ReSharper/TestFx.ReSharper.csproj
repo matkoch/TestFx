@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -24,7 +23,8 @@
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files %28x86%29\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe</StartProgram>
     <StartArguments>/rootSuffix $(Hive) /ReSharper.Internal .\src\TestFx.ReSharper.Debug\TestFx.ReSharper.Debug.sln</StartArguments>
-    <NuGetPackageImportStamp>60422d39</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -420,7 +420,6 @@ if exist "$(Vs14Installation)_001" xcopy /Y "$(TargetDir)TestFx.*" "$(Vs14Instal
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Antlr2.Tools.2.7.6.4\build\Antlr2.Tools.targets'))" />
     <Error Condition="!Exists('..\..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20151217.1\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.2.0.20151217.1\build\JetBrains.Build.Platform.Tasks.ThemedIconsPacker.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.Platform.Core.Shell.106.0.20160818.163301\build\JetBrains.Platform.Core.Shell.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Platform.Core.Shell.106.0.20160818.163301\build\JetBrains.Platform.Core.Shell.Targets'))" />
     <Error Condition="!Exists('..\..\packages\JetBrains.Platform.Core.Text.106.0.20160818.163532\build\JetBrains.Platform.Core.Text.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JetBrains.Platform.Core.Text.106.0.20160818.163532\build\JetBrains.Platform.Core.Text.Targets'))" />
