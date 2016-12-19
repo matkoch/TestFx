@@ -28,29 +28,34 @@ namespace TestFx.Console
   {
     private static Options s_options;
 
-    public static IEnumerable<string> AssemblyPaths => s_options.Assemblies ?? new List<string>();
+    private static IEnumerable<string> AssemblyPaths => s_options.Assemblies ?? new List<string>();
 
-    public static bool Pause => s_options.Pause;
+    private static bool Pause => s_options.Pause;
 
-    public static bool Debug => s_options.Debug;
+    private static bool Debug => s_options.Debug;
 
-    public static bool TeamCity => s_options.TeamCity || Environment.GetEnvironmentVariable("TEAMCITY_VERSION") != null;
+    private static bool TeamCity => s_options.TeamCity || Environment.GetEnvironmentVariable("TEAMCITY_VERSION") != null;
 
-    public static ReportMode ReportMode => s_options.ReportMode;
+    private static ReportMode ReportMode => s_options.ReportMode;
 
-    public static Browser Browser => s_options.Browser;
+    private static Browser Browser => s_options.Browser;
 
-    public static string Output => s_options.Output ?? Environment.CurrentDirectory;
+    private static string Output => s_options.Output ?? Environment.CurrentDirectory;
+
+    private static bool ShowLogo => !s_options.NoLogo;
 
     private static void Main (string[] args)
     {
-      System.Console.WriteLine(@" ____  ____  ____  ____  ____  _  _ ");
-      System.Console.WriteLine(@"(_  _)(  __)/ ___)(_  _)(  __)( \/ )");
-      System.Console.WriteLine(@"  )(   ) _) \___ \  )(   ) _)  )  ( ");
-      System.Console.WriteLine(@" (__) (____)(____/ (__) (__)  (_/\_)");
-      System.Console.WriteLine();
-
       s_options = Options.Load(args);
+
+      if (ShowLogo)
+      {
+        System.Console.WriteLine(@" ____  ____  ____  ____  ____  _  _ ");
+        System.Console.WriteLine(@"(_  _)(  __)/ ___)(_  _)(  __)( \/ )");
+        System.Console.WriteLine(@"  )(   ) _) \___ \  )(   ) _)  )  ( ");
+        System.Console.WriteLine(@" (__) (____)(____/ (__) (__)  (_/\_)");
+        System.Console.WriteLine();
+      }
 
       if (Debug)
         Debugger.Launch();
