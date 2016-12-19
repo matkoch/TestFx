@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -28,47 +29,35 @@ namespace TestFx.Console.Tests
   [ExcludeFromCodeCoverage]
   public static class DiffFormatter
   {
+    private static Dictionary<ChangeType, char> s_changeSymbol =
+        new Dictionary<ChangeType, char>
+        {
+          { ChangeType.Inserted, '+' },
+          { ChangeType.Deleted, '-' }
+        };
+
     public static string GetFormattedDiff (string oldText, string newText)
     {
       var differ = new Differ();
       var diff = GetDiff(differ, oldText, newText);
+      var changedLines = diff.Lines.Where(x => x.Type != ChangeType.Unchanged).ToList();
 
-      return diff.Lines.Any(x => x.Type != ChangeType.Unchanged)
-          ? FormatDiff(diff)
-          : string.Empty;
+      var stringBuilder = new StringBuilder();
+      foreach (var line in changedLines)
+      {
+        stringBuilder.Append(s_changeSymbol[line.Type])
+            .Append(" ")
+            .Append(line.Text)
+            .AppendLine();
+      }
+
+      return stringBuilder.ToString();
     }
 
     private static DiffPaneModel GetDiff (IDiffer differ, string oldText, string newText)
     {
       var inlineBuilder = new InlineDiffBuilder(differ);
       return inlineBuilder.BuildDiffModel(oldText, newText);
-    }
-
-    private static string FormatDiff (DiffPaneModel diff)
-    {
-      var sb = new StringBuilder();
-      foreach (var line in diff.Lines)
-        AppendLine(sb, line);
-
-      return sb.ToString();
-    }
-
-    private static void AppendLine (StringBuilder sb, DiffPiece line)
-    {
-      switch (line.Type)
-      {
-        case ChangeType.Inserted:
-          sb.Append("+ ");
-          break;
-        case ChangeType.Deleted:
-          sb.Append("- ");
-          break;
-        default:
-          sb.Append("  ");
-          break;
-      }
-
-      sb.AppendLine(line.Text);
     }
   }
 }
