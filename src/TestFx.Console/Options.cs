@@ -44,15 +44,16 @@ namespace TestFx.Console
     [Option ("debug", HelpText = "Enables debugging by calling Debugger.Launch().")]
     public bool Debug { get; [UsedImplicitly] set; }
 
-    [Option ("teamCity", HelpText = "Forces output for JetBrains TeamCity server. Disables standard output.")]
+    [Option ("teamcity", HelpText = "Forces output for JetBrains TeamCity server. Disables standard output.")]
     public bool TeamCity { get; [UsedImplicitly] set; }
 
-    [Option ("reportMode", HelpText = "Specifies the HTML report mode. Allowed options are: None, Silent, OpenOnFail, OpenAlways.")]
+    [Option ("report", HelpText = "Specifies the HTML report mode. Allowed options are: None, Silent, OpenOnFail, OpenAlways.")]
     public ReportMode ReportMode { get; [UsedImplicitly] set; }
 
     [Option ("browser", HelpText = "Specifies the browser that is used to show the report. Allowed options: Chrome.")]
     public Browser Browser { get; [UsedImplicitly] set; }
 
+    [CanBeNull]
     [Option ("output", HelpText = "Specifies the output directory for the HTML report and DotCover analysis.")]
     public string Output { get; [UsedImplicitly] set; }
 
