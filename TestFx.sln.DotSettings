@@ -39,6 +39,9 @@ limitations under the License.</s:String>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=B27557E04688AD4AB2C85FDFD8127491/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=B27557E04688AD4AB2C85FDFD8127491/AbsolutePath/@EntryValue">C:\OSS\testfx\shared\dotsettings\Inspections.BuiltIn.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=B27557E04688AD4AB2C85FDFD8127491/RelativePath/@EntryValue">..\shared\dotsettings\Inspections.BuiltIn.DotSettings</s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=FFFF355CD0A4234CA454E896C55D8073/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=FFFF355CD0A4234CA454E896C55D8073/AbsolutePath/@EntryValue">C:\OSS\TestFx2\shared\dotsettings\CodeStyle.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=FFFF355CD0A4234CA454E896C55D8073/RelativePath/@EntryValue">..\shared\dotsettings\CodeStyle.DotSettings</s:String>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File1E3A4D653A757040BF76045F2F8F522F/@KeyIndexDefined">True</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File1E3A4D653A757040BF76045F2F8F522F/RelativePriority/@EntryValue">6</s:Double>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File38F958D1F054F54CAC799D80F483BB9C/@KeyIndexDefined">True</s:Boolean>
@@ -51,6 +54,8 @@ limitations under the License.</s:String>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File8953CC74FFA27C44A12954759DCC2A31/RelativePriority/@EntryValue">3</s:Double>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileB27557E04688AD4AB2C85FDFD8127491/@KeyIndexDefined">True</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileB27557E04688AD4AB2C85FDFD8127491/RelativePriority/@EntryValue">1</s:Double>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileFFFF355CD0A4234CA454E896C55D8073/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileFFFF355CD0A4234CA454E896C55D8073/RelativePriority/@EntryValue">7</s:Double>
 
 	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">E1D62D10D8E2E24085EF1F6A4CFB691A</s:String>
 	<s:Boolean x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/@KeyIndexDefined">True</s:Boolean>
