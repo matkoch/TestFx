@@ -47,6 +47,7 @@ namespace TestFx.Console.Tests
     {
       var output = GetOutput(
           $"--assemblies {string.Join(";", assemblies)} " +
+          $"--nologo " +
           $"--teamcity " +
           $"{(Debugger.IsAttached ? "--debug" : string.Empty)} " +
           $"{additionalArguments}");
