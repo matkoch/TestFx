@@ -51,8 +51,8 @@ namespace TestFx.Console.Tests
           $"{(Debugger.IsAttached ? "--debug" : string.Empty)} " +
           $"{additionalArguments}");
 
-      Compare(goldFile + ".standard.gold", output.StandardFileName);
       Compare(goldFile + ".error.gold", output.ErrorFileName);
+      Compare(goldFile + ".standard.gold", output.StandardFileName);
     }
 
     private void Compare (string goldFileName, string actualFileName)
@@ -97,6 +97,7 @@ namespace TestFx.Console.Tests
         process.EnableRaisingEvents = true;
         process.Start();
         process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
 
         process.WaitForExit();
       }
