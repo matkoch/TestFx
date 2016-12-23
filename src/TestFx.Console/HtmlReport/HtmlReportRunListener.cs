@@ -56,17 +56,10 @@ namespace TestFx.Console.HtmlReport
 
     private void ExtractTemplate ()
     {
-      try
-      {
-        var resourceName = typeof(HtmlReportRunListener).Namespace + "." + c_defaultTemplateName;
-        var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
-        var archive = new ZipArchive(stream.NotNull());
-        archive.ExtractToDirectory(_output);
-      }
-      catch
-      {
-        // TODO: Maybe warn / delete files?
-      }
+      var resourceName = typeof(HtmlReportRunListener).Namespace + "." + c_defaultTemplateName;
+      var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+      var archive = new ZipArchive(stream.NotNull());
+      archive.ExtractToDirectory(_output, overwrite: true);
     }
 
     private void GenerateReport (IRunResult result)

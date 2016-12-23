@@ -62,6 +62,7 @@
     <Compile Include="HtmlReport\HtmlReportRunListener.cs" />
     <Compile Include="HtmlReport\ReportMode.cs" />
     <Compile Include="HtmlReport\ResultConverter.cs" />
+    <Compile Include="HtmlReport\ZipArchiveExtensions.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
