@@ -13,11 +13,14 @@
 // limitations under the License.
 
 using System;
+using System.IO;
 using System.Linq;
+using System.Net;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
+using TestFx.Utilities;
 using TestFx.Utilities.Collections;
 
 namespace TestFx.Console.HtmlReport
@@ -34,39 +37,60 @@ namespace TestFx.Console.HtmlReport
       var result = (IResult) value;
       writer.WriteStartObject();
 
-      writer.WritePropertyName("id");
-      serializer.Serialize(writer, result.Identity.Relative);
+      writer.WritePropertyName("text");
+      serializer.Serialize(writer, WebUtility.HtmlEncode(GetText(result.Identity)));
 
-      writer.WritePropertyName("state");
-      serializer.Serialize(writer, result.State.ToString());
+      writer.WritePropertyName("icon");
+      serializer.Serialize(writer, GetIcon(result.State));
 
       var outputResult = value as IOutputResult;
       if (outputResult != null)
       {
-        writer.WritePropertyName("text");
-        serializer.Serialize(writer, outputResult.GetDetailedSummary());
+        writer.WritePropertyName("output");
+        serializer.Serialize(writer, WebUtility.HtmlEncode(outputResult.GetDetailedSummary()));
       }
 
+      writer.WritePropertyName("nodes");
       var suiteResultHolder = value as ISuiteResultHolder;
       if (suiteResultHolder != null)
       {
-        writer.WritePropertyName("suiteResults");
         writer.WriteStartArray();
-        suiteResultHolder.SuiteResults.ForEach(x => serializer.Serialize(writer, x));
-        writer.WriteEndArray();
-      }
 
-      var suiteResult = value as ISuiteResult;
-      if (suiteResult != null)
-      {
-        writer.WritePropertyName("testResults");
-        writer.WriteStartArray();
-        suiteResult.TestResults.ForEach(x => serializer.Serialize(writer, x));
+        suiteResultHolder.SuiteResults.ForEach(x => serializer.Serialize(writer, x));
+
+        var suiteResult = value as ISuiteResult;
+        if (suiteResult != null)
+          suiteResult.TestResults.ForEach(x => serializer.Serialize(writer, x));
+
         writer.WriteEndArray();
       }
 
 
       writer.WriteEndObject();
+    }
+
+    private string GetText (IIdentity identity)
+    {
+      return File.Exists(identity.Relative)
+        ? new FileInfo(identity.Relative).Name
+        : identity.Relative.Substring(identity.Relative.LastIndexOf(value: '.') + 1);
+    }
+
+    private string GetIcon (State state)
+    {
+      switch (state)
+      {
+        case State.Passed:
+          return "glyphicon glyphicon-ok green";
+        case State.Failed:
+          return "glyphicon glyphicon-remove red";
+        case State.Ignored:
+          return "glyphicon glyphicon-eye-close gray";
+        case State.Inconclusive:
+          return "glyphicon glyphicon-alert orange";
+        default:
+          throw new Exception("Unreachable");
+      }
     }
 
     public override object ReadJson (

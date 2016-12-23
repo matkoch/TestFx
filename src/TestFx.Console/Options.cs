@@ -50,9 +50,6 @@ namespace TestFx.Console
     [Option ("report", HelpText = "Specifies the HTML report mode. Allowed options are: None, Silent, OpenOnFail, OpenAlways.")]
     public ReportMode ReportMode { get; [UsedImplicitly] set; }
 
-    [Option ("browser", HelpText = "Specifies the browser that is used to show the report. Allowed options: Chrome.")]
-    public Browser Browser { get; [UsedImplicitly] set; }
-
     [CanBeNull]
     [Option ("output", HelpText = "Specifies the output directory for the HTML report and DotCover analysis.")]
     public string Output { get; [UsedImplicitly] set; }

@@ -30,21 +30,16 @@ namespace TestFx.Console.HtmlReport
     private const string c_defaultTemplateName = "default-report.zip";
 
     private readonly ReportMode _reportMode;
-    private readonly Browser _browser;
     private readonly string _output;
 
-    public HtmlReportRunListener (ReportMode reportMode, Browser browser, string output)
+    public HtmlReportRunListener (ReportMode reportMode, string output)
     {
       _reportMode = reportMode;
-      _browser = browser;
       _output = output;
     }
 
     public override void OnRunFinished (IRunResult result)
     {
-      if (_reportMode == ReportMode.None)
-        return;
-
       ExtractTemplate();
       GenerateReport(result);
 
@@ -66,22 +61,27 @@ namespace TestFx.Console.HtmlReport
     {
       var content = JsonConvert.SerializeObject(result, Formatting.Indented, new ResultConverter());
       Directory.CreateDirectory(_output);
-      File.WriteAllText(Path.Combine(_output, "report.json"), content);
+      using (var file = File.Open(Path.Combine(_output, "resultData.js"), FileMode.Create))
+      using (var writer = new StreamWriter(file))
+      {
+        writer.Write("var resultData = ");
+        writer.Write(content);
+        writer.Write(";");
+        writer.Flush();
+      }
     }
 
     private void OpenReportInBrowser ()
     {
-      switch (_browser)
-      {
-        case Browser.Chrome:
-          Process.Start(
-              @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-              $@"--disable-web-security --user-data-dir=""C:\temp-chrome-testfx"" --app=""file:///{_output}""");
-          break;
-
-        default:
-          throw new NotSupportedException();
-      }
+      var process = new Process
+                    {
+                      StartInfo =
+                      {
+                        UseShellExecute = true,
+                        FileName = $"file:///{Path.GetFullPath(_output)}/index.html"
+                      }
+                    };
+      process.Start();
     }
   }
 }

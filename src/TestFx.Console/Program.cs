@@ -38,8 +38,6 @@ namespace TestFx.Console
 
     private static ReportMode ReportMode => s_options.ReportMode;
 
-    private static Browser Browser => s_options.Browser;
-
     private static string Output => s_options.Output ?? Environment.CurrentDirectory;
 
     private static bool ShowLogo => !s_options.NoLogo;
@@ -50,11 +48,12 @@ namespace TestFx.Console
 
       if (ShowLogo)
       {
-        System.Console.WriteLine(@" ____  ____  ____  ____  ____  _  _ ");
-        System.Console.WriteLine(@"(_  _)(  __)/ ___)(_  _)(  __)( \/ )");
-        System.Console.WriteLine(@"  )(   ) _) \___ \  )(   ) _)  )  ( ");
-        System.Console.WriteLine(@" (__) (____)(____/ (__) (__)  (_/\_)");
-        System.Console.WriteLine();
+        System.Console.WriteLine(@"___________                __  ___________        ");
+        System.Console.WriteLine(@"\__    ___/____    _______/  |_\_   _____/___  ___");
+        System.Console.WriteLine(@"  |    | _/ __ \  /  ___/\   __\|    __)  \  \/  /");
+        System.Console.WriteLine(@"  |    | \  ___/  \___ \  |  |  |     \    >    < ");
+        System.Console.WriteLine(@"  |____|  \___  >/____  > |__|  \___  /   /__/\_ \");
+        System.Console.WriteLine(@"              \/      \/            \/          \/");
       }
 
       if (Debug)
@@ -76,7 +75,8 @@ namespace TestFx.Console
 
     private static IEnumerable<IRunListener> CreateListener ()
     {
-      yield return new HtmlReportRunListener(ReportMode, Browser, Output);
+      if (ReportMode != ReportMode.None)
+        yield return new HtmlReportRunListener(ReportMode, Output);
 
       if (TeamCity)
         yield return new TeamCityRunListener(new TeamCityServiceMessageWriter(System.Console.WriteLine));
