@@ -6,9 +6,9 @@
     <link href="./css/bootstrap-treeview-1.2.0.css" rel="stylesheet">
     <link href="./css/dropdowns-enhancement-3.1.1.css" rel="stylesheet">
     <link href="./css/antiscroll-0.9.css" rel="stylesheet" />
-    <link href="./css/breadcrumb.css" rel="stylesheet" />
     <style>
       html, body {
+        background-color: #222;
         height: 100%;
         width: 100%;
       }
@@ -26,7 +26,7 @@
       .inner {
         margin-left: auto;
         margin-right: auto;
-        width: 1000px;
+        width: 1200px;
       }
 
 
@@ -62,44 +62,19 @@
 
       .treeview {
         font-size: 9pt;
-        overflow: auto;
-        height: 400px;
+        overflow-y: scroll;
+        height: 500px;
+        margin-top: 10px;
       }
       .list-group {
         white-space: nowrap;
-        padding: 0;
-        margin: 0;
       }
       .list-group-item {
         padding: 4px 0px;
         display: block;
-        border-radius: 10px;
-        margin-bottom: 0;
       }
-      .antiscroll-wrap {
-        width: 100%;
-        background-color: #fff;
-        border-radius: 3px;
-        margin-top: 10px;
-      }
-
       .left {
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(30, 30, 30, 0.50), rgba(0, 0, 0, 0));
-        padding: 0 1px 0 0;
-      }
-      .left > div {
-        padding: 0 30px;
-        background-color: #fff;
-      }
-      .right {
-        padding-left: 30px;
-        padding-top: 58px;
-      }
-      .breadcrumb {
-        padding-left: 0;
-      }
-      .breadcrumb > li + li:before {
-          content: "\\";
+        padding: 12px 34px;
       }
 
     </style>
@@ -110,14 +85,20 @@
       <div class="middle">
         <div class="inner">
 
-          <div class="container" style="width: 100%">
+          <div class="container">
+
+            <div class="panel panel-default">
+
+              <div class="panel-heading">
+                <span id="modified" class="pull-right"></span>
+                <span class="header">TestFx</span>
+              </div>
+
+              <div class="row">
+
+                <div class="left col-sm-4">
 
 
-            <div class="row">
-              <div class="col-sm-4 left">
-                <div>
-
-                  <span class="glyphicon glyphicon-leaf" style="font-size: 30pt; margin-bottom: 20px"></span>
                   <div class="input-group">
                     <input class="form-control input-sm" placeholder="Search" aria-label="Text input with segmented button dropdown">
 
@@ -174,38 +155,26 @@
                     </div>
                   </div>
 
-                  
                   <div class="antiscroll-wrap">
                     <div id="treeview1" class="treeview antiscroll-inner"></div>
                   </div>
 
-                <canvas id="myChart" style="height: 20px;"></canvas>
+                </div>
+
+                <div class="col-sm-8">
+
+                  <h1>Twsdfsdfo</h1>
 
                 </div>
-              </div>
-              <div class="right col-sm-8">
-                <!--<div class="btn-group btn-breadcrumb">
-                    <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-home"></span> TestFx.SpecK.Tests</a>
-                    <a href="#" class="btn btn-default btn-sm">FailingTest+DomainSpec</a>
-                    <a href="#" class="btn btn-default btn-sm">&lt;Default&gt;</a>
-                </div>-->
-
-                <ol class="breadcrumb" style="font-size: 9pt; background-color: #fff">
-                  <li><span class="glyphicon glyphicon-home"></span></li>
-                  <li><a href="#">TestFx.SpecK.Tests</a></li>
-                  <li><a href="#">FailingTest+DomainSpec</a></li>
-                  <li class="active">&lt;Default&gt;</li>
-                </ol>
-
-
 
               </div>
-            </div>
 
-              <div class="text-center" style="font-size: 8pt; margin-top: 10px">
+              <div class="panel-footer text-center" style="font-size: 8pt">
                 Generated with <span class="glyphicon glyphicon-fire"></span> using TestFx<br/>
                 <span class="glyphicon glyphicon-copyright-mark"></span> 2016 Matthias Koch
               </div>
+              
+            </div><!-- panel -->
 
           </div><!-- container -->
 
@@ -219,7 +188,6 @@
     <script src="./js/bootstrap-treeview-1.2.0.js"></script>
     <script src="./js/dropdowns-enhancement-3.1.1.js"></script>
     <script src="./js/antiscroll-0.9.js"></script>
-    <script src="https://github.com/chartjs/Chart.js/releases/download/v2.4.0/Chart.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js"></script>
     <script src="./resultData.js"></script>
     <script type="text/javascript">
@@ -240,43 +208,6 @@
         $('#modified').text(document.lastModified);
 
         $('.antiscroll-wrap').antiscroll();
-      });
-      $(function () {
-        var data = {
-            datasets: [{
-                data: [
-                    11,
-                    16,
-                    7,
-                    3
-                ],
-                backgroundColor: [
-                    "#449d44",
-                    "#c9302c",
-                    "#ec971f",
-                    "#31b0d5"
-                ],
-                label: 'My dataset' // for legend
-            }],
-            labels: [
-                "Passed",
-                "Failed",
-                "Inconclusive",
-                "Ignored"
-            ]
-        };
-        // Get the context of the canvas element we want to select
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var myDoughnutChart = new Chart(ctx, {
-          type: 'doughnut',
-          data: data,
-          options: {
-              legend: {
-                position: 'right'
-     
-          }
-        }
-        });
       });
 
       // resizable https://codepen.io/barbalex/pen/ogZWNV
