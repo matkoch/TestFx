@@ -179,7 +179,6 @@
                     <div id="treeview1" class="treeview antiscroll-inner"></div>
                   </div>
 
-                <canvas id="myChart" style="height: 20px;"></canvas>
 
                 </div>
               </div>
@@ -198,12 +197,12 @@
                 </ol>
 
 
-
+                <canvas id="myChart" style="height: 100px"></canvas>
               </div>
             </div>
 
               <div class="text-center" style="font-size: 8pt; margin-top: 10px">
-                Generated with <span class="glyphicon glyphicon-fire"></span> using TestFx<br/>
+                Generated with <span class="glyphicon glyphicon-fire"></span> using <a href="https://github.com/matkoch/TestFx">TestFx</a><br/>
                 <span class="glyphicon glyphicon-copyright-mark"></span> 2016 Matthias Koch
               </div>
 
@@ -219,8 +218,8 @@
     <script src="./js/bootstrap-treeview-1.2.0.js"></script>
     <script src="./js/dropdowns-enhancement-3.1.1.js"></script>
     <script src="./js/antiscroll-0.9.js"></script>
-    <script src="https://github.com/chartjs/Chart.js/releases/download/v2.4.0/Chart.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js"></script>
+    <script src="./js/chart-2.4.0.js"></script>
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js"></script>-->
     <script src="./resultData.js"></script>
     <script type="text/javascript">
 
@@ -267,15 +266,15 @@
         };
         // Get the context of the canvas element we want to select
         var ctx = document.getElementById("myChart").getContext('2d');
+
         var myDoughnutChart = new Chart(ctx, {
           type: 'doughnut',
           data: data,
           options: {
               legend: {
                 position: 'right'
-     
-          }
-        }
+              }
+            }
         });
       });
 
