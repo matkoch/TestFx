@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using TestFx.Console.HtmlReport;
+using TestFx.Console.JsonReport;
 using TestFx.Console.TeamCity;
 using TestFx.Evaluation;
 using TestFx.Evaluation.Reporting;
@@ -26,27 +27,11 @@ namespace TestFx.Console
 {
   public class Program
   {
-    private static Options s_options;
-
-    private static IEnumerable<string> AssemblyPaths => s_options.Assemblies ?? new List<string>();
-
-    private static bool Pause => s_options.Pause;
-
-    private static bool Debug => s_options.Debug;
-
-    private static bool TeamCity => s_options.TeamCity || Environment.GetEnvironmentVariable("TEAMCITY_VERSION") != null;
-
-    private static ReportMode ReportMode => s_options.ReportMode;
-
-    private static string Output => s_options.Output ?? Environment.CurrentDirectory;
-
-    private static bool ShowLogo => !s_options.NoLogo;
-
     private static void Main (string[] args)
     {
-      s_options = Options.Load(args);
+      Options.Load(args);
 
-      if (ShowLogo)
+      if (Options.ShowLogo)
       {
         System.Console.WriteLine(@"___________                __  ___________        ");
         System.Console.WriteLine(@"\__    ___/____    _______/  |_\_   _____/___  ___");
@@ -56,14 +41,14 @@ namespace TestFx.Console
         System.Console.WriteLine(@"              \/      \/            \/          \/");
       }
 
-      if (Debug)
+      if (Options.Debug)
         Debugger.Launch();
 
-      var assemblies = AssemblyPaths.Select(Assembly.LoadFrom);
+      var assemblies = Options.AssemblyPaths.Select(Assembly.LoadFrom);
       var listeners = CreateListener().ToArray();
       var result = Evaluator.Run(assemblies, listeners);
 
-      if (Pause)
+      if (Options.Pause)
       {
         System.Console.WriteLine("Press any key to terminate...");
         System.Console.ReadKey(intercept: true);
@@ -75,10 +60,13 @@ namespace TestFx.Console
 
     private static IEnumerable<IRunListener> CreateListener ()
     {
-      if (ReportMode != ReportMode.None)
-        yield return new HtmlReportRunListener(ReportMode, Output);
+      if (Options.JsonReport)
+        yield return new JsonReportRunListener(Options.Output);
 
-      if (TeamCity)
+      if (Options.HtmlReport)
+        yield return new HtmlReportRunListener(Options.Output);
+
+      if (Options.RunnerEnvironment == RunnerEnvironment.TeamCity)
         yield return new TeamCityRunListener(new TeamCityServiceMessageWriter(System.Console.WriteLine));
     }
   }

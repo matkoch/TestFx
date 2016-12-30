@@ -1,4 +1,4 @@
-﻿// Copyright 2016, 2015, 2014 Matthias Koch
+// Copyright 2016, 2015, 2014 Matthias Koch
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,14 +14,19 @@
 
 using System;
 using System.Linq;
+using Newtonsoft.Json;
+using TestFx.Evaluation.Results;
 
-namespace TestFx.Console.HtmlReport
+namespace TestFx.Console.JsonReport
 {
-  public enum ReportMode
+  public class ExceptionDescriptorConverter : ConverterBase<IExceptionDescriptor>
   {
-    None,
-    Silent,
-    OpenOnFail,
-    OpenAlways
+    public override void WriteJson (IExceptionDescriptor value, JsonWriter writer, JsonSerializer serializer)
+    {
+      Write("name", value.Name, writer, serializer);
+      Write("message", value.Message, writer, serializer);
+      Write("fullname", value.FullName, writer, serializer);
+      Write("stacktrace", value.StackTrace, writer, serializer);
+    }
   }
 }

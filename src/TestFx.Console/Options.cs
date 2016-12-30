@@ -16,45 +16,79 @@ using System;
 using System.Collections.Generic;
 using CommandLine;
 using JetBrains.Annotations;
-using TestFx.Console.HtmlReport;
 
 namespace TestFx.Console
 {
   public class Options
   {
-    public static Options Load(string[] args)
+    private static readonly Arguments s_options = new Arguments();
+
+    public static void Load(string[] args)
     {
-      var options = new Options();
       var parser = new Parser(
           x =>
           {
             x.MutuallyExclusive = true;
             x.HelpWriter = System.Console.Error;
           });
-      parser.ParseArgumentsStrict(args, options, () => System.Console.ReadKey());
-      return options;
+      parser.ParseArgumentsStrict(args, s_options, () => System.Console.ReadKey());
     }
-    
-    [OptionList ("assemblies", Required = true, Separator = ';', HelpText = "List of assemblies separated by semicolons.")]
-    public IList<string> Assemblies { get; [UsedImplicitly] set; }
 
-    [Option ("pause", HelpText = "Enables pausing before the process is terminated.")]
-    public bool Pause { get; [UsedImplicitly] set; }
+    public static IEnumerable<string> AssemblyPaths => s_options.Assemblies ?? new List<string>();
 
-    [Option ("debug", HelpText = "Enables debugging by calling Debugger.Launch().")]
-    public bool Debug { get; [UsedImplicitly] set; }
+    public static bool Pause => s_options.Pause;
 
-    [Option ("teamcity", HelpText = "Forces output for JetBrains TeamCity server. Disables standard output.")]
-    public bool TeamCity { get; [UsedImplicitly] set; }
+    public static bool Debug => s_options.Debug;
 
-    [Option ("report", HelpText = "Specifies the HTML report mode. Allowed options are: None, Silent, OpenOnFail, OpenAlways.")]
-    public ReportMode ReportMode { get; [UsedImplicitly] set; }
+    public static RunnerEnvironment RunnerEnvironment
+    {
+      get
+      {
+        var environment = s_options.RunnerEnvironment;
+        if (environment != RunnerEnvironment.Automatic)
+          return environment;
 
-    [CanBeNull]
-    [Option ("output", HelpText = "Specifies the output directory for the HTML report and DotCover analysis.")]
-    public string Output { get; [UsedImplicitly] set; }
+        if (Environment.GetEnvironmentVariable("TEAMCITY_VERSION") != null)
+          return RunnerEnvironment.TeamCity;
 
-    [Option ("nologo", HelpText = "Suppresses display of logo text.")]
-    public bool NoLogo { get; [UsedImplicitly] set; }
+        return RunnerEnvironment.Local;
+      }
+    }
+
+    public static bool HtmlReport => s_options.HtmlReport;
+
+    public static bool JsonReport => s_options.JsonReport || s_options.HtmlReport;
+
+    public static string Output => s_options.Output ?? Environment.CurrentDirectory;
+
+    public static bool ShowLogo => !s_options.NoLogo;
+
+    public class Arguments
+    {
+      [OptionList ("assemblies", Required = true, Separator = ';', HelpText = "List of assemblies separated by semicolons.")]
+      public IList<string> Assemblies { get; [UsedImplicitly] set; }
+
+      [Option ("pause", HelpText = "Enables pausing before the process is terminated.")]
+      public bool Pause { get; [UsedImplicitly] set; }
+
+      [Option ("debug", HelpText = "Enables debugging by calling Debugger.Launch().")]
+      public bool Debug { get; [UsedImplicitly] set; }
+
+      [Option ("environment", HelpText = "Specifies the runner environment. Allowed options are: Automatic, Local, TeamCity.")]
+      public RunnerEnvironment RunnerEnvironment { get; [UsedImplicitly] set; }
+
+      [Option ("html", HelpText = "Specifies that a HTML report should be generated.")]
+      public bool HtmlReport { get; [UsedImplicitly] set; }
+
+      [Option ("json", HelpText = "Specifies that a JSON report should be generated.")]
+      public bool JsonReport { get; [UsedImplicitly] set; }
+
+      [CanBeNull]
+      [Option ("output", HelpText = "Specifies the output directory for the HTML report and DotCover analysis.")]
+      public string Output { get; [UsedImplicitly] set; }
+
+      [Option ("nologo", HelpText = "Suppresses display of logo text.")]
+      public bool NoLogo { get; [UsedImplicitly] set; }
+    }
   }
 }
