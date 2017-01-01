@@ -13,7 +13,7 @@ namespace TestFx.Console.JsonReport
       Write("state", value.State, writer, serializer);
       Write("text", value.Text, writer, serializer);
       Write("duration", value.Duration, writer, serializer);
-      Write("output", value.OutputEntries, writer, serializer);
+      //Write("output", value.OutputEntries, writer, serializer);
       Write("operations", value.OperationResults, writer, serializer);
     }
   }

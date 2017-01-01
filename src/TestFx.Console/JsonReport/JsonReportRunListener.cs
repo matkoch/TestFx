@@ -13,18 +13,12 @@
 // limitations under the License.
 
 using System;
-using System.Collections;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Reflection;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
-using TestFx.Utilities;
 
 namespace TestFx.Console.JsonReport
 {
@@ -39,63 +33,26 @@ namespace TestFx.Console.JsonReport
 
     public override void OnRunFinished (IRunResult result)
     {
-      var settings =
-          new JsonSerializerSettings
-          {
-            ContractResolver = new LowercaseContractResolver(),
-            Converters =
-                new JsonConverter[]
-                {
-                  new StringEnumConverter(),
-                  new IdentityConverter(),
-                  new HtmlStringConverter()
-                }
-          };
-      var content = JsonConvert.SerializeObject(result, Formatting.Indented, settings);
+      //var settings =
+      //    new JsonSerializerSettings
+      //    {
+      //      ContractResolver = new CustomContractResolver(),
+      //      Converters =
+      //          new JsonConverter[]
+      //          {
+      //            new StringEnumConverter(),
+      //            new IdentityConverter(),
+      //            new HtmlStringConverter()
+      //          }
+      //    };
+      var content = JsonConvert.SerializeObject(result, Formatting.Indented,
+        new RunResultConverter(),
+        new SuiteResultConverter(),
+        new TestResultConverter(),
+        new OperationResultConverter(),
+        new ExceptionDescriptorConverter());
       Directory.CreateDirectory(_output);
       File.WriteAllText(Path.Combine(_output, "resultData.json"), content);
-    }
-  }
-
-  public class IdentityConverter : ConverterBase<IIdentity>
-  {
-    public override void WriteJson (IIdentity value, JsonWriter writer, JsonSerializer serializer)
-    {
-      serializer.Serialize(writer, value.Absolute);
-    }
-  }
-
-  public class HtmlStringConverter : ConverterBase<string>
-  {
-    public override void WriteJson (string value, JsonWriter writer, JsonSerializer serializer)
-    {
-      writer.WriteValue(WebUtility.HtmlEncode(value));
-    }
-  }
-
-  public class LowercaseContractResolver : DefaultContractResolver
-  {
-    protected override string ResolvePropertyName ([NotNull] string propertyName)
-    {
-      return propertyName.ToLower();
-    }
-
-    protected override JsonProperty CreateProperty ([NotNull] MemberInfo member, MemberSerialization memberSerialization)
-    {
-      var property = base.CreateProperty(member, memberSerialization);
-      if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType)
-          && property.PropertyType != typeof(string))
-        property.ShouldSerialize = x =>
-        {
-          var propertyInfo = member as PropertyInfo;
-          if (propertyInfo == null)
-            return true;
-
-          var collection = propertyInfo.GetValue(x) as ICollection;
-          return collection == null || collection.Count > 0;
-        };
-
-      return property;
     }
   }
 }

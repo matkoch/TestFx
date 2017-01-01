@@ -1,0 +1,1933 @@
+{
+  "id": "8aa9ba4d",
+  "state": "Failed",
+  "text": "You&#39;re so great!",
+  "suites": [
+    {
+      "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll",
+      "state": "Failed",
+      "text": "TestFx.SpecK.Tests",
+      "setups": [
+        {
+          "id": "&lt;OPERATION&gt;",
+          "state": "Passed",
+          "text": "MyAssemblySetup.Setup",
+          "type": "Action"
+        },
+        {
+          "id": "&lt;OPERATION&gt;",
+          "state": "Passed",
+          "text": "MyAssemblySetup.Setup",
+          "type": "Action"
+        }
+      ],
+      "cleanups": [
+        {
+          "id": "&lt;OPERATION&gt;",
+          "state": "Passed",
+          "text": "MyAssemblySetup.Cleanup",
+          "type": "Action"
+        },
+        {
+          "id": "&lt;OPERATION&gt;",
+          "state": "Passed",
+          "text": "MyAssemblySetup.Cleanup",
+          "type": "Action"
+        }
+      ],
+      "suites": [
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.ContextBehaviorTest+DomainSpec",
+          "state": "Failed",
+          "text": "ContextBehaviorTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.ContextBehaviorTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.1875047",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "subject with ctor arg",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "has result set to ctor arg",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "has property set to null",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "AssertionException",
+                    "message": "Expected string to be &lt;null&gt;, but found &quot;ctor arg&quot;.",
+                    "fullname": "NUnit.Framework.AssertionException",
+                    "stacktrace": "   at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Shared\\Execution\\LateBoundTestFramework.cs:line 31\r\n   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\FluentAssertions.Net40\\Execution\\TestFrameworkProvider.cs:line 42\r\n   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\DefaultAssertionStrategy.cs:line 25\r\n   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\AssertionScope.cs:line 197\r\n   at FluentAssertions.Primitives.ReferenceTypeAssertions`2.BeNull(String because, Object[] reasonArgs) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Primitives\\ReferenceTypeAssertions.cs:line 33\r\n"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Using.FailingTest+DomainSpec",
+          "state": "Failed",
+          "text": "FailingTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Using.FailingTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0022758",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Create PassingDisposable",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Create ThrowingDisposable",
+                  "type": "Action",
+                  "exception": {
+                    "name": "TargetInvocationException",
+                    "message": "Exception has been thrown by the target of an invocation.\r\n---&gt; Exception of type &#39;System.Exception&#39; was thrown.",
+                    "fullname": "System.Reflection.TargetInvocationException",
+                    "stacktrace": "   at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean&amp; canBeCached, RuntimeMethodHandleInternal&amp; ctor, Boolean&amp; bNeedSecurityCheck)\r\n   at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark&amp; stackMark)\r\n   at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache, StackCrawlMark&amp; stackMark)\r\n   at System.Activator.CreateInstance(Type type, Boolean nonPublic)\r\n   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark&amp; stackMark)\r\n   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)\r\n   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)\r\n\r\n--- Begin of inner exception stack trace ---\r\n"
+                  }
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Dispose PassingDisposable",
+                  "type": "Action"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Using.NestingTest+DomainSpec",
+          "state": "Failed",
+          "text": "NestingTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Using.NestingTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0027461",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Create FirstDisposable",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Create SecondDisposable (named)",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Create DelegateDisposable",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Arrangement",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Create ThirdDisposable",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Failing Assertion",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception of type &#39;System.Exception&#39; was thrown.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Dispose ThirdDisposable",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Dispose DelegateDisposable",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Dispose SecondDisposable (named)",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Dispose FirstDisposable",
+                  "type": "Action"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.CustomCreationTest+DomainSpec",
+          "state": "Passed",
+          "text": "CustomCreationTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.CustomCreationTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0014607",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_Subject&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "passes OtherString",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "creates subject only once",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.AdHocCreationTest+DomainSpec",
+          "state": "Passed",
+          "text": "AdHocCreationTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.AdHocCreationTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0007495",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "init OtherString",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "subject is created with OtherString",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "passes OtherString",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "creates subject only once",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.NoDefaultConstructorTest+DomainSpec",
+          "state": "Failed",
+          "text": "NoDefaultConstructorTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.NoDefaultConstructorTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0025764",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "&lt;Create_Subject&gt;",
+                  "type": "Action",
+                  "exception": {
+                    "name": "EvaluationException",
+                    "message": "Missing default constructor for subject type &#39;DomainType&#39;.",
+                    "fullname": "TestFx.Evaluation.EvaluationException",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.MissingArgumentsTest+DomainSpec",
+          "state": "Failed",
+          "text": "MissingArgumentsTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.MissingArgumentsTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0019242",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "&lt;Create_Subject&gt;",
+                  "type": "Action",
+                  "exception": {
+                    "name": "EvaluationException",
+                    "message": "Missing constructor arguments for subject type &#39;DomainType&#39;: firstMissingString, secondMissingString",
+                    "fullname": "TestFx.Evaluation.EvaluationException",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.DefaultCreationTest+DomainSpec",
+          "state": "Passed",
+          "text": "DefaultCreationTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Subject.DefaultCreationTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0010949",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_Subject&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "passes InjectedString",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "creates subject only once",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.FakeItEasy.OrderedAssertionsTest+DomainSpec",
+          "state": "Failed",
+          "text": "OrderedAssertionsTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.FakeItEasy.OrderedAssertionsTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.1360190",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_Fakes&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_Subject&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "calls in order first and second disposable",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "ExpectationException",
+                    "message": "\r\n\r\n  Assertion failed for the following calls:\r\n    &#39;System.IDisposable.Dispose()&#39; repeated at least once\r\n    &#39;System.IDisposable.Dispose()&#39; repeated at least once\r\n  The calls where found but not in the correct order among the calls:\r\n    1: System.IDisposable.Dispose()\r\n    2: System.IDisposable.Dispose()\r\n",
+                    "fullname": "FakeItEasy.ExpectationException",
+                    "stacktrace": "   at FakeItEasy.Core.OrderedFakeAsserter.ThrowExceptionWhenAssertionFailed(List`1 assertedCalls, CallWriter callWriter, IEnumerable`1 originalCallList)\r\n   at FakeItEasy.Core.OrderedFakeAsserter.AssertWasCalled(Func`2 callPredicate, String callDescription, Func`2 repeatPredicate, String repeatDescription)\r\n   at FakeItEasy.Core.OrderedFakeAsserterFactory.CompositeAsserter.AssertWasCalled(Func`2 callPredicate, String callDescription, Func`2 repeatPredicate, String repeatDescription)\r\n   at FakeItEasy.Configuration.RuleBuilder.MustHaveHappened(Repeated repeatConstraint)\r\n   at FakeItEasy.AssertConfigurationExtensions.MustHaveHappened(IAssertConfiguration configuration)\r\n"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.FakeItEasy.FakeSetupTest+DomainSpec",
+          "state": "Passed",
+          "text": "FakeSetupTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.FakeItEasy.FakeSetupTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0138053",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_Fakes&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Setup_Fakes&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_Subject&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "retrieves Service from ServiceProvider",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.FakeItEasy.FakeCreationTest+DomainSpec",
+          "state": "Passed",
+          "text": "FakeCreationTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.FakeItEasy.FakeCreationTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0101511",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_Fakes&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_Subject&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "FormatProvider returns",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "returns FormatProvider",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.InconclusiveTest+DomainSpec",
+          "state": "Inconclusive",
+          "text": "InconclusiveTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.InconclusiveTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Inconclusive",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0006260",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Inconclusive",
+                  "text": "arranges something",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Inconclusive",
+                  "text": "does something",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "passes",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "fails",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception of type &#39;System.Exception&#39; was thrown.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.IsolationTest+DomainSpec",
+          "state": "Passed",
+          "text": "IsolationTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.IsolationTest+DomainSpec &#187; Setting",
+              "state": "Passed",
+              "text": "Setting",
+              "duration": "00:00:00.0002003",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Arrangement&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Arrangement&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.IsolationTest+DomainSpec &#187; Reusing",
+              "state": "Passed",
+              "text": "Reusing",
+              "duration": "00:00:00.0004310",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "resets instance object",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "saves static object",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.InheritanceTest+DomainSpec",
+          "state": "Passed",
+          "text": "InheritanceTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.InheritanceTest+DomainSpec &#187; Base case",
+              "state": "Passed",
+              "text": "Base case",
+              "duration": "00:00:00.0008557",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.InheritanceTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0001266",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Assertion",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.InheritanceTest+SpecializedDomainSpec",
+          "state": "Failed",
+          "text": "InheritanceTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.InheritanceTest+SpecializedDomainSpec &#187; Base case",
+              "state": "Passed",
+              "text": "Base case",
+              "duration": "00:00:00.0000191",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.InheritanceTest+SpecializedDomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0003355",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Assertion",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception of type &#39;System.Exception&#39; was thrown.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.InheritanceTest+SpecializedDomainSpec &#187; Additional case",
+              "state": "Passed",
+              "text": "Additional case",
+              "duration": "00:00:00.0000639",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.VariableTest+DomainSpec",
+          "state": "Passed",
+          "text": "VariableTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.VariableTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0012201",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "set MyInteger",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Set_Variables&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "holds variables",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.FailingTest+DomainSpec",
+          "state": "Failed",
+          "text": "FailingTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.FailingTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0008937",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Failing assertion",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception of type &#39;System.Exception&#39; was thrown.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Passing assertion",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Another failing assertion",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception of type &#39;System.Exception&#39; was thrown.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.FailingTest+DomainSpec &#187; Passing",
+              "state": "Passed",
+              "text": "Passing",
+              "duration": "00:00:00.0000151",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.HaltingTest+DomainSpec",
+          "state": "Failed",
+          "text": "HaltingTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.HaltingTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0003346",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Throwing arrangement",
+                  "type": "Action",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception of type &#39;System.Exception&#39; was thrown.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.HaltingTest+DomainSpec &#187; Passing",
+              "state": "Passed",
+              "text": "Passing",
+              "duration": "00:00:00.0000545",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.PassingTest+DomainSpec",
+          "state": "Passed",
+          "text": "PassingTest.Test",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Simple.PassingTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0001924",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Arrangement&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Assertion",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Setups.SimpleSetupExecutionTest+DomainSpec",
+          "state": "Passed",
+          "text": "SimpleSetupExecutionTest",
+          "setups": [
+            {
+              "id": "&lt;OPERATION&gt;",
+              "state": "Passed",
+              "text": "SetupOnceMethod",
+              "type": "Action"
+            },
+            {
+              "id": "&lt;OPERATION&gt;",
+              "state": "Passed",
+              "text": "&lt;lambda method&gt;",
+              "type": "Action"
+            }
+          ],
+          "cleanups": [
+            {
+              "id": "&lt;OPERATION&gt;",
+              "state": "Passed",
+              "text": "&lt;lambda method&gt;",
+              "type": "Action"
+            },
+            {
+              "id": "&lt;OPERATION&gt;",
+              "state": "Passed",
+              "text": "CleanupOnceMethod",
+              "type": "Action"
+            }
+          ],
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Setups.SimpleSetupExecutionTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0003831",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;ConvertToNonGeneric&gt;b__0",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "subject static subject1",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "has assembly setup",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;ConvertToNonGeneric&gt;b__0",
+                  "type": "Action"
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Setups.SimpleSetupExecutionTest+DomainSpec &#187; Case 2",
+              "state": "Passed",
+              "text": "Case 2",
+              "duration": "00:00:00.0000945",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;ConvertToNonGeneric&gt;b__0",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "subject static subject2",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;ConvertToNonGeneric&gt;b__0",
+                  "type": "Action"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Setups.ThrowingSetupExecutionTest+DomainSpec",
+          "state": "Failed",
+          "text": "ThrowingSetupExecutionTest",
+          "setups": [
+            {
+              "id": "&lt;OPERATION&gt;",
+              "state": "Passed",
+              "text": "SetupOnceMethod",
+              "type": "Action"
+            },
+            {
+              "id": "&lt;OPERATION&gt;",
+              "state": "Failed",
+              "text": "&lt;.cctor&gt;b__12_0",
+              "type": "Action",
+              "exception": {
+                "name": "Exception",
+                "message": "Exception of type &#39;System.Exception&#39; was thrown.",
+                "fullname": "System.Exception",
+                "stacktrace": ""
+              }
+            }
+          ],
+          "cleanups": [
+            {
+              "id": "&lt;OPERATION&gt;",
+              "state": "Passed",
+              "text": "CleanupOnceMethod",
+              "type": "Action"
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Generics.GenericArgumentTest+DomainSpec",
+          "state": "Failed",
+          "text": "GenericArgumentTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Generics.GenericArgumentTest+DomainSpec &#187; Passing",
+              "state": "Passed",
+              "text": "Passing",
+              "duration": "00:00:00.2221172",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Arrangement&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Returns x =&gt; Convert(1)",
+                  "type": "Assertion"
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Generics.GenericArgumentTest+DomainSpec &#187; Failing Value",
+              "state": "Failed",
+              "text": "Failing Value",
+              "duration": "00:00:00.0015134",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Arrangement&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Returns x =&gt; &quot;two&quot;",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Result must be equal to &#39;two&#39; but was &#39;one&#39;.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Generics.GenericArgumentTest+DomainSpec &#187; Failing Type",
+              "state": "Failed",
+              "text": "Failing Type",
+              "duration": "00:00:00.0002943",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Arrangement&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Returns x =&gt; &quot;one&quot;",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Result must be equal to &#39;one&#39; but was &#39;1&#39;.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Farada.AutoConfigurationTest+DomainSpec",
+          "state": "Passed",
+          "text": "AutoCreationTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Farada.AutoConfigurationTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0168692",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_AutoData&gt;&lt;1337&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Fills properties",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Farada.AutoCreationTest+DomainSpec",
+          "state": "Passed",
+          "text": "AutoCreationTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Farada.AutoCreationTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0212356",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Create_AutoData&gt;&lt;1337&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Fills properties",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Fills fields",
+                  "type": "Assertion"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Executes AutoAttribute.Mutate",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.UnexpectedExceptionTest+DomainSpec",
+          "state": "Failed",
+          "text": "UnexpectedExceptionTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.UnexpectedExceptionTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0010488",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "a message",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "an inner exception with message",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action",
+                  "exception": {
+                    "name": "ArgumentException",
+                    "message": "Message\r\n---&gt; InnerMessage",
+                    "fullname": "System.ArgumentException",
+                    "stacktrace": "   at UserNamespace.UserClass.Throw[TException](String message, Exception innerException) in C:\\OSS\\TestFx2\\src\\TestFx.SpecK.Tests\\Exceptions\\UserClass.cs:line 27\r\n\r\n--- Begin of inner exception stack trace ---\r\n\r\n"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest+DomainSpec",
+          "state": "Failed",
+          "text": "ExceptionAssertionTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Passed",
+              "text": "&lt;Default&gt;",
+              "duration": "00:00:00.0012690",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "a message",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "an inner exception",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Throws ArgumentException",
+                  "type": "Assertion"
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest+DomainSpec &#187; Wrong exception type",
+              "state": "Failed",
+              "text": "Wrong exception type",
+              "duration": "00:00:00.0003993",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Throws InvalidOperationException",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception must be assignable to &#39;System.InvalidOperationException&#39; but was &#39;ArgumentNullException&#39;.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest+DomainSpec &#187; Wrong message",
+              "state": "Failed",
+              "text": "Wrong message",
+              "duration": "00:00:00.0002180",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Throws ArgumentException",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception message must be &#39;Wrong message&#39; but was &#39;[NullGuard] message is null.\r\nParameter name: message&#39;.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest+DomainSpec &#187; Wrong message provider",
+              "state": "Failed",
+              "text": "Wrong message provider",
+              "duration": "00:00:00.0002793",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "a message",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Throws ArgumentException",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception message must be &#39;Wrong message&#39; but was &#39;[NullGuard] innerException is null.\r\nParameter name: innerException&#39;.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest+DomainSpec &#187; Wrong inner exception provider",
+              "state": "Failed",
+              "text": "Wrong inner exception provider",
+              "duration": "00:00:00.0002957",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "a message",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Throws ArgumentException",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "Exception",
+                    "message": "Exception message must be &#39;Message&#39; but was &#39;[NullGuard] innerException is null.\r\nParameter name: innerException&#39;.",
+                    "fullname": "System.Exception",
+                    "stacktrace": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest+DomainSpec &#187; Custom failing assertion",
+              "state": "Failed",
+              "text": "Custom failing assertion",
+              "duration": "00:00:00.0010218",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Failed",
+                  "text": "Throws exception with special properties",
+                  "type": "Assertion",
+                  "exception": {
+                    "name": "AssertionException",
+                    "message": "Expected object not to be &lt;null&gt;.",
+                    "fullname": "NUnit.Framework.AssertionException",
+                    "stacktrace": "   at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Shared\\Execution\\LateBoundTestFramework.cs:line 31\r\n   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\FluentAssertions.Net40\\Execution\\TestFrameworkProvider.cs:line 42\r\n   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\DefaultAssertionStrategy.cs:line 25\r\n   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\AssertionScope.cs:line 197\r\n   at FluentAssertions.Primitives.ReferenceTypeAssertions`2.NotBeNull(String because, Object[] reasonArgs) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Primitives\\ReferenceTypeAssertions.cs:line 53\r\n"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest+DomainSpec &#187; Custom passing assertion",
+              "state": "Passed",
+              "text": "Custom passing assertion",
+              "duration": "00:00:00.0001603",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Reset_Instance_Fields&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Throws exception with special properties",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.PermutationsTest+DomainSpec",
+          "state": "Failed",
+          "text": "PermutationsTest",
+          "suites": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.PermutationsTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "tests": [
+                {
+                  "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.PermutationsTest+DomainSpec &#187; &lt;Default&gt; &#187; Object = Object, A = 1, B = 3",
+                  "state": "Failed",
+                  "text": "Object = Object, A = 1, B = 3",
+                  "duration": "00:00:00.0009250",
+                  "operations": [
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Reset_Instance_Fields&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Action&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Failed",
+                      "text": "returns result",
+                      "type": "Assertion",
+                      "exception": {
+                        "name": "AssertionException",
+                        "message": "Expected value to be 5, but found 4.",
+                        "fullname": "NUnit.Framework.AssertionException",
+                        "stacktrace": "   at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Shared\\Execution\\LateBoundTestFramework.cs:line 31\r\n   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\FluentAssertions.Net40\\Execution\\TestFrameworkProvider.cs:line 42\r\n   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\DefaultAssertionStrategy.cs:line 25\r\n   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\AssertionScope.cs:line 197\r\n   at FluentAssertions.Numeric.NumericAssertions`1.Be(T expected, String because, Object[] reasonArgs) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Numeric\\NumericAssertions.cs:line 44\r\n"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.PermutationsTest+DomainSpec &#187; &lt;Default&gt; &#187; Object = Object, A = 1, B = 4",
+                  "state": "Passed",
+                  "text": "Object = Object, A = 1, B = 4",
+                  "duration": "00:00:00.0000263",
+                  "operations": [
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Reset_Instance_Fields&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Action&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "returns result",
+                      "type": "Assertion"
+                    }
+                  ]
+                },
+                {
+                  "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.PermutationsTest+DomainSpec &#187; &lt;Default&gt; &#187; Object = Object, A = 2, B = 3",
+                  "state": "Passed",
+                  "text": "Object = Object, A = 2, B = 3",
+                  "duration": "00:00:00.0000169",
+                  "operations": [
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Reset_Instance_Fields&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Action&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "returns result",
+                      "type": "Assertion"
+                    }
+                  ]
+                },
+                {
+                  "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.PermutationsTest+DomainSpec &#187; &lt;Default&gt; &#187; Object = Object, A = 2, B = 4",
+                  "state": "Failed",
+                  "text": "Object = Object, A = 2, B = 4",
+                  "duration": "00:00:00.0002866",
+                  "operations": [
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Reset_Instance_Fields&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Action&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Failed",
+                      "text": "returns result",
+                      "type": "Assertion",
+                      "exception": {
+                        "name": "AssertionException",
+                        "message": "Expected value to be 5, but found 6.",
+                        "fullname": "NUnit.Framework.AssertionException",
+                        "stacktrace": "   at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Shared\\Execution\\LateBoundTestFramework.cs:line 31\r\n   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\FluentAssertions.Net40\\Execution\\TestFrameworkProvider.cs:line 42\r\n   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\DefaultAssertionStrategy.cs:line 25\r\n   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\AssertionScope.cs:line 197\r\n   at FluentAssertions.Numeric.NumericAssertions`1.Be(T expected, String because, Object[] reasonArgs) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Numeric\\NumericAssertions.cs:line 44\r\n"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.SequencesTest+DomainSpec",
+          "state": "Failed",
+          "text": "SequencesTest",
+          "suites": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.SequencesTest+DomainSpec &#187; &lt;Default&gt;",
+              "state": "Failed",
+              "text": "&lt;Default&gt;",
+              "tests": [
+                {
+                  "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.SequencesTest+DomainSpec &#187; &lt;Default&gt; &#187; First sequence",
+                  "state": "Passed",
+                  "text": "First sequence",
+                  "duration": "00:00:00.0004429",
+                  "operations": [
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Reset_Instance_Fields&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Action&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "returns result",
+                      "type": "Assertion"
+                    }
+                  ]
+                },
+                {
+                  "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Combinatorics.SequencesTest+DomainSpec &#187; &lt;Default&gt; &#187; Second sequence",
+                  "state": "Failed",
+                  "text": "Second sequence",
+                  "duration": "00:00:00.0004357",
+                  "operations": [
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Reset_Instance_Fields&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Arrangement&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Passed",
+                      "text": "&lt;Action&gt;",
+                      "type": "Action"
+                    },
+                    {
+                      "id": "&lt;OPERATION&gt;",
+                      "state": "Failed",
+                      "text": "returns result",
+                      "type": "Assertion",
+                      "exception": {
+                        "name": "AssertionException",
+                        "message": "Expected value to be 6, but found 5.",
+                        "fullname": "NUnit.Framework.AssertionException",
+                        "stacktrace": "   at FluentAssertions.Execution.LateBoundTestFramework.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Shared\\Execution\\LateBoundTestFramework.cs:line 31\r\n   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\FluentAssertions.Net40\\Execution\\TestFrameworkProvider.cs:line 42\r\n   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\DefaultAssertionStrategy.cs:line 25\r\n   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Execution\\AssertionScope.cs:line 197\r\n   at FluentAssertions.Numeric.NumericAssertions`1.Be(T expected, String because, Object[] reasonArgs) in C:\\projects\\fluentassertions-vf06b\\Src\\Core\\Numeric\\NumericAssertions.cs:line 44\r\n"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Async.AsyncTest+DomainSpec",
+          "state": "Passed",
+          "text": "AsyncTest",
+          "tests": [
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Async.AsyncTest+DomainSpec &#187; Action",
+              "state": "Passed",
+              "text": "Action",
+              "duration": "00:00:00.0322305",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "waits",
+                  "type": "Assertion"
+                }
+              ]
+            },
+            {
+              "id": "C:\\OSS\\TestFx2\\src\\TestFx.Console.Tests\\bin\\Debug\\TestFx.SpecK.Tests.dll &#187; TestFx.SpecK.Tests.Async.AsyncTest+DomainSpec &#187; Func",
+              "state": "Passed",
+              "text": "Func",
+              "duration": "00:00:00.0288969",
+              "operations": [
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "&lt;Action&gt;",
+                  "type": "Action"
+                },
+                {
+                  "id": "&lt;OPERATION&gt;",
+                  "state": "Passed",
+                  "text": "Returns x =&gt; 10",
+                  "type": "Assertion"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

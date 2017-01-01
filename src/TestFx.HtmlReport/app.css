@@ -1,0 +1,99 @@
+﻿html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 9pt;
+}
+
+.outer {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+.inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+}
+
+
+.passed,.green {
+  color: #449d44;
+}
+.passed-bg > input:checked ~ label {
+  background-color: #449d44 !important;
+}
+
+.failed,.red {
+  color: #c9302c;
+}
+.failed-bg > input:checked ~ label {
+  background-color: #c9302c !important;
+}
+
+.inconclusive,.orange {
+  color: #ec971f;
+}
+.inconclusive-bg > input:checked ~ label {
+  background-color: #ec971f !important;
+}
+
+.ignored,.gray {
+  color: #31b0d5;
+}
+.ignored-bg > input:checked ~ label {
+  background-color: #31b0d5 !important;
+}
+
+
+
+.treeview {
+  font-size: 0.9em;
+  overflow: auto;
+  height: 400px;
+}
+.list-group {
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+}
+.list-group-item {
+  padding: 4px 0px;
+  display: block;
+  border-radius: 10px;
+  margin-bottom: 0;
+}
+.antiscroll-wrap {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  margin-top: 10px;
+}
+
+.container {
+  width: 100%;
+}
+
+.left {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(30, 30, 30, 0.50), rgba(0, 0, 0, 0));
+  padding: 0 1px 0 0;
+}
+.left > div {
+  padding: 0 30px;
+  background-color: #fff;
+}
+.right {
+  padding-left: 30px;
+  padding-top: 58px;
+}
+.breadcrumb {
+  padding-left: 0;
+  background-color: #fff;
+}
+.breadcrumb > li + li:before {
+  content: "\\";
+}

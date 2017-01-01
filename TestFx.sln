@@ -78,6 +78,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VisualStudio", "VisualStudi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.VisualStudio.TestAdapter", "src\TestFx.VisualStudio.TestAdapter\TestFx.VisualStudio.TestAdapter.csproj", "{669F447A-15FC-4762-9AD3-636C28E3DBA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFx.HtmlReport", "src\TestFx.HtmlReport\TestFx.HtmlReport.csproj", "{8A71599C-B849-477C-BAAA-0DB3EDD1A8E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,10 @@ Global
 		{669F447A-15FC-4762-9AD3-636C28E3DBA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{669F447A-15FC-4762-9AD3-636C28E3DBA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{669F447A-15FC-4762-9AD3-636C28E3DBA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A71599C-B849-477C-BAAA-0DB3EDD1A8E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A71599C-B849-477C-BAAA-0DB3EDD1A8E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A71599C-B849-477C-BAAA-0DB3EDD1A8E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A71599C-B849-477C-BAAA-0DB3EDD1A8E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,5 +160,6 @@ Global
 		{87BF5389-C810-4A37-A0C4-B7F6EFA6D1E7} = {CAA446D8-5B3A-40B1-AC06-E0AB0FFCD409}
 		{417CF141-CBB5-42E3-B36D-D3D317DCA295} = {CAA446D8-5B3A-40B1-AC06-E0AB0FFCD409}
 		{669F447A-15FC-4762-9AD3-636C28E3DBA8} = {F0CA1965-CBC6-431D-B505-1AAA89D27767}
+		{8A71599C-B849-477C-BAAA-0DB3EDD1A8E0} = {2BB8512D-AAE2-47C5-8805-A5586C1E9EFE}
 	EndGlobalSection
 EndGlobal

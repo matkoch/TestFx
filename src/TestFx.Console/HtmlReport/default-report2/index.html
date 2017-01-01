@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TestFx Report</title>
+    <link href="./css/bootstrap-3.3.6.css" rel="stylesheet">
+    <link href="./css/bootstrap-treeview-1.2.0.css" rel="stylesheet">
+    <link href="./css/dropdowns-enhancement-3.1.1.css" rel="stylesheet">
+    <link href="./css/antiscroll-0.9.css" rel="stylesheet" />
+    <link href="./css/breadcrumb.css" rel="stylesheet" />
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        font-size: 9pt;
+      }
+
+      .outer {
+        display: table;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+      .middle {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .inner {
+        margin-left: auto;
+        margin-right: auto;
+        width: 1000px;
+      }
+
+
+      .passed,.green {
+        color: #449d44;
+      }
+      .passed-bg > input:checked ~ label {
+        background-color: #449d44 !important;
+      }
+
+      .failed,.red {
+        color: #c9302c;
+      }
+      .failed-bg > input:checked ~ label {
+        background-color: #c9302c !important;
+      }
+
+      .inconclusive,.orange {
+        color: #ec971f;
+      }
+      .inconclusive-bg > input:checked ~ label {
+        background-color: #ec971f !important;
+      }
+
+      .ignored,.gray {
+        color: #31b0d5;
+      }
+      .ignored-bg > input:checked ~ label {
+        background-color: #31b0d5 !important;
+      }
+
+
+
+      .treeview {
+        font-size: 0.9em;
+        overflow: auto;
+        height: 400px;
+      }
+      .list-group {
+        white-space: nowrap;
+        padding: 0;
+        margin: 0;
+      }
+      .list-group-item {
+        padding: 4px 0px;
+        display: block;
+        border-radius: 10px;
+        margin-bottom: 0;
+      }
+      .antiscroll-wrap {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 3px;
+        margin-top: 10px;
+      }
+
+      .container {
+        width: 100%;
+      }
+
+      .left {
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(30, 30, 30, 0.50), rgba(0, 0, 0, 0));
+        padding: 0 1px 0 0;
+      }
+      .left > div {
+        padding: 0 30px;
+        background-color: #fff;
+      }
+      .right {
+        padding-left: 30px;
+        padding-top: 58px;
+      }
+      .breadcrumb {
+        padding-left: 0;
+        background-color: #fff;
+      }
+      .breadcrumb > li + li:before {
+        content: "\\";
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="outer">
+      <div class="middle">
+        <div class="inner">
+
+          <div class="container">
+
+
+            <div class="row">
+              <div class="col-sm-4 left">
+                <div>
+
+                  <span class="glyphicon glyphicon-leaf" style="font-size: 30pt; margin-bottom: 20px"></span>
+                  <div class="input-group">
+                    <input class="form-control input-sm" placeholder="Search" aria-label="Text input with segmented button dropdown">
+
+
+                    <div class="input-group-btn">
+                      <!--<button type="button" class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                      </button>-->
+                      <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-placeholder="false">
+                        <span class="glyphicon glyphicon-filter"></span> <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li class="passed-bg">
+                          <input type="checkbox" id="passed" name="filter">
+                          <label for="passed"><span class="glyphicon glyphicon-ok"></span> Passed</label>
+                        </li>
+                        <li class="failed-bg">
+                          <input type="checkbox" id="failed" name="filter">
+                          <label for="failed"><span class="glyphicon glyphicon-remove"></span> Failed</label>
+                        </li>
+                        <li class="inconclusive-bg">
+                          <input type="checkbox" id="inconclusive" name="filter">
+                          <label for="inconclusive"><span class="glyphicon glyphicon-alert"></span> Inconclusive</label>
+                        </li>
+                        <li class="ignored-bg">
+                          <input type="checkbox" id="ignored" name="filter">
+                          <label for="ignored"><span class="glyphicon glyphicon-eye-open"></span> Ignored</label>
+                        </li>
+                      </ul>
+
+                    </div>
+                  </div>
+
+                  
+                  <div class="antiscroll-wrap">
+                    <div id="treeview1" class="treeview antiscroll-inner"></div>
+                  </div>
+
+
+                </div>
+              </div>
+
+              <div class="right col-sm-8">
+
+
+
+
+                <!--<div class="btn-group btn-breadcrumb">
+                    <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-home"></span> TestFx.SpecK.Tests</a>
+                    <a href="#" class="btn btn-default btn-sm">FailingTest+DomainSpec</a>
+                    <a href="#" class="btn btn-default btn-sm">&lt;Default&gt;</a>
+                </div>-->
+
+                <ol id="breadcrumb" class="breadcrumb">
+                  <li class="active"><span class="glyphicon glyphicon-home"></span></li>
+                </ol>
+
+
+                <div class="btn-group btn-toggle pull-right"> 
+                  <button class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list"></span></button>
+                  <button class="btn btn-sm btn-default active"><span class="glyphicon glyphicon-console"></span></button>
+                </div>
+
+
+                <h3 id="content-title">Operations</h3>
+                <div class="antiscroll-wrap">
+                  <div id="content" class="antiscroll-inner" style="overflow: auto; height: 340px">
+
+                      <table id="operations-table" class="table table-hover table-condensed">
+                        <thead>
+                          <th class="col-md-2 text-center">#</th>
+                          <th class="col-md-10">Text</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div id="chart">
+                      <canvas id="chart-canvas" style="height: 100px; display: none;"></canvas>
+                    </div>
+                  </div>
+                </div>
+
+                <!--<span class="glyphicon glyphicon-copy"></span>-->
+
+            </div>
+
+              <div class="text-center" style="font-size: 8pt; margin-top: 10px">
+                Generated with <span class="glyphicon glyphicon-fire"></span> using <a href="https://github.com/matkoch/TestFx">TestFx</a><br/>
+                <span class="glyphicon glyphicon-copyright-mark"></span> 2016 Matthias Koch
+              </div>
+
+          </div><!-- container -->
+
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="http://livejs.com/live.js"></script>
+    <script src="./js/jquery-2.2.4.min.js"></script>
+    <script src="./js/bootstrap-3.3.6.min.js"></script>
+    <script src="./js/bootstrap-treeview-1.2.0.js"></script>
+    <script src="./js/dropdowns-enhancement-3.1.1.js"></script>
+    <script src="./js/antiscroll-0.9.js"></script>
+    <script src="./js/chart-2.4.0.js"></script>
+    <script src="./app.js"></script>
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js"></script>-->
+    <script type="text/javascript">
+
+      function completeData(data) {
+        data.icon = getIconClass(data.state);
+        delete data.state;
+
+        var nodes = [];
+        if (data.hasOwnProperty('suites')) nodes = nodes.concat(data.suites);
+        if (data.hasOwnProperty('tests')) nodes = nodes.concat(data.tests);
+
+        if (nodes.length > 0) {
+          nodes.forEach(completeData);
+          data.nodes = nodes;
+        }
+      }
+
+      function getIconClass(state) {
+        switch (state) {
+          case 'Passed': return 'glyphicon glyphicon-ok passed';
+          case 'Failed': return 'glyphicon glyphicon-remove failed';
+          case 'Inconclusive': return 'glyphicon glyphicon-warning-sign inconclusive';
+          case 'Ignored': return 'glyphicon glyphicon-eye-open ignored';
+        }
+      }
+
+      function createTableBody(operations) {
+        var getColorClass =
+          function getColorClass(operation) {
+            switch (operation.state) {
+              case 'Passed': return operation.type == 'Assertion' ? 'success' : '';
+              case 'Failed': return 'danger';
+              case 'Inconclusive': return 'warning';
+              case 'Ignored': return 'info';
+            }
+          }
+
+        var lastType;
+        var content = '';
+        for (var i = 0; i < operations.length; i++) {
+          var operation = operations[i];
+          if (operation.id === 'separator') {
+            content += '<tr><td class="text-center">...</td><td><em>Inner operations</em></td></tr>';
+            continue;
+          }
+          content += '<tr class="' + getColorClass(operation) + '">';
+          content += '  <td class="text-center">' + (i+1) + '</td>';
+          content += '  <td>' + operation.text + '</td>';
+          content += '</tr>';
+        }
+        return content;
+      }
+
+      function htmlEncode(value){
+        return $('<div/>').text(value).html();
+      }
+
+      function htmlDecode(value){
+        return $('<div/>').html(value).text();
+      }
+
+      function getNodeHierarchy(node) {
+        var getParentChain =
+          function* getParentChain(node) {
+            while (node.hasOwnProperty('text')) {
+              yield node;
+              node = $('#treeview1').treeview('getParent', node);
+          }
+      }
+        return Array.from(getParentChain(node)).reverse();
+      }
+
+      function createBreadcrumb(node) {
+        var content = '<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>';
+        var hierarchy = getNodeHierarchy(node);
+        for (var i = 0; i < hierarchy.length; i++) {
+          var node2 = hierarchy[i];
+          if (i + 1 == hierarchy.length)
+            content += '<li class="active">' + node2.text + '</li>';
+          else
+            content += '<li><a onclick="$(\'#treeview1\').treeview(\'selectNode\', ' + node2.nodeId + ')">' + node2.text + '</a></li>';
+        }
+        return content;
+      }
+
+      function onNodeSelected(event, node) {
+        if (node.hasOwnProperty('operations'))
+          $('#operations-table tbody').html(createTableBody(node.operations));
+        else if (node.hasOwnProperty('setups')) {
+          $('#operations-table tbody').html(createTableBody(
+            node.setups.concat({ id: 'separator'}).concat(node.cleanups)));
+        }
+        else
+          $('#operations-table tbody').html('<tr><td></td><td><em>No operations</em></td></tr>');
+
+        //$('#treeview1').treeview('getParent', node)
+        $('.antiscroll-wrap').antiscroll();
+        $('#breadcrumb').html(createBreadcrumb(node));
+      }
+
+      $(function() {
+
+
+        $.getJSON("./resultData.json",
+          function(data){
+
+            completeData(data);
+
+            $('#treeview1').treeview({
+              data: data.nodes,
+              showBorder: false,
+              expandIcon: 'glyphicon glyphicon-triangle-right',
+              collapseIcon: 'glyphicon glyphicon-triangle-bottom',
+              onNodeSelected: onNodeSelected
+            });
+
+            $('.antiscroll-wrap').antiscroll();
+          });
+
+
+        $('#filter input').click(function() {
+            $(this).closest('label').toggleClass('active');
+        });
+
+
+
+        $('.btn-toggle').click(function() {
+            $(this).find('.btn').toggleClass('active').blur();
+        });
+
+      });
+      $(function () {
+        var data = {
+            datasets: [{
+                data: [
+                    11,
+                    16,
+                    7,
+                    3
+                ],
+                backgroundColor: [
+                    "#449d44",
+                    "#c9302c",
+                    "#ec971f",
+                    "#31b0d5"
+                ],
+                label: 'My dataset' // for legend
+            }],
+            labels: [
+                "Passed",
+                "Failed",
+                "Inconclusive",
+                "Ignored"
+            ]
+        };
+        // Get the context of the canvas element we want to select
+        var ctx = document.getElementById("chart-canvas").getContext('2d');
+
+        var myDoughnutChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: data,
+          options: {
+              legend: {
+                position: 'right'
+              }
+            }
+        });
+      });
+
+      // resizable https://codepen.io/barbalex/pen/ogZWNV
+   
+    </script>
+  </body>
+</html>

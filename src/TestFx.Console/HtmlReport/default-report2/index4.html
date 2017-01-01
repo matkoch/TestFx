@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TestFx Report</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/breadcrumb.css" rel="stylesheet" />
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+      }
+
+      .outer {
+        display: table;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+      .middle {
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .inner {
+        margin-left: auto;
+        margin-right: auto;
+        width: 1000px;
+      }
+
+
+
+
+    </style>
+  </head>
+  <body>
+
+    <div class="outer">
+      <div class="middle">
+        <div class="inner">
+
+          <div class="container" style="width: 100%">
+
+                
+        <div class="btn-group btn-breadcrumb">
+            <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-home"></i></a>
+            <a href="#" class="btn btn-primary">Snippets</a>
+            <a href="#" class="btn btn-primary">Breadcrumbs</a>
+            <a href="#" class="btn btn-primary">Primary</a>
+        </div>
+
+          </div><!-- container -->
+
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="http://livejs.com/live.js"></script>
+    <script src="./js/jquery-2.2.4.min.js"></script>
+    <script src="./js/bootstrap-3.3.6.min.js"></script>
+    <script src="./js/bootstrap-treeview-1.2.0.js"></script>
+    <script src="./js/dropdowns-enhancement-3.1.1.js"></script>
+    <script src="./js/antiscroll-0.9.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js"></script>
+    <script src="./resultData.js"></script>
+    <script type="text/javascript">
+
+      $(function() {
+
+        $('#treeview1').treeview({
+          data: resultData.nodes,
+          showBorder: false,
+          expandIcon: 'glyphicon glyphicon-triangle-right',
+          collapseIcon: 'glyphicon glyphicon-triangle-bottom'
+        });
+
+        $('#filter input').click(function() {
+            $(this).closest('label').toggleClass('active');
+        });
+
+        $('#modified').text(document.lastModified);
+
+        $('.antiscroll-wrap').antiscroll();
+      });
+
+      // resizable https://codepen.io/barbalex/pen/ogZWNV
+   
+    </script>
+  </body>
+</html>

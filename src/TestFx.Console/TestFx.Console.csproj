@@ -61,6 +61,9 @@
     <Compile Include="HtmlReport\HtmlReportRunListener.cs" />
     <Compile Include="JsonReport\ConverterBase.cs" />
     <Compile Include="JsonReport\ExceptionDescriptorConverter.cs" />
+    <Compile Include="JsonReport\HtmlStringConverter.cs" />
+    <Compile Include="JsonReport\IdentityConverter.cs" />
+    <Compile Include="JsonReport\CustomContractResolver.cs" />
     <Compile Include="JsonReport\OperationResultConverter.cs" />
     <Compile Include="JsonReport\RunResultConverter.cs" />
     <Compile Include="HtmlReport\ZipArchiveExtensions.cs" />
@@ -78,11 +81,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <EmbeddedResource Include="HtmlReport\default-report.zip" />
-    <None Include="HtmlReport\default-report\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="HtmlReport\default-report\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="HtmlReport\default-report\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="HtmlReport\default-report\fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="HtmlReport\default-report\resultData.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -93,32 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="HtmlReport\default-report\css\antiscroll-0.9.css" />
-    <Content Include="HtmlReport\default-report\css\bootstrap-3.3.6.css" />
-    <Content Include="HtmlReport\default-report\css\bootstrap-treeview-1.2.0.css" />
-    <Content Include="HtmlReport\default-report\css\breadcrumb.css" />
-    <Content Include="HtmlReport\default-report\css\dropdowns-enhancement-3.1.1.css" />
-    <Content Include="HtmlReport\default-report\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="HtmlReport\default-report\index.html" />
-    <Content Include="HtmlReport\default-report\index2.html" />
-    <Content Include="HtmlReport\default-report\index3.html" />
-    <Content Include="HtmlReport\default-report\index4.html" />
-    <Content Include="HtmlReport\default-report\index5.html" />
-    <Content Include="HtmlReport\default-report\js\antiscroll-0.9.js" />
-    <Content Include="HtmlReport\default-report\js\bootstrap-3.3.6.js" />
-    <Content Include="HtmlReport\default-report\js\bootstrap-3.3.6.min.js" />
-    <Content Include="HtmlReport\default-report\js\bootstrap-treeview-1.2.0.js" />
-    <Content Include="HtmlReport\default-report\js\chart-2.4.0.js" />
-    <Content Include="HtmlReport\default-report\js\chart-2.4.0.min.js" />
-    <Content Include="HtmlReport\default-report\js\dropdowns-enhancement-3.1.1.js" />
-    <Content Include="HtmlReport\default-report\js\jquery-2.2.4.js" />
-    <Content Include="HtmlReport\default-report\js\jquery-2.2.4.min.js" />
-    <Content Include="HtmlReport\default-report\js\jquery-mousewheel-3.1.13.js" />
-    <Content Include="HtmlReport\default-report\js\jquery-mousewheel-3.1.13.min.js" />
-    <Content Include="HtmlReport\default-report\js\pako_inflate-1.0.4.js" />
-    <Content Include="HtmlReport\default-report\js\pako_inflate-1.0.4.min.js" />
-    <Content Include="HtmlReport\default-report\mongoose-free-6.5.exe" />
-    <Content Include="HtmlReport\default-report\resultData.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">

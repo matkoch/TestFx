@@ -32,9 +32,9 @@ namespace TestFx.Console.JsonReport
 
     public override void WriteJson ([NotNull] JsonWriter writer, [NotNull] object value, [NotNull] JsonSerializer serializer)
     {
-      //writer.WriteStartObject();
-      WriteJson((T) value, writer, serializer);
-      //writer.WriteEndObject();
+      writer.WriteStartObject ();
+      WriteJson ((T) value, writer, serializer);
+      writer.WriteEndObject ();
     }
 
     public override object ReadJson (
