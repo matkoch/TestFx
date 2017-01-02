@@ -40,7 +40,8 @@ namespace TestFx.MSpec
     [CanBeNull]
     protected override string GetText (Type suiteType)
     {
-      if (suiteType.GetAttribute<BehaviorsAttribute>() != null || (!GetFields<It>(suiteType).Any() && !GetBehaviorTypes(suiteType).Any()))
+      if (suiteType.GetAttribute<BehaviorsAttribute>() != null ||
+          !GetFields<It>(suiteType).Any() && !GetBehaviorTypes(suiteType).Any())
         return null;
 
       if (suiteType.IsCompilerGenerated())

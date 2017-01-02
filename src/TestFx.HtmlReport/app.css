@@ -62,7 +62,7 @@
   margin: 0;
 }
 .list-group-item {
-  padding: 4px 0px;
+  padding: 4px 0;
   display: block;
   border-radius: 10px;
   margin-bottom: 0;

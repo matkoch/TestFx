@@ -15,7 +15,6 @@
 using System;
 using JetBrains.Annotations;
 using JetBrains.ReSharper.Psi;
-using JetBrains.ReSharper.Psi.ExtensionsAPI.Resolve;
 using JetBrains.ReSharper.Psi.Resolve;
 
 namespace TestFx.ReSharper.Utilities.Psi

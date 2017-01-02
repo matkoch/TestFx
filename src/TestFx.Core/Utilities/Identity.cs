@@ -28,7 +28,7 @@ namespace TestFx.Utilities
     string Absolute { get; }
   }
 
-  [DebuggerDisplay ("{Relative}")]
+  [DebuggerDisplay ("{" + nameof(Relative) + "}")]
   [Serializable]
   public class Identity : IIdentity, IEquatable<IIdentity>
   {

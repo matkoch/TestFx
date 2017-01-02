@@ -13,12 +13,9 @@
 // limitations under the License.
 
 using System;
-using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
-using Newtonsoft.Json;
-using TestFx.Console.JsonReport;
 using TestFx.Evaluation.Reporting;
 using TestFx.Evaluation.Results;
 using TestFx.Utilities;
