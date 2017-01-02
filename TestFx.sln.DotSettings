@@ -1,4 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/Browsers/Browsers/@EntryValue">C27+,E12+,FF21+</s:String>
+	<s:Boolean x:Key="/Default/CodeInspection/Browsers/Enable/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=925E00FE_002DA346_002D4B5F_002DA249_002DE7B4A469DED6_002Fd_003AHtmlReport_002Fd_003Abootstrap_002Dtreeview_002Fd_003Asrc/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/AnalysisEnabled/@EntryValue">SOLUTION</s:String>
 	<s:Boolean x:Key="/Default/CodeInspection/Highlighting/IncludeWarningsInSwea/@EntryValue">True</s:Boolean>
