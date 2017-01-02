@@ -62,6 +62,8 @@ limitations under the License.</s:String>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileB27557E04688AD4AB2C85FDFD8127491/RelativePriority/@EntryValue">1</s:Double>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileFFFF355CD0A4234CA454E896C55D8073/@KeyIndexDefined">True</s:Boolean>
 	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileFFFF355CD0A4234CA454E896C55D8073/RelativePriority/@EntryValue">7</s:Double>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002EJavaScript_002ECodeStyle_002ESettingsUpgrade_002EJsParsFormattingSettingsUpgrader/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002EJavaScript_002ECodeStyle_002ESettingsUpgrade_002EJsWrapperSettingsUpgrader/@EntryIndexedValue">True</s:Boolean>
 
 	<s:String x:Key="/Default/RunConfigs/Active/@EntryValue">E1D62D10D8E2E24085EF1F6A4CFB691A</s:String>
 	<s:Boolean x:Key="/Default/RunConfigs/Config/=E1D62D10D8E2E24085EF1F6A4CFB691A/@KeyIndexDefined">True</s:Boolean>
