@@ -22,16 +22,11 @@ namespace TestFx.ReSharper.Utilities.Psi
 {
   public static class ReferenceExtensions
   {
-    public static ResolveResultWithInfo GetResolveResult (this IReference reference)
-    {
-      return reference.CurrentResolveResult ?? reference.Resolve();
-    }
-
     [CanBeNull]
     public static T GetResolved<T> (this IReference reference)
         where T : IDeclaredElement
     {
-      var resolveResult = reference.GetResolveResult();
+      var resolveResult = reference.Resolve();
       return resolveResult.DeclaredElement is T ? (T) resolveResult.DeclaredElement : default(T);
     }
   }

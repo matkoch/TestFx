@@ -24,7 +24,7 @@ using TestFx.ReSharper.Model.Tree;
     Title: DuplicatedTestHighlighting.Message,
     Description: DuplicatedTestHighlighting.Description,
     DefaultSeverity: Severity.ERROR,
-    /*SolutionAnalysisRequired:*/ SolutionAnalysisRequired: false)]
+    SolutionAnalysisRequired = false)]
 
 namespace TestFx.ReSharper.Daemon
 {

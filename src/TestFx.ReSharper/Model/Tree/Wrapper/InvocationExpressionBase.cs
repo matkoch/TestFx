@@ -35,6 +35,11 @@ namespace TestFx.ReSharper.Model.Tree.Wrapper
       _invocationExpression = invocationExpression;
     }
 
+    public Version GetLanguageVersion ()
+    {
+      return _invocationExpression.GetLanguageVersion();
+    }
+
     public string Dump ()
     {
       return _invocationExpression.Dump();

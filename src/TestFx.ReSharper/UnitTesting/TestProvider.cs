@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.TaskRunnerFramework;
@@ -61,12 +62,12 @@ namespace TestFx.ReSharper.UnitTesting
       return testElement != null && testElement.ElementKind == elementKind;
     }
 
-    public bool IsSupported ([NotNull] IHostProvider hostProvider)
+    public bool IsSupported ([NotNull] IHostProvider hostProvider, [NotNull] IProject project, [NotNull] TargetFrameworkId targetFrameworkId)
     {
       return true;
     }
 
-    public bool IsSupported ([NotNull] IProject project)
+    public bool IsSupported ([NotNull] IProject project, [NotNull] TargetFrameworkId targetFrameworkId)
     {
       return true;
     }

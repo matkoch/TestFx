@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using JetBrains.Metadata.Reader.API;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.UnitTestFramework;
 using JetBrains.ReSharper.UnitTestFramework.Elements;
@@ -84,7 +85,12 @@ namespace TestFx.ReSharper.UnitTesting.Elements
         ITestEntity testEntity,
         Func<ITestIdentity, ITestElement> factory)
     {
-      var elementId = _unitTestElementIdFactory.Create(_testProvider, testEntity.Project, testEntity.Identity.Absolute);
+      var elementId = _unitTestElementIdFactory.Create(
+        _testProvider.ID,
+        testEntity.Project.GetPersistentID(),
+        // TODO: TargetFrameworkId
+        TargetFrameworkId.Default,
+        testEntity.Identity.Absolute);
       var identity = new TestIdentity(elementId, testEntity.Identity);
       var element = _unitTestElementManager.GetElementById(identity.ElementId) as ITestElement ?? factory(identity);
 

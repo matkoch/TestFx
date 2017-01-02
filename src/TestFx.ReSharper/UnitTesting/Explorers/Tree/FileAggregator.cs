@@ -51,7 +51,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Tree
       if (project == null)
         return null;
 
-      // TODO Jenya
+      // TODO: TargetFrameworkId
       var assemblyIdentity = new Identity(project.GetOutputFilePath(TargetFrameworkId.Default).FullPath);
       var testDeclarationProviders = _testDeclarationProviderFactories.Select(x => x.CreateTestDeclarationProvider(assemblyIdentity, project, notInterrupted)).ToList();
       var classDeclarations = GetClassDeclarations(file).ToList();

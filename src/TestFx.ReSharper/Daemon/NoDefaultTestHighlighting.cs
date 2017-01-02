@@ -24,7 +24,7 @@ using TestFx.ReSharper.Model.Tree;
     Title: NoDefaultTestHighlighting.Message,
     Description: NoDefaultTestHighlighting.Description,
     DefaultSeverity: Severity.WARNING,
-    /*SolutionAnalysisRequired:*/ SolutionAnalysisRequired: false)]
+    SolutionAnalysisRequired = false)]
 
 namespace TestFx.ReSharper.Daemon
 {

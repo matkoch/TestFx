@@ -1,4 +1,8 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/Environment/ExtensionManager/PackageSource/=Local/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/ExtensionManager/PackageSource/=Local/Name/@EntryValue">Local</s:String>
+	<s:Int64 x:Key="/Default/Environment/ExtensionManager/PackageSource/=Local/Order/@EntryValue">1</s:Int64>
+	<s:String x:Key="/Default/Environment/ExtensionManager/PackageSource/=Local/Source/@EntryValue">C:\OSS\TestFx2\output</s:String>
 	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=1F82859767636C409EF0093BE4F0BECE/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=1F82859767636C409EF0093BE4F0BECE/AbsolutePath/@EntryValue">C:\TestFx\src\TestFx.ReSharper\LiveTemplates.DotSettings</s:String>
 	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=1F82859767636C409EF0093BE4F0BECE/RelativePath/@EntryValue">..\..\TestFx.ReSharper\LiveTemplates.DotSettings</s:String>

@@ -48,6 +48,7 @@ namespace TestFx.ReSharper.UnitTesting.Explorers.Metadata
     {
       notInterrupted = notInterrupted ?? (() => true);
 
+      // TODO: TargetFrameworkId
       var assemblyIdentity = new Identity(project.GetOutputFilePath(TargetFrameworkId.Default).FullPath);
       var testMetadataProviders = _testMetadataProviderFactories.Select(x => x.CreateTestMetadataProvider(assemblyIdentity, project, notInterrupted)).ToList();
       var metadataTypeInfos = metadataAssembly.GetTypes();

@@ -59,7 +59,7 @@ namespace TestFx.ReSharper.Utilities.Psi.Tree
       var reference = (invocation.InvokedExpression as IReferenceExpression)
           .NotNull("invocationExpression.InvokedExpression is not a IReferenceExpression");
 
-      var startOffset = reference.NameIdentifier.GetDocumentStartOffset();
+      var startOffset = reference.NameIdentifier.GetDocumentRange();
       var endOffset = invocation.GetDocumentRange().EndOffsetRange();
       var textRange = startOffset.JoinRight(endOffset);
 
