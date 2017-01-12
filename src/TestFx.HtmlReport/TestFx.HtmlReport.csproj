@@ -26,27 +26,18 @@
     <Content Include="css\antiscroll-0.9.css" />
     <Content Include="css\bootstrap-3.3.6.css" />
     <Content Include="css\bootstrap-3.3.6.min.css" />
-    <Content Include="css\bootstrap-treeview-1.2.0.css" />
-    <Content Include="css\bootstrap-treeview-2.0.0.css" />
     <Content Include="css\bootstrap-treeview-2.0.0.min.css" />
     <Content Include="css\breadcrumb.css" />
     <Content Include="css\dropdowns-enhancement-3.1.1.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="index.html" />
     <Content Include="js\antiscroll-0.9.js" />
-    <Content Include="js\bootstrap-3.3.6.js" />
     <Content Include="js\bootstrap-3.3.6.min.js" />
-    <Content Include="js\bootstrap-treeview-1.2.0.js" />
-    <Content Include="js\bootstrap-treeview-2.0.0.js" />
     <Content Include="js\bootstrap-treeview-2.0.0.min.js" />
-    <Content Include="js\chart-2.4.0.js" />
     <Content Include="js\chart-2.4.0.min.js" />
     <Content Include="js\dropdowns-enhancement-3.1.1.js" />
-    <Content Include="js\jquery-2.2.4.js" />
     <Content Include="js\jquery-2.2.4.min.js" />
-    <Content Include="js\jquery-mousewheel-3.1.13.js" />
     <Content Include="js\jquery-mousewheel-3.1.13.min.js" />
-    <Content Include="js\pako_inflate-1.0.4.js" />
     <Content Include="js\pako_inflate-1.0.4.min.js" />
     <Content Include="web.config" />
   </ItemGroup>
