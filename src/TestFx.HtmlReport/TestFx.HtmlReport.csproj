@@ -25,8 +25,10 @@
     <Content Include="app.css" />
     <Content Include="css\antiscroll-0.9.css" />
     <Content Include="css\bootstrap-3.3.6.css" />
+    <Content Include="css\bootstrap-3.3.6.min.css" />
     <Content Include="css\bootstrap-treeview-1.2.0.css" />
     <Content Include="css\bootstrap-treeview-2.0.0.css" />
+    <Content Include="css\bootstrap-treeview-2.0.0.min.css" />
     <Content Include="css\breadcrumb.css" />
     <Content Include="css\dropdowns-enhancement-3.1.1.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -36,6 +38,7 @@
     <Content Include="js\bootstrap-3.3.6.min.js" />
     <Content Include="js\bootstrap-treeview-1.2.0.js" />
     <Content Include="js\bootstrap-treeview-2.0.0.js" />
+    <Content Include="js\bootstrap-treeview-2.0.0.min.js" />
     <Content Include="js\chart-2.4.0.js" />
     <Content Include="js\chart-2.4.0.min.js" />
     <Content Include="js\dropdowns-enhancement-3.1.1.js" />
@@ -49,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
-    <TypeScriptCompile Include="typings\chartjs.d.ts" />
     <TypeScriptCompile Include="typings\custom.d.ts" />
     <TypeScriptCompile Include="typings\jquery.d.ts" />
   </ItemGroup>

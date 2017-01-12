@@ -80,7 +80,7 @@ interface ChartOptions extends ChartSettings {
     scaleGridLineColor?: string;
     scaleGridLineWidth?: number;
     scaleShowHorizontalLines?: boolean;
-    scaleShowVerticalLines?: boolean;  
+    scaleShowVerticalLines?: boolean;
     legendTemplate?: string;
 }
 
@@ -137,7 +137,7 @@ interface BarChartOptions extends ChartOptions {
     barShowStroke?: boolean;
     barStrokeWidth?: number;
     barValueSpacing?: number;
-    barDatasetSpacing?: number;  
+    barDatasetSpacing?: number;
 }
 
 interface RadarChartOptions extends ChartSettings {

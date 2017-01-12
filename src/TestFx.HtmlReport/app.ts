@@ -40,9 +40,8 @@ function createTableBody(operations) {
         case 'Inconclusive': return 'warning';
         case 'Ignored': return 'info';
       }
-    }
-
-  var content = '';
+    };
+    var content = '';
   for (var i = 0; i < operations.length; i++) {
     var operation = operations[i];
     if (operation.id === 'separator') {
@@ -127,19 +126,60 @@ $(function() {
   });
 
 });
-$(function () {
-  var data: CircularChartData[] = [
-    { value: 11, color: '#449d44', label: 'Passed' },
-    { value: 11, color: '#c9302c', label: 'Failed' },
-    { value: 11, color: '#ec971f', label: 'Inconclusive' },
-    { value: 11, color: '#31b0d5', label: 'Ignored' }
-  ];
+$(function() {
+    //var data: CircularChartData[] = [
+    //    { value: 11, color: '#449d44', label: 'Passed' },
+    //    { value: 11, color: '#c9302c', label: 'Failed' },
+    //    { value: 11, color: '#ec971f', label: 'Inconclusive' },
+    //    { value: 11, color: '#31b0d5', label: 'Ignored' }
+    //];
 
 
-  //var canvas = document.getElementById('chart-canvas') as HTMLCanvasElement;
-  //var ctx = canvas.getContext('2d');
-  //var myDoughnutChart = new Chart(ctx).Doughnut(data);
+    //var canvas = document.getElementById('chart-canvas') as HTMLCanvasElement;
+    //var ctx = canvas.getContext('2d');
+    //let chart = new Chart(ctx);
+    //var myDoughnutChart = chart.Doughnut(data,
+    //{
+    //    segmentShowStroke: true
+    //});
+    var data = {
+        datasets: [{
+            data: [
+                11,
+                16,
+                7,
+                3
+            ],
+            backgroundColor: [
+                "#449d44",
+                "#c9302c",
+                "#ec971f",
+                "#31b0d5"
+            ],
+            label: 'My dataset' // for legend
+        }],
+        labels: [
+            "Passed",
+            "Failed",
+            "Inconclusive",
+            "Ignored"
+        ]
+    };
+    // Get the context of the canvas element we want to select
+    var ctx = document.getElementById("chart-canvas").getContext('2d');
+    var myDoughnutChart = new Chart(ctx,
+    {
+        type: 'doughnut',
+        data: data,
+        options: {
+            legend: {
+                position: 'right'
+            }
+        }
+    });
 });
+
+
 
 // resizable https://codepen.io/barbalex/pen/ogZWNV
    
