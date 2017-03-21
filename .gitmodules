@@ -1,4 +1,0 @@
-[submodule "shared"]
-	path = shared
-	url = https://github.com/matkoch/shared.git
-	branch = master
